@@ -95,13 +95,15 @@ const Devis = () => {
                   <PaginationContent>
                     <PaginationItem>
                       <PaginationPrevious 
+                        href="#"
                         onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                        disabled={currentPage === 1}
+                        aria-disabled={currentPage === 1}
                       />
                     </PaginationItem>
                     {Array.from({ length: totalPages }, (_, i) => (
                       <PaginationItem key={i + 1}>
                         <PaginationLink
+                          href="#"
                           onClick={() => setCurrentPage(i + 1)}
                           isActive={currentPage === i + 1}
                         >
@@ -111,8 +113,9 @@ const Devis = () => {
                     ))}
                     <PaginationItem>
                       <PaginationNext
+                        href="#"
                         onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                        disabled={currentPage === totalPages}
+                        aria-disabled={currentPage === totalPages}
                       />
                     </PaginationItem>
                   </PaginationContent>
