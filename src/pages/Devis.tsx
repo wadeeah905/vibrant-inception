@@ -1,8 +1,38 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/AppSidebar";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+
+// Mock data for demonstration
+const mockDevis = Array.from({ length: 25 }, (_, i) => ({
+  id: i + 1,
+  client: `Client ${String.fromCharCode(65 + (i % 26))}`,
+  date: new Date(2024, 0, i + 1).toLocaleDateString("fr-FR"),
+  montant: Math.floor(Math.random() * 10000) + 1000,
+  statut: ["En attente", "Accepté", "Refusé"][Math.floor(Math.random() * 3)],
+}));
+
+const ITEMS_PER_PAGE = 10;
 
 const Devis = () => {
   const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const isAuthenticated = localStorage.getItem("isAuthenticated");
@@ -11,87 +41,88 @@ const Devis = () => {
     }
   }, [navigate]);
 
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <nav className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <img
-                src="/lovable-uploads/8249ba1e-6e2c-47d1-93d1-aca5dbd5ece4.png"
-                alt="Elles Logo"
-                className="h-8"
-              />
-            </div>
-            <div className="flex items-center space-x-4">
-              <button
-                onClick={() => navigate("/dashboard")}
-                className="text-gray-700 hover:text-gray-900"
-              >
-                Dashboard
-              </button>
-              <button
-                onClick={() => {
-                  localStorage.removeItem("isAuthenticated");
-                  navigate("/login");
-                }}
-                className="text-gray-700 hover:text-gray-900"
-              >
-                Déconnexion
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
+  const totalPages = Math.ceil(mockDevis.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const currentDevis = mockDevis.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
-      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div className="bg-white shadow rounded-lg p-6">
-          <h2 className="text-lg font-medium text-gray-900 mb-4">Devis en cours</h2>
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead>
-                <tr>
-                  <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Client
-                  </th>
-                  <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Date
-                  </th>
-                  <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Montant
-                  </th>
-                  <th className="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Statut
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                <tr>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Client A</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">01/03/2024</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2,500 €</td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                      En attente
-                    </span>
-                  </td>
-                </tr>
-                <tr>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Client B</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">28/02/2024</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1,800 €</td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                      Accepté
-                    </span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "En attente":
+        return "bg-yellow-100 text-yellow-800";
+      case "Accepté":
+        return "bg-green-100 text-green-800";
+      case "Refusé":
+        return "bg-red-100 text-red-800";
+      default:
+        return "bg-gray-100 text-gray-800";
+    }
+  };
+
+  return (
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full">
+        <AppSidebar />
+        <main className="flex-1 p-8">
+          <div className="max-w-7xl mx-auto">
+            <h1 className="text-2xl font-semibold mb-6">Devis</h1>
+            <div className="bg-white shadow rounded-lg overflow-hidden">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Client</TableHead>
+                    <TableHead>Date</TableHead>
+                    <TableHead>Montant</TableHead>
+                    <TableHead>Statut</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {currentDevis.map((devis) => (
+                    <TableRow key={devis.id}>
+                      <TableCell>{devis.client}</TableCell>
+                      <TableCell>{devis.date}</TableCell>
+                      <TableCell>{devis.montant.toLocaleString('fr-FR')} €</TableCell>
+                      <TableCell>
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(devis.statut)}`}>
+                          {devis.statut}
+                        </span>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              <div className="p-4 border-t">
+                <Pagination>
+                  <PaginationContent>
+                    <PaginationItem>
+                      <PaginationPrevious 
+                        onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                        disabled={currentPage === 1}
+                      />
+                    </PaginationItem>
+                    {Array.from({ length: totalPages }, (_, i) => (
+                      <PaginationItem key={i + 1}>
+                        <PaginationLink
+                          onClick={() => setCurrentPage(i + 1)}
+                          isActive={currentPage === i + 1}
+                        >
+                          {i + 1}
+                        </PaginationLink>
+                      </PaginationItem>
+                    ))}
+                    <PaginationItem>
+                      <PaginationNext
+                        onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                        disabled={currentPage === totalPages}
+                      />
+                    </PaginationItem>
+                  </PaginationContent>
+                </Pagination>
+              </div>
+            </div>
           </div>
-        </div>
-      </main>
-    </div>
+        </main>
+      </div>
+    </SidebarProvider>
   );
 };
 
