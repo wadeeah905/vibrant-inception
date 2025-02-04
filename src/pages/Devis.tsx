@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/AppSidebar";
+import { DashboardLayout } from "@/components/DashboardLayout";
 import {
   Table,
   TableBody,
@@ -59,73 +58,79 @@ const Devis = () => {
   };
 
   return (
-    <SidebarProvider>
-      <div className="min-h-screen flex w-full">
-        <AppSidebar />
-        <main className="flex-1 p-8">
-          <div className="max-w-7xl mx-auto">
-            <h1 className="text-2xl font-semibold mb-6">Devis</h1>
-            <div className="bg-white shadow rounded-lg overflow-hidden">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Client</TableHead>
-                    <TableHead>Date</TableHead>
-                    <TableHead>Montant</TableHead>
-                    <TableHead>Statut</TableHead>
+    <DashboardLayout>
+      <div className="p-8">
+        <div className="max-w-7xl mx-auto">
+          <h1 className="text-2xl font-semibold mb-6">Devis</h1>
+          <div className="bg-white shadow rounded-lg overflow-hidden">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Client</TableHead>
+                  <TableHead>Date</TableHead>
+                  <TableHead>Montant</TableHead>
+                  <TableHead>Statut</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {currentDevis.map((devis) => (
+                  <TableRow key={devis.id}>
+                    <TableCell>{devis.client}</TableCell>
+                    <TableCell>{devis.date}</TableCell>
+                    <TableCell>{devis.montant.toLocaleString('fr-FR')} €</TableCell>
+                    <TableCell>
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(devis.statut)}`}>
+                        {devis.statut}
+                      </span>
+                    </TableCell>
                   </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {currentDevis.map((devis) => (
-                    <TableRow key={devis.id}>
-                      <TableCell>{devis.client}</TableCell>
-                      <TableCell>{devis.date}</TableCell>
-                      <TableCell>{devis.montant.toLocaleString('fr-FR')} €</TableCell>
-                      <TableCell>
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(devis.statut)}`}>
-                          {devis.statut}
-                        </span>
-                      </TableCell>
-                    </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+            <div className="p-4 border-t">
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious 
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setCurrentPage(p => Math.max(1, p - 1));
+                      }}
+                      aria-disabled={currentPage === 1}
+                    />
+                  </PaginationItem>
+                  {Array.from({ length: totalPages }, (_, i) => (
+                    <PaginationItem key={i + 1}>
+                      <PaginationLink
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setCurrentPage(i + 1);
+                        }}
+                        isActive={currentPage === i + 1}
+                      >
+                        {i + 1}
+                      </PaginationLink>
+                    </PaginationItem>
                   ))}
-                </TableBody>
-              </Table>
-              <div className="p-4 border-t">
-                <Pagination>
-                  <PaginationContent>
-                    <PaginationItem>
-                      <PaginationPrevious 
-                        href="#"
-                        onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                        aria-disabled={currentPage === 1}
-                      />
-                    </PaginationItem>
-                    {Array.from({ length: totalPages }, (_, i) => (
-                      <PaginationItem key={i + 1}>
-                        <PaginationLink
-                          href="#"
-                          onClick={() => setCurrentPage(i + 1)}
-                          isActive={currentPage === i + 1}
-                        >
-                          {i + 1}
-                        </PaginationLink>
-                      </PaginationItem>
-                    ))}
-                    <PaginationItem>
-                      <PaginationNext
-                        href="#"
-                        onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                        aria-disabled={currentPage === totalPages}
-                      />
-                    </PaginationItem>
-                  </PaginationContent>
-                </Pagination>
-              </div>
+                  <PaginationItem>
+                    <PaginationNext
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setCurrentPage(p => Math.min(totalPages, p + 1));
+                      }}
+                      aria-disabled={currentPage === totalPages}
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
             </div>
           </div>
-        </main>
+        </div>
       </div>
-    </SidebarProvider>
+    </DashboardLayout>
   );
 };
 
