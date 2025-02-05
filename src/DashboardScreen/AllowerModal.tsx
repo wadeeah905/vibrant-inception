@@ -25,7 +25,6 @@ const AllowerModal: React.FC<AllowerModalProps> = ({ userId, isOpen, onClose }) 
   const [seasons, setSeasons] = useState<Season[]>([]);
   const [selectedSeasons, setSelectedSeasons] = useState<string[]>([]);
   const [loadingSeasons, setLoadingSeasons] = useState(true);
-  const [allocatedSeasons, setAllocatedSeasons] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchSeasons = async () => {
@@ -46,7 +45,6 @@ const AllowerModal: React.FC<AllowerModalProps> = ({ userId, isOpen, onClose }) 
           setSeasons(data.saisons);
           if (allocatedData.success) {
             const allocatedIds = allocatedData.seasons.map((s: any) => s.id_saison);
-            setAllocatedSeasons(allocatedIds);
             setSelectedSeasons(allocatedIds);
           }
         } else {
@@ -69,40 +67,11 @@ const AllowerModal: React.FC<AllowerModalProps> = ({ userId, isOpen, onClose }) 
   }, [userId, isOpen]);
 
   const handleSeasonSelection = (seasonId: string) => {
-    setSelectedSeasons((prev) =>
+    setSelectedSeasons(prev =>
       prev.includes(seasonId)
-        ? prev.filter((id) => id !== seasonId)
+        ? prev.filter(id => id !== seasonId)
         : [...prev, seasonId]
     );
-  };
-
-  const handleDeallocation = async (seasonId: string) => {
-    setLoading(true);
-    try {
-      const response = await fetch('https://plateform.draminesaid.com/app/deallocation.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          user_id: userId,
-          season_id: seasonId,
-        }),
-      });
-      const data = await response.json();
-
-      if (data.success) {
-        setAllocatedSeasons(prev => prev.filter(id => id !== seasonId));
-        setSelectedSeasons(prev => prev.filter(id => id !== seasonId));
-        setAlertMessage('Saison désallouée avec succès!');
-      } else {
-        throw new Error(data.message || 'Une erreur est survenue lors de la désallocation');
-      }
-    } catch (error: any) {
-      console.error("Error during deallocation:", error);
-      setAlertMessage(error.message || "Erreur lors de la désallocation");
-    } finally {
-      setLoading(false);
-      setShowAlert(true);
-    }
   };
 
   const handleAllocation = async () => {
@@ -113,19 +82,19 @@ const AllowerModal: React.FC<AllowerModalProps> = ({ userId, isOpen, onClose }) 
         seasons: selectedSeasons,
       });
       
-      const response = await fetch('https://plateform.draminesaid.com/app/allocation.php', {
+      const response = await fetch('https://plateform.draminesaid.com/app/add_allocation.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           user_id: userId,
-          seasons: selectedSeasons,
+          seasons: selectedSeasons.map(id => parseInt(id)) // Convert string IDs to numbers
         }),
       });
+      
       const data = await response.json();
 
       if (data.success) {
-        setAlertMessage('Utilisateur a été alloué avec succès!');
-        setAllocatedSeasons(selectedSeasons);
+        setAlertMessage('Saisons allouées avec succès!');
         onClose();
       } else {
         throw new Error(data.message || 'Une erreur est survenue');
@@ -173,31 +142,18 @@ const AllowerModal: React.FC<AllowerModalProps> = ({ userId, isOpen, onClose }) 
             <div className="space-y-3">
               {seasons.map((season) => (
                 <Card key={season.id_saison} className="p-3 hover:bg-gray-50">
-                  <div className="flex items-center justify-between">
-                    <label className="flex items-center space-x-3 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={selectedSeasons.includes(season.id_saison)}
-                        onChange={() => handleSeasonSelection(season.id_saison)}
-                        className="h-4 w-4 rounded border-gray-300 focus:ring-primary"
-                      />
-                      <div>
-                        <p className="text-sm font-medium" dir="rtl" lang="ar">
-                          {season.name_saison}
-                        </p>
-                      </div>
-                    </label>
-                    {allocatedSeasons.includes(season.id_saison) && (
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="text-red-500 hover:text-red-700 hover:bg-red-50"
-                        onClick={() => handleDeallocation(season.id_saison)}
-                        disabled={loading}
-                      >
-                        <X className="h-4 w-4" />
-                      </Button>
-                    )}
+                  <div className="flex items-center space-x-3">
+                    <input
+                      type="checkbox"
+                      checked={selectedSeasons.includes(season.id_saison)}
+                      onChange={() => handleSeasonSelection(season.id_saison)}
+                      className="h-4 w-4 rounded border-gray-300 focus:ring-primary"
+                    />
+                    <div>
+                      <p className="text-sm font-medium" dir="rtl" lang="ar">
+                        {season.name_saison}
+                      </p>
+                    </div>
                   </div>
                 </Card>
               ))}
@@ -211,7 +167,7 @@ const AllowerModal: React.FC<AllowerModalProps> = ({ userId, isOpen, onClose }) 
           </Button>
           <Button 
             onClick={handleAllocation} 
-            disabled={loading || selectedSeasons.length === 0}
+            disabled={loading}
           >
             {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             {loading ? 'En cours...' : "Confirmer l'allocation"}
