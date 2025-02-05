@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Loader2, X } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Card } from "@/components/ui/card";
 
@@ -10,6 +10,13 @@ interface Season {
   id_saison: string;
   name_saison: string;
   photo_saison: string;
+}
+
+interface AllocatedSeason {
+  id: number;
+  id_client: number;
+  id_saison: number;
+  name_saison: string;
 }
 
 interface AllowerModalProps {
@@ -44,15 +51,13 @@ const AllowerModal: React.FC<AllowerModalProps> = ({ userId, isOpen, onClose }) 
 
         if (data.success) {
           setSeasons(data.saisons);
-          if (allocatedData.success) {
+          if (allocatedData.success && Array.isArray(allocatedData.seasons)) {
             // Map through the allocated seasons and extract id_saison values
-            const allocatedIds = allocatedData.seasons.map((s: any) => s.id_saison.toString());
+            const allocatedIds = allocatedData.seasons.map((s: AllocatedSeason) => s.id_saison.toString());
             setSelectedSeasons(allocatedIds);
           }
         } else {
-          console.error("Failed to fetch seasons");
-          setAlertMessage("Erreur lors du chargement des saisons");
-          setShowAlert(true);
+          throw new Error("Failed to fetch seasons");
         }
       } catch (error) {
         console.error("Error fetching data:", error);
