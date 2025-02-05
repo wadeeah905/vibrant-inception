@@ -5,6 +5,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2 } from 'lucide-react';
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Card } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface Season {
   id_saison: string;
@@ -60,6 +61,7 @@ const AllowerModal: React.FC<AllowerModalProps> = ({ userId, isOpen, onClose }) 
         if (data.success) {
           setSeasons(data.saisons);
           if (allocatedData.success && Array.isArray(allocatedData.seasons)) {
+            // Convert allocated season IDs to strings for comparison
             const allocatedIds = allocatedData.seasons.map((s: AllocatedSeason) => s.id_saison.toString());
             setSelectedSeasons(allocatedIds);
           }
@@ -163,17 +165,19 @@ const AllowerModal: React.FC<AllowerModalProps> = ({ userId, isOpen, onClose }) 
               {seasons.map((season) => (
                 <Card key={season.id_saison} className="p-3 hover:bg-gray-50">
                   <div className="flex items-center space-x-3">
-                    <input
-                      type="checkbox"
+                    <Checkbox
+                      id={`season-${season.id_saison}`}
                       checked={selectedSeasons.includes(season.id_saison)}
-                      onChange={() => handleSeasonSelection(season.id_saison)}
-                      className="h-4 w-4 rounded border-gray-300 focus:ring-primary"
+                      onCheckedChange={() => handleSeasonSelection(season.id_saison)}
                     />
-                    <div>
-                      <p className="text-sm font-medium" dir="rtl" lang="ar">
-                        {season.name_saison}
-                      </p>
-                    </div>
+                    <label
+                      htmlFor={`season-${season.id_saison}`}
+                      className="text-sm font-medium cursor-pointer"
+                      dir="rtl"
+                      lang="ar"
+                    >
+                      {season.name_saison}
+                    </label>
                   </div>
                 </Card>
               ))}

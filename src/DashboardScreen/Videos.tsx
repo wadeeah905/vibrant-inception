@@ -177,7 +177,7 @@ const Videos: React.FC<VideosProps> = ({ user }) => {
             </div>
           </div>
 
-          <Alert variant="warning" className="mt-2">
+          <Alert variant="default" className="mt-2">
             <AlertTriangle className="h-4 w-4" />
             <AlertTitle>Limites de taille</AlertTitle>
             <AlertDescription className="text-sm">
