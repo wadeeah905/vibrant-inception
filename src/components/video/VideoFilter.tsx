@@ -71,7 +71,7 @@ const VideoFilter: React.FC<VideoFilterProps> = ({
               </SelectItem>
             ))
           ) : (
-            <SelectItem value="" disabled className="text-gray-400">
+            <SelectItem value="no-seasons" disabled className="text-gray-400">
               {seasonsError ? "Erreur de chargement" : "Aucune saison disponible"}
             </SelectItem>
           )}
@@ -95,7 +95,7 @@ const VideoFilter: React.FC<VideoFilterProps> = ({
               </SelectItem>
             ))
           ) : (
-            <SelectItem value="" disabled className="text-gray-400">
+            <SelectItem value="no-chapters" disabled className="text-gray-400">
               {chaptersError ? "Erreur de chargement" : "Aucun chapitre disponible"}
             </SelectItem>
           )}
