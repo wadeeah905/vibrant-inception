@@ -26,22 +26,19 @@ const VideoFilter: React.FC<VideoFilterProps> = ({
   selectedChapter,
   onChapterChange
 }) => {
-  const { data: seasonsData, isLoading: seasonsLoading, error: seasonsError } = useQuery({
+  const { data: seasonsData } = useQuery({
     queryKey: ['seasons'],
     queryFn: fetchSeasons,
   });
 
-  const { data: chaptersData, isLoading: chaptersLoading, error: chaptersError } = useQuery({
+  const { data: chaptersData } = useQuery({
     queryKey: ['chapters'],
     queryFn: fetchChapters,
   });
 
-  const filteredChapters = chaptersData?.chapters?.filter(
-    chapter => selectedSeason && selectedSeason !== 'all' ? chapter.id_saison === selectedSeason : true
+  const filteredChapters = chaptersData?.chapters.filter(
+    chapter => chapter.id_saison === selectedSeason
   ) || [];
-
-  const seasons = seasonsData?.saisons || [];
-  const hasSeasons = seasons.length > 0;
 
   return (
     <div className="grid md:grid-cols-3 gap-4 mb-6">
@@ -54,51 +51,35 @@ const VideoFilter: React.FC<VideoFilterProps> = ({
         dir="rtl"
       />
       
-      <Select 
-        value={selectedSeason} 
-        onValueChange={onSeasonChange}
-        disabled={seasonsLoading}
-      >
+      <Select value={selectedSeason} onValueChange={onSeasonChange}>
         <SelectTrigger className="text-black bg-white">
-          <SelectValue placeholder={seasonsLoading ? "Chargement..." : "اختر الموسم"} />
+          <SelectValue placeholder="اختر الموسم" />
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="all" className="text-black">كل المواسم</SelectItem>
-          {hasSeasons ? (
-            seasons.map((season) => (
-              <SelectItem key={season.id_saison} value={season.id_saison} className="text-black">
-                {season.name_saison}
-              </SelectItem>
-            ))
-          ) : (
-            <SelectItem value="no-seasons" disabled className="text-gray-400">
-              {seasonsError ? "Erreur de chargement" : "Aucune saison disponible"}
+          {seasonsData?.saisons.map((season) => (
+            <SelectItem key={season.id_saison} value={season.id_saison} className="text-black">
+              {season.name_saison}
             </SelectItem>
-          )}
+          ))}
         </SelectContent>
       </Select>
 
       <Select 
         value={selectedChapter} 
         onValueChange={onChapterChange}
-        disabled={!selectedSeason || selectedSeason === 'all' || chaptersLoading}
+        disabled={!selectedSeason || selectedSeason === 'all'}
       >
         <SelectTrigger className="text-black bg-white">
-          <SelectValue placeholder={chaptersLoading ? "Chargement..." : "اختر الفصل"} />
+          <SelectValue placeholder="اختر الفصل" />
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="all" className="text-black">كل الفصول</SelectItem>
-          {filteredChapters.length > 0 ? (
-            filteredChapters.map((chapter) => (
-              <SelectItem key={chapter.id_chapter} value={chapter.id_chapter} className="text-black">
-                {chapter.name_chapter}
-              </SelectItem>
-            ))
-          ) : (
-            <SelectItem value="no-chapters" disabled className="text-gray-400">
-              {chaptersError ? "Erreur de chargement" : "Aucun chapitre disponible"}
+          {filteredChapters.map((chapter) => (
+            <SelectItem key={chapter.id_chapter} value={chapter.id_chapter} className="text-black">
+              {chapter.name_chapter}
             </SelectItem>
-          )}
+          ))}
         </SelectContent>
       </Select>
     </div>
