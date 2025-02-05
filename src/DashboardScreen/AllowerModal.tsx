@@ -41,18 +41,25 @@ const AllowerModal: React.FC<AllowerModalProps> = ({ userId, isOpen, onClose }) 
         const data = await response.json();
         
         // Fetch allocated seasons for this user
-        const allocatedResponse = await fetch('https://plateform.draminesaid.com/app/get_user_saisons.php', {
+        const allocatedResponse = await fetch('https://plateform.draminesaid.com/app/get_users_seasons.php', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ user_id: userId }),
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({ user_id: userId })
         });
+
+        if (!allocatedResponse.ok) {
+          throw new Error(`HTTP error! status: ${allocatedResponse.status}`);
+        }
+
         const allocatedData = await allocatedResponse.json();
         console.log('Allocated seasons response:', allocatedData);
 
         if (data.success) {
           setSeasons(data.saisons);
           if (allocatedData.success && Array.isArray(allocatedData.seasons)) {
-            // Map through the allocated seasons and extract id_saison values
             const allocatedIds = allocatedData.seasons.map((s: AllocatedSeason) => s.id_saison.toString());
             setSelectedSeasons(allocatedIds);
           }
@@ -86,13 +93,20 @@ const AllowerModal: React.FC<AllowerModalProps> = ({ userId, isOpen, onClose }) 
     try {
       const response = await fetch('https://plateform.draminesaid.com/app/add_allocation.php', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
         body: JSON.stringify({
           user_id: userId,
           seasons: selectedSeasons.map(id => parseInt(id))
         }),
       });
       
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       const data = await response.json();
       console.log('Allocation response:', data);
 
