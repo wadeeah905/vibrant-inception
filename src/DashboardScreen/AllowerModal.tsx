@@ -34,17 +34,19 @@ const AllowerModal: React.FC<AllowerModalProps> = ({ userId, isOpen, onClose }) 
         const data = await response.json();
         
         // Fetch allocated seasons for this user
-        const allocatedResponse = await fetch('https://plateform.draminesaid.com/app/get_user_seasons.php', {
+        const allocatedResponse = await fetch('https://plateform.draminesaid.com/app/get_user_saisons.php', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ user_id: userId }),
         });
         const allocatedData = await allocatedResponse.json();
+        console.log('Allocated seasons response:', allocatedData);
 
         if (data.success) {
           setSeasons(data.saisons);
           if (allocatedData.success) {
-            const allocatedIds = allocatedData.seasons.map((s: any) => s.id_saison);
+            // Map through the allocated seasons and extract id_saison values
+            const allocatedIds = allocatedData.seasons.map((s: any) => s.id_saison.toString());
             setSelectedSeasons(allocatedIds);
           }
         } else {
@@ -77,21 +79,17 @@ const AllowerModal: React.FC<AllowerModalProps> = ({ userId, isOpen, onClose }) 
   const handleAllocation = async () => {
     setLoading(true);
     try {
-      console.log('Sending allocation request:', {
-        user_id: userId,
-        seasons: selectedSeasons,
-      });
-      
       const response = await fetch('https://plateform.draminesaid.com/app/add_allocation.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           user_id: userId,
-          seasons: selectedSeasons.map(id => parseInt(id)) // Convert string IDs to numbers
+          seasons: selectedSeasons.map(id => parseInt(id))
         }),
       });
       
       const data = await response.json();
+      console.log('Allocation response:', data);
 
       if (data.success) {
         setAlertMessage('Saisons allouées avec succès!');
@@ -102,9 +100,9 @@ const AllowerModal: React.FC<AllowerModalProps> = ({ userId, isOpen, onClose }) 
     } catch (error: any) {
       console.error("Error during allocation:", error);
       setAlertMessage(error.message || "Erreur lors de l'allocation");
+      setShowAlert(true);
     } finally {
       setLoading(false);
-      setShowAlert(true);
     }
   };
 
@@ -112,6 +110,9 @@ const AllowerModal: React.FC<AllowerModalProps> = ({ userId, isOpen, onClose }) 
     return (
       <Dialog open={isOpen} onOpenChange={onClose}>
         <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Chargement des saisons...</DialogTitle>
+          </DialogHeader>
           <div className="flex items-center justify-center py-4">
             <Loader2 className="h-6 w-6 animate-spin" />
           </div>
@@ -133,7 +134,7 @@ const AllowerModal: React.FC<AllowerModalProps> = ({ userId, isOpen, onClose }) 
           </p>
 
           {showAlert && (
-            <Alert className="mb-4">
+            <Alert variant="default" className="mb-4">
               <AlertDescription>{alertMessage}</AlertDescription>
             </Alert>
           )}
