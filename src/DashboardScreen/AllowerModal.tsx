@@ -62,7 +62,8 @@ const AllowerModal: React.FC<AllowerModalProps> = ({ userId, isOpen, onClose }) 
           setSeasons(data.saisons);
           if (allocatedData.success && Array.isArray(allocatedData.seasons)) {
             // Convert allocated season IDs to strings for comparison
-            const allocatedIds = allocatedData.seasons.map((s: AllocatedSeason) => s.id_saison.toString());
+            const allocatedIds = allocatedData.seasons.map((s: AllocatedSeason) => String(s.id_saison));
+            console.log('Allocated IDs:', allocatedIds);
             setSelectedSeasons(allocatedIds);
           }
         } else {
@@ -83,6 +84,8 @@ const AllowerModal: React.FC<AllowerModalProps> = ({ userId, isOpen, onClose }) 
   }, [userId, isOpen]);
 
   const handleSeasonSelection = (seasonId: string) => {
+    console.log('Handling selection for season:', seasonId);
+    console.log('Current selected seasons:', selectedSeasons);
     setSelectedSeasons(prev =>
       prev.includes(seasonId)
         ? prev.filter(id => id !== seasonId)
@@ -162,25 +165,28 @@ const AllowerModal: React.FC<AllowerModalProps> = ({ userId, isOpen, onClose }) 
 
           <ScrollArea className="h-[300px] rounded-md border p-4">
             <div className="space-y-3">
-              {seasons.map((season) => (
-                <Card key={season.id_saison} className="p-3 hover:bg-gray-50">
-                  <div className="flex items-center space-x-3">
-                    <Checkbox
-                      id={`season-${season.id_saison}`}
-                      checked={selectedSeasons.includes(season.id_saison)}
-                      onCheckedChange={() => handleSeasonSelection(season.id_saison)}
-                    />
-                    <label
-                      htmlFor={`season-${season.id_saison}`}
-                      className="text-sm font-medium cursor-pointer"
-                      dir="rtl"
-                      lang="ar"
-                    >
-                      {season.name_saison}
-                    </label>
-                  </div>
-                </Card>
-              ))}
+              {seasons.map((season) => {
+                console.log('Rendering season:', season.id_saison, 'Selected:', selectedSeasons.includes(season.id_saison));
+                return (
+                  <Card key={season.id_saison} className="p-3 hover:bg-gray-50">
+                    <div className="flex items-center space-x-3">
+                      <Checkbox
+                        id={`season-${season.id_saison}`}
+                        checked={selectedSeasons.includes(season.id_saison)}
+                        onCheckedChange={() => handleSeasonSelection(season.id_saison)}
+                      />
+                      <label
+                        htmlFor={`season-${season.id_saison}`}
+                        className="text-sm font-medium cursor-pointer"
+                        dir="rtl"
+                        lang="ar"
+                      >
+                        {season.name_saison}
+                      </label>
+                    </div>
+                  </Card>
+                );
+              })}
             </div>
           </ScrollArea>
         </div>
