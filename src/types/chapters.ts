@@ -1,22 +1,24 @@
 export interface Season {
-  id_saison: string;
-  name_saison: string;
-  photo_saison: string;
+  id: string;
+  name: string;
+  description?: string;
 }
 
 export interface Chapter {
-  id_chapter: string;
-  id_saison: string;
-  name_chapter: string;
-  photo_chapter: string;
+  id: string;
+  name: string;
+  season_id: string;
+  description?: string;
 }
 
 export interface SeasonsResponse {
   success: boolean;
-  saisons: Season[];
+  message: string;
+  data: Season[];
 }
 
 export interface ChaptersResponse {
   success: boolean;
-  chapters: Chapter[];
+  message: string;
+  data: Chapter[];
 }

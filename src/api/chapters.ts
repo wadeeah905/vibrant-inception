@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { SeasonsResponse, ChaptersResponse } from '@/types/chapters';
+import { SeasonsResponse, ChaptersResponse } from '../types/chapters';
 
 export const fetchSeasons = async () => {
   console.log('Fetching seasons...');
