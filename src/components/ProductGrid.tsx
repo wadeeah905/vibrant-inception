@@ -13,9 +13,10 @@ import Autoplay from "embla-carousel-autoplay";
 
 interface ProductGridProps {
   onAddToCart: () => void;
+  limit?: number;
 }
 
-const ProductGrid = ({ onAddToCart }: ProductGridProps) => {
+const ProductGrid = ({ onAddToCart, limit }: ProductGridProps) => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const navigate = useNavigate();
   const isMobile = useIsMobile();
@@ -25,6 +26,11 @@ const ProductGrid = ({ onAddToCart }: ProductGridProps) => {
   const filteredProducts = selectedCategory === "all" 
     ? products 
     : products.filter(product => product.name === selectedCategory);
+
+  // Apply limit if specified
+  const displayedProducts = limit 
+    ? filteredProducts.slice(0, limit) 
+    : filteredProducts;
 
   const handleProductClick = (productId: string) => {
     navigate(`/product/${productId}`);
@@ -54,15 +60,15 @@ const ProductGrid = ({ onAddToCart }: ProductGridProps) => {
         opts={{
           align: "start",
           loop: true,
-          slidesToScroll: isMobile ? 2 : 4,
+          slidesToScroll: isMobile ? 1 : 3,
           dragFree: true
         }}
         plugins={[plugin]}
         className="w-full"
       >
         <CarouselContent className="-ml-4">
-          {filteredProducts.map((product) => (
-            <CarouselItem key={product.id} className="pl-4 md:basis-1/4 basis-1/2">
+          {displayedProducts.map((product) => (
+            <CarouselItem key={product.id} className="pl-4 md:basis-1/3">
               <div 
                 className="group relative overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:shadow-xl cursor-pointer h-full"
                 onClick={() => handleProductClick(product.id)}
