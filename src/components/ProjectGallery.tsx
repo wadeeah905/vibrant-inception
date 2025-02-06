@@ -41,17 +41,15 @@ const ProjectGallery = () => {
               className="overflow-hidden hover:shadow-lg transition-shadow duration-300"
             >
               <CardContent className="p-0">
-                <div className="relative">
+                <div>
                   <img
                     src={project.image}
                     alt={project.title}
                     className="w-full h-64 object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300">
-                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                      <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                      <p className="text-sm opacity-90">{project.description}</p>
-                    </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+                    <p className="text-sm text-gray-600">{project.description}</p>
                   </div>
                 </div>
               </CardContent>
