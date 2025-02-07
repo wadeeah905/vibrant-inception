@@ -7,7 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Send, Type, Image as ImageIcon, CheckCircle2, Palette, Home } from "lucide-react";
+import { ArrowLeft, Send, Type, Image as ImageIcon, Palette, Home, CheckCircle2 } from "lucide-react";
 import { products } from "@/config/products";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -102,20 +102,6 @@ const Devis = () => {
     return styles.join(', ');
   };
 
-  // Count the number of designs from localStorage
-  const getDesignCount = () => {
-    let count = 0;
-    for (let i = 0; i < localStorage.length; i++) {
-      const key = localStorage.key(i);
-      if (key?.startsWith('design-')) {
-        count++;
-      }
-    }
-    return count;
-  };
-
-  const designCount = getDesignCount();
-
   if (isSuccess) {
     return (
       <div className="container mx-auto py-8 px-4">
@@ -166,15 +152,9 @@ const Devis = () => {
         {designData && (
           <Card className="p-6 mb-8">
             <div className="flex justify-between items-start mb-4">
-              <div className="flex items-center gap-3">
-                <h2 className="text-xl font-semibold">
-                  Devis {designCount > 0 && (
-                    <Badge variant="secondary" className="ml-2">
-                      {designCount} design{designCount > 1 ? 's' : ''}
-                    </Badge>
-                  )}
-                </h2>
-              </div>
+              <h2 className="text-xl font-semibold">
+                Devis ({designData.designNumber}) - {designData.productName}
+              </h2>
               <div className="bg-primary/5 p-3 rounded-lg space-y-2">
                 <div className="flex items-center gap-2 text-sm">
                   <span className="text-gray-600">Taille:</span>
@@ -297,16 +277,7 @@ const Devis = () => {
             exit={{ opacity: 0, y: -20 }}
             className="bg-white rounded-lg shadow-md p-6"
           >
-            <div className="flex items-center gap-3">
-              <h1 className="text-2xl font-bold text-primary">
-                Demande de Devis Personnalisé
-                {designCount > 0 && (
-                  <Badge variant="secondary" className="ml-2">
-                    {designCount} design{designCount > 1 ? 's' : ''}
-                  </Badge>
-                )}
-              </h1>
-            </div>
+            <h1 className="text-2xl font-bold text-primary mb-6">Demande de Devis Personnalisé</h1>
             
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
