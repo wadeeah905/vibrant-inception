@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { ShoppingCart, Menu, X, Heart, ClipboardList, Search, PenLine, Trash2, MessageCircle } from "lucide-react";
 import Footer from "./Footer";
@@ -8,6 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Badge } from "@/components/ui/badge";
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   const [cartCount, setCartCount] = useState(0);
@@ -17,6 +19,17 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
     { id: 2, name: "Article 2", price: "85 DT", image: "/placeholder.svg" }
   ]);
   const navigate = useNavigate();
+
+  const getDesignCount = () => {
+    let count = 0;
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key?.startsWith('design-')) {
+        count++;
+      }
+    }
+    return count;
+  };
 
   const handleCartClick = () => {
     console.log('Navigating to cart page');
@@ -30,6 +43,8 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
   const handleWhatsAppSupport = () => {
     window.open('https://wa.me/+21600000000', '_blank');
   };
+
+  const designCount = getDesignCount();
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -130,7 +145,12 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
               className="flex items-center gap-1 text-primary hover:text-primary/80"
             >
               <ClipboardList className="h-6 w-6" />
-              <span className="text-sm">Devis ({cartCount})</span>
+              <span className="text-sm">Devis</span>
+              {designCount > 0 && (
+                <Badge variant="secondary" className="ml-1">
+                  {designCount} design{designCount > 1 ? 's' : ''}
+                </Badge>
+              )}
             </button>
           </div>
         </div>
