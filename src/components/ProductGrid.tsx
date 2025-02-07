@@ -57,15 +57,14 @@ const ProductGrid = ({ onAddToCart, limit }: ProductGridProps) => {
           opts={{
             align: "start",
             loop: true,
-            dragFree: true,
-            slidesToScroll: isMobile ? 1 : 3,
+            dragFree: false,
           }}
           plugins={[plugin]}
           className="w-full"
         >
           <CarouselContent>
             {displayedProducts.map((product) => (
-              <CarouselItem key={product.id} className="pl-4 md:basis-1/3">
+              <CarouselItem key={product.id} className="pl-4 basis-full md:basis-1/3">
                 <div 
                   className="group relative overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:shadow-xl h-full"
                 >
@@ -114,4 +113,3 @@ const ProductGrid = ({ onAddToCart, limit }: ProductGridProps) => {
 };
 
 export default ProductGrid;
-
