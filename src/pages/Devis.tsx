@@ -7,16 +7,39 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Send, Type, Image as ImageIcon, Palette } from "lucide-react";
+import { ArrowLeft, Send, Type, Image as ImageIcon, Palette, Home, CheckCircle2 } from "lucide-react";
 import { products } from "@/config/products";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { motion, AnimatePresence } from "framer-motion";
+
+const LoadingDots = () => (
+  <span className="inline-flex space-x-1">
+    <motion.span
+      className="h-2 w-2 bg-white rounded-full"
+      animate={{ scale: [1, 1.2, 1] }}
+      transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 0.2 }}
+    />
+    <motion.span
+      className="h-2 w-2 bg-white rounded-full"
+      animate={{ scale: [1, 1.2, 1] }}
+      transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 0.2, delay: 0.2 }}
+    />
+    <motion.span
+      className="h-2 w-2 bg-white rounded-full"
+      animate={{ scale: [1, 1.2, 1] }}
+      transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 0.2, delay: 0.4 }}
+    />
+  </span>
+);
 
 const Devis = () => {
   const { toast } = useToast();
   const location = useLocation();
   const navigate = useNavigate();
   const designData = location.state;
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -34,7 +57,7 @@ const Devis = () => {
     formData.quantity.trim() !== '' && 
     parseInt(formData.quantity) >= 1;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!isQuoteRequestEnabled) {
       toast({
@@ -44,11 +67,15 @@ const Devis = () => {
       });
       return;
     }
+
+    setIsLoading(true);
+
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
     console.log('Form submitted:', { ...formData, designData });
-    toast({
-      title: "Demande envoyée",
-      description: "Nous vous contacterons bientôt avec votre devis personnalisé.",
-    });
+    setIsLoading(false);
+    setIsSuccess(true);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -59,7 +86,11 @@ const Devis = () => {
   };
 
   const handleBack = () => {
-    navigate(-1);
+    if (isSuccess) {
+      navigate('/');
+    } else {
+      navigate(-1);
+    }
   };
 
   const getTextStyleDescription = (style: any) => {
@@ -71,12 +102,47 @@ const Devis = () => {
     return styles.join(', ');
   };
 
+  if (isSuccess) {
+    return (
+      <div className="container mx-auto py-8 px-4">
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          className="max-w-lg mx-auto text-center space-y-6 bg-white p-8 rounded-lg shadow-lg"
+        >
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.2, type: "spring" }}
+          >
+            <CheckCircle2 className="w-20 h-20 text-green-500 mx-auto" />
+          </motion.div>
+          
+          <h2 className="text-2xl font-bold text-gray-800">Merci pour votre demande !</h2>
+          <p className="text-gray-600">
+            Nous avons bien reçu votre demande de devis. Notre équipe l'examine et vous enverra une réponse détaillée par email dans les plus brefs délais.
+          </p>
+          
+          <Button
+            onClick={handleBack}
+            className="mt-6"
+            size="lg"
+          >
+            <Home className="mr-2 h-4 w-4" />
+            Retour à l'accueil
+          </Button>
+        </motion.div>
+      </div>
+    );
+  }
+
   return (
     <div className="container mx-auto py-8 px-4">
       <Button
         variant="ghost"
         onClick={handleBack}
         className="mb-6 hover:bg-gray-100"
+        disabled={isLoading}
       >
         <ArrowLeft className="mr-2 h-4 w-4" />
         Retour
@@ -204,128 +270,156 @@ const Devis = () => {
           </Card>
         )}
 
-        <div className="bg-white rounded-lg shadow-md p-6">
-          <h1 className="text-2xl font-bold text-primary mb-6">Demande de Devis Personnalisé</h1>
-          
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <Label htmlFor="name">Nom complet</Label>
-                <Input
-                  id="name"
-                  name="name"
-                  required
-                  value={formData.name}
-                  onChange={handleChange}
-                />
+        <AnimatePresence>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="bg-white rounded-lg shadow-md p-6"
+          >
+            <h1 className="text-2xl font-bold text-primary mb-6">Demande de Devis Personnalisé</h1>
+            
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Nom complet</Label>
+                  <Input
+                    id="name"
+                    name="name"
+                    required
+                    value={formData.name}
+                    onChange={handleChange}
+                    disabled={isLoading}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={handleChange}
+                    disabled={isLoading}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="phone">Téléphone</Label>
+                  <Input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    disabled={isLoading}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="productType">Type de produit</Label>
+                  <select
+                    id="productType"
+                    name="productType"
+                    className="w-full border border-gray-300 rounded-md p-2"
+                    value={formData.productType}
+                    onChange={handleChange}
+                    required
+                    disabled={isLoading}
+                  >
+                    {products.map((product) => (
+                      <option key={product.id} value={product.name}>
+                        {product.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="size">Taille</Label>
+                  <Input
+                    id="size"
+                    name="size"
+                    required
+                    value={formData.size}
+                    onChange={handleChange}
+                    readOnly={!!designData}
+                    className={designData ? "bg-gray-50" : ""}
+                    disabled={isLoading}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="quantity">Quantité</Label>
+                  <Input
+                    id="quantity"
+                    name="quantity"
+                    type="number"
+                    min="1"
+                    required
+                    value={formData.quantity}
+                    onChange={handleChange}
+                    readOnly={!!designData}
+                    className={designData ? "bg-gray-50" : ""}
+                    disabled={isLoading}
+                  />
+                </div>
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={handleChange}
-                />
-              </div>
+              {!designData && (
+                <div className="space-y-2">
+                  <Label htmlFor="description">Description détaillée</Label>
+                  <Textarea
+                    id="description"
+                    name="description"
+                    placeholder="Décrivez votre projet en détail..."
+                    className="min-h-[100px]"
+                    required={!designData}
+                    value={formData.description}
+                    onChange={handleChange}
+                    disabled={isLoading}
+                  />
+                </div>
+              )}
 
               <div className="space-y-2">
-                <Label htmlFor="phone">Téléphone</Label>
-                <Input
-                  id="phone"
-                  name="phone"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="productType">Type de produit</Label>
-                <select
-                  id="productType"
-                  name="productType"
-                  className="w-full border border-gray-300 rounded-md p-2"
-                  value={formData.productType}
-                  onChange={handleChange}
-                  required
-                >
-                  {products.map((product) => (
-                    <option key={product.id} value={product.name}>
-                      {product.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="size">Taille</Label>
-                <Input
-                  id="size"
-                  name="size"
-                  required
-                  value={formData.size}
-                  onChange={handleChange}
-                  readOnly={!!designData}
-                  className={designData ? "bg-gray-50" : ""}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="quantity">Quantité</Label>
-                <Input
-                  id="quantity"
-                  name="quantity"
-                  type="number"
-                  min="1"
-                  required
-                  value={formData.quantity}
-                  onChange={handleChange}
-                  readOnly={!!designData}
-                  className={designData ? "bg-gray-50" : ""}
-                />
-              </div>
-            </div>
-
-            {!designData && (
-              <div className="space-y-2">
-                <Label htmlFor="description">Description détaillée</Label>
+                <Label htmlFor="additionalNotes">Notes supplémentaires</Label>
                 <Textarea
-                  id="description"
-                  name="description"
-                  placeholder="Décrivez votre projet en détail..."
-                  className="min-h-[100px]"
-                  required={!designData}
-                  value={formData.description}
+                  id="additionalNotes"
+                  name="additionalNotes"
+                  placeholder="Autres informations importantes..."
+                  value={formData.additionalNotes}
                   onChange={handleChange}
+                  disabled={isLoading}
                 />
               </div>
-            )}
 
-            <div className="space-y-2">
-              <Label htmlFor="additionalNotes">Notes supplémentaires</Label>
-              <Textarea
-                id="additionalNotes"
-                name="additionalNotes"
-                placeholder="Autres informations importantes..."
-                value={formData.additionalNotes}
-                onChange={handleChange}
-              />
-            </div>
-
-            <Button
-              type="submit"
-              className="w-full md:w-auto px-6 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              disabled={!isQuoteRequestEnabled}
-            >
-              <Send className="mr-2 h-4 w-4" />
-              Envoyer la demande
-            </Button>
-          </form>
-        </div>
+              <Button
+                type="submit"
+                className="w-full md:w-auto px-6 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={!isQuoteRequestEnabled || isLoading}
+              >
+                {isLoading ? (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="flex items-center space-x-2"
+                  >
+                    <span>Envoi en cours</span>
+                    <LoadingDots />
+                  </motion.div>
+                ) : (
+                  <>
+                    <Send className="mr-2 h-4 w-4" />
+                    Envoyer la demande
+                  </>
+                )}
+              </Button>
+            </form>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   );
