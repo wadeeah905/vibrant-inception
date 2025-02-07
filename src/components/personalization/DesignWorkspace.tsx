@@ -462,6 +462,7 @@ const DesignWorkspace = ({
               canvas.renderAll();
             }
           }}
+          selectedCategory={selectedCategory}
         />
       </div>
 

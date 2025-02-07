@@ -1,3 +1,4 @@
+
 interface Zone {
   left: number;
   top: number;
@@ -28,7 +29,7 @@ const calculateZone = (baseSize: number) => ({
 
 export const productZoneConfigs: ProductZoneConfig[] = [
   {
-    id: "tshirts",
+    id: "tshirt",
     faces: [
       {
         sideId: "front",
@@ -51,7 +52,7 @@ export const productZoneConfigs: ProductZoneConfig[] = [
     ]
   },
   {
-    id: "blouses",
+    id: "buttons-tshirt",
     faces: [
       {
         sideId: "front",
@@ -74,22 +75,7 @@ export const productZoneConfigs: ProductZoneConfig[] = [
     ]
   },
   {
-    id: "mugs",
-    faces: [
-      {
-        sideId: "front",
-        zone: {
-          ...calculateZone(500),
-          height: 150, // Special case for mugs
-          backgroundColor: "rgba(255, 255, 255, 0.1)",
-          borderColor: "#cccccc",
-          borderWidth: 1
-        }
-      }
-    ]
-  },
-  {
-    id: "flyers",
+    id: "long-sleeves",
     faces: [
       {
         sideId: "front",
@@ -112,13 +98,27 @@ export const productZoneConfigs: ProductZoneConfig[] = [
     ]
   },
   {
-    id: "notebooks",
+    id: "marketing-flag",
     faces: [
       {
         sideId: "front",
         zone: {
           ...calculateZone(500),
-          height: 250, // Special case for notebooks
+          backgroundColor: "rgba(255, 255, 255, 0.1)",
+          borderColor: "#cccccc",
+          borderWidth: 1,
+          height: 300 // Special case for flags
+        }
+      }
+    ]
+  },
+  {
+    id: "tablier",
+    faces: [
+      {
+        sideId: "front",
+        zone: {
+          ...calculateZone(500),
           backgroundColor: "rgba(255, 255, 255, 0.1)",
           borderColor: "#cccccc",
           borderWidth: 1
@@ -127,7 +127,7 @@ export const productZoneConfigs: ProductZoneConfig[] = [
     ]
   },
   {
-    id: "bags",
+    id: "mug",
     faces: [
       {
         sideId: "front",
@@ -135,11 +135,32 @@ export const productZoneConfigs: ProductZoneConfig[] = [
           ...calculateZone(500),
           backgroundColor: "rgba(255, 255, 255, 0.1)",
           borderColor: "#cccccc",
-          borderWidth: 1
+          borderWidth: 1,
+          height: 150 // Special case for mugs
         }
-      },
+      }
+    ]
+  },
+  {
+    id: "notebook",
+    faces: [
       {
-        sideId: "back",
+        sideId: "front",
+        zone: {
+          ...calculateZone(500),
+          backgroundColor: "rgba(255, 255, 255, 0.1)",
+          borderColor: "#cccccc",
+          borderWidth: 1,
+          height: 250 // Special case for notebooks
+        }
+      }
+    ]
+  },
+  {
+    id: "bag",
+    faces: [
+      {
+        sideId: "front",
         zone: {
           ...calculateZone(500),
           backgroundColor: "rgba(255, 255, 255, 0.1)",

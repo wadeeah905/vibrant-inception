@@ -1,9 +1,9 @@
-
 import { Card } from "@/components/ui/card";
 import { FileText } from "lucide-react";
 import TextElementCard from "./TextElementCard";
 import ImageCard from "./ImageCard";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { products } from "@/config/products";
 
 interface DesignPreviewProps {
   design: any;
@@ -16,12 +16,26 @@ const DesignPreview = ({ design, onDownloadText, onDownloadImage }: DesignPrevie
 
   const textElements = design.textElements || [];
   const uploadedImages = design.uploadedImages || [];
+  
+  // Find the product details
+  const product = products.find(p => p.id === design.productId);
 
   return (
     <Card className="p-6 mb-6 border-none shadow-lg bg-white/80 backdrop-blur-sm">
-      <h3 className="text-xl font-semibold text-primary mb-4">
-        Design - {design.faceId}
-      </h3>
+      <div className="space-y-4 mb-6">
+        <h3 className="text-xl font-semibold text-primary">
+          Design - {design.faceId}
+        </h3>
+        
+        {/* Product Information */}
+        <div className="space-y-2 text-sm text-gray-600">
+          <p><span className="font-medium">Produit:</span> {product?.name || design.productName}</p>
+          <p><span className="font-medium">Couleur sélectionnée:</span> {design.selectedColor}</p>
+          {product?.description && (
+            <p className="text-xs italic">{product.description}</p>
+          )}
+        </div>
+      </div>
       
       <div className="aspect-video w-full relative rounded-lg overflow-hidden border mb-6 bg-white shadow-inner">
         <img 

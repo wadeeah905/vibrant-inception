@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button";
 import { CheckCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -61,10 +62,32 @@ export const DesignValidationHandler = ({
       }
     }));
 
+    // Get and format the selected color
+    const selectedColor = localStorage.getItem('selectedProductColor');
+    let formattedColor;
+    
+    if (!selectedColor) {
+      formattedColor = 'Non spécifiée';
+      console.warn('No color selected in localStorage');
+    } else {
+      console.log('Selected color from localStorage:', selectedColor);
+      switch (selectedColor.toLowerCase()) {
+        case '#000000':
+          formattedColor = 'Noir';
+          break;
+        case '#ffffff':
+          formattedColor = 'Blanc';
+          break;
+        default:
+          formattedColor = selectedColor;
+      }
+    }
+
     const designData = {
       faceId: selectedSide,
       productId: selectedCategory,
       productName: product.name,
+      selectedColor: formattedColor,
       canvasImage: canvas.toDataURL(),
       textElements,
       uploadedImages: canvas.getObjects('image').map((obj: any) => ({

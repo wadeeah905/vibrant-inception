@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Canvas, Rect, Image as FabricImage, Point } from "fabric";
+import { Canvas, Rect, Image as FabricImage, Point, filters } from "fabric";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
@@ -10,6 +10,8 @@ import { toast } from "sonner";
 import { productSideImages } from "./config/productSideImagesConfig";
 import FaceConfirmationDialog from "./FaceConfirmationDialog";
 import { FaceDesign } from "./types/faceDesign";
+import ProductColorSelector from "./ProductColorSelector";
+import { productColors } from "./config/productColorsConfig";
 
 interface CanvasContainerProps {
   canvas: Canvas | null;
@@ -38,7 +40,8 @@ const CanvasContainer = ({
   const productConfig = productSidesConfigs.find((config) => config.id === selectedCategory);
   const zoneConfig = productZoneConfigs.find((config) => config.id === selectedCategory);
   const productImages = productSideImages.find(p => p.productId === selectedCategory)?.sides || [];
-  const currentSideImage = productImages.find(img => img.sideId === selectedSide);
+  const currentProductColors = productColors.find(p => p.productId === selectedCategory);
+  const currentSideImage = currentProductColors?.colors.find(c => c.sideId === selectedSide && c.color === "#000000"); // Default to black
   const currentZone = zoneConfig?.faces.find(face => face.sideId === selectedSide)?.zone;
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [targetSide, setTargetSide] = useState<string>("");
@@ -337,6 +340,25 @@ const CanvasContainer = ({
     toast.success(`Design de la ${selectedSide} sauvegardé !`);
   };
 
+  const handleColorSelect = (imageUrl: string) => {
+    if (!canvas) return;
+    
+    // Load and set the new background image
+    FabricImage.fromURL(imageUrl, {
+      crossOrigin: 'anonymous'
+    }).then((img) => {
+      img.scaleToWidth(canvas.width!);
+      img.scaleToHeight(canvas.height!);
+      img.set({
+        selectable: false,
+        evented: false,
+      });
+      canvas.backgroundImage = img;
+      canvas.renderAll();
+      toast.success("Couleur appliquée !");
+    });
+  };
+
   return (
     <div className="space-y-4">
       <ProductSideSelector
@@ -344,6 +366,11 @@ const CanvasContainer = ({
         activeSide={selectedSide}
         onSideSelect={handleSideSelect}
         selectedCategory={selectedCategory}
+      />
+      <ProductColorSelector
+        selectedCategory={selectedCategory}
+        selectedSide={selectedSide}
+        onColorSelect={handleColorSelect}
       />
       <Card className="p-4 relative">
         <div className="flex justify-center">

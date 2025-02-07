@@ -1,52 +1,77 @@
+
 export interface ProductConfig {
   id: string;
   name: string;
   description: string;
   startingPrice: string;
   image?: string;
+  presentationImage?: string;
 }
 
 export const products: ProductConfig[] = [
   {
-    id: "mugs",
-    name: "Tasses",
-    description: "Tasses personnalisées pour votre café quotidien. Design unique et qualité premium garantie.",
+    id: "tshirt",
+    name: "T-shirt Classique",
+    description: "T-shirt classique, parfait pour toute occasion. Design unique et qualité premium garantie.",
     startingPrice: "25.00",
-    image: "https://placehold.co/800x800"
+    image: "/ProductImages/BlackTshirt.png",
+    presentationImage: "/ProductImages/BlackTshirtArriere.png"
   },
   {
-    id: "tshirts",
-    name: "T-shirts",
-    description: "T-shirts confortables avec votre design unique. Tissu de haute qualité pour un confort optimal.",
+    id: "buttons-tshirt",
+    name: "T-shirt à Boutons",
+    description: "T-shirt avec boutons décoratifs. Style unique et moderne.",
     startingPrice: "35.00",
-    image: "https://placehold.co/800x800"
+    image: "/ProductImages/BlackButtonsTshirt.png",
+    presentationImage: "/ProductImages/BlackButtonsTshirtArriere.png"
   },
   {
-    id: "blouses",
-    name: "Blouses de travail",
-    description: "Blouses professionnelles personnalisées. Adaptées à tous les environnements de travail.",
+    id: "long-sleeves",
+    name: "T-shirt Manches Longues",
+    description: "T-shirt à manches longues confortable et élégant.",
+    startingPrice: "40.00",
+    image: "/ProductImages/RedLongSleavesShirt.png",
+    presentationImage: "/ProductImages/RedLongSleavesShirtBack.png"
+  },
+  {
+    id: "marketing-flag",
+    name: "Drapeau Marketing",
+    description: "Drapeau publicitaire pour une visibilité maximale.",
     startingPrice: "45.00",
-    image: "https://placehold.co/800x800"
+    image: "/ProductImages/RedMarketingFlag.jpg",
+    presentationImage: "/ProductImages/RedMarketingFlag.jpg"
   },
   {
-    id: "flyers",
-    name: "Flyers",
-    description: "Flyers promotionnels sur mesure. Impression haute qualité pour un impact maximal.",
-    startingPrice: "15.00",
-    image: "https://placehold.co/800x800"
-  },
-  {
-    id: "notebooks",
-    name: "Carnets",
-    description: "Carnets personnalisés pour vos notes. Papier de qualité et finition professionnelle.",
-    startingPrice: "20.00",
-    image: "https://placehold.co/800x800"
-  },
-  {
-    id: "bags",
-    name: "Sacs",
-    description: "Sacs personnalisés pour tous les jours. Matériaux durables et design élégant.",
+    id: "tablier",
+    name: "Tablier",
+    description: "Tablier professionnel. Idéal pour la cuisine ou le service.",
     startingPrice: "30.00",
-    image: "https://placehold.co/800x800"
+    image: "/ProductImages/BlackTablier.png",
+    presentationImage: "/ProductImages/BlackTablier.png"
+  },
+  {
+    id: "mug",
+    name: "Mug",
+    description: "Mug élégant pour votre café quotidien.",
+    startingPrice: "15.00",
+    image: "/ProductImages/BlackMug.png",
+    presentationImage: "/ProductImages/BlackMug.png"
+  },
+  {
+    id: "notebook",
+    name: "Carnet",
+    description: "Carnet élégant pour vos notes quotidiennes.",
+    startingPrice: "20.00",
+    image: "/ProductImages/WhiteNotebook.png",
+    presentationImage: "/ProductImages/WhiteNotebook.png"
+  },
+  {
+    id: "bag",
+    name: "Sac",
+    description: "Sac pratique et stylé pour tous les jours.",
+    startingPrice: "25.00",
+    image: "/ProductImages/YellowSac.png",
+    presentationImage: "/ProductImages/YellowSac.png"
   }
 ];
+

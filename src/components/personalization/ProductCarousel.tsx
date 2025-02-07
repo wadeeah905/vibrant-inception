@@ -1,3 +1,4 @@
+
 import {
   Carousel,
   CarouselContent,
@@ -8,7 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { ProductCategory } from "./types";
 import { cn } from "@/lib/utils";
-import { products } from "@/config/productConfig";
+import { products } from "@/config/products";
 
 interface ProductCarouselProps {
   categories: ProductCategory[];
@@ -28,7 +29,6 @@ const ProductCarousel = ({
           opts={{
             align: "start",
             loop: true,
-            slidesToScroll: 1,
           }}
           className="w-full"
         >
@@ -45,11 +45,11 @@ const ProductCarousel = ({
                     selectedCategory === product.id && "ring-2 ring-primary"
                   )}
                 >
-                  <div className="h-[300px] overflow-hidden">
+                  <div className="h-[300px] overflow-hidden bg-gray-50 flex items-center justify-center">
                     <img
                       src={product.image}
                       alt={product.name}
-                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      className="w-full h-full object-contain p-4"
                     />
                   </div>
 
@@ -79,8 +79,8 @@ const ProductCarousel = ({
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="absolute -left-4 sm:-left-12" />
-          <CarouselNext className="absolute -right-4 sm:-right-12" />
+          <CarouselPrevious />
+          <CarouselNext />
         </Carousel>
       </div>
     </div>

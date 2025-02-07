@@ -1,3 +1,4 @@
+
 export interface ProductSide {
   id: string;
   title: string;
@@ -11,7 +12,7 @@ export interface ProductSidesConfig {
 
 export const productSidesConfigs: ProductSidesConfig[] = [
   {
-    id: "tshirts",
+    id: "tshirt",
     sides: [
       {
         id: "front",
@@ -26,22 +27,57 @@ export const productSidesConfigs: ProductSidesConfig[] = [
     ]
   },
   {
-    id: "blouses",
+    id: "buttons-tshirt",
     sides: [
       {
         id: "front",
         title: "Face Avant",
-        description: "Personnalisez la face avant de votre blouse"
+        description: "Personnalisez la face avant de votre t-shirt"
       },
       {
         id: "back",
         title: "Face Arrière",
-        description: "Personnalisez le dos de votre blouse"
+        description: "Personnalisez le dos de votre t-shirt"
       }
     ]
   },
   {
-    id: "mugs",
+    id: "long-sleeves",
+    sides: [
+      {
+        id: "front",
+        title: "Face Avant",
+        description: "Personnalisez la face avant de votre t-shirt manches longues"
+      },
+      {
+        id: "back",
+        title: "Face Arrière",
+        description: "Personnalisez le dos de votre t-shirt manches longues"
+      }
+    ]
+  },
+  {
+    id: "marketing-flag",
+    sides: [
+      {
+        id: "front",
+        title: "Face Principale",
+        description: "Zone de personnalisation principale du drapeau"
+      }
+    ]
+  },
+  {
+    id: "tablier",
+    sides: [
+      {
+        id: "front",
+        title: "Face Avant",
+        description: "Personnalisez la face avant de votre tablier"
+      }
+    ]
+  },
+  {
+    id: "mug",
     sides: [
       {
         id: "front",
@@ -51,22 +87,7 @@ export const productSidesConfigs: ProductSidesConfig[] = [
     ]
   },
   {
-    id: "flyers",
-    sides: [
-      {
-        id: "front",
-        title: "Recto",
-        description: "Face avant du flyer"
-      },
-      {
-        id: "back",
-        title: "Verso",
-        description: "Face arrière du flyer"
-      }
-    ]
-  },
-  {
-    id: "notebooks",
+    id: "notebook",
     sides: [
       {
         id: "front",
@@ -76,17 +97,12 @@ export const productSidesConfigs: ProductSidesConfig[] = [
     ]
   },
   {
-    id: "bags",
+    id: "bag",
     sides: [
       {
         id: "front",
         title: "Face Avant",
         description: "Face principale du sac"
-      },
-      {
-        id: "back",
-        title: "Face Arrière",
-        description: "Dos du sac"
       }
     ]
   }

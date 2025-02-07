@@ -3,6 +3,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { productSidesConfigs } from "./config/productSidesConfig";
 
 interface ContentItem {
   id: string;
@@ -15,9 +16,18 @@ interface ContentSectionProps {
   items: ContentItem[];
   onDeleteItem: (id: string) => void;
   onSelectItem: (id: string) => void;
+  selectedCategory: string;
 }
 
-const ContentSection = ({ items, onDeleteItem, onSelectItem }: ContentSectionProps) => {
+const ContentSection = ({ items, onDeleteItem, onSelectItem, selectedCategory }: ContentSectionProps) => {
+  const getSideTitle = (sideId: string): string => {
+    const productConfig = productSidesConfigs.find(config => config.id === selectedCategory);
+    if (!productConfig) return sideId;
+    
+    const side = productConfig.sides.find(side => side.id === sideId);
+    return side?.title || sideId;
+  };
+
   return (
     <Card className="p-4">
       <h3 className="font-semibold mb-4">Contenu</h3>
@@ -34,7 +44,7 @@ const ContentSection = ({ items, onDeleteItem, onSelectItem }: ContentSectionPro
                   {item.type === 'text' ? item.content : `Image: ${item.content}`}
                 </span>
                 <Badge variant="secondary" className="text-xs">
-                  {item.side}
+                  {getSideTitle(item.side)}
                 </Badge>
               </div>
               <Button

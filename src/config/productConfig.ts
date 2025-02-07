@@ -1,3 +1,4 @@
+
 export interface ProductFace {
   id: string;
   title: string;
@@ -16,116 +17,155 @@ export interface Product {
 
 export const products: Product[] = [
   {
-    id: "tshirts",
-    name: "T-shirts",
-    description: "T-shirts confortables avec votre design unique. Tissu de haute qualité pour un confort optimal.",
-    startingPrice: "35.00",
-    image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=500&fit=crop",
+    id: "black-tshirt",
+    name: "T-shirt Noir",
+    description: "T-shirt noir classique, parfait pour toute occasion. Design unique et qualité premium garantie.",
+    startingPrice: "25.00",
+    image: "/ProductImages/BlackTshirt.png",
     faces: [
       {
         id: "front",
         title: "Face Avant",
         description: "Personnalisez la face avant de votre t-shirt",
-        imageUrl: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=500&fit=crop"
+        imageUrl: "/ProductImages/BlackTshirt.png"
       },
       {
         id: "back",
         title: "Face Arrière",
         description: "Personnalisez le dos de votre t-shirt",
-        imageUrl: "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=500&h=500&fit=crop"
+        imageUrl: "/ProductImages/BlackTshirt.png"
       }
     ]
   },
   {
-    id: "blouses",
-    name: "Blouses de travail",
-    description: "Blouses professionnelles personnalisées. Adaptées à tous les environnements de travail.",
-    startingPrice: "45.00",
-    image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=500&h=500&fit=crop",
+    id: "white-tshirt",
+    name: "T-shirt Blanc",
+    description: "T-shirt blanc élégant et minimaliste. Tissu de haute qualité pour un confort optimal.",
+    startingPrice: "25.00",
+    image: "/ProductImages/WhiteTshirt.png",
     faces: [
       {
         id: "front",
         title: "Face Avant",
-        description: "Personnalisez la face avant de votre blouse",
-        imageUrl: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=500&h=500&fit=crop"
+        description: "Personnalisez la face avant de votre t-shirt",
+        imageUrl: "/ProductImages/WhiteTshirt.png"
       },
       {
         id: "back",
         title: "Face Arrière",
-        description: "Personnalisez le dos de votre blouse",
-        imageUrl: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&h=500&fit=crop"
+        description: "Personnalisez le dos de votre t-shirt",
+        imageUrl: "/ProductImages/WhiteTshirt.png"
       }
     ]
   },
   {
-    id: "mugs",
-    name: "Tasses",
-    description: "Tasses personnalisées pour votre café quotidien. Design unique et qualité premium garantie.",
-    startingPrice: "25.00",
-    image: "https://images.unsplash.com/photo-1481833761820-0509d3217039?w=500&h=500&fit=crop",
+    id: "black-buttons-tshirt",
+    name: "T-shirt Noir à Boutons",
+    description: "T-shirt noir avec boutons décoratifs. Style unique et moderne.",
+    startingPrice: "35.00",
+    image: "/ProductImages/BlackButtonsTshirt.png",
+    faces: [
+      {
+        id: "front",
+        title: "Face Avant",
+        description: "Personnalisez la face avant de votre t-shirt",
+        imageUrl: "/ProductImages/BlackButtonsTshirt.png"
+      },
+      {
+        id: "back",
+        title: "Face Arrière",
+        description: "Personnalisez le dos de votre t-shirt",
+        imageUrl: "/ProductImages/BlackButtonsTshirt.png"
+      }
+    ]
+  },
+  {
+    id: "black-tablier",
+    name: "Tablier Noir",
+    description: "Tablier noir professionnel. Idéal pour la cuisine ou le service.",
+    startingPrice: "30.00",
+    image: "/ProductImages/BlackTablier.png",
+    faces: [
+      {
+        id: "front",
+        title: "Face Avant",
+        description: "Personnalisez la face avant de votre tablier",
+        imageUrl: "/ProductImages/BlackTablier.png"
+      }
+    ]
+  },
+  {
+    id: "white-tablier",
+    name: "Tablier Blanc",
+    description: "Tablier blanc professionnel. Parfait pour un look élégant.",
+    startingPrice: "30.00",
+    image: "/ProductImages/WhiteTabllier.png",
+    faces: [
+      {
+        id: "front",
+        title: "Face Avant",
+        description: "Personnalisez la face avant de votre tablier",
+        imageUrl: "/ProductImages/WhiteTabllier.png"
+      }
+    ]
+  },
+  {
+    id: "black-mug",
+    name: "Mug Noir",
+    description: "Mug noir élégant pour votre café quotidien.",
+    startingPrice: "15.00",
+    image: "/ProductImages/BlackMug.png",
     faces: [
       {
         id: "front",
         title: "Face Principale",
         description: "Zone de personnalisation principale",
-        imageUrl: "https://images.unsplash.com/photo-1481833761820-0509d3217039?w=500&h=500&fit=crop"
+        imageUrl: "/ProductImages/BlackMug.png"
       }
     ]
   },
   {
-    id: "flyers",
-    name: "Flyers",
-    description: "Flyers promotionnels sur mesure. Impression haute qualité pour un impact maximal.",
+    id: "white-mug",
+    name: "Mug Blanc",
+    description: "Mug blanc classique avec votre design personnalisé.",
     startingPrice: "15.00",
-    image: "https://images.unsplash.com/photo-1531685250784-7569952593d2?w=500&h=500&fit=crop",
+    image: "/ProductImages/WhiteMug.png",
     faces: [
       {
         id: "front",
-        title: "Recto",
-        description: "Face avant du flyer",
-        imageUrl: "https://images.unsplash.com/photo-1531685250784-7569952593d2?w=500&h=500&fit=crop"
-      },
-      {
-        id: "back",
-        title: "Verso",
-        description: "Face arrière du flyer",
-        imageUrl: "https://images.unsplash.com/photo-1531685250784-7569952593d2?w=500&h=500&fit=crop"
+        title: "Face Principale",
+        description: "Zone de personnalisation principale",
+        imageUrl: "/ProductImages/WhiteMug.png"
       }
     ]
   },
   {
-    id: "notebooks",
-    name: "Carnets",
-    description: "Carnets personnalisés pour vos notes. Papier de qualité et finition professionnelle.",
+    id: "white-notebook",
+    name: "Carnet Blanc",
+    description: "Carnet blanc élégant pour vos notes quotidiennes.",
     startingPrice: "20.00",
-    image: "https://images.unsplash.com/photo-1531346878377-a5be20888e57?w=500&h=500&fit=crop",
+    image: "/ProductImages/WhiteNotebook.png",
     faces: [
       {
         id: "front",
         title: "Couverture",
         description: "Personnalisez la couverture de votre carnet",
-        imageUrl: "https://images.unsplash.com/photo-1531346878377-a5be20888e57?w=500&h=500&fit=crop"
+        imageUrl: "/ProductImages/WhiteNotebook.png"
       }
     ]
   },
   {
-    id: "bags",
-    name: "Sacs",
-    description: "Sacs personnalisés pour tous les jours. Matériaux durables et design élégant.",
-    startingPrice: "30.00",
-    image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&h=500&fit=crop",
+    id: "yellow-bag",
+    name: "Sac Jaune",
+    description: "Sac jaune pratique et stylé pour tous les jours.",
+    startingPrice: "25.00",
+    image: "/ProductImages/YellowSac.png",
     faces: [
       {
         id: "front",
         title: "Face Avant",
         description: "Face principale du sac",
-        imageUrl: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&h=500&fit=crop"
-      },
-      {
-        id: "back",
-        title: "Face Arrière",
-        description: "Dos du sac",
-        imageUrl: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&h=500&fit=crop"
+        imageUrl: "/ProductImages/YellowSac.png"
       }
     ]
   }
