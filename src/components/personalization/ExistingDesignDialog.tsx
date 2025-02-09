@@ -1,3 +1,4 @@
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,7 +20,6 @@ interface ExistingDesignDialogProps {
 const ExistingDesignDialog = ({
   open,
   onOpenChange,
-  onClearDesign,
 }: ExistingDesignDialogProps) => {
   const navigate = useNavigate();
 
@@ -28,25 +28,17 @@ const ExistingDesignDialog = ({
     navigate('/devis');
   };
 
-  const handleClearAndStart = () => {
-    onClearDesign();
-    onOpenChange(false);
-  };
-
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Design existant détecté</AlertDialogTitle>
           <AlertDialogDescription>
-            Vous avez déjà un design en cours de validation. Voulez-vous effacer ce design et en créer un nouveau, ou continuer vers la demande de devis avec le design actuel ?
+            Voulez-vous continuer vers la demande de devis avec le design actuel ?
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Annuler</AlertDialogCancel>
-          <AlertDialogAction onClick={handleClearAndStart} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-            Effacer et recommencer
-          </AlertDialogAction>
           <AlertDialogAction onClick={handleContinueToQuote} className="bg-primary">
             Continuer vers le devis
           </AlertDialogAction>

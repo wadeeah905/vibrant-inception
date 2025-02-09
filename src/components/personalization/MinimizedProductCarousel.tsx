@@ -36,7 +36,7 @@ const MinimizedProductCarousel = ({
                 <div
                   onClick={() => onProductSelect(product.id)}
                   className={cn(
-                    "cursor-pointer rounded-lg overflow-hidden border transition-all duration-300",
+                    "cursor-pointer rounded-lg overflow-hidden border transition-all duration-300 h-[190px]", // Fixed height for consistency
                     selectedProduct === product.id
                       ? "border-primary shadow-lg"
                       : "border-gray-200 hover:border-primary/50"
@@ -50,7 +50,7 @@ const MinimizedProductCarousel = ({
                     />
                   </div>
                   <div className="p-3">
-                    <h4 className="font-medium text-sm">{product.name}</h4>
+                    <h4 className="font-medium text-sm line-clamp-1">{product.name}</h4>
                     <p className="text-xs text-primary mt-1">
                       À partir de {product.startingPrice} TND
                     </p>
@@ -68,4 +68,3 @@ const MinimizedProductCarousel = ({
 };
 
 export default MinimizedProductCarousel;
-

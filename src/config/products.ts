@@ -1,4 +1,3 @@
-
 export interface ProductConfig {
   id: string;
   name: string;
@@ -35,7 +34,7 @@ export const products: ProductConfig[] = [
   },
   {
     id: "marketing-flag",
-    name: "Drapeau Marketing",
+    name: "Drapeau Publicitaire",
     description: "Drapeau publicitaire pour une visibilité maximale.",
     startingPrice: "45.00",
     image: "/ProductImages/RedMarketingFlag.jpg",
@@ -43,7 +42,7 @@ export const products: ProductConfig[] = [
   },
   {
     id: "tablier",
-    name: "Tablier",
+    name: "Tablier Professionnel",
     description: "Tablier professionnel. Idéal pour la cuisine ou le service.",
     startingPrice: "30.00",
     image: "/ProductImages/BlackTablier.png",
@@ -51,7 +50,7 @@ export const products: ProductConfig[] = [
   },
   {
     id: "mug",
-    name: "Mug",
+    name: "Mug Personnalisé",
     description: "Mug élégant pour votre café quotidien.",
     startingPrice: "15.00",
     image: "/ProductImages/BlackMug.png",
@@ -59,7 +58,7 @@ export const products: ProductConfig[] = [
   },
   {
     id: "notebook",
-    name: "Carnet",
+    name: "Carnet Personnalisé",
     description: "Carnet élégant pour vos notes quotidiennes.",
     startingPrice: "20.00",
     image: "/ProductImages/WhiteNotebook.png",
@@ -67,11 +66,10 @@ export const products: ProductConfig[] = [
   },
   {
     id: "bag",
-    name: "Sac",
+    name: "Sac Personnalisé",
     description: "Sac pratique et stylé pour tous les jours.",
     startingPrice: "25.00",
     image: "/ProductImages/YellowSac.png",
     presentationImage: "/ProductImages/YellowSac.png"
   }
 ];
-

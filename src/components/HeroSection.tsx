@@ -29,9 +29,9 @@ export const HeroSection = () => {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-300 ease-out"
         style={{
-          backgroundImage: 'url("https://placehold.co/1920x1080")',
-          transform: `translateY(${scrollY * 0.5}px)`,
+          backgroundImage: 'url("/mainbg.png")', // Adjust the file extension if needed
         }}
+        
       />
       
       {/* Overlay */}

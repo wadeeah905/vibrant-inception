@@ -34,7 +34,10 @@ export const productZoneConfigs: ProductZoneConfig[] = [
       {
         sideId: "front",
         zone: {
-          ...calculateZone(500),
+          left: 165,    // 30% from left
+          top: 100,     // 30% from top
+          width: 180,   // 40% of canvas width
+          height: 260,  // 40% of canvas height
           backgroundColor: "rgba(255, 255, 255, 0.1)",
           borderColor: "#cccccc",
           borderWidth: 1
@@ -43,7 +46,10 @@ export const productZoneConfigs: ProductZoneConfig[] = [
       {
         sideId: "back",
         zone: {
-          ...calculateZone(500),
+          left: 165,    // 30% from left
+          top: 90,     // 30% from top
+          width: 190,   // 40% of canvas width
+          height: 260,  // 40% of canvas height
           backgroundColor: "rgba(255, 255, 255, 0.1)",
           borderColor: "#cccccc",
           borderWidth: 1
@@ -57,7 +63,10 @@ export const productZoneConfigs: ProductZoneConfig[] = [
       {
         sideId: "front",
         zone: {
-          ...calculateZone(500),
+          left: 100,    // 30% from left
+          top: 180,     // 30% from top
+          width: 310,   // 40% of canvas width
+          height: 300,  // 40% of canvas height
           backgroundColor: "rgba(255, 255, 255, 0.1)",
           borderColor: "#cccccc",
           borderWidth: 1
@@ -66,7 +75,10 @@ export const productZoneConfigs: ProductZoneConfig[] = [
       {
         sideId: "back",
         zone: {
-          ...calculateZone(500),
+          left: 160,    // 30% from left
+          top: 80,     // 30% from top
+          width: 190,   // 40% of canvas width
+          height: 320,  // 40% of canvas height
           backgroundColor: "rgba(255, 255, 255, 0.1)",
           borderColor: "#cccccc",
           borderWidth: 1
@@ -118,7 +130,10 @@ export const productZoneConfigs: ProductZoneConfig[] = [
       {
         sideId: "front",
         zone: {
-          ...calculateZone(500),
+          left: 170,    // 30% from left
+          top: 140,     // 30% from top
+          width: 190,   // 40% of canvas width
+          height: 330,  // 40% of canvas height
           backgroundColor: "rgba(255, 255, 255, 0.1)",
           borderColor: "#cccccc",
           borderWidth: 1
@@ -132,11 +147,13 @@ export const productZoneConfigs: ProductZoneConfig[] = [
       {
         sideId: "front",
         zone: {
-          ...calculateZone(500),
+          left: 60,    // 30% from left
+          top: 110,     // 30% from top
+          width: 260,   // 40% of canvas width
+          height: 300,  // 40% of canvas height
           backgroundColor: "rgba(255, 255, 255, 0.1)",
           borderColor: "#cccccc",
           borderWidth: 1,
-          height: 150 // Special case for mugs
         }
       }
     ]
@@ -151,7 +168,10 @@ export const productZoneConfigs: ProductZoneConfig[] = [
           backgroundColor: "rgba(255, 255, 255, 0.1)",
           borderColor: "#cccccc",
           borderWidth: 1,
-          height: 250 // Special case for notebooks
+          left: 60,    // 30% from left
+          top: 110,     // 30% from top
+          width: 260,   // 40% of canvas width
+          height: 300,  // 40% of canvas height
         }
       }
     ]

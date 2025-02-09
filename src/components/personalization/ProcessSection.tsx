@@ -1,10 +1,6 @@
 const ProcessSection = () => {
   return (
-    <div id="products-section" className="max-w-7xl mx-auto px-4 py-8">
-      <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
-        Votre design en <span className="text-secondary">3 étapes simples</span>
-      </h2>
-
+    <div id="products-section" className="max-w-7xl mx-auto -mt-12 px-4 py-8">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
         <div className="flex flex-col items-center text-center p-8 bg-white rounded-xl shadow-lg hover:shadow-xl transition-all animate-fade-in">
           <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center text-primary text-2xl font-bold mb-6">

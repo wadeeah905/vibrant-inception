@@ -37,6 +37,28 @@ export const productSideImages: ProductSideImages[] = [
     ]
   },
   {
+    productId: "long-sleeves",
+    sides: [
+      {
+        sideId: "front",
+        imageUrl: "/ProductImages/RedLongSleavesShirt.png"
+      },
+      {
+        sideId: "back",
+        imageUrl: "/ProductImages/RedLongSleavesShirtBack.png"
+      }
+    ]
+  },
+  {
+    productId: "marketing-flag",
+    sides: [
+      {
+        sideId: "front",
+        imageUrl: "/ProductImages/RedMarketingFlag.jpg"
+      }
+    ]
+  },
+  {
     productId: "tablier",
     sides: [
       {
@@ -51,6 +73,24 @@ export const productSideImages: ProductSideImages[] = [
       {
         sideId: "front",
         imageUrl: "/ProductImages/BlackMug.png"
+      }
+    ]
+  },
+  {
+    productId: "notebook",
+    sides: [
+      {
+        sideId: "front",
+        imageUrl: "/ProductImages/WhiteNotebook.png"
+      }
+    ]
+  },
+  {
+    productId: "bag",
+    sides: [
+      {
+        sideId: "front",
+        imageUrl: "/ProductImages/YellowSac.png"
       }
     ]
   }

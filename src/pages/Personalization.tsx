@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Canvas, Text } from "fabric";
 import { toast } from "sonner";
+import { useLocation } from "react-router-dom";
 import { ProductCategory, UploadedImage } from "@/components/personalization/types";
 import MinimizedProductCarousel from "@/components/personalization/MinimizedProductCarousel";
 import PersonalizationHero from "@/components/personalization/PersonalizationHero";
@@ -14,29 +15,22 @@ import ProductSwitchDialog from "@/components/personalization/ProductSwitchDialo
 import { productSidesConfigs } from "@/components/personalization/config/productSidesConfig";
 
 const Personalization = () => {
+  const location = useLocation();
   const [canvas, setCanvas] = useState<Canvas | null>(null);
   const [text, setText] = useState("");
   const [textColor, setTextColor] = useState("#000000");
   const [selectedFont, setSelectedFont] = useState("Montserrat");
   const [activeText, setActiveText] = useState<Text | null>(null);
   const [uploadedImages, setUploadedImages] = useState<UploadedImage[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [contentItems, setContentItems] = useState<any[]>(() => {
-    const cached = localStorage.getItem('personalization-content');
-    return cached ? JSON.parse(cached) : [];
-  });
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(
+    location.state?.selectedProduct || null
+  );
+  const [contentItems, setContentItems] = useState<any[]>([]);
   const [selectedSide, setSelectedSide] = useState<string>('front');
   const [isLoading, setIsLoading] = useState(false);
   const isMobile = useIsMobile();
   const [showProductSwitch, setShowProductSwitch] = useState(false);
   const [targetProduct, setTargetProduct] = useState<string>("");
-
-  useEffect(() => {
-    if (selectedCategory) {
-      localStorage.setItem(`design-${selectedCategory}`, JSON.stringify(contentItems));
-    }
-    localStorage.setItem('personalization-content', JSON.stringify(contentItems));
-  }, [contentItems, selectedCategory]);
 
   const getCurrentSideName = (sideId: string) => {
     if (!selectedCategory) return sideId;
@@ -48,17 +42,8 @@ const Personalization = () => {
 
   const handleCategorySelect = (categoryId: string) => {
     if (categoryId === selectedCategory) {
-      const hasExistingDesign = Object.keys(localStorage).some(key => 
-        key.startsWith(`design-${categoryId}`)
-      );
-
-      if (hasExistingDesign) {
-        setTargetProduct(categoryId);
-        setShowProductSwitch(true);
-      } else {
-        clearDesign();
-        toast.success("Zone de design réinitialisée !");
-      }
+      clearDesign();
+      toast.success("Zone de design réinitialisée !");
       return;
     }
 
@@ -66,11 +51,8 @@ const Personalization = () => {
       setTargetProduct(categoryId);
       setShowProductSwitch(true);
     } else {
-      setIsLoading(true);
       setSelectedCategory(categoryId);
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 3000);
+      clearDesign();
     }
   };
 
@@ -95,10 +77,6 @@ const Personalization = () => {
     setSelectedCategory(targetProduct);
     clearDesign();
     setShowProductSwitch(false);
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
     toast.success("Produit changé avec succès !");
   };
 
@@ -124,7 +102,6 @@ const Personalization = () => {
         );
         setContentItems(updatedContentItems);
         
-        // Update localStorage
         if (selectedCategory) {
           localStorage.setItem(`design-${selectedCategory}`, JSON.stringify(updatedContentItems));
         }
@@ -141,7 +118,6 @@ const Personalization = () => {
           side: getCurrentSideName(item.side)
         })));
         
-        // Update localStorage
         if (selectedCategory) {
           localStorage.setItem(`design-${selectedCategory}`, JSON.stringify(updatedContentItems));
         }
@@ -154,6 +130,13 @@ const Personalization = () => {
       toast.success("Élément supprimé !");
     }
   };
+
+  useEffect(() => {
+    if (location.state?.selectedProduct) {
+      setSelectedCategory(location.state.selectedProduct);
+      clearDesign();
+    }
+  }, [location.state?.selectedProduct]);
 
   return (
     <div className="max-w-[100vw] overflow-x-hidden">
@@ -171,45 +154,37 @@ const Personalization = () => {
         <div className="max-w-[1600px] mx-auto">
           {selectedCategory && (
             <>
-              {isLoading ? (
-                <div className="min-h-[60vh] flex flex-col items-center justify-center">
-                  <LoadingScreen />
-                </div>
-              ) : (
-                <>
-                  <PersonalizationHeader 
-                    selectedCategory={selectedCategory}
-                    onBack={handleBack}
-                  />
-                  
-                  <MinimizedProductCarousel
-                    products={products}
-                    selectedProduct={selectedCategory}
-                    onProductSelect={handleCategorySelect}
-                  />
+              <PersonalizationHeader 
+                selectedCategory={selectedCategory}
+                onBack={handleBack}
+              />
+              
+              <MinimizedProductCarousel
+                products={products}
+                selectedProduct={selectedCategory}
+                onProductSelect={handleCategorySelect}
+              />
 
-                  <DesignWorkspace
-                    canvas={canvas}
-                    setCanvas={setCanvas}
-                    selectedCategory={selectedCategory}
-                    setSelectedCategory={setSelectedCategory}
-                    isMobile={isMobile}
-                    text={text}
-                    setText={setText}
-                    selectedFont={selectedFont}
-                    setSelectedFont={setSelectedFont}
-                    onObjectDelete={handleDeleteActiveObject}
-                  />
+              <DesignWorkspace
+                canvas={canvas}
+                setCanvas={setCanvas}
+                selectedCategory={selectedCategory}
+                setSelectedCategory={setSelectedCategory}
+                isMobile={isMobile}
+                text={text}
+                setText={setText}
+                selectedFont={selectedFont}
+                setSelectedFont={setSelectedFont}
+                onObjectDelete={handleDeleteActiveObject}
+              />
 
-                  <ProductSwitchDialog
-                    open={showProductSwitch}
-                    onOpenChange={setShowProductSwitch}
-                    currentProduct={products.find(p => p.id === selectedCategory)?.name || ""}
-                    targetProduct={products.find(p => p.id === targetProduct)?.name || ""}
-                    onConfirm={handleProductSwitch}
-                  />
-                </>
-              )}
+              <ProductSwitchDialog
+                open={showProductSwitch}
+                onOpenChange={setShowProductSwitch}
+                currentProduct={products.find(p => p.id === selectedCategory)?.name || ""}
+                targetProduct={products.find(p => p.id === targetProduct)?.name || ""}
+                onConfirm={handleProductSwitch}
+              />
             </>
           )}
         </div>

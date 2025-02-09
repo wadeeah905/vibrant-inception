@@ -10,7 +10,6 @@ export interface ProductColors {
   colors: ProductColor[];
 }
 
-// Only include colors that have corresponding images
 export const colorPalette = [
   "#000000", // Black
   "#ffffff", // White
@@ -65,6 +64,31 @@ export const productColors: ProductColors[] = [
     ]
   },
   {
+    productId: "long-sleeves",
+    colors: [
+      {
+        sideId: "front",
+        color: "#ff0000",
+        imageUrl: "/ProductImages/RedLongSleavesShirt.png"
+      },
+      {
+        sideId: "back",
+        color: "#ff0000",
+        imageUrl: "/ProductImages/RedLongSleavesShirtBack.png"
+      }
+    ]
+  },
+  {
+    productId: "marketing-flag",
+    colors: [
+      {
+        sideId: "front",
+        color: "#ff0000",
+        imageUrl: "/ProductImages/RedMarketingFlag.jpg"
+      }
+    ]
+  },
+  {
     productId: "tablier",
     colors: [
       {
@@ -91,6 +115,26 @@ export const productColors: ProductColors[] = [
         sideId: "front",
         color: "#ffffff",
         imageUrl: "/ProductImages/WhiteMug.png"
+      }
+    ]
+  },
+  {
+    productId: "notebook",
+    colors: [
+      {
+        sideId: "front",
+        color: "#ffffff",
+        imageUrl: "/ProductImages/WhiteNotebook.png"
+      }
+    ]
+  },
+  {
+    productId: "bag",
+    colors: [
+      {
+        sideId: "front",
+        color: "#ffff00",
+        imageUrl: "/ProductImages/YellowSac.png"
       }
     ]
   }

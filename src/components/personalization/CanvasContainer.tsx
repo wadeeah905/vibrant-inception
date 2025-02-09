@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from "react";
 import { Canvas, Rect, Image as FabricImage, Point, filters } from "fabric";
 import { Card } from "@/components/ui/card";
@@ -39,9 +40,9 @@ const CanvasContainer = ({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const productConfig = productSidesConfigs.find((config) => config.id === selectedCategory);
   const zoneConfig = productZoneConfigs.find((config) => config.id === selectedCategory);
-  const productImages = productSideImages.find(p => p.productId === selectedCategory)?.sides || [];
   const currentProductColors = productColors.find(p => p.productId === selectedCategory);
-  const currentSideImage = currentProductColors?.colors.find(c => c.sideId === selectedSide && c.color === "#000000"); // Default to black
+  // Get the first color's image for the current side
+  const currentSideImage = currentProductColors?.colors.find(c => c.sideId === selectedSide);
   const currentZone = zoneConfig?.faces.find(face => face.sideId === selectedSide)?.zone;
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [targetSide, setTargetSide] = useState<string>("");
@@ -153,7 +154,7 @@ const CanvasContainer = ({
     // Scale zone configuration based on canvas size
     const scaleFactor = canvasSize / 500; // 500 is our base size
 
-    // Add event listener for object movement with debounced boundary check
+    // Add event listeners for object movement with debounced boundary check
     let animationFrameId: number;
     newCanvas.on('object:moving', (e) => {
       const obj = e.target;
@@ -250,6 +251,7 @@ const CanvasContainer = ({
             strokeDashArray: [6, 6],
             selectable: false,
             evented: false,
+            excludeFromExport: true, // Add this line to exclude zones from export
           });
           newCanvas.add(zone);
           newCanvas.renderAll();

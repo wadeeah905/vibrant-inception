@@ -2,9 +2,10 @@ import { useState, useEffect } from "react";
 import { Canvas, Text as FabricText, Image as FabricImage } from "fabric";
 import { toast } from "sonner";
 import { ProductCategory, UploadedImage } from "@/components/personalization/types";
-import { ProductSide } from "@/components/personalization/config/productSidesConfig";
 import { useDesignState } from "@/components/personalization/hooks/useDesignState";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Eye } from "lucide-react";
 import { productZoneConfigs } from "@/components/personalization/config/zoneConfig";
 import { products } from "@/config/products";
 import DesignTools from "./DesignTools";
@@ -12,9 +13,9 @@ import ImageUploader from "./ImageUploader";
 import UploadedImagesList from "./UploadedImagesList";
 import CanvasContainer from "./CanvasContainer";
 import ContentSection from "./ContentSection";
-import ExistingDesignDialog from "./ExistingDesignDialog";
 import ProductSwitchDialog from "./ProductSwitchDialog";
 import { DesignValidationHandler } from "./design-validation/DesignValidationHandler";
+import DesignPreviewModal from "./DesignPreviewModal";
 
 interface DesignWorkspaceProps {
   canvas: Canvas | null;
@@ -59,15 +60,21 @@ const DesignWorkspace = ({
   } = useDesignState();
 
   const [showProductSwitch, setShowProductSwitch] = useState(false);
-  const [showExistingDesign, setShowExistingDesign] = useState(false);
   const [targetProduct, setTargetProduct] = useState<string>("");
 
-  useEffect(() => {
-    const hasExistingDesigns = Object.keys(localStorage).some(key => key.startsWith('design-'));
-    if (hasExistingDesigns) {
-      setShowExistingDesign(true);
-    }
-  }, []);
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+
+  const handlePreviewClick = () => {
+    if (!canvas) return;
+    const dataURL = canvas.toDataURL({
+      format: "png",
+      quality: 1,
+      multiplier: 2
+    });
+    setPreviewImage(dataURL);
+    setPreviewOpen(true);
+  };
 
   const handleClearDesigns = () => {
     if (!canvas) return;
@@ -98,7 +105,6 @@ const DesignWorkspace = ({
     setUploadedImages([]);
     setContentItems([]);
     
-    // Make sure to render the canvas after clearing
     canvas.renderAll();
     toast.success("Design précédent effacé !");
   };
@@ -300,10 +306,121 @@ const DesignWorkspace = ({
     reader.readAsDataURL(file);
   };
 
+  const handleAddText = (newText: string) => {
+    if (!canvas || !selectedCategory) return;
+
+    const fabricText = new FabricText(newText, {
+      fontSize: fontSize,
+      fill: textColor,
+      fontFamily: selectedFont,
+      fontWeight: textStyle.bold ? 'bold' : 'normal',
+      fontStyle: textStyle.italic ? 'italic' : 'normal',
+      underline: textStyle.underline,
+      textAlign: textStyle.align as any,
+      originX: 'center',
+      originY: 'center',
+      hasControls: true,
+      hasBorders: true,
+      lockUniScaling: false,
+      transparentCorners: false,
+      cornerColor: 'rgba(102,153,255,0.5)',
+      cornerSize: 12,
+      padding: 5
+    });
+
+    canvas.add(fabricText);
+    centerObjectInZone(fabricText, selectedCategory, selectedSide);
+    canvas.setActiveObject(fabricText);
+    canvas.renderAll();
+
+    const newItem = {
+      id: Date.now().toString(),
+      type: 'text' as const,
+      content: newText,
+      side: selectedSide
+    };
+    setContentItems([...contentItems, newItem]);
+    setText('');
+    toast.success("Texte ajouté avec succès !");
+  };
+
+  const handleImageClick = (image: UploadedImage) => {
+    if (!canvas) return;
+    const obj = canvas.getObjects().find(
+      (obj) => obj.type === "image" && (obj as any)._element?.src === image.url
+    );
+    if (obj) {
+      canvas.setActiveObject(obj);
+      canvas.renderAll();
+    }
+  };
+
+  const handleOpacityChange = (image: UploadedImage, opacity: number) => {
+    if (!canvas) return;
+    const obj = canvas.getObjects().find(
+      (obj) => obj.type === "image" && (obj as any)._element?.src === image.url
+    );
+    if (obj) {
+      obj.set("opacity", opacity);
+      canvas.renderAll();
+    }
+  };
+
+  const handleDeleteItem = (id: string) => {
+    const itemToDelete = contentItems.find(item => item.id === id);
+    if (itemToDelete) {
+      if (!canvas) return;
+      
+      const objectToDelete = canvas.getObjects().find(obj => {
+        if (itemToDelete.type === 'text') {
+          return obj.type === 'text' && (obj as any).text === itemToDelete.content;
+        } else {
+          return obj.type === 'image' && (obj as any)._element?.src.includes(itemToDelete.content);
+        }
+      });
+
+      if (objectToDelete) {
+        canvas.setActiveObject(objectToDelete);
+        canvas.renderAll();
+        handleDeleteActiveObject();
+      }
+      
+      setContentItems(contentItems.filter(item => item.id !== id));
+    }
+  };
+
+  const handleSelectItem = (id: string) => {
+    if (!canvas) return;
+    const item = contentItems.find(i => i.id === id);
+    if (!item) return;
+
+    const fabricObject = canvas.getObjects().find(obj => {
+      if (item.type === 'text') {
+        return obj.type === 'text' && (obj as any).text === item.content;
+      } else {
+        return obj.type === 'image' && (obj as any)._element?.src.includes(item.content);
+      }
+    });
+
+    if (fabricObject) {
+      canvas.setActiveObject(fabricObject);
+      canvas.renderAll();
+    }
+  };
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
       <div className="lg:col-span-3 space-y-4">
         <Card className="p-4 lg:p-6">
+          <Button 
+            onClick={handlePreviewClick} 
+            className="w-full mb-4"
+            variant="outline"
+          >
+            <Eye className="mr-2 h-4 w-4" />
+            Prévisualiser le design
+          </Button>
+
           <DesignTools
             text={text}
             setText={setText}
@@ -313,43 +430,7 @@ const DesignWorkspace = ({
             setTextColor={setTextColor}
             activeText={activeText}
             canvas={canvas}
-            onAddText={(newText) => {
-              if (!canvas || !selectedCategory) return;
-
-              const fabricText = new FabricText(newText, {
-                fontSize: fontSize,
-                fill: textColor,
-                fontFamily: selectedFont,
-                fontWeight: textStyle.bold ? 'bold' : 'normal',
-                fontStyle: textStyle.italic ? 'italic' : 'normal',
-                underline: textStyle.underline,
-                textAlign: textStyle.align as any,
-                originX: 'center',
-                originY: 'center',
-                hasControls: true,
-                hasBorders: true,
-                lockUniScaling: false,
-                transparentCorners: false,
-                cornerColor: 'rgba(102,153,255,0.5)',
-                cornerSize: 12,
-                padding: 5
-              });
-
-              canvas.add(fabricText);
-              centerObjectInZone(fabricText, selectedCategory, selectedSide);
-              canvas.setActiveObject(fabricText);
-              canvas.renderAll();
-
-              const newItem = {
-                id: Date.now().toString(),
-                type: 'text' as const,
-                content: newText,
-                side: selectedSide
-              };
-              setContentItems([...contentItems, newItem]);
-              setText('');
-              toast.success("Texte ajouté avec succès !");
-            }}
+            onAddText={handleAddText}
             selectedCategory={selectedCategory}
             fontSize={fontSize}
             textStyle={textStyle}
@@ -358,42 +439,15 @@ const DesignWorkspace = ({
           
           <ImageUploader
             canvas={canvas}
-            onImageUpload={(image) => {
-              const newItem = {
-                id: image.id,
-                type: 'image' as const,
-                content: image.name,
-                side: selectedSide
-              };
-              setContentItems([...contentItems, newItem]);
-              setUploadedImages([...uploadedImages, image]);
-              toast.success("Image ajoutée avec succès !");
-            }}
+            onImageUpload={handleImageUpload}
             selectedCategory={selectedCategory}
           />
+          
           <UploadedImagesList
             images={uploadedImages}
             canvas={canvas}
-            onImageClick={(image) => {
-              if (!canvas) return;
-              const obj = canvas.getObjects().find(
-                (obj) => obj.type === "image" && (obj as any)._element?.src === image.url
-              );
-              if (obj) {
-                canvas.setActiveObject(obj);
-                canvas.renderAll();
-              }
-            }}
-            onOpacityChange={(image, opacity) => {
-              if (!canvas) return;
-              const obj = canvas.getObjects().find(
-                (obj) => obj.type === "image" && (obj as any)._element?.src === image.url
-              );
-              if (obj) {
-                obj.set("opacity", opacity);
-                canvas.renderAll();
-              }
-            }}
+            onImageClick={handleImageClick}
+            onOpacityChange={handleOpacityChange}
             onDeleteImage={handleDeleteActiveObject}
           />
         </Card>
@@ -422,62 +476,24 @@ const DesignWorkspace = ({
       <div className="lg:col-span-3">
         <ContentSection
           items={contentItems}
-          onDeleteItem={(id) => {
-            const itemToDelete = contentItems.find(item => item.id === id);
-            if (itemToDelete) {
-              if (!canvas) return;
-              
-              const objectToDelete = canvas.getObjects().find(obj => {
-                if (itemToDelete.type === 'text') {
-                  return obj.type === 'text' && (obj as any).text === itemToDelete.content;
-                } else {
-                  return obj.type === 'image' && (obj as any)._element?.src.includes(itemToDelete.content);
-                }
-              });
-
-              if (objectToDelete) {
-                canvas.setActiveObject(objectToDelete);
-                canvas.renderAll();
-                handleDeleteActiveObject();
-              }
-              
-              setContentItems(contentItems.filter(item => item.id !== id));
-            }
-          }}
-          onSelectItem={(id) => {
-            if (!canvas) return;
-            const item = contentItems.find(i => i.id === id);
-            if (!item) return;
-
-            const fabricObject = canvas.getObjects().find(obj => {
-              if (item.type === 'text') {
-                return obj.type === 'text' && (obj as any).text === item.content;
-              } else {
-                return obj.type === 'image' && (obj as any)._element?.src.includes(item.content);
-              }
-            });
-
-            if (fabricObject) {
-              canvas.setActiveObject(fabricObject);
-              canvas.renderAll();
-            }
-          }}
+          onDeleteItem={handleDeleteItem}
+          onSelectItem={handleSelectItem}
           selectedCategory={selectedCategory}
         />
       </div>
 
-      <ExistingDesignDialog
-        open={showExistingDesign}
-        onOpenChange={setShowExistingDesign}
-        onClearDesign={handleClearDesigns}
-      />
-      
       <ProductSwitchDialog
         open={showProductSwitch}
         onOpenChange={setShowProductSwitch}
         currentProduct={products.find(p => p.id === selectedCategory)?.name || ""}
         targetProduct={products.find(p => p.id === targetProduct)?.name || ""}
         onConfirm={handleProductSwitch}
+      />
+
+      <DesignPreviewModal
+        open={previewOpen}
+        onOpenChange={setPreviewOpen}
+        designImage={previewImage}
       />
     </div>
   );

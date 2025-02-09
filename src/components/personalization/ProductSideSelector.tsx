@@ -48,7 +48,7 @@ const ProductSideSelector = ({
             return (
               <div 
                 key={side.id} 
-                className="flex-1 max-w-[168px]" // Reduced from 225px to ~168px (25% smaller)
+                className="flex-1 max-w-[110px]" // Reduced from 122px by ~10%
               >
                 <TooltipProvider>
                   <Tooltip>
