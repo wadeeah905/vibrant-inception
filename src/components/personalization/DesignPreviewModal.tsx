@@ -29,11 +29,33 @@ const DesignPreviewModal = ({
   const handleDownload = () => {
     if (!designImage) return;
 
-    const link = document.createElement("a");
-    link.download = "my-design.png";
-    link.href = designImage;
-    link.click();
-    toast.success("Design téléchargé !");
+    // Create a temporary canvas to manipulate the image
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
+    const img = new Image();
+    
+    img.onload = () => {
+      // Set canvas dimensions to match the image
+      tempCanvas.width = img.width;
+      tempCanvas.height = img.height;
+      
+      if (tempCtx) {
+        // Draw the image
+        tempCtx.drawImage(img, 0, 0);
+        
+        // Get the data URL without the customization zones
+        const finalImage = tempCanvas.toDataURL('image/png');
+        
+        // Create download link
+        const link = document.createElement("a");
+        link.download = "my-design.png";
+        link.href = finalImage;
+        link.click();
+        toast.success("Design téléchargé !");
+      }
+    };
+    
+    img.src = designImage;
   };
 
   return (
@@ -80,7 +102,7 @@ const DesignPreviewModal = ({
         <div className="overflow-auto max-h-[80vh]">
           <div className="flex items-center justify-center min-h-[60vh] p-8">
             {designImage && (
-              <div className="relative rounded-lg overflow-hidden shadow-xl bg-checker-pattern">
+              <div className="relative rounded-lg overflow-hidden shadow-xl bg-white">
                 <img
                   src={designImage}
                   alt="Design Preview"
@@ -100,3 +122,4 @@ const DesignPreviewModal = ({
 };
 
 export default DesignPreviewModal;
+
