@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from "react";
 import { Canvas, Rect, Image as FabricImage, Point, filters } from "fabric";
 import { Card } from "@/components/ui/card";
@@ -178,27 +179,32 @@ const CanvasContainer = ({
       });
     });
 
-    // Add event listener for object scaling
+    // Add event listener for object scaling with enhanced constraints
     newCanvas.on('object:scaling', (e) => {
       const obj = e.target;
       if (!obj || !currentZone) return;
       
-      const objBounds = obj.getBoundingRect();
-      const zoneLeft = currentZone.left;
-      const zoneTop = currentZone.top;
-      const zoneRight = zoneLeft + currentZone.width;
-      const zoneBottom = zoneTop + currentZone.height;
+      const scaledObjBounds = obj.getBoundingRect();
+      const zoneLeft = currentZone.left * scaleFactor;
+      const zoneTop = currentZone.top * scaleFactor;
+      const zoneWidth = currentZone.width * scaleFactor;
+      const zoneHeight = currentZone.height * scaleFactor;
 
-      // Check if scaled object exceeds zone boundaries
-      if (objBounds.left < zoneLeft ||
-          objBounds.top < zoneTop ||
-          objBounds.left + objBounds.width > zoneRight ||
-          objBounds.top + objBounds.height > zoneBottom) {
-        showOutOfBoundsToast();
+      // Check if scaled object exceeds zone boundaries or maximum allowed size
+      if (scaledObjBounds.width > zoneWidth ||
+          scaledObjBounds.height > zoneHeight ||
+          scaledObjBounds.left < zoneLeft ||
+          scaledObjBounds.top < zoneTop ||
+          scaledObjBounds.left + scaledObjBounds.width > zoneLeft + zoneWidth ||
+          scaledObjBounds.top + scaledObjBounds.height > zoneTop + zoneHeight) {
+        
+        // Revert to last valid scale
         obj.scaleX = obj.lastScaleX || obj.scaleX;
         obj.scaleY = obj.lastScaleY || obj.scaleY;
         obj.setCoords();
+        showOutOfBoundsToast();
       } else {
+        // Store last valid scale
         obj.lastScaleX = obj.scaleX;
         obj.lastScaleY = obj.scaleY;
       }
@@ -266,7 +272,8 @@ const CanvasContainer = ({
         cancelAnimationFrame(animationFrameId);
       }
       newCanvas.dispose();
-      canvas.off('object:scaling');
+      newCanvas.off('object:moving');
+      newCanvas.off('object:scaling');
     };
   }, [selectedCategory, selectedSide, isMobile]);
 
