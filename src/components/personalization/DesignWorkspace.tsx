@@ -290,11 +290,12 @@ const DesignWorkspace = ({
       FabricImage.fromURL(imgUrl, {
         crossOrigin: 'anonymous'
       }).then((img) => {
-        // Calculate the maximum dimensions based on the zone size
-        const maxWidth = currentZone.width * 0.9; // 90% of zone width
-        const maxHeight = currentZone.height * 0.9; // 90% of zone height
+        // Calculate the maximum dimensions based on a percentage of the zone size
+        // Use 50% of the zone size as the maximum dimension
+        const maxWidth = currentZone.width * 0.5;
+        const maxHeight = currentZone.height * 0.5;
         
-        // Calculate scale to fit within the zone while maintaining aspect ratio
+        // Calculate scale to fit within the maximum dimensions while maintaining aspect ratio
         const scaleX = maxWidth / img.width!;
         const scaleY = maxHeight / img.height!;
         const scale = Math.min(scaleX, scaleY);
@@ -303,11 +304,14 @@ const DesignWorkspace = ({
         img.scale(scale);
         
         // Center the image in the zone
+        const centerX = currentZone.left + (currentZone.width / 2);
+        const centerY = currentZone.top + (currentZone.height / 2);
+        
         img.set({
-          left: currentZone.left + (currentZone.width - (img.width! * scale)) / 2,
-          top: currentZone.top + (currentZone.height - (img.height! * scale)) / 2,
-          originX: 'left',
-          originY: 'top',
+          left: centerX,
+          top: centerY,
+          originX: 'center',
+          originY: 'center',
         });
         
         canvas.add(img);
