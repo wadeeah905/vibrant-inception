@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react";
 import { Canvas, Rect, Image as FabricImage, Point, filters } from "fabric";
 import { Card } from "@/components/ui/card";
@@ -41,7 +40,6 @@ const CanvasContainer = ({
   const productConfig = productSidesConfigs.find((config) => config.id === selectedCategory);
   const zoneConfig = productZoneConfigs.find((config) => config.id === selectedCategory);
   const currentProductColors = productColors.find(p => p.productId === selectedCategory);
-  // Get the first color's image for the current side
   const currentSideImage = currentProductColors?.colors.find(c => c.sideId === selectedSide);
   const currentZone = zoneConfig?.faces.find(face => face.sideId === selectedSide)?.zone;
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -130,6 +128,32 @@ const CanvasContainer = ({
       obj.setCoords();
       showOutOfBoundsToast();
     }
+  };
+
+  const handleDeleteAll = () => {
+    if (!canvas) return;
+    
+    // Store the background image and customization zone
+    const backgroundImage = canvas.backgroundImage;
+    const zoneObject = canvas.getObjects().find(obj => 
+      obj.type === 'rect' && !obj.selectable && !obj.evented
+    );
+    
+    // Clear only content objects (not background or zone)
+    const objects = canvas.getObjects();
+    objects.forEach(obj => {
+      if (obj !== backgroundImage && obj !== zoneObject) {
+        canvas.remove(obj);
+      }
+    });
+
+    // Clear localStorage designs for current category and side
+    const designKey = `design-${selectedCategory}-${selectedSide}`;
+    localStorage.removeItem(designKey);
+    
+    canvas.renderAll();
+    onObjectDelete(); // This will trigger parent component cleanup
+    toast.success("Tout le contenu a été supprimé !");
   };
 
   useEffect(() => {
@@ -389,7 +413,7 @@ const CanvasContainer = ({
           variant="destructive"
           size="icon"
           className="absolute top-4 right-4"
-          onClick={onObjectDelete}
+          onClick={handleDeleteAll}
         >
           <Trash2 className="h-4 w-4" />
         </Button>
