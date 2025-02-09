@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react";
 import { Canvas, Rect, Image as FabricImage, Point, filters } from "fabric";
 import { Card } from "@/components/ui/card";
@@ -267,6 +266,7 @@ const CanvasContainer = ({
         cancelAnimationFrame(animationFrameId);
       }
       newCanvas.dispose();
+      canvas.off('object:scaling');
     };
   }, [selectedCategory, selectedSide, isMobile]);
 

@@ -272,23 +272,42 @@ const DesignWorkspace = ({
   };
 
   const handleImageUpload = (file: File) => {
-    if (!canvas) return;
-
+    if (!canvas || !selectedCategory) return;
+    
     const reader = new FileReader();
     reader.onload = (event) => {
       const imgUrl = event.target?.result as string;
+      
+      // Get the current zone configuration
+      const zoneConfig = productZoneConfigs.find(config => config.id === selectedCategory);
+      const currentZone = zoneConfig?.faces.find(face => face.sideId === selectedSide)?.zone;
+      
+      if (!currentZone) {
+        toast.error("Zone de personnalisation non trouvée");
+        return;
+      }
+      
       FabricImage.fromURL(imgUrl, {
         crossOrigin: 'anonymous'
       }).then((img) => {
-        const maxDim = Math.min(canvas.width!, canvas.height!) * 0.8;
-        const scale = maxDim / Math.max(img.width!, img.height!);
+        // Calculate the maximum dimensions based on the zone size
+        const maxWidth = currentZone.width * 0.9; // 90% of zone width
+        const maxHeight = currentZone.height * 0.9; // 90% of zone height
         
+        // Calculate scale to fit within the zone while maintaining aspect ratio
+        const scaleX = maxWidth / img.width!;
+        const scaleY = maxHeight / img.height!;
+        const scale = Math.min(scaleX, scaleY);
+        
+        // Apply the scale
         img.scale(scale);
+        
+        // Center the image in the zone
         img.set({
-          left: canvas.width! / 2,
-          top: canvas.height! / 2,
-          originX: 'center',
-          originY: 'center',
+          left: currentZone.left + (currentZone.width - (img.width! * scale)) / 2,
+          top: currentZone.top + (currentZone.height - (img.height! * scale)) / 2,
+          originX: 'left',
+          originY: 'top',
         });
         
         canvas.add(img);
@@ -301,6 +320,17 @@ const DesignWorkspace = ({
           url: imgUrl,
         };
         setUploadedImages([...uploadedImages, newImage]);
+        
+        // Add to content items
+        const newItem = {
+          id: Date.now().toString(),
+          type: 'image' as const,
+          content: imgUrl,
+          side: selectedSide
+        };
+        setContentItems([...contentItems, newItem]);
+        
+        toast.success("Image ajoutée avec succès !");
       });
     };
     reader.readAsDataURL(file);
