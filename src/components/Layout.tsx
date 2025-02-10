@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { ShoppingCart, Menu, X, Heart, ClipboardList, Search, PenLine, Trash2, MessageCircle } from "lucide-react";
 import Footer from "./Footer";
@@ -9,6 +10,19 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { toast } from "sonner";
+
+interface SavedDesign {
+  id: string;
+  productName: string;
+  date: string;
+  designs: {
+    [key: string]: {
+      canvasImage: string;
+      faceId: string;
+    };
+  };
+}
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
   const [cartCount, setCartCount] = useState(0);
@@ -16,11 +30,26 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearchResults, setShowSearchResults] = useState(false);
   const location = useLocation();
-  const [favorites, setFavorites] = useState([
-    { id: 1, name: "Article 1", price: "120 DT", image: "/placeholder.svg" },
-    { id: 2, name: "Article 2", price: "85 DT", image: "/placeholder.svg" }
-  ]);
+  const [favorites, setFavorites] = useState<SavedDesign[]>([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Load favorites from localStorage
+    const loadFavorites = () => {
+      const favoritesStr = localStorage.getItem('favorites');
+      if (favoritesStr) {
+        try {
+          const parsedFavorites = JSON.parse(favoritesStr);
+          setFavorites(parsedFavorites);
+        } catch (error) {
+          console.error('Error parsing favorites:', error);
+          setFavorites([]);
+        }
+      }
+    };
+
+    loadFavorites();
+  }, [location.pathname]); // Reload when route changes
 
   useEffect(() => {
     // Check for designs in sessionStorage
@@ -36,7 +65,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
     } else {
       setCartCount(0);
     }
-  }, [location.pathname]); // Re-run when route changes
+  }, [location.pathname]);
 
   const filteredProducts = searchQuery
     ? products.filter(product =>
@@ -61,6 +90,21 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
     navigate('/personalization', { state: { selectedProduct: productId } });
     setShowSearchResults(false);
     setSearchQuery("");
+  };
+
+  const handleDeleteFavorite = (id: string) => {
+    const updatedFavorites = favorites.filter(fav => fav.id !== id);
+    setFavorites(updatedFavorites);
+    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+    toast.success("Design supprimé des favoris");
+  };
+
+  const handleContinueDesign = (design: SavedDesign) => {
+    // Restore the design state
+    Object.entries(design.designs).forEach(([key, value]) => {
+      localStorage.setItem(key, JSON.stringify(value));
+    });
+    navigate('/design-validation');
   };
 
   return (
@@ -160,14 +204,28 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                   </div>
                   {favorites.length > 0 ? (
                     <div className="space-y-3">
-                      {favorites.map((item) => (
+                      {favorites.slice(0, 3).map((item) => (
                         <DropdownMenuItem key={item.id} className="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-md cursor-pointer">
-                          <img src={item.image} alt={item.name} className="w-12 h-12 object-cover rounded" />
+                          {Object.values(item.designs)[0]?.canvasImage && (
+                            <img 
+                              src={Object.values(item.designs)[0].canvasImage} 
+                              alt={item.productName} 
+                              className="w-12 h-12 object-contain rounded"
+                            />
+                          )}
                           <div className="flex-1">
-                            <p className="font-medium text-gray-800">{item.name}</p>
-                            <p className="text-sm text-gray-500">{item.price}</p>
+                            <p className="font-medium text-gray-800">{item.productName}</p>
+                            <p className="text-sm text-gray-500">
+                              {new Date(item.date).toLocaleDateString()}
+                            </p>
                           </div>
-                          <button className="text-red-500 hover:text-red-600">
+                          <button 
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleDeleteFavorite(item.id);
+                            }}
+                            className="text-red-500 hover:text-red-600"
+                          >
                             <Trash2 className="h-4 w-4" />
                           </button>
                         </DropdownMenuItem>
@@ -232,3 +290,4 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
     </div>
   );
 };
+
