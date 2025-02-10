@@ -1,4 +1,3 @@
-
 import jsPDF from 'jspdf';
 import { FaceDesign } from '@/components/personalization/types/faceDesign';
 
@@ -272,4 +271,3 @@ export const generateDesignPDF = async (designs: { [key: string]: FaceDesign }, 
 
   pdf.save('specifications-design.pdf');
 };
-
