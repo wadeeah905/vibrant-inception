@@ -1,3 +1,4 @@
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import PageWrapper from './components/PageWrapper';
 import Index from './pages/Index';
@@ -8,6 +9,7 @@ import Marques from './pages/Marques';
 import Personalization from './pages/Personalization';
 import DesignValidation from './pages/DesignValidation';
 import DesignSummary from './pages/DesignSummary';
+import Favorites from './pages/Favorites';
 
 function App() {
   return (
@@ -22,6 +24,7 @@ function App() {
           <Route path="/personalization" element={<Personalization />} />
           <Route path="/design-validation" element={<DesignValidation />} />
           <Route path="/design-summary" element={<DesignSummary />} />
+          <Route path="/favorites" element={<Favorites />} />
         </Routes>
       </PageWrapper>
     </Router>

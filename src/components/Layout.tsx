@@ -173,7 +173,10 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
                         </DropdownMenuItem>
                       ))}
                       <div className="pt-2 border-t">
-                        <button className="w-full py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors">
+                        <button 
+                          onClick={() => navigate('/favorites')}
+                          className="w-full py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
+                        >
                           Voir tous les favoris
                         </button>
                       </div>

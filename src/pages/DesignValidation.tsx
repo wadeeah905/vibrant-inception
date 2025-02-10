@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, CheckCircle, FileDown } from "lucide-react";
+import { ArrowLeft, CheckCircle, FileDown, Heart } from "lucide-react";
 import { useCartStore } from "@/components/cart/CartProvider";
 import { toast } from "sonner";
 import { products } from "@/config/products";
@@ -230,6 +230,22 @@ const DesignValidation = () => {
     );
   };
 
+  const handleSaveForLater = () => {
+    const allDesigns = getAllSavedDesigns();
+    const favoriteDesign = {
+      id: Date.now().toString(),
+      productName: currentProductName,
+      date: new Date().toISOString(),
+      designs: allDesigns
+    };
+
+    const existingFavorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    const updatedFavorites = [...existingFavorites, favoriteDesign];
+    localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
+
+    toast.success("Design sauvegardé dans vos favoris !");
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <div className="container mx-auto py-8 px-4 lg:py-12">
@@ -251,14 +267,24 @@ const DesignValidation = () => {
               Validation de votre design
             </h1>
           </div>
-          <Button
-            onClick={handleDownloadPDF}
-            variant="outline"
-            className="gap-2 hover:bg-primary/5"
-          >
-            <FileDown className="h-4 w-4" />
-            Télécharger les spécifications
-          </Button>
+          <div className="flex gap-2">
+            <Button
+              onClick={handleDownloadPDF}
+              variant="outline"
+              className="gap-2 hover:bg-primary/5"
+            >
+              <FileDown className="h-4 w-4" />
+              Télécharger les spécifications
+            </Button>
+            <Button
+              onClick={handleSaveForLater}
+              variant="outline"
+              className="gap-2 hover:bg-primary/5"
+            >
+              <Heart className="h-4 w-4" />
+              Sauvegarder pour plus tard
+            </Button>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
