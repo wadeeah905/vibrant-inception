@@ -240,6 +240,16 @@ const DesignValidation = () => {
     };
 
     const existingFavorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+    
+    const isDuplicate = existingFavorites.some(
+      (favorite: any) => favorite.productName === currentProductName
+    );
+
+    if (isDuplicate) {
+      toast.info("Ce design est déjà sauvegardé dans vos favoris");
+      return;
+    }
+
     const updatedFavorites = [...existingFavorites, favoriteDesign];
     localStorage.setItem('favorites', JSON.stringify(updatedFavorites));
 
