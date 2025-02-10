@@ -28,7 +28,20 @@ const Favorites = () => {
       if (favoritesStr) {
         try {
           const favorites = JSON.parse(favoritesStr);
-          setSavedDesigns(favorites);
+          // Filter out duplicates based on product name and designs
+          const uniqueDesigns = favorites.reduce((acc: SavedDesign[], current: SavedDesign) => {
+            const x = acc.find(item => 
+              item.productName === current.productName && 
+              JSON.stringify(item.designs) === JSON.stringify(current.designs)
+            );
+            if (!x) {
+              return acc.concat([current]);
+            }
+            return acc;
+          }, []);
+          setSavedDesigns(uniqueDesigns);
+          // Update localStorage with deduplicated list
+          localStorage.setItem('favorites', JSON.stringify(uniqueDesigns));
         } catch (error) {
           console.error('Error parsing favorites:', error);
           setSavedDesigns([]);
