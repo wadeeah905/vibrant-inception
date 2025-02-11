@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect } from 'react';
-import { ShoppingCart, Menu, X, Heart, ClipboardList, Search, PenLine, Trash2, MessageCircle } from "lucide-react";
+import { ShoppingCart, Menu, X, Heart, ClipboardList, Search, PenLine, Trash2, MessageCircle, Facebook, Instagram, Linkedin, Youtube } from "lucide-react";
 import Footer from "./Footer";
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { products } from "@/config/products";
@@ -117,6 +116,46 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         <MessageCircle className="h-6 w-6" />
         <span className="hidden md:inline text-sm font-medium">Support Technique</span>
       </button>
+
+      {/* Social Media Icons */}
+      <div className="fixed right-6 bottom-6 z-50 flex flex-col gap-3">
+        <a
+          href="https://facebook.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-primary hover:bg-primary/90 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+          aria-label="Visit our Facebook page"
+        >
+          <Facebook className="h-5 w-5" />
+        </a>
+        <a
+          href="https://instagram.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-primary hover:bg-primary/90 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+          aria-label="Visit our Instagram page"
+        >
+          <Instagram className="h-5 w-5" />
+        </a>
+        <a
+          href="https://linkedin.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-primary hover:bg-primary/90 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+          aria-label="Visit our LinkedIn page"
+        >
+          <Linkedin className="h-5 w-5" />
+        </a>
+        <a
+          href="https://youtube.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-primary hover:bg-primary/90 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+          aria-label="Visit our YouTube channel"
+        >
+          <Youtube className="h-5 w-5" />
+        </a>
+      </div>
 
       <div className="w-full bg-primary py-2 text-sm text-white">
         <div className="container mx-auto flex items-center justify-between px-4">
@@ -290,4 +329,3 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
     </div>
   );
 };
-
