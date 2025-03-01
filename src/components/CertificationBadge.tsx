@@ -24,7 +24,7 @@ const CertificationBadge = () => {
 
   return (
     <motion.div
-      className="fixed top-16 md:top-20 right-0 z-50"
+      className="fixed top-20 md:top-24 right-0 z-50"
       initial={{ x: 20, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ type: 'spring', stiffness: 120, damping: 20 }}
