@@ -1,6 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Shield, Award, CheckCircle } from 'lucide-react';
 
 const CertificationBadge = () => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -30,9 +31,9 @@ const CertificationBadge = () => {
       transition={{ type: 'spring', stiffness: 120, damping: 20 }}
     >
       <motion.div
-        className={`rounded-l-lg shadow-lg bg-white flex items-center ${
+        className={`rounded-l-lg shadow-lg border-l-4 border-l-purple-600 bg-white flex items-center ${
           isExpanded ? 'pl-4' : ''
-        } border border-gray-200`}
+        } border-y border-l border-gray-200`}
         animate={{ width: isExpanded ? 'auto' : 'auto' }}
         transition={{ duration: 0.3 }}
       >
@@ -41,12 +42,22 @@ const CertificationBadge = () => {
             initial={{ opacity: 0, x: 10 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 10 }}
-            className="mr-1 flex flex-col"
+            className="mr-3 flex flex-col"
           >
-            <p className="text-sm font-medium text-gray-900">Produits Certifiés</p>
-            <p className="text-xs text-gray-600">Qualité Premium</p>
+            <div className="flex items-center">
+              <Shield className="w-4 h-4 text-purple-600 mr-1" />
+              <p className="text-sm font-bold text-gray-900">Produits Certifiés</p>
+            </div>
+            <div className="flex items-center mt-1">
+              <CheckCircle className="w-3 h-3 text-green-600 mr-1" />
+              <p className="text-xs text-gray-600">Qualité Premium</p>
+            </div>
+            <div className="flex items-center mt-1">
+              <Award className="w-3 h-3 text-amber-500 mr-1" />
+              <p className="text-xs text-gray-600">Standards Internationaux</p>
+            </div>
             <button 
-              className="text-xs text-gray-500 mt-1 self-start"
+              className="text-xs text-purple-600 hover:text-purple-800 mt-2 self-start font-medium"
               onClick={() => setIsVisible(false)}
             >
               Masquer
@@ -60,6 +71,7 @@ const CertificationBadge = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
+          <div className="absolute -top-1 -right-1 w-3 h-3 bg-purple-600 rounded-full animate-pulse" />
           <img 
             src="/goldcertif.png" 
             alt="Certification Or" 
