@@ -24,15 +24,15 @@ const CertificationBadge = () => {
 
   return (
     <motion.div
-      className="sticky top-16 md:top-20 w-full z-40 flex justify-end pr-2 md:pr-4 pb-1"
-      initial={{ y: -50, opacity: 0 }}
+      className="sticky top-[72px] md:top-[80px] z-40 w-full flex justify-end pr-1"
+      initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ type: 'spring', stiffness: 120, damping: 20 }}
     >
       <motion.div
         className={`rounded-lg shadow-lg bg-white flex items-center ${
           isExpanded ? 'pr-4' : ''
-        } border border-gray-100`}
+        } border border-gray-200`}
         animate={{ width: isExpanded ? 'auto' : 'auto' }}
         transition={{ duration: 0.3 }}
       >
