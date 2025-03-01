@@ -1,6 +1,5 @@
 
 import { useState, useEffect } from 'react';
-import { Award } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const CertificationBadge = () => {
@@ -25,15 +24,15 @@ const CertificationBadge = () => {
 
   return (
     <motion.div
-      className="fixed bottom-20 right-4 z-50 flex items-center"
-      initial={{ y: 100, opacity: 0 }}
+      className="sticky top-16 md:top-20 w-full z-40 flex justify-end pr-2 md:pr-4 pb-1"
+      initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ type: 'spring', stiffness: 120, damping: 20 }}
     >
       <motion.div
         className={`rounded-lg shadow-lg bg-white flex items-center ${
           isExpanded ? 'pr-4' : ''
-        }`}
+        } border border-gray-100`}
         animate={{ width: isExpanded ? 'auto' : 'auto' }}
         transition={{ duration: 0.3 }}
       >
@@ -46,15 +45,8 @@ const CertificationBadge = () => {
           <img 
             src="/goldcertif.png" 
             alt="Certification Or" 
-            className="w-12 h-12 object-contain"
+            className="w-10 h-10 md:w-12 md:h-12 object-contain"
           />
-          {!isExpanded && (
-            <motion.div
-              className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ repeat: Infinity, duration: 2 }}
-            />
-          )}
         </motion.button>
 
         {isExpanded && (
