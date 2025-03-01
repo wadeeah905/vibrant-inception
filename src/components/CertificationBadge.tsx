@@ -24,18 +24,36 @@ const CertificationBadge = () => {
 
   return (
     <motion.div
-      className="sticky top-[72px] md:top-[80px] z-40 w-full flex justify-end pr-1"
-      initial={{ y: -20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
+      className="fixed top-16 md:top-20 right-0 z-50"
+      initial={{ x: 20, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
       transition={{ type: 'spring', stiffness: 120, damping: 20 }}
     >
       <motion.div
-        className={`rounded-lg shadow-lg bg-white flex items-center ${
-          isExpanded ? 'pr-4' : ''
+        className={`rounded-l-lg shadow-lg bg-white flex items-center ${
+          isExpanded ? 'pl-4' : ''
         } border border-gray-200`}
         animate={{ width: isExpanded ? 'auto' : 'auto' }}
         transition={{ duration: 0.3 }}
       >
+        {isExpanded && (
+          <motion.div
+            initial={{ opacity: 0, x: 10 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 10 }}
+            className="mr-1 flex flex-col"
+          >
+            <p className="text-sm font-medium text-gray-900">Produits Certifiés</p>
+            <p className="text-xs text-gray-600">Qualité Premium</p>
+            <button 
+              className="text-xs text-gray-500 mt-1 self-start"
+              onClick={() => setIsVisible(false)}
+            >
+              Masquer
+            </button>
+          </motion.div>
+        )}
+        
         <motion.button
           onClick={() => setIsExpanded(!isExpanded)}
           className="relative flex items-center justify-center p-2 rounded-lg group"
@@ -48,24 +66,6 @@ const CertificationBadge = () => {
             className="w-10 h-10 md:w-12 md:h-12 object-contain"
           />
         </motion.button>
-
-        {isExpanded && (
-          <motion.div
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -10 }}
-            className="ml-1 flex flex-col"
-          >
-            <p className="text-sm font-medium text-gray-900">Produits Certifiés</p>
-            <p className="text-xs text-gray-600">Qualité Premium</p>
-            <button 
-              className="text-xs text-gray-500 mt-1 self-end"
-              onClick={() => setIsVisible(false)}
-            >
-              Masquer
-            </button>
-          </motion.div>
-        )}
       </motion.div>
     </motion.div>
   );
