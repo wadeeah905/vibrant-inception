@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import BlogLayout from './components/BlogLayout';
 import BlogPost from './components/BlogPost';
@@ -10,7 +10,7 @@ import BlogImageClassification from './components/BlogImageClassification';
 import ViewersNotification from './components/ViewersNotification';
 
 function App() {
-  const [visitorCount, setVisitorCount] = useState(null);
+  const [visitorCount, setVisitorCount] = useState<number | null>(null);
 
   useEffect(() => {
     const trackVisitor = async () => {
@@ -18,6 +18,7 @@ function App() {
         const response = await fetch('https://draminesaid.com/ihpcount.php');
         const data = await response.json();
         setVisitorCount(data.visitorCount);
+        console.log("Visitor count:", data.visitorCount);
       } catch (error) {
         console.error('Error fetching visitor count:', error);
       }

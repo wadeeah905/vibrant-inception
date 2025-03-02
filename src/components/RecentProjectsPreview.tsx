@@ -1,7 +1,6 @@
 
-import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ExternalLink, Github, ArrowRight, Award, Briefcase, Cpu, Layout, Globe } from 'lucide-react';
+import { ExternalLink, Github, ArrowRight, Award, Briefcase, Cpu, Layout, Smartphone } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const RecentProjectsPreview = () => {
