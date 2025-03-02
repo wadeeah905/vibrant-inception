@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ExternalLink, Github, Briefcase, Award, Code, Smartphone, Cpu, Globe, Layout } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -20,6 +20,26 @@ const Portfolio = () => {
 
   const projects = [
     {
+      title: "Tazart Website",
+      description: "A beautiful modern website that helped my client appear professional and have a cool digital presence",
+      image: 'https://i.ibb.co/VMm7Nz2/mamanapp.jpg',
+      tags: ['React', 'Tailwind CSS', 'NextJS'],
+      demo: 'https://tazart.com',
+      github: '#',
+      category: 'web',
+      icon: <Layout className="h-5 w-5 text-blue-400" />
+    },
+    {
+      title: "Dishit Mobile App",
+      description: "Mobile application that helps connect people in need with food donations, creating a platform for sharing resources",
+      image: 'https://i.ibb.co/LNZ5srZ/remedapp.jpg',
+      tags: ['React Native', 'Firebase', 'Google Maps API'],
+      demo: 'https://play.google.com/store',
+      github: '#',
+      category: 'mobile',
+      icon: <Smartphone className="h-5 w-5 text-blue-400" />
+    },
+    {
       title: t('portfolio.projects.mobileApp.title'),
       description: t('portfolio.projects.mobileApp.description'),
       image: 'https://i.ibb.co/VMm7Nz2/mamanapp.jpg',
@@ -37,7 +57,7 @@ const Portfolio = () => {
       demo: 'https://play.google.com/store/apps/details?id=com.dev.remed&hl=en',
       github: 'https://github.com/ihebchebbi1998tn/remedapp',
       category: 'ai',
-      icon: <Cpu className="h-5 w-5 text-purple-400" />
+      icon: <Cpu className="h-5 w-5 text-blue-400" />
     },
     {
       title: t('portfolio.projects.remedProject.title'),
@@ -47,7 +67,7 @@ const Portfolio = () => {
       demo: 'https://www.s-reg.tn/',
       github: '#',
       category: 'web',
-      icon: <Globe className="h-5 w-5 text-green-400" />
+      icon: <Globe className="h-5 w-5 text-blue-400" />
     },
     {
       title: t('portfolio.projects.gymWebsite.title'),
@@ -57,7 +77,7 @@ const Portfolio = () => {
       demo: 'https://talelgym.tn/',
       github: '#',
       category: 'web',
-      icon: <Layout className="h-5 w-5 text-green-400" />
+      icon: <Layout className="h-5 w-5 text-blue-400" />
     },
     {
       title: t('portfolio.projects.rhApp.title'),
@@ -67,7 +87,7 @@ const Portfolio = () => {
       demo: '#',
       github: 'https://github.com/ihebchebbi1998tn/Bornerh',
       category: 'web',
-      icon: <Code className="h-5 w-5 text-green-400" />
+      icon: <Code className="h-5 w-5 text-blue-400" />
     }
   ];
 

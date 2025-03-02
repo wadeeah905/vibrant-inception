@@ -8,6 +8,24 @@ const RecentProjectsPreview = () => {
 
   const recentProjects = [
     {
+      title: "Tazart Website",
+      description: "A beautiful modern website that helped my client appear professional and have a cool digital presence",
+      image: 'https://i.ibb.co/VMm7Nz2/mamanapp.jpg',
+      tags: ['React', 'Tailwind CSS', 'NextJS'],
+      demo: 'https://tazart.com',
+      github: '#',
+      icon: <Layout className="h-4 w-4 text-blue-400" />
+    },
+    {
+      title: "Dishit Mobile App",
+      description: "Mobile application that helps connect people in need with food donations",
+      image: 'https://i.ibb.co/LNZ5srZ/remedapp.jpg',
+      tags: ['React Native', 'Firebase', 'Google Maps API'],
+      demo: 'https://play.google.com/store',
+      github: '#',
+      icon: <Smartphone className="h-4 w-4 text-blue-400" />
+    },
+    {
       title: t('portfolio.projects.mobileApp.title'),
       description: t('portfolio.projects.mobileApp.description'),
       image: 'https://i.ibb.co/VMm7Nz2/mamanapp.jpg',
@@ -23,7 +41,7 @@ const RecentProjectsPreview = () => {
       tags: ['React', 'Node.js', 'Wordpress'],
       demo: 'https://draminesaid.com/',
       github: '#',
-      icon: <Layout className="h-4 w-4 text-green-500" />
+      icon: <Layout className="h-4 w-4 text-blue-400" />
     },
     {
       title: t('portfolio.projects.aiApp.title'),
@@ -32,7 +50,7 @@ const RecentProjectsPreview = () => {
       tags: ['React Native', 'Node.js', 'MySQL', 'AI'],
       demo: 'https://play.google.com/store/apps/details?id=com.dev.remed&hl=en',
       github: 'https://github.com/ihebchebbi1998tn/remedapp',
-      icon: <Cpu className="h-4 w-4 text-purple-500" />
+      icon: <Cpu className="h-4 w-4 text-blue-400" />
     }
   ];
 
@@ -44,7 +62,7 @@ const RecentProjectsPreview = () => {
       </div>
       
       <div className="grid gap-4">
-        {recentProjects.map((project, index) => (
+        {recentProjects.slice(0, 3).map((project, index) => (
           <motion.div
             key={project.title}
             initial={{ opacity: 0, y: 10 }}

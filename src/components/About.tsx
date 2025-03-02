@@ -1,6 +1,6 @@
 
 import { useTranslation } from 'react-i18next';
-import { Brain, Code, Globe, Sparkles, Award, Briefcase, UserCircle, Cpu, BarChart, Server } from 'lucide-react';
+import { Brain, Code, Globe, Sparkles, Award, Briefcase, UserCircle, Cpu, BarChart, Server, Users } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const About = () => {
@@ -21,10 +21,10 @@ const About = () => {
   
   const categoryIcons = {
     Frontend: <Code className="h-5 w-5 text-blue-400" />,
-    Backend: <Server className="h-5 w-5 text-green-400" />,
-    AI: <Brain className="h-5 w-5 text-purple-400" />,
-    DevOps: <Globe className="h-5 w-5 text-orange-400" />,
-    Design: <BarChart className="h-5 w-5 text-pink-400" />
+    Backend: <Server className="h-5 w-5 text-blue-400" />,
+    AI: <Brain className="h-5 w-5 text-blue-400" />,
+    DevOps: <Globe className="h-5 w-5 text-blue-400" />,
+    Design: <BarChart className="h-5 w-5 text-blue-400" />
   };
 
   return (
@@ -80,9 +80,9 @@ const About = () => {
             <div className="grid grid-cols-2 gap-4">
               {[
                 { icon: Code, label: t('about.stats.cleanCode'), value: '2000+', color: 'blue' },
-                { icon: Briefcase, label: t('about.stats.projects'), value: '30+', color: 'cyan' },
-                { icon: Cpu, label: t('about.stats.aiModels'), value: '2+', color: 'purple' },
-                { icon: Sparkles, label: t('about.stats.happyClients'), value: '25+', color: 'amber' }
+                { icon: Briefcase, label: t('about.stats.projects'), value: '30+', color: 'blue' },
+                { icon: Award, label: t('about.stats.aiModels'), value: '2+', color: 'blue' },
+                { icon: Users, label: t('about.stats.happyClients'), value: '25+', color: 'blue' }
               ].map((stat, index) => (
                 <motion.div
                   key={stat.label}
@@ -92,8 +92,8 @@ const About = () => {
                   whileHover={{ y: -5, transition: { duration: 0.2 } }}
                   className="p-4 rounded-xl bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 hover:border-blue-500/50 transition-all duration-300"
                 >
-                  <div className={`p-2 rounded-lg bg-${stat.color}-500/20 inline-block mb-3`}>
-                    <stat.icon className={`h-6 w-6 text-${stat.color}-400`} />
+                  <div className="p-2 rounded-lg bg-blue-500/20 inline-block mb-3">
+                    <stat.icon className="h-6 w-6 text-blue-400" />
                   </div>
                   <div className="font-bold text-white text-xl">{stat.value}</div>
                   <div className="text-sm text-gray-400">{stat.label}</div>
@@ -136,7 +136,7 @@ const About = () => {
                         </div>
                         <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
                           <motion.div
-                            className={`h-full bg-gradient-to-r from-blue-500 to-cyan-400`}
+                            className="h-full bg-gradient-to-r from-blue-500 to-cyan-400"
                             initial={{ width: 0 }}
                             animate={{ width: `${skill.level}%` }}
                             transition={{ duration: 1, delay: 0.2 }}
