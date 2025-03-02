@@ -30,18 +30,20 @@ function App() {
 
   return (
     <Router>
-      <Analytics />
-      {visitorCount && <ViewersNotification />}
-      <Routes>
-        <Route path="/" element={<BlogLayout />}>
-          <Route index element={<Home />} />
-          <Route path="/MinimaxAlgo" element={<BlogPost />} />
-          <Route path="/ScarpHelper" element={<BlogPostScarpHelper />} />
-          <Route path="/AiBattle" element={<BlogPostAiBattle />} />
-          <Route path="/Ai" element={<BlogPostAiBattle />} />
-          <Route path="/ImageClassification" element={<BlogImageClassification />} />
-        </Route>
-      </Routes>
+      <div className="relative overflow-x-hidden">
+        <Analytics />
+        {visitorCount !== null && <ViewersNotification count={visitorCount} />}
+        <Routes>
+          <Route path="/" element={<BlogLayout />}>
+            <Route index element={<Home />} />
+            <Route path="/MinimaxAlgo" element={<BlogPost />} />
+            <Route path="/ScarpHelper" element={<BlogPostScarpHelper />} />
+            <Route path="/AiBattle" element={<BlogPostAiBattle />} />
+            <Route path="/Ai" element={<BlogPostAiBattle />} />
+            <Route path="/ImageClassification" element={<BlogImageClassification />} />
+          </Route>
+        </Routes>
+      </div>
     </Router>
   );
 }

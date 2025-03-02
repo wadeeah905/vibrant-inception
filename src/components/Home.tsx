@@ -29,12 +29,18 @@ const Home = () => {
 
   // Render main content once loading is complete
   return (
-    <div className="bg-gray-900 min-h-screen">
-      <Hero />
-      <About />
-      <Portfolio />
-      <Services />
-      <Contact />
+    <div className="relative bg-gray-900 min-h-screen">
+      {/* Background grid pattern for depth */}
+      <div className="fixed inset-0 bg-[radial-gradient(#1e3a8a_1px,transparent_1px)] bg-[size:40px_40px] opacity-20 pointer-events-none"></div>
+      
+      {/* Content sections */}
+      <div className="relative z-10">
+        <Hero />
+        <About />
+        <Portfolio />
+        <Services />
+        <Contact />
+      </div>
     </div>
   );
 };
