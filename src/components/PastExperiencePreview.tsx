@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Briefcase, Download, Calendar, Award } from 'lucide-react';
+import { Briefcase, Download, Calendar } from 'lucide-react';
 import { pastExperience } from '../types/experience';
 import { pastExperiencear } from '../types/experiencear';
 import { pastExperiencede } from '../types/experiencede';

@@ -6,6 +6,8 @@ import ChatAssistant from './ChatAssistant';
 
 const BlogLayout = () => {
   const location = useLocation();
+  
+  console.log("Current location:", location.pathname);
 
   return (
     <div className="min-h-screen bg-gray-900">

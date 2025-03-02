@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ExternalLink, Github, Briefcase, Award, Code } from 'lucide-react';
+import { ExternalLink, Github, Briefcase, Award, Code, Smartphone, Cpu, Globe, Layout } from 'lucide-react';
 import { motion } from 'framer-motion';
 import LoadingScreen from './LoadingScreen';
 import { Card, CardContent } from './ui/card';

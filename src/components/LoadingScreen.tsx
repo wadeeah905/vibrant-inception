@@ -7,6 +7,7 @@ const LoadingScreen = () => {
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-50 flex items-center justify-center bg-gray-900"
+      transition={{ duration: 0.5 }}
     >
       <div className="relative">
         <div className="h-24 w-24">
