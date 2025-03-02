@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Hero from './Hero';
 import About from './About';
 import Portfolio from './Portfolio';
@@ -22,13 +22,13 @@ const Home = () => {
   }
 
   return (
-    <>
+    <div className="bg-gray-900">
       <Hero />
       <About />
       <Portfolio />
       <Services />
       <Contact />
-    </>
+    </div>
   );
 };
 

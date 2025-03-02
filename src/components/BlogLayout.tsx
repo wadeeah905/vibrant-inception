@@ -1,6 +1,6 @@
 
 import { Outlet, useLocation } from 'react-router-dom';
-import Navbar from './Navbar';  // Assuming this is your standard Navbar
+import Navbar from './Navbar';
 import Navbarblog from './Navbarblog';
 import ChatAssistant from './ChatAssistant';
 

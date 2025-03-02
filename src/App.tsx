@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import BlogLayout from './components/BlogLayout';
@@ -30,7 +31,7 @@ function App() {
   return (
     <Router>
       <Analytics />
-      <ViewersNotification/>
+      {visitorCount && <ViewersNotification />}
       <Routes>
         <Route path="/" element={<BlogLayout />}>
           <Route index element={<Home />} />
