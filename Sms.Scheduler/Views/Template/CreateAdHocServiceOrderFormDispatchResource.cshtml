@@ -1,0 +1,17 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<!-- ko if: typeof(technicians) != "undefined" -->
+<fieldset data-bind="with: dispatch">
+	<legend class="p-t-25 m-b-25 c-black b-0 f-500 f-14">
+		@(Html.Localize("Technician"))
+	</legend>
+	<div class="form-group animated fadeIn" >
+		<form-element id="Technician" params="value: Username, caption: 'Technician', type: 'select'">
+			<select name="Technician" class="form-control" data-bind="select2autocompleter: { data: $root.technicians(), optionsText: Helper.User.getDisplayName, optionsValue: 'Id' }, value: value">
+			</select>
+		</form-element>
+	</div>
+</fieldset>
+<!-- /ko -->
