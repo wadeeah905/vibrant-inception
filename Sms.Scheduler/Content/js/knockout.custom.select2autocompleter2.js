@@ -1,3 +1,4 @@
+
 ; (function (ko) {
 	ko.bindingHandlers.select2autocompleter2 = {
 
@@ -98,8 +99,8 @@
 			var options = ko.unwrap(valueAccessor());
 			var parameters = options.autocompleteOptions;
 
-			// Add hint text under the select element
-			var $hintText = $('<small class="text-muted">@(Html.Localize("TipMultipleItems"))</small>');
+			// Create hint text element but initially hide it
+			var $hintText = $('<small class="text-muted select2-hint" style="display:none;">' + window.Helper.String.getTranslatedString("TipMultipleItems") + '</small>');
 			$(element).after($hintText);
 
 			if (!parameters) {
@@ -316,7 +317,8 @@
 							debounce = setTimeout(later, 500);
 						}
 					} : undefined,
-					width: "100%"
+					width: "100%",
+					closeOnSelect: false // Prevent closing on single select and keep it open for multiple selections
 				});
 			}
 			var select2 = $(element).data("select2");
@@ -370,7 +372,10 @@
 			}
 			//#endregion
 
+			// Add event handlers to show and hide the hint text when the dropdown opens and closes
 			$(element).on('select2:open', function () {
+				$hintText.show();
+				
 				if (window.Modernizr && window.Modernizr.touch) {
 					$('.select2-container').click(function (e) {
 						var searchField = $(e.currentTarget).find('input.select2-search__field');
@@ -378,10 +383,13 @@
 							searchField.focus();
 						}
 					});
-
 				}
-
 			});
+			
+			$(element).on('select2:close', function () {
+				$hintText.hide();
+			});
+
 			select2.on('results:all', function (params) {
 				if (params && params.data.hasError) {
 					this.trigger('results:message', {
@@ -406,20 +414,26 @@
 
 					this.$results.prepend($loading);
 				}
-
 			});
+			
+			// Modify keypress handler to only close on Tab for single select elements
 			var keypress = select2.listeners.keypress[1];
 			if (keypress) {
 				select2.listeners.keypress[1] = function (evt) {
 					var key = evt.which;
 					var tabKeyCode = 9;
+					var isMultipleSelect = $(element).prop('multiple');
+					
 					if (key === tabKeyCode) {
 						select2.close();
+					} else if (key === 13 && !isMultipleSelect) { // Only close on Enter for single select
+						keypress.apply(this, arguments);
 					} else {
 						keypress.apply(this, arguments);
 					}
 				};
 			}
+			
 			$(element).parent().on('focus', '.select2-selection.select2-selection--single', function (e) {
 				$(this).closest(".select2-container").siblings('select:enabled').select2('open');
 			});
