@@ -1,4 +1,3 @@
-
 ; (function (ko) {
 	ko.bindingHandlers.select2autocompleter2 = {
 
@@ -99,9 +98,9 @@
 			var options = ko.unwrap(valueAccessor());
 			var parameters = options.autocompleteOptions;
 
-			// Create hint text element but initially hide it
+			// Create hint text element and position it before the select element
 			var $hintText = $('<small class="text-muted select2-hint" style="display:none;">' + window.Helper.String.getTranslatedString("TipMultipleItems") + '</small>');
-			$(element).after($hintText);
+			$(element).before($hintText);
 
 			if (!parameters) {
 				var data = $.map(ko.unwrap(options.data),
