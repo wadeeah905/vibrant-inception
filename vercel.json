@@ -1,10 +1,13 @@
+
 {
-    "redirects": [
-      {
-        "source": "/events/:slug",
-        "destination": "https://www.vilartprod.com/events/:slug",
-        "permanent": true
-      }
-    ]
-  }
-  
+  "redirects": [
+    {
+      "source": "/events/:slug",
+      "destination": "https://www.vilartprod.com/events/:slug",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
