@@ -1,0 +1,94 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-[#222222] text-[#F6F6F7] font-sans;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-[#222222];
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-[#8E9196] rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-[#9F9EA1];
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom animations */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  animation: gradient 15s ease infinite;
+  background-size: 200% 200%;
+}
+
+.gold-glow {
+  box-shadow: 0 0 30px rgba(245, 158, 11, 0.3);
+}
+
+.gold-text-shadow {
+  text-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+}
+
+.luxury-card {
+  background: linear-gradient(135deg, rgba(34, 34, 34, 0.9) 0%, rgba(40, 40, 40, 0.95) 100%);
+  border: 1px solid rgba(142, 145, 150, 0.2);
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(142, 145, 150, 0.1);
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(245, 158, 11, 0.1) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
+}
+
+.font-playfair {
+  font-family: 'Playfair Display', serif;
+}
