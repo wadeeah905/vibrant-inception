@@ -156,7 +156,7 @@ const EventDetail = () => {
         <div className="text-center">
           <h1 className="text-3xl font-bold text-white mb-4">Événement non trouvé</h1>
           <button 
-            onClick={() => navigate('/vilart-events')}
+            onClick={() => navigate('/events')}
             className="px-4 py-2 bg-gold-500 text-black rounded-md hover:bg-gold-600 transition-colors"
           >
             Retour aux événements
@@ -174,7 +174,7 @@ const EventDetail = () => {
       exit={{ opacity: 0 }}
     >
       <div className="container mx-auto py-12 px-4">
-        <button onClick={() => navigate('/vilart-events')} className="flex items-center mb-6 hover:text-gold-400 transition-colors">
+        <button onClick={() => navigate('/events')} className="flex items-center mb-6 hover:text-gold-400 transition-colors">
           <ArrowLeft className="mr-2" /> Retour aux événements
         </button>
 
