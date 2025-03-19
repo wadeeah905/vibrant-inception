@@ -30,8 +30,8 @@ const ProductCard = ({ product, onSelect }: ProductCardProps) => {
         return "/produits/toujanevracicon.png";
       }
       
-      // Special case for Figues Séchées 200g
-      if (product.id === '9' && product.title === 'Figues Séchées 200g') {
+      // Special case for Figues ZIDI 200g
+      if (product.id === '9' && product.title === 'Figues ZIDI 200g') {
         return "/produits/figuesechesicon.png";
       }
       
@@ -72,8 +72,8 @@ const ProductCard = ({ product, onSelect }: ProductCardProps) => {
         return true;
       }
       
-      // Badge for Figues Séchées 200g and Figues Toujane 200g
-      return (product.id === '9' && product.title === 'Figues Séchées 200g') || 
+      // Badge for Figues ZIDI 200g and Figues Toujane 200g
+      return (product.id === '9' && product.title === 'Figues ZIDI 200g') || 
              (product.id === '14' && product.title === 'Figues Toujane 200g');
     }
     
