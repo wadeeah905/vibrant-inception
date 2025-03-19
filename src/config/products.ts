@@ -860,4 +860,7 @@ export const PRODUCTS: Product[] = [
       per: '100g'
     },
     ingredients: [
-      'Noyaux de dattes Deglet Nour torréfiés et finement moulus (100%)',
+      'Noyaux de dattes Deglet Nour torréfiés et finement moulus (100%)'
+    ]
+  }
+];

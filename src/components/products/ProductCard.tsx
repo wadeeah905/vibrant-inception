@@ -24,7 +24,7 @@ const ProductCard = ({ product, onSelect }: ProductCardProps) => {
 
   // Function to determine which badge image to show based on the product category
   const getBadgeImage = () => {
-    if (product.category === 'figues-sechees' as any) {
+    if (product.category === 'figues-sechees') {
       // Special case for Figues Toujane
       if (product.id === '14' && product.title === 'Figues Toujane 200g') {
         return "/produits/toujanevracicon.png";
@@ -47,11 +47,11 @@ const ProductCard = ({ product, onSelect }: ProductCardProps) => {
       
       // Default case for other figue products
       return "/produits/figuesechesicon.png";
-    } else if (product.category === 'sucre-dattes' as any) {
+    } else if (product.category === 'sucre-dattes') {
       return "/produits/sucredatteicon.png";
-    } else if (product.category === 'cafe-dattes' as any) {
+    } else if (product.category === 'cafe-dattes') {
       return "/produits/caffeicon.png";
-    } else if (product.category === 'sirop-dattes' as any) { 
+    } else if (product.category === 'sirop-dattes') { 
       return "/produits/dattesicon.png";   
     }
     
@@ -61,7 +61,7 @@ const ProductCard = ({ product, onSelect }: ProductCardProps) => {
   // Determine if the product should show a badge
   const shouldShowBadge = () => {
     // Specific checks for figue products
-    if (product.category === 'figues-sechees' as any) {
+    if (product.category === 'figues-sechees') {
       // No badge for Figues Séchées en Vrac
       if (product.id === '10' && product.title === 'Figues Séchées en Vrac') {
         return false;
@@ -78,7 +78,7 @@ const ProductCard = ({ product, onSelect }: ProductCardProps) => {
     }
     
     // Regular check for other categories
-    return ['sucre-dattes', 'cafe-dattes', 'sirop-dattes'].includes(product.category as string);
+    return ['sucre-dattes', 'cafe-dattes', 'sirop-dattes'].includes(product.category);
   };
 
   // Animation variants for the badge - updated for better positioning
