@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { 
   MapPin, Clock, Calendar, User, Plus, ArrowLeft, 
   Settings, Trash2, Search, 
-  QrCode, History, Navigation, Navigation2, Circle, CircleDot
+  QrCode, History, Navigation2, Circle, CircleDot
 } from 'lucide-react';
 import { MapContainer, TileLayer, Marker, Popup, Polyline, CircleMarker } from 'react-leaflet';
-import { Icon } from 'leaflet';
+import { Icon, DivIcon } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useTheme } from '../../contexts/ThemeContext';
 import { getThemeClasses, getButtonClasses } from '../../config/theme';
@@ -222,6 +222,19 @@ function MapComponent({
   const positions = points.map(point => point.position);
   const agentRoutePositions = agentRouteHistory.map(point => point.position);
 
+  const completeCircularPath = positions.length >= 2 ? 
+    [...positions, positions[0]] : positions;
+
+  const createNumberedIcon = (index: number) => {
+    return new DivIcon({
+      className: 'custom-div-icon',
+      html: `<div style="background-color: #3b82f6; color: white; font-weight: bold; padding: 3px 8px; border-radius: 50%; border: 2px solid white; display: flex; align-items: center; justify-content: center;">${index + 1}</div>`,
+      iconSize: [30, 30],
+      iconAnchor: [15, 15],
+      popupAnchor: [0, -20],
+    });
+  };
+
   return (
     <>
       <MapContainer
@@ -255,14 +268,14 @@ function MapComponent({
           <Marker
             key={point.id}
             position={point.position}
-            icon={customIcon}
+            icon={createNumberedIcon(index)}
             eventHandlers={{
               click: () => !readOnly && setSelectedPoint(point)
             }}
           >
             <Popup>
               <div className={getThemeClasses(theme, 'text')}>
-                {point.name}
+                <strong className="font-bold">Point {index + 1}: {point.name}</strong>
                 {!readOnly && (
                   <span className={`text-sm ${getThemeClasses(theme, 'textSecondary')} block`}>
                     Point {index + 1} sur {points.length}
@@ -287,7 +300,7 @@ function MapComponent({
 
         {positions.length > 1 && (
           <Polyline 
-            positions={positions}
+            positions={completeCircularPath}
             color="#0ea5e9"
             weight={3}
             opacity={0.8}
@@ -297,9 +310,9 @@ function MapComponent({
         {agentRouteHistory.length > 0 && (
           <>
             <Polyline 
-              positions={agentRoutePositions}
+              positions={agentRouteHistory.length > 1 ? [...agentRoutePositions, agentRoutePositions[0]] : agentRoutePositions}
               color="#10b981"
-              weight={3}
+              weight={4}
               opacity={0.8}
               dashArray="5, 10"
             />
@@ -317,7 +330,7 @@ function MapComponent({
                 <Popup>
                   <div className={getThemeClasses(theme, 'text')}>
                     <p className="font-medium">
-                      {point.type === 'checkpoint' ? 'Point de contrôle validé' : 'Point intermédiaire'}
+                      {point.type === 'checkpoint' ? `Point de contrôle ${index + 1} validé` : 'Point intermédiaire'}
                     </p>
                     <p className={`text-sm ${getThemeClasses(theme, 'textSecondary')}`}>
                       Heure: {new Date(point.timestamp).toLocaleTimeString()}
@@ -607,11 +620,14 @@ export default function RoundsMap() {
                     </div>
                     <div className="flex-1">
                       <p className={`font-medium ${point.type === 'checkpoint' ? 'text-emerald-600 dark:text-emerald-400' : getThemeClasses(theme, 'textSecondary')}`}>
-                        {point.type === 'checkpoint' ? 'Point de contrôle validé' : 'Déplacement'}
+                        {point.type === 'checkpoint' ? `Point de contrôle ${index + 1} validé` : 'Déplacement'}
                       </p>
                       <p className={`text-sm ${getThemeClasses(theme, 'textSecondary')}`}>
                         {new Date(point.timestamp).toLocaleTimeString()} - 
                         Coordonnées: {point.position[0].toFixed(6)}, {point.position[1].toFixed(6)}
+                      </p>
+                      <p className={`text-sm ${getThemeClasses(theme, 'textSecondary')}`}>
+                        {point.type === 'checkpoint' && <span className="text-emerald-500">Temps de complétion: 3 minutes</span>}
                       </p>
                     </div>
                   </div>

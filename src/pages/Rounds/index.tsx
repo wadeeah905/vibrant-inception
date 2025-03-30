@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Routes, Route, useNavigate, Outlet, useLocation } from 'react-router-dom';
+import { useNavigate, Outlet, useLocation } from 'react-router-dom';
 import { MapPin, History } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { getThemeClasses } from '../../config/theme';
