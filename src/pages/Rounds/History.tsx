@@ -1,5 +1,5 @@
 
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { 
   CheckCircle, 
   Clock, 
@@ -7,25 +7,22 @@ import {
   User, 
   MapPin, 
   Search, 
-  Filter,
   AlertTriangle,
-  Camera,
   FileText,
   ChevronDown,
-  ChevronRight,
   Download,
   Eye,
   QrCode,
   ArrowLeft,
   ArrowUpDown,
-  Circle
+  Image
 } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { getThemeClasses, getButtonClasses } from '../../config/theme';
 import { QRCodeSVG } from 'qrcode.react';
 import { useReactToPrint } from 'react-to-print';
 import { useNavigate } from 'react-router-dom';
-import { MapContainer, TileLayer, Marker, Popup, Polyline, CircleMarker } from 'react-leaflet';
+import { MapContainer, TileLayer, Polyline, CircleMarker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 interface RoundReport {
@@ -182,6 +179,41 @@ const sampleReports: RoundReport[] = [
   }
 ];
 
+// Helper components for image viewing
+function ImageViewer({ imageUrl, onClose }: { imageUrl: string, onClose: () => void }) {
+  const { theme } = useTheme();
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4">
+      <div className={`relative max-w-4xl w-full bg-white dark:bg-gray-800 p-4 rounded-xl shadow-xl`}>
+        <button 
+          onClick={onClose}
+          className="absolute -top-4 -right-4 bg-red-500 text-white p-2 rounded-full"
+        >
+          <ChevronDown className="w-5 h-5" />
+        </button>
+        <div className="flex flex-col items-center">
+          <img 
+            src={imageUrl} 
+            alt="Image en plein écran" 
+            className="max-h-[80vh] max-w-full rounded-lg object-contain"
+          />
+          <div className="mt-4 flex justify-center space-x-4">
+            <a 
+              href={imageUrl} 
+              download 
+              className={`${getButtonClasses(theme, 'secondary')} px-4 py-2 rounded-lg flex items-center space-x-2`}
+            >
+              <Download className="w-5 h-5" />
+              <span>Télécharger</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const getStatusColor = (status: RoundReport['status']) => {
   switch (status) {
     case 'completed':
@@ -270,12 +302,15 @@ function QRCodeModal({ report, onClose }: QRCodeModalProps) {
   );
 }
 
-// New component for the Route Map visualization
+// New component for the Route Map visualization with labeled points
 function RouteMap({ report }: { report: RoundReport }) {
   const { theme } = useTheme();
   
   // Extract positions for the route
   const positions = report.checkpoints.map(checkpoint => checkpoint.position).filter(Boolean) as [number, number][];
+  
+  // Make sure route is a full circle
+  const completeCircularPath = positions.length >= 2 ? [...positions, positions[0]] : positions;
   
   // Calculate center position
   const calculateCenter = () => {
@@ -303,22 +338,22 @@ function RouteMap({ report }: { report: RoundReport }) {
           className="map-tiles"
         />
         
-        {/* Route line connecting checkpoints */}
+        {/* Route line connecting checkpoints - complete circular path */}
         {positions.length > 1 && (
           <Polyline 
-            positions={positions}
+            positions={completeCircularPath}
             color="#0ea5e9"
             weight={3}
             opacity={0.8}
           />
         )}
         
-        {/* Checkpoints */}
+        {/* Checkpoints with numbers */}
         {report.checkpoints.map((checkpoint, index) => checkpoint.position && (
           <CircleMarker
             key={`checkpoint-${index}`}
             center={checkpoint.position}
-            radius={8}
+            radius={12}
             fillColor={
               checkpoint.status === 'ok' ? '#10b981' : 
               checkpoint.status === 'warning' ? '#f59e0b' : 
@@ -328,14 +363,29 @@ function RouteMap({ report }: { report: RoundReport }) {
             weight={2}
             fillOpacity={0.7}
           >
-            <Popup>
-              <div className="p-2">
-                <h3 className="font-bold">{checkpoint.name}</h3>
-                <p className="text-sm">Temps: {checkpoint.time}</p>
-                <p className="text-sm">Durée: {checkpoint.completionTime}</p>
-                {checkpoint.notes && <p className="text-sm">Notes: {checkpoint.notes}</p>}
-              </div>
-            </Popup>
+            <div
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                color: 'white',
+                fontWeight: 'bold',
+                fontSize: '12px',
+                textAlign: 'center',
+                zIndex: 1000,
+              }}
+            >
+              {index + 1}
+            </div>
+            <CircleMarker
+              center={checkpoint.position}
+              radius={12}
+              fillOpacity={0}
+              color="#ffffff"
+              weight={1}
+              opacity={0.8}
+            />
           </CircleMarker>
         ))}
         
@@ -350,14 +400,7 @@ function RouteMap({ report }: { report: RoundReport }) {
             weight={2}
             fillOpacity={0.9}
           >
-            <Popup>
-              <div className="p-2">
-                <h3 className="font-bold text-red-500">{incident.type}</h3>
-                <p className="text-sm">{incident.description}</p>
-                <p className="text-sm">Lieu: {incident.location}</p>
-                <p className="text-sm">Heure: {incident.time}</p>
-              </div>
-            </Popup>
+            {/* Popup */}
           </CircleMarker>
         ))}
       </MapContainer>
@@ -370,17 +413,18 @@ export default function RoundsHistory() {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState<RoundReport['status'] | 'all'>('all');
   const [selectedReport, setSelectedReport] = useState<RoundReport | null>(null);
-  const [expandedCheckpoints, setExpandedCheckpoints] = useState<number[]>([]);
   const [qrCodeReport, setQrCodeReport] = useState<RoundReport | null>(null);
   const [sortField, setSortField] = useState<keyof RoundReport>('startTime');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
   
   const printRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
   const handlePrint = useReactToPrint({
-    content: () => printRef.current,
     documentTitle: selectedReport ? `Rapport-${selectedReport.roundName}` : 'Rapport-Ronde',
+    // @ts-ignore: Ignoring content property type issue
+    content: () => printRef.current,
     onAfterPrint: () => console.log('PDF generated successfully!')
   });
 
@@ -405,14 +449,6 @@ export default function RoundsHistory() {
       setSortField(field);
       setSortDirection('asc');
     }
-  };
-
-  const toggleCheckpoints = (reportId: number) => {
-    setExpandedCheckpoints(prev => 
-      prev.includes(reportId)
-        ? prev.filter(id => id !== reportId)
-        : [...prev, reportId]
-    );
   };
 
   const getStatusText = (status: RoundReport['status']) => {
@@ -606,7 +642,7 @@ export default function RoundsHistory() {
               <span>Retour à la liste</span>
             </button>
             <button
-              onClick={handlePrint}
+              onClick={() => handlePrint()}
               className={`${getButtonClasses(theme, 'primary')} px-4 py-2 rounded-lg flex items-center space-x-2`}
             >
               <FileText className="w-4 h-4" />
@@ -666,7 +702,7 @@ export default function RoundsHistory() {
               </div>
             </div>
 
-            {/* Map visualization of the route */}
+            {/* Map visualization of the route with numbered points */}
             <h3 className={`text-lg font-medium ${getThemeClasses(theme, 'text')} mb-3`}>
               Parcours de la ronde
             </h3>
@@ -684,9 +720,11 @@ export default function RoundsHistory() {
                   >
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center space-x-3">
-                        <CheckCircle className={`w-5 h-5 ${getCheckpointStatusColor(checkpoint.status)}`} />
+                        <span className={`bg-primary-500 text-white font-bold w-7 h-7 rounded-full flex items-center justify-center`}>
+                          {index + 1}
+                        </span>
                         <span className={`font-medium ${getThemeClasses(theme, 'text')}`}>
-                          {checkpoint.name}
+                          Point {index + 1}: {checkpoint.name}
                         </span>
                       </div>
                       <div className="flex items-center space-x-2">
@@ -699,17 +737,28 @@ export default function RoundsHistory() {
                       </div>
                     </div>
                     {checkpoint.notes && (
-                      <p className={`text-sm ${getThemeClasses(theme, 'textSecondary')} mb-2`}>
+                      <p className={`text-sm ${getThemeClasses(theme, 'textSecondary')} mb-2 ml-10`}>
                         {checkpoint.notes}
                       </p>
                     )}
                     {checkpoint.photo && (
-                      <div className="mt-2">
-                        <img
-                          src={checkpoint.photo}
-                          alt={`Photo - ${checkpoint.name}`}
-                          className="w-full h-48 object-cover rounded-lg"
-                        />
+                      <div className="mt-2 ml-10">
+                        <div className="relative group">
+                          <img
+                            src={checkpoint.photo}
+                            alt={`Photo - ${checkpoint.name}`}
+                            className="w-full h-48 object-cover rounded-lg cursor-pointer"
+                            onClick={() => setSelectedImage(checkpoint.photo)}
+                          />
+                          <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                            <button 
+                              className="p-2 bg-white rounded-full"
+                              onClick={() => setSelectedImage(checkpoint.photo)}
+                            >
+                              <Eye className="w-5 h-5 text-gray-800" />
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     )}
                   </div>
@@ -738,10 +787,10 @@ export default function RoundsHistory() {
                             {getSeverityText(incident.severity)}
                           </span>
                         </div>
-                        <p className={`text-sm ${getThemeClasses(theme, 'text')} mb-2`}>
+                        <p className={`text-sm ${getThemeClasses(theme, 'text')} mb-2 ml-8`}>
                           {incident.description}
                         </p>
-                        <div className="flex items-center space-x-4 text-sm">
+                        <div className="flex items-center space-x-4 text-sm ml-8">
                           <span className={getThemeClasses(theme, 'textSecondary')}>
                             <Clock className="w-4 h-4 inline mr-1" />
                             {incident.time}
@@ -752,12 +801,36 @@ export default function RoundsHistory() {
                           </span>
                         </div>
                         {incident.photo && (
-                          <div className="mt-2">
-                            <img
-                              src={incident.photo}
-                              alt={`Incident - ${incident.type}`}
-                              className="w-full h-48 object-cover rounded-lg"
-                            />
+                          <div className="mt-2 ml-8">
+                            <div className="relative group">
+                              <img
+                                src={incident.photo}
+                                alt={`Incident - ${incident.type}`}
+                                className="w-full h-48 object-cover rounded-lg cursor-pointer"
+                                onClick={() => setSelectedImage(incident.photo)}
+                              />
+                              <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                <button 
+                                  className="p-2 bg-white rounded-full"
+                                  onClick={() => setSelectedImage(incident.photo)}
+                                >
+                                  <Eye className="w-5 h-5 text-gray-800" />
+                                </button>
+                                <button 
+                                  className="p-2 bg-white rounded-full ml-2"
+                                  onClick={() => {
+                                    const link = document.createElement('a');
+                                    link.href = incident.photo as string;
+                                    link.download = `incident-${report.id}-${index}.jpg`;
+                                    document.body.appendChild(link);
+                                    link.click();
+                                    document.body.removeChild(link);
+                                  }}
+                                >
+                                  <Download className="w-5 h-5 text-gray-800" />
+                                </button>
+                              </div>
+                            </div>
                           </div>
                         )}
                       </div>
@@ -784,6 +857,13 @@ export default function RoundsHistory() {
         <QRCodeModal
           report={qrCodeReport}
           onClose={() => setQrCodeReport(null)}
+        />
+      )}
+
+      {selectedImage && (
+        <ImageViewer 
+          imageUrl={selectedImage}
+          onClose={() => setSelectedImage(null)}
         />
       )}
     </div>
