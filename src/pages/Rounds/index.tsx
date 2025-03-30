@@ -18,7 +18,7 @@ export default function Rounds() {
     navigate(view === 'map' ? '/rounds' : '/rounds/history');
   };
 
-  // If we're on the history page, don't show the view toggle
+  // Don't show view toggle if we're on the history page
   const isHistoryPage = location.pathname.includes('history');
 
   return (

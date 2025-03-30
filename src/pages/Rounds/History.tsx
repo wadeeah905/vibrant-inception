@@ -14,15 +14,14 @@ import {
   Eye,
   QrCode,
   ArrowLeft,
-  ArrowUpDown,
-  Image
+  ArrowUpDown
 } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { getThemeClasses, getButtonClasses } from '../../config/theme';
 import { QRCodeSVG } from 'qrcode.react';
 import { useReactToPrint } from 'react-to-print';
 import { useNavigate } from 'react-router-dom';
-import { MapContainer, TileLayer, Polyline, CircleMarker } from 'react-leaflet';
+import { MapContainer, TileLayer, Polyline, CircleMarker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 interface RoundReport {
@@ -70,7 +69,7 @@ const sampleReports: RoundReport[] = [
     status: "completed",
     checkpoints: [
       {
-        name: "Entrée principale",
+        name: "Point 1: Entrée principale",
         time: "08:15:00",
         status: "ok",
         photo: "https://images.unsplash.com/photo-1590674899484-d5640e854abe?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
@@ -79,7 +78,7 @@ const sampleReports: RoundReport[] = [
         completionTime: "5 minutes"
       },
       {
-        name: "Zone de stockage A",
+        name: "Point 2: Zone de stockage A",
         time: "08:45:00",
         status: "ok",
         notes: "Inventaire vérifié",
@@ -101,7 +100,7 @@ const sampleReports: RoundReport[] = [
     status: "incident",
     checkpoints: [
       {
-        name: "Parking visiteurs",
+        name: "Point 1: Parking visiteurs",
         time: "14:15:00",
         status: "ok",
         notes: "RAS",
@@ -109,7 +108,7 @@ const sampleReports: RoundReport[] = [
         completionTime: "4 minutes"
       },
       {
-        name: "Zone sécurisée B",
+        name: "Point 2: Zone sécurisée B",
         time: "14:45:00",
         status: "warning",
         photo: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
@@ -143,7 +142,7 @@ const sampleReports: RoundReport[] = [
     status: "incomplete",
     checkpoints: [
       {
-        name: "Entrée service",
+        name: "Point 1: Entrée service",
         time: "20:15:00",
         status: "error",
         photo: "https://images.unsplash.com/photo-1582139329536-e7284fece509?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
@@ -152,7 +151,7 @@ const sampleReports: RoundReport[] = [
         completionTime: "7 minutes"
       },
       {
-        name: "Escalier principal",
+        name: "Point 2: Escalier principal",
         time: "20:25:00",
         status: "ok",
         notes: "Vérification effectuée",
@@ -160,7 +159,7 @@ const sampleReports: RoundReport[] = [
         completionTime: "3 minutes"
       },
       {
-        name: "Salle de réunion",
+        name: "Point 3: Salle de réunion",
         time: "20:35:00",
         status: "ok",
         notes: "Lumières éteintes, portes fermées",
@@ -168,7 +167,7 @@ const sampleReports: RoundReport[] = [
         completionTime: "5 minutes"
       },
       {
-        name: "Zone d'archives",
+        name: "Point 4: Zone d'archives",
         time: "20:45:00",
         status: "warning",
         notes: "Fenêtre mal fermée",
@@ -184,7 +183,7 @@ function ImageViewer({ imageUrl, onClose }: { imageUrl: string, onClose: () => v
   const { theme } = useTheme();
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4">
+    <div className="fixed inset-0 bg-black bg-opacity-75 z-[9999] flex items-center justify-center p-4">
       <div className={`relative max-w-4xl w-full bg-white dark:bg-gray-800 p-4 rounded-xl shadow-xl`}>
         <button 
           onClick={onClose}
@@ -257,7 +256,7 @@ function QRCodeModal({ report, onClose }: QRCodeModalProps) {
   const qrValue = `ronde:${report.id}:${report.roundName}:${report.completedBy.name}`;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[1000]">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-[9999]">
       <div className={`${getThemeClasses(theme, 'card')} rounded-xl p-6 max-w-md w-full`}>
         <div className="flex justify-between items-center mb-6">
           <h2 className={`text-xl font-semibold ${getThemeClasses(theme, 'text')}`}>
@@ -302,7 +301,7 @@ function QRCodeModal({ report, onClose }: QRCodeModalProps) {
   );
 }
 
-// New component for the Route Map visualization with labeled points
+// Route Map visualization with labeled points
 function RouteMap({ report }: { report: RoundReport }) {
   const { theme } = useTheme();
   
@@ -363,6 +362,16 @@ function RouteMap({ report }: { report: RoundReport }) {
             weight={2}
             fillOpacity={0.7}
           >
+            <Popup>
+              <div className="text-center p-2">
+                <p className="font-bold">{`Point ${index + 1}`}</p>
+                <p>{checkpoint.name.split(': ')[1]}</p>
+                <p>Temps: {checkpoint.completionTime}</p>
+                {checkpoint.notes && <p><small>{checkpoint.notes}</small></p>}
+              </div>
+            </Popup>
+            
+            {/* Number label shown on the marker */}
             <div
               style={{
                 position: 'absolute',
@@ -378,14 +387,6 @@ function RouteMap({ report }: { report: RoundReport }) {
             >
               {index + 1}
             </div>
-            <CircleMarker
-              center={checkpoint.position}
-              radius={12}
-              fillOpacity={0}
-              color="#ffffff"
-              weight={1}
-              opacity={0.8}
-            />
           </CircleMarker>
         ))}
         
@@ -400,7 +401,34 @@ function RouteMap({ report }: { report: RoundReport }) {
             weight={2}
             fillOpacity={0.9}
           >
-            {/* Popup */}
+            <Popup>
+              <div className="p-2">
+                <p className="font-bold text-red-500">Incident</p>
+                <p>{incident.type}</p>
+                <p>{incident.description}</p>
+                <p>Sévérité: {
+                  incident.severity === 'high' ? 'Haute' : 
+                  incident.severity === 'medium' ? 'Moyenne' : 
+                  'Basse'
+                }</p>
+              </div>
+            </Popup>
+            
+            <div
+              style={{
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                color: 'white',
+                fontWeight: 'bold',
+                fontSize: '12px',
+                textAlign: 'center',
+                zIndex: 1000,
+              }}
+            >
+              !
+            </div>
           </CircleMarker>
         ))}
       </MapContainer>
@@ -521,7 +549,7 @@ export default function RoundsHistory() {
             </select>
           </div>
 
-          <div className={`${getThemeClasses(theme, 'card')} rounded-xl p-6 overflow-x-auto`}>
+          <div className={`${getThemeClasses(theme, 'card')} rounded-xl p-6 overflow-x-auto shadow-lg`}>
             <table className="w-full border-collapse">
               <thead>
                 <tr className={`border-b ${getThemeClasses(theme, 'border')}`}>
@@ -650,13 +678,13 @@ export default function RoundsHistory() {
             </button>
           </div>
           
-          <div className={`${getThemeClasses(theme, 'card')} rounded-xl p-6`}>
+          <div className={`${getThemeClasses(theme, 'card')} rounded-xl p-6 shadow-lg`}>
             <div className="flex justify-between items-center mb-6">
               <div className="flex items-center space-x-4">
                 <img
                   src={selectedReport.completedBy.avatar}
                   alt={selectedReport.completedBy.name}
-                  className="w-12 h-12 rounded-full object-cover"
+                  className="w-12 h-12 rounded-full object-cover border-2 border-primary-500"
                 />
                 <div>
                   <h2 className={`text-xl font-bold ${getThemeClasses(theme, 'text')}`}>
@@ -703,10 +731,31 @@ export default function RoundsHistory() {
             </div>
 
             {/* Map visualization of the route with numbered points */}
-            <h3 className={`text-lg font-medium ${getThemeClasses(theme, 'text')} mb-3`}>
-              Parcours de la ronde
-            </h3>
-            <RouteMap report={selectedReport} />
+            <div className={`${getThemeClasses(theme, 'backgroundSecondary')} p-4 rounded-xl mb-6`}>
+              <h3 className={`text-lg font-medium ${getThemeClasses(theme, 'text')} mb-3`}>
+                Parcours de la ronde
+              </h3>
+              <RouteMap report={selectedReport} />
+              <div className="mt-2 text-center text-sm">
+                <div className="flex justify-center gap-4">
+                  <span className="flex items-center">
+                    <span className="inline-block w-3 h-3 rounded-full bg-emerald-500 mr-1"></span>
+                    Point vérifié
+                  </span>
+                  <span className="flex items-center">
+                    <span className="inline-block w-3 h-3 rounded-full bg-yellow-500 mr-1"></span>
+                    Point avec alerte
+                  </span>
+                  <span className="flex items-center">
+                    <span className="inline-block w-3 h-3 rounded-full bg-red-500 mr-1"></span>
+                    Point non vérifié
+                  </span>
+                </div>
+                <p className={`mt-2 ${getThemeClasses(theme, 'textSecondary')}`}>
+                  Cliquez sur les points pour voir les détails
+                </p>
+              </div>
+            </div>
 
             <div className="space-y-4">
               <h3 className={`text-lg font-medium ${getThemeClasses(theme, 'text')}`}>
@@ -724,7 +773,7 @@ export default function RoundsHistory() {
                           {index + 1}
                         </span>
                         <span className={`font-medium ${getThemeClasses(theme, 'text')}`}>
-                          Point {index + 1}: {checkpoint.name}
+                          {checkpoint.name}
                         </span>
                       </div>
                       <div className="flex items-center space-x-2">
@@ -748,15 +797,30 @@ export default function RoundsHistory() {
                             src={checkpoint.photo}
                             alt={`Photo - ${checkpoint.name}`}
                             className="w-full h-48 object-cover rounded-lg cursor-pointer"
-                            onClick={() => setSelectedImage(checkpoint.photo)}
+                            onClick={() => setSelectedImage(checkpoint.photo || null)}
                           />
                           <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
                             <button 
                               className="p-2 bg-white rounded-full"
-                              onClick={() => setSelectedImage(checkpoint.photo)}
+                              onClick={() => setSelectedImage(checkpoint.photo || null)}
                             >
                               <Eye className="w-5 h-5 text-gray-800" />
                             </button>
+                            {checkpoint.photo && (
+                              <button 
+                                className="p-2 bg-white rounded-full ml-2"
+                                onClick={() => {
+                                  const link = document.createElement('a');
+                                  link.href = checkpoint.photo as string;
+                                  link.download = `checkpoint-${selectedReport.id}-${index}.jpg`;
+                                  document.body.appendChild(link);
+                                  link.click();
+                                  document.body.removeChild(link);
+                                }}
+                              >
+                                <Download className="w-5 h-5 text-gray-800" />
+                              </button>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -774,7 +838,7 @@ export default function RoundsHistory() {
                     {selectedReport.incidents.map((incident, index) => (
                       <div
                         key={index}
-                        className={`${getThemeClasses(theme, 'backgroundTertiary')} p-4 rounded-lg`}
+                        className={`${getThemeClasses(theme, 'backgroundTertiary')} p-4 rounded-lg border-l-4 border-yellow-500`}
                       >
                         <div className="flex items-center justify-between mb-2">
                           <div className="flex items-center space-x-3">
@@ -807,28 +871,30 @@ export default function RoundsHistory() {
                                 src={incident.photo}
                                 alt={`Incident - ${incident.type}`}
                                 className="w-full h-48 object-cover rounded-lg cursor-pointer"
-                                onClick={() => setSelectedImage(incident.photo)}
+                                onClick={() => setSelectedImage(incident.photo || null)}
                               />
                               <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
                                 <button 
                                   className="p-2 bg-white rounded-full"
-                                  onClick={() => setSelectedImage(incident.photo)}
+                                  onClick={() => setSelectedImage(incident.photo || null)}
                                 >
                                   <Eye className="w-5 h-5 text-gray-800" />
                                 </button>
-                                <button 
-                                  className="p-2 bg-white rounded-full ml-2"
-                                  onClick={() => {
-                                    const link = document.createElement('a');
-                                    link.href = incident.photo as string;
-                                    link.download = `incident-${report.id}-${index}.jpg`;
-                                    document.body.appendChild(link);
-                                    link.click();
-                                    document.body.removeChild(link);
-                                  }}
-                                >
-                                  <Download className="w-5 h-5 text-gray-800" />
-                                </button>
+                                {incident.photo && (
+                                  <button 
+                                    className="p-2 bg-white rounded-full ml-2"
+                                    onClick={() => {
+                                      const link = document.createElement('a');
+                                      link.href = incident.photo as string;
+                                      link.download = `incident-${selectedReport.id}-${index}.jpg`;
+                                      document.body.appendChild(link);
+                                      link.click();
+                                      document.body.removeChild(link);
+                                    }}
+                                  >
+                                    <Download className="w-5 h-5 text-gray-800" />
+                                  </button>
+                                )}
                               </div>
                             </div>
                           </div>
