@@ -17,12 +17,16 @@ import {
   Eye,
   QrCode,
   ArrowLeft,
-  ArrowUpDown
+  ArrowUpDown,
+  Circle
 } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { getThemeClasses, getButtonClasses } from '../../config/theme';
 import { QRCodeSVG } from 'qrcode.react';
 import { useReactToPrint } from 'react-to-print';
+import { useNavigate } from 'react-router-dom';
+import { MapContainer, TileLayer, Marker, Popup, Polyline, CircleMarker } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 
 interface RoundReport {
   id: number;
@@ -41,6 +45,8 @@ interface RoundReport {
     status: 'ok' | 'warning' | 'error';
     photo?: string;
     notes?: string;
+    position?: [number, number]; // adding position for map display
+    completionTime?: string; // adding completion time
   }[];
   incidents?: {
     type: string;
@@ -49,6 +55,7 @@ interface RoundReport {
     location: string;
     severity: 'high' | 'medium' | 'low';
     photo?: string;
+    position?: [number, number]; // adding position for map display
   }[];
 }
 
@@ -70,13 +77,17 @@ const sampleReports: RoundReport[] = [
         time: "08:15:00",
         status: "ok",
         photo: "https://images.unsplash.com/photo-1590674899484-d5640e854abe?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-        notes: "RAS - Portes sécurisées"
+        notes: "RAS - Portes sécurisées",
+        position: [48.8561, 2.3522],
+        completionTime: "5 minutes"
       },
       {
         name: "Zone de stockage A",
         time: "08:45:00",
         status: "ok",
-        notes: "Inventaire vérifié"
+        notes: "Inventaire vérifié",
+        position: [48.8571, 2.3532],
+        completionTime: "8 minutes"
       }
     ]
   },
@@ -96,14 +107,18 @@ const sampleReports: RoundReport[] = [
         name: "Parking visiteurs",
         time: "14:15:00",
         status: "ok",
-        notes: "RAS"
+        notes: "RAS",
+        position: [48.8581, 2.3542],
+        completionTime: "4 minutes"
       },
       {
         name: "Zone sécurisée B",
         time: "14:45:00",
         status: "warning",
         photo: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-        notes: "Porte mal fermée"
+        notes: "Porte mal fermée",
+        position: [48.8591, 2.3552],
+        completionTime: "10 minutes"
       }
     ],
     incidents: [
@@ -113,7 +128,8 @@ const sampleReports: RoundReport[] = [
         time: "14:45:00",
         location: "Zone B - Niveau 2",
         severity: "medium",
-        photo: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+        photo: "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
+        position: [48.8591, 2.3552]
       }
     ]
   },
@@ -134,7 +150,33 @@ const sampleReports: RoundReport[] = [
         time: "20:15:00",
         status: "error",
         photo: "https://images.unsplash.com/photo-1582139329536-e7284fece509?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-        notes: "Point de contrôle non atteint"
+        notes: "Point de contrôle non atteint",
+        position: [48.8601, 2.3562],
+        completionTime: "7 minutes"
+      },
+      {
+        name: "Escalier principal",
+        time: "20:25:00",
+        status: "ok",
+        notes: "Vérification effectuée",
+        position: [48.8611, 2.3572],
+        completionTime: "3 minutes"
+      },
+      {
+        name: "Salle de réunion",
+        time: "20:35:00",
+        status: "ok",
+        notes: "Lumières éteintes, portes fermées",
+        position: [48.8621, 2.3582],
+        completionTime: "5 minutes"
+      },
+      {
+        name: "Zone d'archives",
+        time: "20:45:00",
+        status: "warning",
+        notes: "Fenêtre mal fermée",
+        position: [48.8631, 2.3592],
+        completionTime: "6 minutes"
       }
     ]
   }
@@ -228,6 +270,101 @@ function QRCodeModal({ report, onClose }: QRCodeModalProps) {
   );
 }
 
+// New component for the Route Map visualization
+function RouteMap({ report }: { report: RoundReport }) {
+  const { theme } = useTheme();
+  
+  // Extract positions for the route
+  const positions = report.checkpoints.map(checkpoint => checkpoint.position).filter(Boolean) as [number, number][];
+  
+  // Calculate center position
+  const calculateCenter = () => {
+    if (positions.length === 0) return [48.8566, 2.3522]; // Default to Paris
+    
+    const latSum = positions.reduce((sum, pos) => sum + pos[0], 0);
+    const lngSum = positions.reduce((sum, pos) => sum + pos[1], 0);
+    
+    return [latSum / positions.length, lngSum / positions.length];
+  };
+  
+  const center = calculateCenter() as [number, number];
+  
+  return (
+    <div className="h-[400px] rounded-lg overflow-hidden mb-6">
+      <MapContainer
+        center={center}
+        zoom={13}
+        style={{ height: '100%', width: '100%' }}
+        className={`rounded-lg overflow-hidden border ${getThemeClasses(theme, 'border')}`}
+      >
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          className="map-tiles"
+        />
+        
+        {/* Route line connecting checkpoints */}
+        {positions.length > 1 && (
+          <Polyline 
+            positions={positions}
+            color="#0ea5e9"
+            weight={3}
+            opacity={0.8}
+          />
+        )}
+        
+        {/* Checkpoints */}
+        {report.checkpoints.map((checkpoint, index) => checkpoint.position && (
+          <CircleMarker
+            key={`checkpoint-${index}`}
+            center={checkpoint.position}
+            radius={8}
+            fillColor={
+              checkpoint.status === 'ok' ? '#10b981' : 
+              checkpoint.status === 'warning' ? '#f59e0b' : 
+              '#ef4444'
+            }
+            color="#ffffff"
+            weight={2}
+            fillOpacity={0.7}
+          >
+            <Popup>
+              <div className="p-2">
+                <h3 className="font-bold">{checkpoint.name}</h3>
+                <p className="text-sm">Temps: {checkpoint.time}</p>
+                <p className="text-sm">Durée: {checkpoint.completionTime}</p>
+                {checkpoint.notes && <p className="text-sm">Notes: {checkpoint.notes}</p>}
+              </div>
+            </Popup>
+          </CircleMarker>
+        ))}
+        
+        {/* Incidents */}
+        {report.incidents?.map((incident, index) => incident.position && (
+          <CircleMarker
+            key={`incident-${index}`}
+            center={incident.position}
+            radius={10}
+            fillColor="#f43f5e"
+            color="#ffffff"
+            weight={2}
+            fillOpacity={0.9}
+          >
+            <Popup>
+              <div className="p-2">
+                <h3 className="font-bold text-red-500">{incident.type}</h3>
+                <p className="text-sm">{incident.description}</p>
+                <p className="text-sm">Lieu: {incident.location}</p>
+                <p className="text-sm">Heure: {incident.time}</p>
+              </div>
+            </Popup>
+          </CircleMarker>
+        ))}
+      </MapContainer>
+    </div>
+  );
+}
+
 export default function RoundsHistory() {
   const { theme } = useTheme();
   const [searchTerm, setSearchTerm] = useState('');
@@ -239,6 +376,7 @@ export default function RoundsHistory() {
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
   
   const printRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const handlePrint = useReactToPrint({
     content: () => printRef.current,
@@ -298,13 +436,22 @@ export default function RoundsHistory() {
       {!selectedReport ? (
         <>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-            <div>
-              <h2 className={`text-xl font-bold ${getThemeClasses(theme, 'text')}`}>
-                Historique des Rondes
-              </h2>
-              <p className={`mt-1 ${getThemeClasses(theme, 'textSecondary')}`}>
-                Consultez les rapports des rondes effectuées
-              </p>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => navigate('/rounds')}
+                className={`${getButtonClasses(theme, 'secondary')} p-2 rounded-full flex items-center justify-center`}
+                title="Retour aux rondes"
+              >
+                <ArrowLeft className="w-5 h-5" />
+              </button>
+              <div>
+                <h2 className={`text-xl font-bold ${getThemeClasses(theme, 'text')}`}>
+                  Historique des Rondes
+                </h2>
+                <p className={`mt-1 ${getThemeClasses(theme, 'textSecondary')}`}>
+                  Consultez les rapports des rondes effectuées
+                </p>
+              </div>
             </div>
             <button
               onClick={() => handlePrint()}
@@ -519,6 +666,12 @@ export default function RoundsHistory() {
               </div>
             </div>
 
+            {/* Map visualization of the route */}
+            <h3 className={`text-lg font-medium ${getThemeClasses(theme, 'text')} mb-3`}>
+              Parcours de la ronde
+            </h3>
+            <RouteMap report={selectedReport} />
+
             <div className="space-y-4">
               <h3 className={`text-lg font-medium ${getThemeClasses(theme, 'text')}`}>
                 Points de contrôle
@@ -536,9 +689,14 @@ export default function RoundsHistory() {
                           {checkpoint.name}
                         </span>
                       </div>
-                      <span className={getThemeClasses(theme, 'textSecondary')}>
-                        {checkpoint.time}
-                      </span>
+                      <div className="flex items-center space-x-2">
+                        <span className={`px-2 py-1 rounded-md text-xs bg-primary-500/10 text-primary-500`}>
+                          Temps: {checkpoint.completionTime || "N/A"}
+                        </span>
+                        <span className={getThemeClasses(theme, 'textSecondary')}>
+                          {checkpoint.time}
+                        </span>
+                      </div>
                     </div>
                     {checkpoint.notes && (
                       <p className={`text-sm ${getThemeClasses(theme, 'textSecondary')} mb-2`}>

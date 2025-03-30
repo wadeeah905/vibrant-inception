@@ -18,6 +18,9 @@ export default function Rounds() {
     navigate(view === 'map' ? '/rounds' : '/rounds/history');
   };
 
+  // If we're on the history page, don't show the view toggle
+  const isHistoryPage = location.pathname.includes('history');
+
   return (
     <div className="space-y-6">
       {/* View Toggle */}
@@ -28,30 +31,32 @@ export default function Rounds() {
             Créez et gérez vos rondes de sécurité
           </p>
         </div>
-        <div className="flex space-x-4">
-          <button
-            onClick={() => handleViewChange('map')}
-            className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
-              activeView === 'map'
-                ? `bg-primary-500 text-white`
-                : `${getThemeClasses(theme, 'backgroundTertiary')} ${getThemeClasses(theme, 'hover')}`
-            }`}
-          >
-            <MapPin className="w-5 h-5" />
-            <span>Carte des Rondes</span>
-          </button>
-          <button
-            onClick={() => handleViewChange('history')}
-            className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
-              activeView === 'history'
-                ? `bg-primary-500 text-white`
-                : `${getThemeClasses(theme, 'backgroundTertiary')} ${getThemeClasses(theme, 'hover')}`
-            }`}
-          >
-            <History className="w-5 h-5" />
-            <span>Voir l'historique</span>
-          </button>
-        </div>
+        {!isHistoryPage && (
+          <div className="flex space-x-4">
+            <button
+              onClick={() => handleViewChange('map')}
+              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
+                activeView === 'map'
+                  ? `bg-primary-500 text-white`
+                  : `${getThemeClasses(theme, 'backgroundTertiary')} ${getThemeClasses(theme, 'hover')}`
+              }`}
+            >
+              <MapPin className="w-5 h-5" />
+              <span>Carte des Rondes</span>
+            </button>
+            <button
+              onClick={() => handleViewChange('history')}
+              className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors ${
+                activeView === 'history'
+                  ? `bg-primary-500 text-white`
+                  : `${getThemeClasses(theme, 'backgroundTertiary')} ${getThemeClasses(theme, 'hover')}`
+              }`}
+            >
+              <History className="w-5 h-5" />
+              <span>Voir l'historique</span>
+            </button>
+          </div>
+        )}
       </div>
 
       <Outlet />
