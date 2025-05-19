@@ -1,3 +1,4 @@
+
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -103,7 +104,7 @@ namespace LMobile.Gen3LicenseManagement.Portal.Applications.Modules {
 
 			#region ModuleProperty-List
 			var scroll = main.AddScrollPanel(Scrolling.Vertical).SetStyle(ClassicStyleSheet.W100 + ClassicStyleSheet.HRemainder + 
-				new Style { RightPadding = new Length(15, In.Pixels) });
+				new Style { RightPadding = new Length(25, In.Pixels) }); // Increased right padding to avoid scrollbar overlap
 			
 			var modules = scroll.Layout.AddTableLayout().SetStyle(ClassicStyleSheet.W100 + ClassicStyleSheet.SectionBody + 
 				new Style { VerticalSpacing = new Length(4, In.Points) });
@@ -114,10 +115,11 @@ namespace LMobile.Gen3LicenseManagement.Portal.Applications.Modules {
 				row.AddLabel().SetCaption(Resources.ProjectType());
 				row.AddLabel().SetCaption(Resources.Description());
 				
-				// Increase width for edit button column and move further left
-				row.AddLabel().SetStyle(new Style { Width = new Length(60, In.Pixels) }); // Width for Edit button
-				// Increase width for add button column and move further left
-				row.AddLabel().SetStyle(new Style { Width = new Length(60, In.Pixels) }); // Width for Add button
+				// Add "Action" text for edit button column
+				row.AddLabel().SetCaption(Resources.Actions()).SetStyle(new Style { Width = new Length(70, In.Pixels) }); // Width for Edit button label
+				
+				// Add "Action" text for add button column
+				row.AddLabel().SetCaption(Resources.Actions()).SetStyle(new Style { Width = new Length(70, In.Pixels) }); // Width for Add button label
 			});
 			this.AddIteration(Modules, () => {
 				modules.AddRow(row => {
@@ -137,8 +139,8 @@ namespace LMobile.Gen3LicenseManagement.Portal.Applications.Modules {
 					row.AddActionButton()
 						.SetStyle(ClassicStyleSheet.ContentIconButton(MonoIcon.Pencil) + 
 							new Style { 
-								Width = new Length(50, In.Pixels), 
-								RightMargin = new Length(25, In.Pixels) 
+								Width = new Length(60, In.Pixels), 
+								RightMargin = new Length(35, In.Pixels) 
 							})
 						.BindAction(Application, Modules, (app, module) => app.NavigateEditModule(module.Node.ID));
 
@@ -146,8 +148,8 @@ namespace LMobile.Gen3LicenseManagement.Portal.Applications.Modules {
 					row.AddActionButton()
 						.SetStyle(ClassicStyleSheet.ContentIconButton(MonoIcon.Plus) + 
 							new Style { 
-								Width = new Length(50, In.Pixels), 
-								RightMargin = new Length(35, In.Pixels) 
+								Width = new Length(60, In.Pixels), 
+								RightMargin = new Length(45, In.Pixels) 
 							})
 						.BindAction(Application, Modules, (app, module) => app.NavigateEditModuleProperty(module.Node.ID, 0));
 
@@ -160,15 +162,15 @@ namespace LMobile.Gen3LicenseManagement.Portal.Applications.Modules {
 					var propertyTable = row.AddTableLayout().Span(4, 1).SetStyle(new Style {
 						LeftMargin = new Length(20, In.Pixels),
 						BackgroundColor = Color.LightGray,
-						RightMargin = new Length(15, In.Pixels) // Add right margin to property table
+						RightMargin = new Length(25, In.Pixels) // Add right margin to property table
 					});
 
 					propertyTable.AddRow(propRow => {
 						propRow.SetChildStyle(ClassicStyleSheet.Bold);
 						propRow.AddLabel().SetCaption(Resources.Name()).SetStyle(new Style { Width = new Length(120, In.Pixels) });
 						propRow.AddLabel().SetCaption(Resources.Description());
-						// Wider column for buttons with more space
-						propRow.AddLabel().SetStyle(new Style { Width = new Length(140, In.Pixels) }); // Increased width for buttons column
+						// Add "Action" text for buttons column with more width
+						propRow.AddLabel().SetCaption(Resources.Actions()).SetStyle(new Style { Width = new Length(150, In.Pixels) }); // Increased width for buttons column
 					});
 
 					propertyTable.AddIteration(Properties, i => {
@@ -182,18 +184,18 @@ namespace LMobile.Gen3LicenseManagement.Portal.Applications.Modules {
 								 .SetStyle(ClassicStyleSheet.WRemainder);
 
 							// Button layout with more controlled spacing and even further left
-							var btnLayout = propRow.AddColumnsLayout().SetStyle(new Style { Width = new Length(140, In.Pixels) }); // Increased width
+							var btnLayout = propRow.AddColumnsLayout().SetStyle(new Style { Width = new Length(150, In.Pixels) }); // Increased width
 							btnLayout.AddActionButton().SetStyle(ClassicStyleSheet.ContentIconButton(MonoIcon.Pencil) + 
 								new Style { 
-									Width = new Length(50, In.Pixels), 
-									RightMargin = new Length(15, In.Pixels) 
+									Width = new Length(60, In.Pixels), 
+									RightMargin = new Length(20, In.Pixels) 
 								})
 								.BindAction(Application, Modules, Properties, (app, module, prop) => app.NavigateEditModuleProperty(module.Node.ID, prop.ID));
 							
 							btnLayout.AddActionButton().SetStyle(ClassicStyleSheet.ContentIconButton(MonoIcon.Bin) + 
 								new Style { 
-									Width = new Length(50, In.Pixels), 
-									RightMargin = new Length(25, In.Pixels) 
+									Width = new Length(60, In.Pixels), 
+									RightMargin = new Length(30, In.Pixels) 
 								})
 								.BindAction(Application, Modules, Properties, (app, module, prop) => app.RemoveExistingModulePropertyFromModule(module.Node, prop));
 						});
@@ -209,8 +211,8 @@ namespace LMobile.Gen3LicenseManagement.Portal.Applications.Modules {
 						// Add button with increased width and even more right margin - moved further left
 						propRow.AddActionButton().SetStyle(ClassicStyleSheet.ContentIconButton(MonoIcon.Plus) + 
 							new Style { 
-								Width = new Length(50, In.Pixels), 
-								RightMargin = new Length(40, In.Pixels) 
+								Width = new Length(60, In.Pixels), 
+								RightMargin = new Length(50, In.Pixels) 
 							})
 								.BindAction(Application, Modules, (app, module) => app.AddExistingModulePropertyToModule(module.Node, app.CurrentSelectedModuleProperty));
 					});
