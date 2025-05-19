@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Gen3LicenseListTitle" xml:space="preserve">
+    <value>Übersicht der Lizenzen Generation 3</value>
+  </data>
+  <data name="Gen3LicensesMenu" xml:space="preserve">
+    <value>Gen 3 Lizenzen</value>
+  </data>
+  <data name="lblEMail" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="lblLanguage" xml:space="preserve">
+    <value>Sprache</value>
+  </data>
+  <data name="lblPrinterName" xml:space="preserve">
+    <value>Druckername</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Zurück</value>
+  </data>
+  <data name="Customer" xml:space="preserve">
+    <value>Kunde</value>
+  </data>
+  <data name="Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="ExpirationDate" xml:space="preserve">
+    <value>endet am</value>
+  </data>
+  <data name="InstallationKey" xml:space="preserve">
+    <value>Installiert auf</value>
+  </data>
+  <data name="LicenseCount" xml:space="preserve">
+    <value>Lizenzen Produktivsystem</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Ändern</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Abbruch</value>
+  </data>
+  <data name="ContractNo" xml:space="preserve">
+    <value>Projekt-Nummer</value>
+  </data>
+  <data name="CustomerAddress" xml:space="preserve">
+    <value>Strasse</value>
+  </data>
+  <data name="CustomerCity" xml:space="preserve">
+    <value>PLZ / Ort</value>
+  </data>
+  <data name="CustomerName1" xml:space="preserve">
+    <value>Kunden-Name</value>
+  </data>
+  <data name="LicenseRequest" xml:space="preserve">
+    <value>Lizenz-Anfrage</value>
+  </data>
+  <data name="NewLicense" xml:space="preserve">
+    <value>Neue Lizenz</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Speichern</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Exportieren</value>
+  </data>
+  <data name="CustomerEMail" xml:space="preserve">
+    <value>EMail</value>
+  </data>
+  <data name="EMailNotFilled" xml:space="preserve">
+    <value>Die eMail-Adresse ist nicht gefüllt.</value>
+  </data>
+  <data name="InstallationType" xml:space="preserve">
+    <value>Systemtyp</value>
+  </data>
+  <data name="ProjectType" xml:space="preserve">
+    <value>Projekt-Typ</value>
+  </data>
+  <data name="InstallationTypeEmpty" xml:space="preserve">
+    <value>Der Systemtyp ist nicht gefüllt.</value>
+  </data>
+  <data name="ProjectTypeEmpty" xml:space="preserve">
+    <value>Der Projekt-Typ ist nicht gefüllt.</value>
+  </data>
+  <data name="ContractNosDontMatch" xml:space="preserve">
+    <value>Die Projektnummer aus der Anfrage {string requestContractNo} stimmt nicht mit der aktuellen {string licenseContractNo} überein.</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="SearchKey" xml:space="preserve">
+    <value>Schlüssel</value>
+  </data>
+  <data name="Gen3CustomersMenu" xml:space="preserve">
+    <value>Gen3 Kunden</value>
+  </data>
+  <data name="Gen3ProjectsMenu" xml:space="preserve">
+    <value>Gen3 Projekte</value>
+  </data>
+  <data name="NewCustomer" xml:space="preserve">
+    <value>Neuer Kunde</value>
+  </data>
+  <data name="RolesMenu" xml:space="preserve">
+    <value>Rollen</value>
+  </data>
+  <data name="CustomerNo" xml:space="preserve">
+    <value>Kunden-Nummer (NAV)</value>
+  </data>
+  <data name="CustomerNoAlreadyExists" xml:space="preserve">
+    <value>Diese Kundennummer ist bereits für den Kunden '{string customerName1}' vergeben.</value>
+  </data>
+  <data name="ContractNoAlreadyExists" xml:space="preserve">
+    <value>Diese Projektnummer ist bereits für das Projekt '{string description}' des Kunden '{string customerName1}' vergeben.</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Bezeichnung</value>
+  </data>
+  <data name="NewProject" xml:space="preserve">
+    <value>Neues Projekt</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projekte</value>
+  </data>
+  <data name="SomebodyElseDeletedTheRecord" xml:space="preserve">
+    <value>Der Satz wurde in der Zwischenzeit gelöscht.</value>
+  </data>
+  <data name="SomebodyElseModifiedTheRecord" xml:space="preserve">
+    <value>Der Satz wurde nicht gespeichert. Der Satz wurde in der Zwischenzeit verändert.</value>
+  </data>
+  <data name="TestLicenseCount" xml:space="preserve">
+    <value>Lizenzen Test-System</value>
+  </data>
+  <data name="ImportInstallationRequest" xml:space="preserve">
+    <value>Installation importieren</value>
+  </data>
+  <data name="RequestCantBeParsed" xml:space="preserve">
+    <value>Die Daten dieser Installations-Anfrage sind nicht lesbar.</value>
+  </data>
+  <data name="Import" xml:space="preserve">
+    <value>Importieren</value>
+  </data>
+  <data name="ProjectNotFound" xml:space="preserve">
+    <value>Es wurde kein Projekt für die Vertragsnummer '{string contractNo}' gefunden.</value>
+  </data>
+  <data name="ProjectTypesDontMatch" xml:space="preserve">
+    <value>Der Typ des Projekts '{string projectTypeProject}' stimmt nicht mit dem der Anfrage '{string projectTypeRequest}' überein.</value>
+  </data>
+  <data name="ExpirationInMonth" xml:space="preserve">
+    <value>Testzeitraum in Monaten</value>
+  </data>
+  <data name="InstallationInformationTitle" xml:space="preserve">
+    <value>Installiert / Angefragt</value>
+  </data>
+  <data name="InstallationTypeNotFound" xml:space="preserve">
+    <value>Der Installationstyp '{string installationType}' ist nicht zugelassen. Es existieren derzeit 'PROD', 'TEST' und 'DEMO'.</value>
+  </data>
+  <data name="EMailWithAttachedLicenseBody" xml:space="preserve">
+    <value>Sehr geehrter Kunde,
+
+wir liefern Ihnen gemäß Ihrem Auftrag die folgenden Standardsoftware-Lizenzen und bitten um schriftliche Lieferbestätigung (per Email an {string eMail}), dass Sie diese erhalten haben.
+
+Bitte fügen Sie den folgenden Lizenzschlüssel in der Verwaltung Ihres L-mobile Projektes hinzu.
+
+Lizenzschlüssel:
+{string licenseKey}
+
+Bitte antworten Sie nicht auf diese eMail, sondern melden sich bei Rückfragen beim L-mobile Service-Team.</value>
+  </data>
+  <data name="EMailWithAttachedLicenseSubject" xml:space="preserve">
+    <value>L-mobile Lizenz ({string installationType}) für das Projekt '{string projectDescription}'</value>
+  </data>
+  <data name="ProjectGuidNotValid" xml:space="preserve">
+    <value>Der Projektschlüssel des Projekts '{string contractNo}' stimmt nicht mit dem Schlüssel '{string projectGuid}' aus der Anfrage überein.</value>
+  </data>
+  <data name="NotifyEMail" xml:space="preserve">
+    <value>eMail interne</value>
+  </data>
+  <data name="NavigateLogEntries" xml:space="preserve">
+    <value>Lebenslauf</value>
+  </data>
+  <data name="LogEntryInformation" xml:space="preserve">
+    <value>Beschreibung</value>
+  </data>
+  <data name="LogEntryMessageType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="InstallationTypeIs" xml:space="preserve">
+    <value>Systemtyp '{string installationType}'</value>
+  </data>
+  <data name="UserIs" xml:space="preserve">
+    <value>Benutzer '{string userName}'</value>
+  </data>
+  <data name="Project" xml:space="preserve">
+    <value>Projekt</value>
+  </data>
+  <data name="NewModule" xml:space="preserve">
+    <value>Neues Modul</value>
+  </data>
+  <data name="ModulesMenu" xml:space="preserve">
+    <value>Module</value>
+  </data>
+  <data name="Guid" xml:space="preserve">
+    <value>Schlüssel</value>
+  </data>
+  <data name="DescriptionEmpty" xml:space="preserve">
+    <value>Die Beschreibung muss gefüllt sein.</value>
+  </data>
+  <data name="LicenseCountShort" xml:space="preserve">
+    <value>Lizenzen</value>
+  </data>
+  <data name="TestLicenseCountShort" xml:space="preserve">
+    <value>Lizenzen (Test)</value>
+  </data>
+  <data name="CustomerEMailIsMandatory" xml:space="preserve">
+    <value>Die Kunden-EMail muss gefüllt sein.</value>
+  </data>
+  <data name="CustomerNameIsMandatory" xml:space="preserve">
+    <value>Der Kundenname muss gefüllt sein.</value>
+  </data>
+  <data name="CustomerNoIsMandatory" xml:space="preserve">
+    <value>Die Kundennummer muss gefüllt sein.</value>
+  </data>
+  <data name="CustomerAddressHasOnlyNCharachters" xml:space="preserve">
+    <value>Die Kundenadresse ist begrenzt auf {int length} Zeichen.</value>
+  </data>
+  <data name="CustomerCityHasOnlyNCharachters" xml:space="preserve">
+    <value>Die Stadt ist begrenzt auf {int length} Zeichen.</value>
+  </data>
+  <data name="CustomerDefaulteMailHasOnlyNCharachters" xml:space="preserve">
+    <value>Die Email-Adresse ist begrenzt auf {int length} Zeichen.</value>
+  </data>
+  <data name="CustomerName1HasOnlyNCharachters" xml:space="preserve">
+    <value>Der Kundenname #1 ist begrenzt auf {int length} Zeichen.</value>
+  </data>
+  <data name="CustomerName2HasOnlyNCharachters" xml:space="preserve">
+    <value>Der Kundenname #2 ist begrenzt auf {int length} Zeichen.</value>
+  </data>
+  <data name="CustomerNoHasOnlyNCharachters" xml:space="preserve">
+    <value>Die Kundennummer ist begrenzt auf {int length} Zeichen.</value>
+  </data>
+  <data name="ProjectContractNoHasOnlyNCharachters" xml:space="preserve">
+    <value>Die Auftragsnummer ist begrenzt auf {int length} Zeichen.</value>
+  </data>
+  <data name="ProjectDescriptionHasOnlyNCharachters" xml:space="preserve">
+    <value>Die Projekt-Bezeichnung ist begrenzt auf {int length} Zeichen.</value>
+  </data>
+  <data name="ProjectDescriptionIsMandatory" xml:space="preserve">
+    <value>Die Projekt-Beschreibung muss gefüllt sein.</value>
+  </data>
+  <data name="ProjectEMailIsMandatory" xml:space="preserve">
+    <value>Die externe eMail-Adresse muss gefüllt sein.</value>
+  </data>
+  <data name="ProjectNotifyEMailIsMandatory" xml:space="preserve">
+    <value>Die interne eMail-Adresse muss gefüllt sein.</value>
+  </data>
+  <data name="DeveloperDeleteConfirmation" xml:space="preserve">
+    <value>Wollen Sie diesen Entwickler-Eintrag wirklich löschen?</value>
+  </data>
+  <data name="DeveloperLicenseCantBeImported" xml:space="preserve">
+    <value>Lizenz mit dem Hardware-Schlüssel eines Entwicklers darf nicht importiert werden.</value>
+  </data>
+  <data name="DevelopersMenu" xml:space="preserve">
+    <value>Entwickler</value>
+  </data>
+  <data name="HardwareKey" xml:space="preserve">
+    <value>Hardware-Schlüssel</value>
+  </data>
+  <data name="HardwareKeyEmpty" xml:space="preserve">
+    <value>Der Hardware-Schlüssel ist nicht gefüllt.</value>
+  </data>
+  <data name="HardwareKeyUsed" xml:space="preserve">
+    <value>Der Hardware-Schlüssel ist schon registriert.</value>
+  </data>
+  <data name="NameEmpty" xml:space="preserve">
+    <value>Der Name ist nicht gefüllt.</value>
+  </data>
+  <data name="NewDeveloper" xml:space="preserve">
+    <value>Neuer Entwickler</value>
+  </data>
+  <data name="NewModuleProperty" xml:space="preserve">
+    <value>Neue Eigenschaft</value>
+  </data>
+  <data name="PleaseSaveProjectFirst" xml:space="preserve">
+    <value>Bitte erst das Projekt speichern.</value>
+  </data>
+  <data name="L_lblFill" xml:space="preserve">
+    <value>Füllen</value>
+  </data>
+  <data name="L_lblLicenseCountProd" xml:space="preserve">
+    <value>Liz. Prod</value>
+  </data>
+  <data name="L_lblLicenseCountTest" xml:space="preserve">
+    <value>Liz. Test</value>
+  </data>
+  <data name="L_lblSerachModuleByName" xml:space="preserve">
+    <value>Modulname</value>
+  </data>
+  <data name="L_lblSerachModuleByNameDescription" xml:space="preserve">
+    <value>Suche nach Modulteiltext (z.B. "WH51", "waren"), unabbängig von der Modulgruppe</value>
+  </data>
+  <data name="L_lblTempLicensesStartDate" xml:space="preserve">
+    <value>von</value>
+  </data>
+  <data name="NoModulesVailable" xml:space="preserve">
+    <value>Keine Module im Projekt-Typ '{string Projekttyp}' verfügbar.</value>
+  </data>
+  <data name="L_lblAddTempLicenses" xml:space="preserve">
+    <value>Temp. Lizenz (Prod &amp; Test)</value>
+  </data>
+  <data name="E_StartDateBiggerEndDate" xml:space="preserve">
+    <value>Das Startdatum darf nicht größer als das Enddatum sein.</value>
+  </data>
+  <data name="L_lblTempLicensesExpirationDate" xml:space="preserve">
+    <value>bis</value>
+  </data>
+  <data name="E_EndDateSmallerStartDate" xml:space="preserve">
+    <value>Das Enddatum darf nicht kleiner als das Startdatum sein.</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Erstellen</value>
+  </data>
+  <data name="CreatePortable" xml:space="preserve">
+    <value>Portable erstellen</value>
+  </data>
+  <data name="NotPortableExists" xml:space="preserve">
+    <value>Eine nicht portable Lizenz mit diesem Systemtyp ist schon vorhanden.</value>
+  </data>
+  <data name="Portable" xml:space="preserve">
+    <value>Portable</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="B_Back" xml:space="preserve">
+    <value>Zurück</value>
+  </data>
+  <data name="B_CANCEL" xml:space="preserve">
+    <value>Abbrechen</value>
+  </data>
+  <data name="B_NO" xml:space="preserve">
+    <value>Nein</value>
+  </data>
+  <data name="B_OK" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="B_YES" xml:space="preserve">
+    <value>Ja</value>
+  </data>
+  <data name="L_Logout" xml:space="preserve">
+    <value>Abmelden</value>
+  </data>
+  <data name="L_lblCountModule" xml:space="preserve">
+    <value>Anzahl Module:</value>
+  </data>
+  <data name="Activity" xml:space="preserve">
+    <value>Letzte Aktivität</value>
+  </data>
+  <data name="DeactivateCustomer" xml:space="preserve">
+    <value>Kunden deaktivieren</value>
+  </data>
+	<data name="D_Module" xml:space="preserve">
+    <value>Möchten Sie dieses Modul wirklich löschen?</value>
+  </data>
+	<data name="D_Installation" xml:space="preserve">
+    <value>Möchten Sie diese Installation wirklich löschen?</value>
+  </data>
+	<data name="Confirmation" xml:space="preserve">
+    <value>Bestätigung</value>
+  </data>
+	<data name="Exit" xml:space="preserve">
+    <value>Wirklich abmelden?</value>
+  </data>
+	<data name="NeueLizenzNeuKunde" xml:space="preserve">
+    <value>L-mobile neue Lizenz GEN3 Neukunde (Contract number , Project guid)</value>
+  </data>
+	<data name="NeueLizenzIncreaseNumberUser" xml:space="preserve">
+    <value>Neue Lizenz GEN3 (increase number of userlicenses)</value>
+  </data>
+	<data name="NeueLizenzAddModul" xml:space="preserve">
+    <value>Neue Lizenz GEN3 add Modul</value>
+  </data>
+	<data name="NeueLizenzTestInstallation" xml:space="preserve">
+    <value>Neue Lizenz GEN3 for test installation</value>
+  </data>
+	<data name="NeueLizenzInventurTemporar" xml:space="preserve">
+    <value>Neue Lizenz GEN3 Inventur und temporär</value>
+  </data>
+	<data name="NeuLizenzTestmodul" xml:space="preserve">
+    <value>Neue Lizenz GEN3 Testmodul</value>
+  </data>
+	<data name="NeuLizenzNeueModulUndBenuzter" xml:space="preserve">
+    <value>Neue Lizenz GEN3 neue Module und Benutzer Lizenzen</value>
+  </data>
+	<data name="Herr" xml:space="preserve">
+    <value>Herr</value>
+  </data>
+	<data name="Frau" xml:space="preserve">
+    <value>Frau</value>
+  </data>
+	<data name="ProjektleiterHerr" xml:space="preserve">
+    <value>Projektleiter Herr</value>
+  </data>
+	<data name="ProjektleiterinFrau" xml:space="preserve">
+    <value>Projektleiterin Frau</value>
+  </data>
+	<data name="ProjektleiterProjektleiterin" xml:space="preserve">
+    <value>Projektleiter/Projektleiterin Herr/Frau</value>
+  </data>
+	<data name="FromAddress" xml:space="preserve">
+    <value>support@l-mobile.com</value>
+  </data>
+	<data name="EmailSubject" xml:space="preserve">
+    <value>L-mobile neue Lizenz</value>
+  </data>
+	<data name="EmailSenden" xml:space="preserve">
+    <value>Email senden</value>
+  </data>
+	<data name="EmailInput" xml:space="preserve">
+    <value>Email  :</value>
+  </data>
+	<data name="EinstellungenFurDenEmail" xml:space="preserve">
+    <value>Einstellungen für den E-Mail-Versand</value>
+  </data>
+	<data name="ObInput" xml:space="preserve">
+    <value>Projekt-Nummer|OB :</value>
+  </data>
+	<data name="ProjektManagerInput" xml:space="preserve">
+    <value>Projekt Manager :</value>
+  </data>
+	<data name="ModulInput" xml:space="preserve">
+    <value>Modul hinzugefügt:(module1, module2..)"</value>
+  </data>
+	<data name="AbsenderInput" xml:space="preserve">
+    <value>Absender :</value>
+  </data>
+	<data name="EmailAuswahlen" xml:space="preserve">
+    <value>E-Mail-Vorlage auswählen :</value>
+  </data>
+</root>

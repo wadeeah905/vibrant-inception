@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<service-installer>
+
+	<install service="LMobile.LicensePortal" 
+		name="L-mobile License Portal Server"
+		description="dito"
+		start-mode="automatic"	
+		file-name="..\LMobile.Gen3LicenseManagement.Portal.exe">
+		<log-info to-event-log="false" to-file="log\Scada.LicensePortal.info.log" />
+		<log-error to-event-log="true" to-file="log\Scada.LicensePortal.error.log" />
+	</install>
+
+	<!--
+	
+	<smtp-server from-address="sender email" 
+				 host="smtp server host" 
+				 port="25" 
+				 login="login name" 
+				 password="login password" />
+
+	<install service="service-name" name="" description=""
+		start-mode="automatic|manual|disabled" 
+		file-name="path to executable file" arguments=""
+		working-directory="working directory">
+		<log-trace to-event-log="true" to-email-address="email address" to-file="path to log file" />
+		<log-info to-event-log="true" to-email-address="email address" to-file="path to log file" />
+		<log-warning to-event-log="true" to-email-address="email address" to-file="path to log file" />
+		<log-error to-event-log="true" to-email-address="email address" to-file="path to log file" />
+		<log-fatal to-event-log="true" to-email-address="email address" to-file="path to log file" />
+	</install>
+
+	-->
+
+</service-installer>

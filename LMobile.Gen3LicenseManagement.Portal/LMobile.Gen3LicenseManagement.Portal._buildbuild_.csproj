@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{26EC8AFC-6412-4B7C-A04D-BCC3365A2764}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LMobile.Gen3LicenseManagement.Portal</RootNamespace>
+    <AssemblyName>LMobile.Gen3LicenseManagement.Portal</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>LMobile.Gen3LicenseManagement.Portal.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LMobile.Gen3LicenseManagement">
+      <HintPath>..\..\lib\LMobile.Gen3LicenseManagement.dll</HintPath>
+    </Reference>
+    <Reference Include="LMobile.Gida">
+      <HintPath>..\..\lib\LMobile.Gida.dll</HintPath>
+    </Reference>
+    <Reference Include="LMobile.Gida.SqlServer">
+      <HintPath>..\..\lib\LMobile.Gida.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="LMobile.MiniForms">
+      <HintPath>..\..\lib\LMobile.MiniForms.dll</HintPath>
+    </Reference>
+    <Reference Include="LMobile.MiniForms.BackEnd">
+      <HintPath>..\..\lib\LMobile.MiniForms.BackEnd.dll</HintPath>
+    </Reference>
+    <Reference Include="LMobile.MiniForms.Classic">
+      <HintPath>..\..\lib\LMobile.MiniForms.Classic.dll</HintPath>
+    </Reference>
+    <Reference Include="LMobile.Toolbox">
+      <HintPath>..\..\lib\LMobile.Toolbox.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Xml" />
+    <Reference Include="LMobile.Gen3LicenseManagement.BackEnd">
+      <HintPath>C:\_Source\LMobile.Gen3LicenseManager.Portal\build\LMobile.Gen3LicenseManagement.BackEnd\LMobile.Gen3LicenseManagement.BackEnd.dll</HintPath>
+    </Reference>
+    <Reference Include="LMobile.Gen3LicenseManagement.Dao">
+      <HintPath>C:\_Source\LMobile.Gen3LicenseManager.Portal\build\LMobile.Gen3LicenseManagement.Dao\LMobile.Gen3LicenseManagement.Dao.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+	<ItemGroup>
+		<Reference Include="System.Windows.Forms" />
+	</ItemGroup>
+	<ItemGroup>
+    <Compile Include="..\_AssemblyInfo.cs">
+      <Link>_AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="Applications\BaseApplication.cs" />
+    <Compile Include="Applications\BaseView.cs" />
+    <Compile Include="Applications\Developers\DevelopersApplication.cs" />
+    <Compile Include="Applications\Developers\DevelopersView.cs" />
+    <Compile Include="Applications\Licenses\LogEntriesView.cs" />
+    <Compile Include="Applications\Licenses\LicensesViewHelper.cs" />
+    <Compile Include="Applications\Licenses\InstallationEditView.cs" />
+    <Compile Include="Applications\Licenses\ProjectsEditView.cs" />
+    <Compile Include="Applications\Licenses\LicensesApplication.cs" />
+    <Compile Include="Applications\Licenses\CustomersEditView.cs" />
+    <Compile Include="Applications\Licenses\CustomersListView.cs" />
+    <Compile Include="Applications\Login\LoginApplication.cs" />
+    <Compile Include="Applications\Login\LoginView.cs" />
+    <Compile Include="Applications\Menu\MenuApplication.cs" />
+    <Compile Include="Applications\Menu\MenuView.cs" />
+    <Compile Include="Applications\Modules\ModulesApplication.cs" />
+    <Compile Include="Applications\Modules\ModulesView.cs" />
+    <Compile Include="Applications\QuestionDialog\QuestionApplication.cs" />
+    <Compile Include="Applications\QuestionDialog\QuestionView.cs" />
+    <Compile Include="Applications\Roles\RolesListView.cs" />
+    <Compile Include="Applications\Roles\RolesApplication.cs" />
+    <Compile Include="Applications\Roles\RolesView.cs" />
+    <Compile Include="BusinessObjects\TreeWrapper.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\Maximize.png" />
+    <None Include="Images\Minimize.png" />
+    <Content Include="installer\install-LicensePortal-service.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="installer\ServiceInstaller.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="installer\uninstall-LicensePortal-service.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources.resx">
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="installer\install-LicensePortal-dependencies.cmd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="installer\install-LicensePortal-service.cmd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Image1.png" />
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>"$(ProjectDir)..\..\lib\ResourceStringCompiler.exe" "$(ProjectDir)Resources.resx" /NAMESPACE LMobile.Gen3LicenseManagement.Portal</PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
