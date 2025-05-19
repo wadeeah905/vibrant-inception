@@ -1,6 +1,4 @@
-
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -112,8 +110,9 @@ namespace LMobile.Gen3LicenseManagement.Portal.Applications.Modules {
 				row.AddLabel().SetCaption(Resources.ProjectType());
 				row.AddLabel().SetCaption(Resources.Description());
 				// GUID column removed from header
-				row.AddLabel().SetStyle(new Style { Width = new Length(40, In.Pixels) }); // Width for Edit button
-				row.AddLabel().SetStyle(new Style { Width = new Length(40, In.Pixels) }); // Width for Add button
+				// Increased width for the action buttons columns
+				row.AddLabel().SetStyle(new Style { Width = new Length(50, In.Pixels) }); // Width for Edit button
+				row.AddLabel().SetStyle(new Style { Width = new Length(50, In.Pixels) }); // Width for Add button
 			});
 			this.AddIteration(Modules, () => {
 				modules.AddRow(row => {
@@ -129,14 +128,14 @@ namespace LMobile.Gen3LicenseManagement.Portal.Applications.Modules {
 						.BindCaption(Modules, module => module.Node.Description)
 						.SetStyle(ClassicStyleSheet.WRemainder);
 
-					// Edit button with fixed width
+					// Edit button with fixed width and moved further left
 					row.AddActionButton()
-						.SetStyle(ClassicStyleSheet.ContentIconButton(MonoIcon.Pencil) + new Style { Width = new Length(40, In.Pixels), RightMargin = new Length(2, In.Pixels) })
+						.SetStyle(ClassicStyleSheet.ContentIconButton(MonoIcon.Pencil) + new Style { Width = new Length(45, In.Pixels), RightMargin = new Length(15, In.Pixels) })
 						.BindAction(Application, Modules, (app, module) => app.NavigateEditModule(module.Node.ID));
 
-					// Add Property button with fixed width
+					// Add Property button with fixed width and moved further left
 					row.AddActionButton()
-						.SetStyle(ClassicStyleSheet.ContentIconButton(MonoIcon.Plus) + new Style { Width = new Length(40, In.Pixels), RightMargin = new Length(5, In.Pixels) })
+						.SetStyle(ClassicStyleSheet.ContentIconButton(MonoIcon.Plus) + new Style { Width = new Length(45, In.Pixels), RightMargin = new Length(20, In.Pixels) })
 						.BindAction(Application, Modules, (app, module) => app.NavigateEditModuleProperty(module.Node.ID, 0));
 
 				}).SetStyle(new Style { Border = new Length(1, In.Pixels), BorderColor = Color.Black });
@@ -154,7 +153,8 @@ namespace LMobile.Gen3LicenseManagement.Portal.Applications.Modules {
 						propRow.SetChildStyle(ClassicStyleSheet.Bold);
 						propRow.AddLabel().SetCaption(Resources.Name()).SetStyle(new Style { Width = new Length(120, In.Pixels) });
 						propRow.AddLabel().SetCaption(Resources.Description());
-						propRow.AddLabel().SetStyle(new Style { Width = new Length(90, In.Pixels) }); // Width for buttons column
+						// Wider column for buttons to prevent cut-off
+						propRow.AddLabel().SetStyle(new Style { Width = new Length(120, In.Pixels) }); // Width for buttons column
 					});
 
 					propertyTable.AddIteration(Properties, i => {
@@ -167,11 +167,11 @@ namespace LMobile.Gen3LicenseManagement.Portal.Applications.Modules {
 								 .BindCaption(Properties, prop => prop.Description)
 								 .SetStyle(ClassicStyleSheet.WRemainder);
 
-							// Button layout with more controlled spacing and width
-							var btnLayout = propRow.AddColumnsLayout().SetStyle(new Style { Width = new Length(90, In.Pixels) });
-							btnLayout.AddActionButton().SetStyle(ClassicStyleSheet.ContentIconButton(MonoIcon.Pencil) + new Style { Width = new Length(40, In.Pixels), RightMargin = new Length(4, In.Pixels) })
+							// Button layout with more controlled spacing and width - moved further left
+							var btnLayout = propRow.AddColumnsLayout().SetStyle(new Style { Width = new Length(120, In.Pixels) });
+							btnLayout.AddActionButton().SetStyle(ClassicStyleSheet.ContentIconButton(MonoIcon.Pencil) + new Style { Width = new Length(45, In.Pixels), RightMargin = new Length(10, In.Pixels) })
 								.BindAction(Application, Modules, Properties, (app, module, prop) => app.NavigateEditModuleProperty(module.Node.ID, prop.ID));
-							btnLayout.AddActionButton().SetStyle(ClassicStyleSheet.ContentIconButton(MonoIcon.Bin) + new Style { Width = new Length(40, In.Pixels), RightMargin = new Length(5, In.Pixels) })
+							btnLayout.AddActionButton().SetStyle(ClassicStyleSheet.ContentIconButton(MonoIcon.Bin) + new Style { Width = new Length(45, In.Pixels), RightMargin = new Length(20, In.Pixels) })
 								.BindAction(Application, Modules, Properties, (app, module, prop) => app.RemoveExistingModulePropertyFromModule(module.Node, prop));
 						});
 					});
@@ -183,8 +183,8 @@ namespace LMobile.Gen3LicenseManagement.Portal.Applications.Modules {
 								.BindItems(Application, Modules, (app, module) => app.AllModulePropertiesExceptCurrentModule(module.Node))
 								.BindSelectedItem(Application, app => app.CurrentSelectedModuleProperty, false, (app, prop) => app.CurrentSelectedModuleProperty = prop);
 
-						// Add button with controlled width and right margin
-						propRow.AddActionButton().SetStyle(ClassicStyleSheet.ContentIconButton(MonoIcon.Plus) + new Style { Width = new Length(40, In.Pixels), RightMargin = new Length(5, In.Pixels) })
+						// Add button with controlled width and increased right margin - moved further left
+						propRow.AddActionButton().SetStyle(ClassicStyleSheet.ContentIconButton(MonoIcon.Plus) + new Style { Width = new Length(45, In.Pixels), RightMargin = new Length(30, In.Pixels) })
 								.BindAction(Application, Modules, (app, module) => app.AddExistingModulePropertyToModule(module.Node, app.CurrentSelectedModuleProperty));
 					});
 				});
