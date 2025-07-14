@@ -1,0 +1,51 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<li data-bind="visible: !isClosed(), requiredPermission: { name: 'Complete', group: 'Order' }">
+	<a href="#" data-bind="click: complete">
+		<i class="zmdi zmdi-check-all"></i>
+		@(Html.Localize("Complete"))
+	</a>
+</li>
+<li data-bind="requiredPermission: { name: 'PreviewOrder', group: 'Order' }">
+	<a href="#" data-route="Crm.Order/Order/Pdf" data-toggle="modal" data-target="#lgModal">
+		<i class="zmdi zmdi-file-text"></i>
+		@(Html.Localize("Preview"))
+	</a>
+</li>
+<li data-bind="requiredPermission: { name: 'EditVisibility', group: 'UserAdmin' }">
+	<a href="#" data-route="Main/Visibility/Edit" data-toggle="modal" data-target="#modal">
+		<i class="zmdi zmdi-eye"></i>
+		@(Html.Localize("EditVisibility"))
+	</a>
+</li>
+<li data-bind="visible: isEditable, requiredPermission: { name: 'Edit', group: 'Order' }">
+	<a href="#" data-route="Crm.Order/Order/Save" data-toggle="modal" data-target="#modal">
+		<i class="zmdi zmdi-check"></i>
+		@(Html.Localize("Save"))
+	</a>
+</li>
+<li data-bind="visible: order().SendConfirmation() === false && order().ConfirmationSent() === false, requiredPermission: { name: 'SendOrder', group: 'Order' }">
+	<a href="#" data-bind="click: sendConfirmation">
+		<i class="zmdi zmdi-mail-send"></i>
+		@(Html.Localize("Send"))
+	</a>
+</li>
+<li class="disabled" data-bind="visible: order().SendConfirmation() === true && order().ConfirmationSent() === false, requiredPermission: { name: 'SendOrder', group: 'Order' }">
+	<a href="#">
+		<i class="zmdi zmdi-mail-send"></i>
+		@(Html.Localize("Sending"))
+	</a>
+</li>
+<li data-bind="visible: order().ConfirmationSent() === true, requiredPermission: { name: 'SendOrder', group: 'Order' }">
+	<a href="#" data-bind="click: sendConfirmation">
+		<i class="zmdi zmdi-mail-send"></i>
+		@(Html.Localize("SendAgain"))
+	</a>
+</li>
+<li data-bind="requiredPermission: { name: 'Load', group: 'Order' }">
+	<a href="#" data-route="Crm.Order/Order/Load" data-toggle="modal" data-target="#lgModal">
+		<i class="zmdi zmdi-square-down"></i>
+		@(Html.Localize("Load"))
+	</a>
+</li>

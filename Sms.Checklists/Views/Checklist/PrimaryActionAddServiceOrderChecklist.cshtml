@@ -1,0 +1,21 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- PDF-Feature -->
+<!-- ko requiredPermission: { name: 'Read', group: 'PdfFeature' } -->
+<!-- ko requiredPermission: { name: 'AddPdfChecklist', group: 'ServiceOrder' } -->
+<li data-bind="with: $parent, visible: $parent.canAddChecklist">
+	<a id="add-service-order-pdf-checklist" href="#" data-mfb-label="@(Html.Localize("AddPDFChecklist"))" data-route="Sms.Checklists/ServiceOrderChecklist/CreatePdfTemplate" data-toggle="modal" data-target="#modal">
+		<i class="zmdi zmdi-collection-pdf"></i>
+	</a>
+</li>
+<!-- /ko -->
+<!-- /ko -->
+
+<!-- ko requiredPermission: { name: 'AddChecklist', group: 'ServiceOrder' } -->
+<li data-bind="with: $parent, visible: $parent.canAddChecklist">
+	<a id="add-service-order-checklist" href="#" data-mfb-label="@(Html.Localize("AddChecklist"))" data-route="Sms.Checklists/ServiceOrderChecklist/CreateTemplate/" data-toggle="modal" data-target="#modal">
+		<i class="zmdi zmdi-plus"></i>
+	</a>
+</li>
+<!-- /ko -->

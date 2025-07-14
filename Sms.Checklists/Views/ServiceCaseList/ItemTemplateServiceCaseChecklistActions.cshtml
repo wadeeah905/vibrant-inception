@@ -1,0 +1,41 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- ko if: $parentContext.$parentContext.$parent instanceof Crm.Service.ViewModels.DispatchDetailsServiceCasesTabViewModel -->
+
+<!-- ko requiredPermission: { name: 'Read', group: 'ServiceCaseChecklist' } -->
+<!-- ko if: CreationServiceCaseChecklist -->
+<li>
+	<a href="#" data-bind="attr: { 'data-route': 'Sms.Checklists/ServiceCaseChecklist/DetailsTemplate/' + CreationServiceCaseChecklist().Id() }" data-toggle="modal" data-target="#lgModal">
+		@(Html.Localize("ViewCreationDynamicForm"))
+	</a>
+</li>
+<!-- /ko -->
+<!-- /ko -->
+
+<!-- ko requiredPermission: { name: 'Read', group: 'ServiceCaseChecklist' } -->
+<!-- ko if: CompletionServiceCaseChecklist -->
+<li>
+	<a href="#" data-bind="attr: { 'data-route': 'Sms.Checklists/ServiceCaseChecklist/DetailsTemplate/' + CompletionServiceCaseChecklist().Id() }, translatedText: CompletionServiceCaseChecklist().Completed() ? 'ViewCompletionDynamicForm' : 'PreviewCompletionDynamicForm'" data-toggle="modal" data-target="#lgModal">
+	</a>
+</li>
+<!-- /ko -->
+<!-- /ko -->
+
+<!-- ko if: $data.StatusKey() !== $parentContext.$parentContext.$parent.completedStatus -->
+<!-- ko requiredPermission: { name: 'Edit', group: 'ServiceCaseChecklist' } -->
+<!-- ko if: CompletionServiceCaseChecklist() && !CompletionServiceCaseChecklist().Completed() -->
+<!-- ko if: $root.dispatchIsEditable -->
+<li>
+	<a href="#" data-bind="attr: { 'data-route': 'Sms.Checklists/ServiceCaseChecklist/EditTemplate/' + CompletionServiceCaseChecklist().Id() }" data-toggle="modal" data-target="#lgModal">
+		@(Html.Localize("EditCompletionDynamicForm"))
+	</a>
+</li>
+<!-- /ko -->
+<!-- /ko -->
+<!-- /ko -->
+<!-- /ko -->
+
+<li class="divider"></li>
+
+<!-- /ko -->

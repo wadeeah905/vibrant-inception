@@ -1,0 +1,23 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<Crm.ViewModels.GenericListViewModel>
+@using Crm.Library.Modularization.Extensions
+<div class="lv-item media">
+	@await Html.PartialAsync("GenericListBulkControl")
+	<div class="lv-avatar pull-left" data-bind="text: Helper.Store.getStoreNameAbbrevation($data.Name()), style: {backgroundColor: 'blue'}"></div>
+	<div class="media-body">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="lv-title">
+					<a data-bind="attr: { href: '#/Crm.Service/Store/DetailsTemplate/' + Id() }">
+						<span data-bind="text: Name"></span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<div>
+			<ul class="lv-attrs" data-bind="foreach: Locations">
+				<li data-bind="text: LocationNo"></li>
+			</ul>
+		</div>
+	</div>
+	<lv-actions>@Html.PluginRenderActions("StoreItemTemplateActions")</lv-actions>
+</div>

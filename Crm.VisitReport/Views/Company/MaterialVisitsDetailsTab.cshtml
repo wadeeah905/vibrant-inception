@@ -1,0 +1,26 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<CrmModel>
+@using Crm.ViewModels
+@using Crm.Library.Modularization.Extensions
+@using Crm.Library.Globalization.Extensions
+
+<div role="tabpanel" class="tab-pane" id="tab-visits" data-bind="with: tabs()['tab-visits']">
+	<empty-state-box params="mood: 'sad', title: 'VisitsEmptyStateTitle', text: 'VisitsEmptyState'" data-bind="visible: visits().length === 0">
+	</empty-state-box>
+	<ul class="top-menu">
+		@Html.PluginRenderActions("VisitTabTopMenu")
+		<li data-bind="visible: true, tooltip: true" data-placement="bottom" title="@Html.Localize("Filter")">
+			<a id="open-generic-list-filter" data-trigger="#right-nav" href="#" data-route="Crm.VisitReport/VisitList/FilterTemplate">
+				<i class="tm-icon zmdi zmdi-search-in-page"></i>
+			</a>
+		</li>
+	</ul>
+	@Html.PluginRenderActions("MaterialGenericListResourceExtensions")
+	<div class="generic-list listview lv-bordered">
+		<div class="lv-body" data-bind="foreach: visits">
+			@await Html.PartialAsync("GenericListItemGroup")
+			@await Html.PartialAsync("MaterialVisit")
+		</div>
+	</div>
+	 @await Html.PartialAsync("MaterialPaging") 
+	<floating-action-button params="href: '#/Crm.VisitReport/Visit/CreateTemplate?companyId=' + $root.company().Id(), icon: 'plus', title: 'AddVisit'"></floating-action-button>
+</div>

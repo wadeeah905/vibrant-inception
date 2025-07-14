@@ -1,0 +1,121 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div class="modal-header card-header ch-alt">
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span></button>
+	<h4 class="modal-title">
+		@(Html.Localize("CreateOrder"))
+	</h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<form role="form">
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-group has-feedback" data-bind="validationElement: order().OrderDate">
+					<label class="control-label">@(Html.Localize("OrderDate"))</label>
+					<div class="dtp-container fg-line">
+						<input name="OrderDate" type="text" class="form-control date-picker" data-bind="datePicker: order().OrderDate" placeholder="@(Html.Localize("ClickHere"))">
+					</div>
+					<span class="zmdi zmdi-calendar form-control-feedback"></span>
+					<small class="help-block" data-bind="validationMessage: order().OrderDate"></small>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group" data-bind="validationElement: order().CustomerOrderNumber">
+					<div class="fg-line">
+						<label class="fg-label control-label">@(Html.Localize("CustomerOrderNumber"))</label>
+						<input name="CustomerOrderNumber" type="text" class="form-control fg-input" data-bind="value: order().CustomerOrderNumber">
+					</div>
+					<small class="help-block" data-bind="validationMessage: order().CustomerOrderNumber"></small>
+				</div>
+			</div>
+		</div>
+
+		<p class="m-t-25 m-b-10" data-bind="visible: alternatives().length > 0">
+			@(Html.Localize("SelectAlternativesFromOffer"))
+		</p>
+		<!-- ko foreach: alternativeGroups -->
+		<hr data-bind="visible: $index() > 0"/>
+		<div class="radio m-b-15">
+			<label>
+				<input type="radio" data-bind="checked: selectedAlternative, value: parentOrderItem, attr: { name: parentOrderItemId }">
+				<i class="input-helper"></i>
+				<span data-bind="text: parentOrderItem.QuantityValue, visible: $root.showQuantities"></span>
+				<span data-bind="text: parentOrderItem.QuantityUnitKey, visible: $root.showQuantities"></span>
+				<span data-bind="text: parentOrderItem.ArticleNo"></span>
+				-
+				<span data-bind="text: parentOrderItem.ArticleDescription"></span>
+			</label>
+		</div>
+		<!-- ko foreach: alternatives -->
+		<div class="radio m-b-15">
+			<label>
+				<input type="radio" data-bind="checked: $parent.selectedAlternative, value: $data, attr: { name: $parent.parentOrderItemId }">
+				<i class="input-helper"></i>
+				<span data-bind="text: QuantityValue, visible: $root.showQuantities"></span>
+				<span data-bind="text: QuantityUnitKey, visible: $root.showQuantities"></span>
+				<span data-bind="text: ArticleNo"></span>
+				-
+				<span data-bind="text: ArticleDescription"></span>
+			</label>
+			<div class="pull-right">
+				<span data-bind="css: { 'c-deeporange': Price() > $parent.parentOrderItem.Price(), 'c-green': Price() < $parent.parentOrderItem.Price() }" class="c-deeporange">
+					<span data-bind="visible: Price() >= $parent.parentOrderItem.Price()">+</span>
+					<span data-bind="visible: Price() < $parent.parentOrderItem.Price()">-</span>
+					<span data-bind="money: Math.abs($parent.parentOrderItem.Price() - Price())"></span>
+					<span data-bind="text: $root.getCurrencyValue($root.offer().CurrencyKey())"></span>
+				</span>
+			</div>
+		</div>
+		<!-- /ko -->
+		<!-- /ko -->
+
+		<p class="m-t-25 m-b-10" data-bind="visible: optionalItems().length > 0">
+			@(Html.Localize("SelectOptionalItemsFromOffer"))
+		</p>
+		<!-- ko foreach: optionalItems -->
+		<div class="checkbox m-b-15">
+			<label>
+				<input type="checkbox" data-bind="checked: $parent.selectedOptionalItems, value: $data">
+				<i class="input-helper"></i>
+				<span data-bind="text: QuantityValue, visible: $root.showQuantities"></span>
+				<span data-bind="text: QuantityUnitKey, visible: $root.showQuantities"></span>
+				<span data-bind="text: ArticleNo"></span>
+				-
+				<span data-bind="text: ArticleDescription"></span>
+			</label>
+		</div>
+		<!-- /ko -->
+		
+		<signature-pad params="signature: order().Signature, signatureDate: order().SignatureDate, signatureName: order().SignatureName"></signature-pad>
+		<button id="toggleDataProtectionInfo" data-bind="visible: $root.signatureAcceptanceRequired" class="btn btn-lg btn-default f-13 waves-effect m-t-10" type="button" data-toggle="collapse" data-target="#dataPrivacyPolicy" aria-expanded="false" aria-controls="dataPrivacyPolicy"><i class="zmdi zmdi-info-outline"></i>
+			@(Html.Localize("DataProtectionInfo"))
+		</button>
+		<div id="dataPrivacyPolicy" class="m-t-10 collapse" aria-expanded="false">
+			 @await Html.PartialAsync("DataPrivacyPolicy") 		
+		</div>
+		<div class="form-group p-t-10" data-bind="validationElement: $root.order().SignPrivacyPolicyAccepted">
+			<div class="checkbox m-b-15">
+				<label>
+					<input type="checkbox" data-bind="checked: $root.order().SignPrivacyPolicyAccepted, attr: { name: 'SignPrivacyPolicyAccepted' }">
+					<i class="input-helper"></i>
+					<span data-bind="text: window.Helper.String.getTranslatedString('AcceptPrivacyPolicy');"></span>
+					<span class="required" data-bind="visible: $root.signatureAcceptanceRequired">*</span>
+				</label>
+			</div>
+			<small class="help-block" data-bind="validationMessage: $root.order().SignPrivacyPolicyAccepted"></small>
+		</div>
+
+		@Html.PluginRenderActions("CreateOrderFromOfferForm")
+	</form>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-bind="click: Helper.Database.clearTrackedEntities" data-dismiss="modal">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: submit, disable: loading">
+		@(Html.Localize("Create"))
+	</button>
+</div>

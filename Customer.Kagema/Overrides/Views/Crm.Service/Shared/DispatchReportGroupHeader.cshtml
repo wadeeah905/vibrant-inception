@@ -1,0 +1,98 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Offline.Extensions
+@using Crm.Service.Rest.Model
+
+<table class="table head-data" style="page-break-inside: avoid" data-bind="visible: $parent.showGroupHeader($data)">
+	<tr>
+		<td class="col-xs-2 b-0 p-r-0" data-bind="visible: $parent.maintenanceOrderGenerationMode() === 'JobPerInstallation';">
+			<div class="bgm-gray text-center p-10 f-700">
+				@using (Html.TemplateContext("ServiceOrderTime"))
+				{
+					@(Html.TemplateText<ServiceOrderTimeRest>(x => x.PosNo).AddClass("c-white"))
+				}
+				@using (Html.TemplateCondition("ServiceOrderTime", false))
+				{
+					<span class="c-white">N/A</span>
+				}
+			</div>
+		</td>
+		<td class="b-0" data-bind="css: { 'col-xs-9': $parent.maintenanceOrderGenerationMode() === 'JobPerInstallation', 'col-xs-11 p-l-0': $parent.maintenanceOrderGenerationMode() !== 'JobPerInstallation' }">
+			@using (Html.TemplateContext("ServiceOrderTime"))
+			{
+				<h4>@(Html.TemplateText<ServiceOrderTimeRest>(x => x.Description))</h4>
+			}
+			@using (Html.TemplateContext("Installation"))
+			{
+				<div>
+					<h4 class="m-t-0 m-b-0" data-bind="text: Helper.Installation.getDisplayName($data)"></h4>
+				</div>
+				<table class="w-100 m-b-0">
+					<tr>
+						<td colspan="3" class="p-0">
+							<div class="listview">
+								<ul class="lv-attrs m-t-0 m-b-0">
+									<li data-bind="visible: StatusKey()">
+										<div class="pull-left">
+											<strong data-bind="translatedText: { key: 'Status', language: $parentContext.$parent.selectedLanguage }">@(Html.Localize("Status"))</strong>
+											<strong>:</strong>
+										</div>
+										<div class="pull-left m-l-5" data-bind="text: window.Helper.Lookup.getLookupValue($parentContext.$parent.lookups.installationStatus, StatusKey()) || '-'"></div>
+									</li>
+									<li data-bind="visible: InstallationTypeKey()">
+										<div class="pull-left">
+											<strong data-bind="translatedText: { key: 'InstallationType', language: $parentContext.$parent.selectedLanguage }">@(Html.Localize("InstallationType"))</strong>
+											<strong>:</strong>
+										</div>
+										<div class="pull-left m-l-5" data-bind="text: window.Helper.Lookup.getLookupValue($parentContext.$parent.lookups.installationTypes, InstallationTypeKey()) || '-'"></div>
+									</li>
+									<li data-bind="visible: ManufacturerKey()">
+										<div class="pull-left">
+											<strong data-bind="translatedText: { key: 'Manufacturer', language: $parentContext.$parent.selectedLanguage }">@(Html.Localize("Manufacturer"))</strong>
+											<strong>:</strong>
+										</div>
+										<div class="pull-left m-l-5" data-bind="text: window.Helper.Lookup.getLookupValue($parentContext.$parent.lookups.manufacturers, ManufacturerKey()) || '-'"></div>
+									</li>
+									<li data-bind="visible: ManufactureDate()">
+										<div class="pull-left">
+											<strong data-bind="translatedText: { key: 'ManufactureDate', language: $parentContext.$parent.selectedLanguage }">@(Html.Localize("ManufactureDate"))</strong>
+											<strong>:</strong>
+										</div>
+										<div class="pull-left m-l-5">
+												@(Html.TemplateText<InstallationRest>(x => x.ManufactureDate))
+												@using (Html.TemplateCondition("ManufactureDate()", false))
+												{
+													@("-")
+												}
+										</div>
+									</li>
+									<li data-bind="visible: ExternalReference()">
+										<div class="pull-left">
+											<strong data-bind="translatedText: { key: 'ExternalReference', language: $parentContext.$parent.selectedLanguage }">@(Html.Localize("ExternalReference"))</strong>
+											<strong>:</strong>
+										</div>
+										<div class="pull-left m-l-5" data-bind="text: ExternalReference() || '-'"></div>
+									</li>
+									<li data-bind="visible: ExactPlace()">
+										<div class="pull-left">
+											<strong data-bind="translatedText: { key: 'ExactPlace', language: $parentContext.$parent.selectedLanguage }">@(Html.Localize("ExactPlace"))</strong>
+											<strong>:</strong>
+										</div>
+										<div class="pull-left m-l-5" data-bind="text: ExactPlace() || '-'"></div>
+									</li>
+									<li data-bind="visible: Room()">
+										<div class="pull-left">
+											<strong data-bind="translatedText: { key: 'Room', language: $parentContext.$parent.selectedLanguage }">@(Html.Localize("Room"))</strong>
+											<strong>:</strong>
+										</div>
+										<div class="pull-left m-l-5" data-bind="text: Room() || '-'"></div>
+									</li>
+								</ul>
+							</div>
+						</td>
+					</tr>
+				</table>
+			}
+		</td>
+	</tr>
+</table>

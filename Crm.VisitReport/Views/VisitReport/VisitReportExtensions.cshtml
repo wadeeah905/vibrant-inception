@@ -1,0 +1,29 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<dynamic>
+
+<pmb-block class="visitreport-extensions" params="icon: 'globe', caption: 'VisitReportBackgroundInformation', context: { company: company }, condition: window.AuthorizationManager.isAuthorizedForAction('Company', 'Edit')">
+	<pmbb-view>
+		<!-- ko with: company().ExtensionValues -->
+			<pmbb-view-entry params="caption: 'VisitsNeeded'">
+				<span data-bind="text: VisitFrequencyValue(), visible: VisitFrequencyValue"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: VisitFrequencyValue"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'VisitsNeededTimeUnit'">
+				<span data-bind="if: VisitFrequencyTimeUnitKey, lookupValue: VisitFrequencyTimeUnitKey, lookups: $root.lookups.timeUnits"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: VisitFrequencyTimeUnitKey"></span>
+			</pmbb-view-entry>
+		<!-- /ko -->
+	</pmbb-view>
+	<pmbb-edit>
+		<!-- ko with: company().ExtensionValues -->
+		
+			<pmbb-edit-entry params="caption: 'VisitsNeeded', validationElement: VisitFrequencyValue">
+				<input type="number" step="1" class="form-control" data-bind="value: VisitFrequencyValue, attr: { min: 0 }">
+			</pmbb-edit-entry>
+			<pmbb-edit-entry id="VisitFrequencyTimeUnitKey" params="caption: 'VisitsNeededTimeUnit', validationElement: VisitFrequencyTimeUnitKey">
+				<select class="form-control " data-bind="select2autocompleter: { data: $root.lookups.timeUnits.$array, optionsText: 'Value', optionsValue: 'Key', placeholder: $parent.placeholder} 
+			,value: VisitFrequencyTimeUnitKey">
+				</select>
+			</pmbb-edit-entry>
+		<!-- /ko -->
+	</pmbb-edit>
+</pmb-block>

@@ -1,0 +1,96 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Extensions
+@using Crm.Library.Globalization.Extensions
+
+<div id="modal-timeposting-title" class="modal-header card-header ch-alt" data-bind="with: serviceOrderTimePosting">
+	<button type="button" class="close" data-dismiss="modal" aria-label="@(Html.Localize("Close"))">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title" data-bind="visible: innerInstance.entityState === 20">@(Html.Localize("AddTimePosting"))</h4>
+	<h4 class="modal-title" data-bind="visible: innerInstance.entityState !== 20">@(Html.Localize("EditServiceOrderTimePosting"))</h4>
+	<h4 class="modal-title" data-bind="visible: $root.prePlanned"> (@(Html.Localize("PrePlanned")))</h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<form role="form" action="#" data-bind="with: serviceOrderTimePosting">
+		<div class="row" data-bind="if: $root.showDispatchSelection">
+			<div class="col-md-12" >
+				<form-element id="DispatchId" params="value: DispatchId, caption: 'ServiceOrderDispatch', type: 'select2'">
+					@Html.RenderAction("AutocompleteTemplate", "ServiceOrderDispatchList", new { plugin = "Crm.Service" })
+					<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { table: 'CrmService_ServiceOrderDispatch', customFilter: $root.dispatchFilter.bind($root), joins: ['ServiceOrder', 'ServiceOrder.Company', 'ServiceOrder.Installation', 'ServiceOrder.ServiceObject'], mapDisplayObject: Helper.Dispatch.mapForSelect2Display, onSelect: $root.onDispatchSelect.bind($root), templateResultId: 'dispatch-autocomplete-template', placeholder: placeholder } }">
+					</select>
+				</form-element>
+			</div>
+		</div>
+		<div class="row" data-bind="ifnot: $root.prePlanned">
+			<div class="col-md-4" >
+				<form-element params="value: Date, caption: 'Date', type: 'datePicker', disable: Date() && Date() < $root.minDate(), datePickerOptions: { config: { minDate: $root.minDate(), maxDate: $root.maxDate() } }"></form-element>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6" >
+				<form-element id="ArticleId" params="value: ArticleId, caption: 'ServiceTime', disable: ArticleId() && WasPrePlanned()">
+					<select name="ArticleId" class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Article.getArticleSelect2Options($root), placeholder: placeholder}, disable: disable" >
+					</select>
+				</form-element>
+			</div>
+			<div class="col-md-6">
+				<form-element params="value: ServiceOrderTimeId, caption: 'ServiceOrderTime', disable: !$parent.isJobEditable()" data-bind="visible: window.Crm.Service.Settings.ServiceContract.MaintenanceOrderGenerationMode === 'JobPerInstallation'">
+				<select name="ServiceOrderTimeId" class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { table: 'CrmService_ServiceOrderTime', orderBy: ['PosNo'], joins: Helper.ServiceOrderTime.getAutocompleteJoins(), customFilter: $root.getServiceOrderTimeAutocompleteFilter.bind($root), mapDisplayObject: function (o) { return { id: o.Id, item: o, text: Helper.ServiceOrderTime.getAutocompleteDisplay(o) }; }, onSelect: $root.onJobSelected.bind($root), placeholder: $root.isJobEditable() ? Helper.String.getTranslatedString('PleaseSelect') : ' ' } }, disable: disable" >
+				</select>
+			</form-element>
+			</div>
+		</div>
+		<div class="row" data-bind="ifnot: $root.prePlanned">
+			<div  class="col-md-6">
+				<form-element params="value: Kilometers, caption: 'Kilometers', type: 'number'" data-bind="visible: $parent.showKilometerSelection()"></form-element>
+			</div>
+		</div>
+		<!-- ko if: Crm.Service.Settings.ServiceOrderTimePosting.ShowTechnicianSelection && !$root.prePlanned() -->
+		<div class="row">
+			<div class="col-md-6">
+				<form-element id="Username" params="value: Username, caption: 'Technician'">
+					<select name="Username" class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['LastName'], table: 'Main_User', mapDisplayObject: Helper.User.mapForSelect2Display, placeholder: placeholder, customFilter: function (query,term) { return Helper.User.filterUserQuery(query,term).filter(function (it) { return it.Discharged === false; }); }} }">
+					</select>
+				</form-element>
+			</div>
+		</div>
+		<!-- /ko -->
+		<div class="row">
+			<!-- ko ifnot: $root.prePlanned -->
+			<div class="col-md-3 col-xs-6">
+				<form-element params="value: From, caption: 'From', type: 'timePicker', disable: $parent.allDay || !$data.Date(), datePickerOptions: { config: { stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+			</div>
+			<div class="col-md-3 col-xs-6">
+				<form-element params="value: To, caption: 'To', type: 'timePicker', disable: $parent.allDay || !$data.Date(), datePickerOptions: { config: { stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+			</div>
+			<div class="col-md-3 col-xs-6">
+				<form-element params="value: Duration, caption: $root.getDurationLabel(), name: 'Duration', type: 'durationPicker', disable: $parent.allDay || !$data.Date(),  datePickerOptions: { config: { stepping: parseInt(Crm.Service.Settings.ServiceOrderTimePosting.MinutesInterval) } }"></form-element>
+			</div>
+			<div class="col-md-3 col-xs-6">
+				<form-element params="value: $parent.allDay, caption: 'AllDay', type: 'checkbox'"></form-element>
+			</div>
+			<!-- /ko -->
+			<!-- ko if: $root.prePlanned -->
+			<div class="col-md-3 col-xs-6">
+				<form-element params="value: PlannedDuration, caption: $root.getDurationLabel(), name: 'PlannedDuration', type: 'durationPicker'"></form-element>
+			</div>
+			<!-- /ko -->
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<form-element params="value: InternalRemark, caption: 'InternalRemark', type: 'textarea'"></form-element>
+			</div >
+			<div class="col-md-6">
+				<form-element params="value: Description, caption: 'ExternalRemark', type: 'textarea'"></form-element>
+			</div >
+		</div>
+	</form>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-bind="click: Helper.Database.clearTrackedEntities" data-dismiss="modal">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: save, disable: loading">
+		@(Html.Localize("Save"))
+	</button>
+</div>

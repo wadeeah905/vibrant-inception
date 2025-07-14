@@ -1,0 +1,37 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<Crm.ViewModels.GenericListViewModel>
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div class="t-view" data-tv-type="text">
+	<div class="tv-header media">
+		<div class="media-body p-t-5">
+			<strong class="d-block" data-bind="text: Topic"></strong>
+			<small class="c-gray" data-bind="dateText: CreateDate"></small>
+		</div>
+
+		<ul class="actions m-t-20" data-bind="if: (window.AuthorizationManager.isAuthorizedForAction('Topic', 'Edit') || window.AuthorizationManager.isAuthorizedForAction('Topic', 'Delete'))">
+			<li class="dropdown">
+				<a href="#" data-toggle="dropdown">
+					<i class="zmdi zmdi-more-vert"></i>
+				</a>
+				<ul class="dropdown-menu dropdown-menu-right">
+					<!-- ko requiredPermission: { name: 'Edit', group: 'Topic' } -->
+						<li>
+							<a href="#" data-bind="attr: { 'data-route': 'Crm.VisitReport/Topic/EditTemplate/' + Id() }" data-toggle="modal" data-target="#modal">@(Html.Localize("Edit"))</a>
+						</li>
+					<!-- /ko -->
+					<!-- ko requiredPermission: { name: 'Delete', group: 'Topic' } -->
+						<li>
+							<a href="#" data-bind="click: $parent.remove.bind($parent, $data)">@(Html.Localize("Delete"))</a>
+						</li>
+					<!-- /ko -->
+				</ul>
+			</li>
+		</ul>
+		@Html.PluginRenderActions("MaterialTopicItemHeaderExtensions")
+	</div>
+	<div class="tv-body">
+		<span data-bind="text: Description"></span>
+		@Html.PluginRenderActions("MaterialTopicItemBodyExtensions")
+	</div>
+</div>

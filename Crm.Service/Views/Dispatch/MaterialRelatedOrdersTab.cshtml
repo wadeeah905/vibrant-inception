@@ -1,0 +1,36 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-related-orders" data-bind="with: tabs()['tab-related-orders']">
+	<div class="generic-list listview lv-bordered">
+		<div class="lv-body">
+			<!-- ko foreach: lists -->
+			<div class="lv-header">
+				<span data-bind="translatedText: $data.title"></span>
+				<!-- ko if: $data.subtitle -->
+				<p class="small" data-bind="translatedText: $data.subtitle"></p>
+				<!-- /ko -->
+			</div>
+			<!-- ko with: viewModel -->
+			<div data-bind="foreach: items">
+				<!-- ko if: $parentContext.$parent.type === "dispatch" -->
+				@await Html.PartialAsync("../ServiceOrderDispatchList/MaterialItemTemplate")
+				<!-- /ko -->
+				<!-- ko if: $parentContext.$parent.type === "serviceOrder" -->
+				@await Html.PartialAsync("../ServiceOrderHeadList/MaterialItemTemplate")
+				<!-- /ko -->
+			</div>
+			@await Html.PartialAsync("MaterialPaging")
+			<!-- /ko -->
+			<!-- ko if: viewModel.items().length === 0 -->
+			<div id="generic-list-empty-state" class="lv-item media">
+				<div class="row media-body">
+					<div class="col-xs-12">
+						<small class="lv-small" data-bind="text: Helper.String.getTranslatedString(type === 'dispatch' ? 'NoRelatedDispatches' : 'NoRelatedOrders')"></small>
+					</div>
+				</div>
+			</div>
+			<!-- /ko -->
+			<!-- /ko -->
+		</div>
+	</div>
+</div>

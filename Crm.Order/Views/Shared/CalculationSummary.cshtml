@@ -1,0 +1,74 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<CalculationViewModel>
+@using Crm.Configurator.ViewModels
+@using Crm.Library.Globalization.Extensions
+
+@{ var salesColumnClass = Model.DisplayPurchasePrices ? String.Empty : "col-xs-offset-8"; }
+
+<dl class="dl-horizontal c-black">
+	<dt>@(Html.Localize("AcquisitionPrice"))</dt>
+	<dd class="text-right">
+		<div class="row m-r-0">
+			@if (Model.DisplayPurchasePrices) { 
+				<div class="col-xs-4 col-xs-offset-4 p-r-0">
+					<span data-bind="text: $root.getCurrencyValue($root.baseOrder().CurrencyKey())"></span> <span data-bind="	money: calculatedPurchasePrice"></span>	
+				</div>
+			 } 
+			<div class="calculated-sales-price col-xs-4 @(salesColumnClass) p-r-0">
+				<span data-bind="text: $root.getCurrencyValue($root.baseOrder().CurrencyKey())"></span> <span data-bind="	money: calculatedSalesPrice"></span>
+			</div>
+		</div>
+	</dd>
+</dl>
+<dl class="dl-horizontal c-black">
+	<dt>@(Html.Localize("SalesPrice"))</dt>
+	<dd class="text-right">
+		<div class="row m-r-0">
+			@if (Model.DisplayPurchasePrices) { 
+				<div class="col-xs-4 col-xs-offset-4 p-r-0">
+					<div class="fg-line">
+						<div class="input-group">
+							<span class="input-group-addon p-0" data-bind="text: $root.getCurrencyValue($root.baseOrder().CurrencyKey())"></span>
+							<input name="SalesPrice" type="number" step="0.01" class="form-control text-right" data-bind="value: parentViewModel.baseOrder().Price(), enable: false" />
+						</div>
+					</div>
+				</div>
+			 } 
+			<div class="col-xs-4 @(salesColumnClass) p-r-0">
+				<div class="fg-line">
+					<div class="input-group">
+						<span class="input-group-addon p-0" data-bind="text: $root.getCurrencyValue($root.baseOrder().CurrencyKey())"></span>
+						<input name="SalesPrice" type="number" step="0.01" class="form-control text-right" data-bind="value: salesPrice, enable: $root.isEditable"/>
+					</div>
+				</div>
+						<small class="help-block c-red" data-bind="validationMessage: salesPrice"></small>
+			</div>
+		</div>
+	</dd>
+</dl>
+<hr>
+<dl class="dl-horizontal c-black">
+	<dt>@(Html.Localize("MarginAbsolute"))</dt>
+	<dd class="text-right">
+		<div class="row m-r-0">
+			@if (Model.DisplayPurchasePrices) { 
+				<div class="col-xs-4 col-xs-offset-4 p-r-0">
+					<span data-bind="text: $root.getCurrencyValue($root.baseOrder().CurrencyKey())"></span> <span data-bind="	money: marginAbsolute, css: { 'c-red': marginAbsolute() < 0 }"></span>
+				</div>
+			 } 
+			<div class="col-xs-4 @(salesColumnClass) p-r-0">
+				<span data-bind="text: $root.getCurrencyValue($root.baseOrder().CurrencyKey())"></span> <span data-bind="	money: marginSalesAbsolute, css: { 'c-red': marginSalesAbsolute() < 0 }"></span>
+			</div>
+		</div>
+	</dd>
+</dl>
+<dl class="dl-horizontal c-black">
+	<dt>@(Html.Localize("MarginRelative"))</dt>
+	<dd class="text-right">
+		<div class="row m-r-0">
+			@if (Model.DisplayPurchasePrices) { 
+				<div class="col-xs-4 col-xs-offset-4 p-r-0" data-bind="money: marginRelative, css: { 'c-red': marginRelative() < 0 }"></div>
+			 } 
+			<div class="col-xs-4 @(salesColumnClass) p-r-0" data-bind="money: marginSalesRelative, css: { 'c-red': marginSalesRelative() < 0 }"></div>
+		</div>
+	</dd>
+</dl>

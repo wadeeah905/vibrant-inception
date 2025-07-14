@@ -1,0 +1,29 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-details" data-bind="with: tabs()['tab-details']">
+	<pmb-block  params="icon: 'account', caption: 'General', context: {store: store }">
+		<pmbb-view>
+			<!-- ko with: store -->
+			<pmbb-view-entry params="caption: 'Name'">
+				<span data-bind="text: Name"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: Name"></span>
+			</pmbb-view-entry>
+			
+			<pmbb-view-entry params="caption: 'StoreNo'">
+				<span data-bind="text: StoreNo"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: StoreNo"></span>
+			</pmbb-view-entry>
+			<!-- /ko -->
+		</pmbb-view>
+		<pmbb-edit>
+			<!-- ko with: store -->
+			<pmbb-edit-entry params="caption: 'Name', validationElement: Name">
+				<input type="text" class="form-control" data-bind="value: Name">
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'StoreNo', validationElement: StoreNo">
+				<input type="text" class="form-control" data-bind="value: StoreNo">
+			</pmbb-edit-entry>
+			<!-- /ko -->
+		</pmbb-edit>
+	</pmb-block>
+</div>

@@ -1,0 +1,16 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Order.Model.Lookups
+
+<li data-bind="visible: offer().OrderNo() && offer().ReadyForExport() === false && offer().StatusKey() !== '@OrderStatus.OrderCreatedKey'">
+	<a href="#" data-route="Crm.Order/Offer/CreateOrder" data-toggle="modal" data-target="#lgModal">
+		<i class="zmdi zmdi-plus-circle-o-duplicate"></i>
+		@(Html.Localize("CreateOrder"))
+	</a>
+</li>
+<li data-bind="visible: (offer().OrderNo() && offer().ReadyForExport() === true) || offer().StatusKey() === '@OrderStatus.OrderCreatedKey'" class="disabled">
+	<a href="#">
+		<i class="zmdi zmdi-plus-circle-o-duplicate"></i>
+		@(Html.Localize("CreateOrder"))
+	</a>
+</li>

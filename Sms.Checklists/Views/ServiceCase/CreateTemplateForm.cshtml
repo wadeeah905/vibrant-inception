@@ -1,0 +1,6 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Modularization.Extensions
+
+<form role="form" data-bind="with: serviceCase">
+	@Html.PluginRenderActions("CreateServiceCaseForm")
+</form>

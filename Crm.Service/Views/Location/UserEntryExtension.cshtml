@@ -1,0 +1,12 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<Crm.ViewModels.CrmModelItem<Crm.Service.Model.UserExtension>>
+@using Crm.Library.Globalization.Extensions
+<div class="col-md-4">
+	<p>
+		@(String.Format("{0}: {1}", Html.Localize("DefaultStoreNo"), Model.Item.DefaultStoreNo ?? Html.Localize("Unspecified")))
+	</p>
+</div>
+<div class="col-md-4">
+	<p>
+		@(String.Format("{0}: {1}", Html.Localize("DefaultLocationNo"), Model.Item.DefaultLocationNo ?? Html.Localize("Unspecified")))
+	</p>
+</div>

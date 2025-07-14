@@ -1,0 +1,165 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Article.Model.Enums
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div id="right-nav">
+	<ul class="top-menu bgm-blue p-l-0">
+		<li class="dropdown" data-bind="tooltip: true" data-placement="bottom" title="@(Html.Localize("Close"))">
+			<a id="close" href="#" data-trigger="#right-nav">
+				<i class="tm-icon zmdi zmdi-close"></i>
+			</a>
+		</li>
+		<li class="dropdown pull-right" data-bind="tooltip: true" data-placement="bottom" title="@(Html.Localize("Save"))">
+			<a id="save" href="#" data-bind="click: saveSelectedItem">
+				<i class="tm-icon zmdi zmdi-check"></i>
+			</a>
+		</li>
+	</ul>
+	<div class="listview lv-bordered" data-bind="with: selectedItem">
+		<div class="lv-item">
+			<!-- ko if: $root.isNewItem() -->
+			<form-element id="ArticleNo" params="value: ArticleNo, caption: 'Article'">
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-10 m-t-5">
+						<select name="ArticleNo" class="form-control" data-bind="select2autocompleter: { data: $parent.articleAutocomplete, autocompleteOptions: Helper.Article.getAutocompleteOptionsShorthand($parent, false, $root.showActiveArticles, $root.showExpiredArticles, $root.showUpcomingArticles)}">
+						</select>
+					</div>
+					<div class="col-xs-6 col-sm-4 col-md-2 pull-right max-width-min-content">
+						<div id="place-holder" class="p-t-15 visible-xs visible-sm"></div>
+						<!-- ko component: { name: "barcode-scanner", params: { value: $parent.articleAutocomplete, source: () => Helper.Article.getAutocompleteOptionsShorthand($parent, false, $root.showActiveArticles, $root.showExpiredArticles, $root.showUpcomingArticles).customFilter(database.CrmArticle_Article, ''), column: 'BarCode', id: 'Id' } } -->
+						<!-- /ko -->
+						<span class="dropdown input-group-addon p-r-0">
+							<a class="btn btn-default btn-icon waves-effect waves-circle waves-float" href="#" data-toggle="dropdown">
+								<i class="zmdi zmdi-bookmark"></i>
+							</a>
+							<ul id="type-select-dropdown" class="dropdown-menu dropdown-menu-right">
+								<li role="presentation" class="dropdown-header text-right" data-bind="translatedText: 'Show'"></li>
+								<li>
+									<div class="toggle-switch col-xs-12 m-t-5" data-ts-color="blue">
+										<input id="show-all-ts" type="checkbox" hidden="hidden" data-bind="checked: $root.showAllArticles">
+										<label for="show-all-ts" class="ts-helper"></label>
+										<label for="show-all-ts" class="ts-label m-r-5 pull-right">@(Html.Localize("All"))</label>
+									</div>
+								</li>
+								<li class="divider col-xs-12"></li>
+								<li class="col-xs-12">
+									<div class="row checkbox m-t-0">
+										<label class="checkbox m-r-20 m-l-20 text-right" style="margin-bottom: 10px">
+											<input type="checkbox" data-bind="checked: $root.showActiveArticles">
+											<i class="input-helper"></i>
+											<span class="description" data-bind="text: { value: '@Html.Localize("Active")', wordBreak: 'normal' }"></span>
+										</label>
+									</div>
+									<div class="row checkbox m-t-0">
+										<label class="checkbox m-r-20 m-l-20 text-right" style="margin-bottom: 10px">
+											<input type="checkbox" data-bind="checked: $root.showExpiredArticles">
+											<i class="input-helper"></i>
+											<span class="description" data-bind="text: { value: '@Html.Localize("Discontinued")', wordBreak: 'normal' }"></span>
+										</label>
+									</div>
+									<div class="row checkbox m-t-0">
+										<label class="checkbox m-r-20 m-l-20 text-right" style="margin-bottom: 10px">
+											<input type="checkbox" data-bind="checked: $root.showUpcomingArticles">
+											<i class="input-helper"></i>
+											<span class="description" data-bind="text: { value: '@Html.Localize("Upcoming")', wordBreak: 'normal' }"></span>
+										</label>
+									</div>
+								</li>
+							</ul>
+						</span>
+					</div>
+				</div>
+			</form-element>
+			<!-- /ko -->
+			<!-- ko if: !$root.isNewItem() -->
+			<div class="media-body p-t-5">
+				<div class="lv-title">@(Html.Localize("ArticleNo"))</div>
+				<small class="lv-small" data-bind="text: ArticleNo"></small>
+			</div>
+			<div class="media-body p-t-5">
+				<div class="lv-title">@(Html.Localize("ArticleDescription"))</div>
+				<small class="lv-small" data-bind="text: ArticleDescription"></small>
+			</div>
+			<!-- /ko -->
+			<div class="form-group p-t-10">
+				<div class="fg-line">
+					<label class="fg-label control-label">@(Html.Localize("CustomArticleNo"))</label>
+					<input name="CustomArticleNo" type="text" class="form-control" data-bind="value: CustomArticleNo">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="fg-line">
+					<label class="fg-label control-label">@(Html.Localize("CustomDescription"))</label>
+					<input name="CustomDescription" type="text" class="form-control" data-bind="value: CustomDescription">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="fg-line">
+					<textarea class="form-control" rows="5" placeholder="@(Html.Localize("AdditionalInformation"))..." data-bind="value: AdditionalInformation"></textarea>
+				</div>
+			</div>
+			<!-- ko if: $root.baseOrder().OrderEntryType() != 'Configuration' -->
+			<div class="form-group" data-bind="validationElement: QuantityValue">
+				<div class="fg-line">
+					<label class="fg-label control-label">@(Html.Localize("QuantityValue"))</label>
+					<input name="QuantityValue" type="number" class="form-control fg-input" data-bind="textInput: QuantityValue, attr: { min: $root.negativeQuantitiesAllowed() ? '' : 0, max: $root.positiveQuantitiesAllowed() ? '' : 0, step: $data.QuantityStep() || 1 }">
+				</div>
+				<small class="help-block" data-bind="validationMessage: QuantityValue"></small>
+			</div>
+			<div class="media-body p-t-5 p-b-15" data-bind="validationElement: Price">
+				<label class="fg-label control-label">@(Html.Localize("Price"))</label>
+					<div class="input-group">
+						<div class="fg-line">
+							<input name="Price" class="form-control fg-input" type="number" data-bind="value: Price" step="10"/>
+						</div>
+						<span class="input-group-addon">
+							<span class="text-nowrap" data-bind="text: $root.getCurrencyValue($root.baseOrder().CurrencyKey())"></span> 
+						</span>
+				</div>
+				<small class="help-block" data-bind="validationMessage: Price"></small>
+			</div>
+			<!-- ko if: Crm.Order.Settings.OrderItemDiscountEnabled -->
+			<div class="form-group" data-bind="validationElement: Discount">
+				<label class="fg-label control-label">@(Html.Localize("DiscountPerPiece"))</label>
+				<div class="input-group">
+					<div class="fg-line">
+						<input name="Discount" type="number" class="form-control fg-input" data-bind="value: Discount, attr: { step: DiscountType() == @((int)DiscountType.Percentage) ? 1 : 10 }">
+					</div>
+					<span class="input-group-addon">
+						<button class="btn btn-default waves-effect discount-type text-nowrap" data-bind="text: DiscountType() == @((int)DiscountType.Percentage) ? '%' : $root.getCurrencyValue($root.baseOrder().CurrencyKey()), click: $root.toggleDiscountType"></button>
+					</span>
+				</div>
+				<small class="help-block" data-bind="validationMessage: Discount"></small>
+			</div>
+			<!-- /ko -->
+			<!-- ko if: $root.baseOrder().OrderEntryType() === 'MultiDelivery' -->
+				<div class="form-group" data-bind="validationElement: DeliveryDate">
+					<div class="fg-line select">
+						<label class="fg-label control-label">@(Html.Localize("DeliveryDate"))</label>
+						<select name="DeliveryDate" class="form-control" data-bind="value: $root.selectedItemDeliveryDate, options: $root.deliveryDates, optionsText: function (x) { return x != null ? window.Globalize.formatDate(new Date(x)) : window.Helper.String.getTranslatedString('NoOrderItemDeliveryDate'); }">
+						</select>
+					</div>
+					<small class="help-block" data-bind="validationMessage: DeliveryDate"></small>
+				</div>
+			<!-- /ko -->
+			<!-- /ko -->
+			@Html.PluginRenderActions("OrderItemEditorGeneral")
+		</div>
+		@Html.PluginRenderActions("OrderItemEditorAdditional")
+		<div class="lv-item">
+			<div class="media-body">
+				<div class="lv-title">@(Html.Localize("Quantity"))</div>
+				<small class="lv-small">
+					<span data-bind="text: QuantityValue"></span>
+					<span data-bind="lookupValue: QuantityUnitKey, lookups: $root.lookups.quantityUnits"></span>
+				</small>
+			</div>
+			<div class="media-body p-t-5">
+				<div class="lv-title">@(Html.Localize("Sum"))</div>
+				<small class="lv-small"><span data-bind="text: $root.getCurrencyValue($root.baseOrder().CurrencyKey())"></span> <span data-bind="money: $root.getCalculatedPriceWithDiscount($data)"></span></small>
+			</div>
+			@Html.PluginRenderActions("OrderItemEditorSummary")
+		</div>
+	</div>
+</div>

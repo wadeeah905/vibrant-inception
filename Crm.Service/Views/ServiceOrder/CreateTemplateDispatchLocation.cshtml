@@ -1,0 +1,83 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<fieldset data-bind="with: serviceOrder">
+	<legend class="p-t-25 m-b-25 c-black b-0 f-500 f-14">
+		@(Html.Localize("DispatchLocation"))
+	</legend>
+	<div class="form-group animated fadeIn" data-bind="visible: !$root.customAddress()">
+		<form-element id="SelectedAddress" params="value: $root.selectedAddress, type: 'select2'">
+			<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { customFilter: $root.filterAddresses.bind($root), table: 'Main_Address', mapDisplayObject: Helper.Address.mapForSelect2Display, templateResult: $root.formatAddress.bind($root), onSelect: $root.selectedAddressOnSelect.bind($root), placeholder: placeholder } }">
+			</select>
+		</form-element>
+		<!-- ko if: !$root.selectedAddress() && !!$root.serviceOrder().Company() -->
+		<div class="text-warning m-b-5" >
+			<i class="zmdi zmdi-alert-triangle zmdi-hc-fw"></i>
+			<span class="f-500">
+				@(Html.Localize("DispatchLocationMissingWarning"))
+			</span>
+		</div>
+		<!-- /ko -->
+		<a href="#" data-bind="click: $root.toggleCustomAddress">
+			@(Html.Localize("EnterCustomAddress"))
+		</a>
+	</div>
+	<div class="form-group animated fadeIn" data-bind="visible: $root.customAddress">
+		<form-element params="value: Name1, caption: 'Name1', type: 'text'"></form-element>
+		<form-element params="value: Name2, caption: 'Name2', type: 'text'"></form-element>
+		<form-element params="value: Name3, caption: 'Name3', type: 'text'"></form-element>
+		<form-element params="value: Street, caption: 'Street', type: 'text'"></form-element>
+		<div class="row">
+			<div class="col-sm-3">
+				<form-element params="value: ZipCode, caption: 'ZipCode', type: 'text'"></form-element>
+			</div>
+			<div class="col-sm-9">
+				<form-element params="value: City, caption: 'City', type: 'text'"></form-element>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<form-element id="RegionKey" params="value: RegionKey, caption: 'Region', type: 'select2'">
+					<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('Main_Region'), placeholder: placeholder }">
+					</select>
+				</form-element>
+			</div>
+			<div class="col-sm-6">
+				<form-element id="CountryKey" params="value: CountryKey, caption: 'Country', type: 'select2'">
+					<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('Main_Country'), placeholder: placeholder }">
+					</select>
+				</form-element>
+			</div>
+		</div>
+		@(Html.Localize("or"))
+		<a href="#" data-bind="click: $root.toggleCustomAddress">
+			@(Html.Localize("AddressSelection"))
+		</a>
+	</div>
+	<div class="form-group animated fadeIn" data-bind="visible: !$root.customContactPerson()">
+		<form-element id="SelectedContactPerson" params="value: $root.selectedContactPerson, caption: 'ServiceLocationResponsibleContact', type: 'select2'">
+			<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Surname', 'Firstname'], table: 'Main_Person', joins: ['Emails', 'Phones'], customFilter: $root.contactPersonFilter.bind($root), mapDisplayObject: Helper.Person.mapForSelect2Display, onSelect: $root.selectedContactPersonOnSelect.bind($root), placeholder: placeholder } }">
+			</select>
+		</form-element>
+		<a href="#" data-bind="click: $root.toggleCustomContactPerson">
+			@(Html.Localize("CustomServiceLocationResponsibleContact"))
+		</a>
+	</div>
+		<div class="form-group animated fadeIn" data-bind="visible: $root.customContactPerson">
+		<form-element params="value: ServiceLocationResponsiblePerson, caption: 'Name', type: 'text'"></form-element>
+		<form-element params="value: ServiceLocationPhone, caption: 'Phone', type: 'text'"></form-element>
+		<form-element params="value: ServiceLocationEmail, caption: 'EmailTitle', type: 'email'"></form-element>
+		@(Html.Localize("or"))
+		<a href="#" data-bind="click: $root.toggleCustomContactPerson">
+			@(Html.Localize("ServiceLocationResponsibleContactSelection"))
+		</a>
+	</div>
+	<div>
+		<form-element id="StationKey" params="value: StationKey, caption: 'Station', type: 'select2'">
+			<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name', 'LegacyId'], table: 'Main_Station', mapDisplayObject: Helper.Station.mapForSelect2Display, customFilter: Helper.Station.getSelect2Filter, placeholder: placeholder} }">
+			</select>
+		</form-element>
+	</div>
+	@Html.PluginRenderActions("CreateServiceOrderFormDispatchLocation")
+</fieldset>

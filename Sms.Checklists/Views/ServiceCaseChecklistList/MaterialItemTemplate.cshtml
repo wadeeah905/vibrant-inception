@@ -1,0 +1,34 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<div id="{{Id}}" class="lv-item media" data-bind="infiniteScrollItem: { index: $index(), array: $parent.items }">
+	<div class="lv-avatar pull-left bgm-green" data-bind="visible: Completed">
+		<i class="zmdi zmdi-check"></i>
+	</div>
+	<div class="lv-avatar pull-left bgm-blue" data-bind="visible: !Completed()">
+	</div>
+	<div class="media-body">
+		<div class="lv-title">
+			<span data-bind="text: $parent.getChecklistTitle($data)"></span>
+		</div>
+		<ul class="lv-attrs">
+		</ul>
+		<lv-actions name="ChecklistItemMenuButton">
+			<!-- ko requiredPermission: { name: 'Read', group: 'ServiceCaseChecklist' } -->
+			<li>
+				<a href="#" data-bind="attr: { 'data-route': 'Sms.Checklists/ServiceCaseChecklist/DetailsTemplate/' + Id() }, translatedText: Completed() ? 'View' : 'Preview'" data-toggle="modal" data-target="#lgModal">
+				</a>
+			</li>
+			<!-- /ko -->
+			<!-- ko requiredPermission: { name: 'Edit', group: 'ServiceCaseChecklist' } -->
+			<!-- ko if: $root.isEditable() -->
+			<li data-bind="visible: $parentContext.$parentContext.$parent.checklistIsEditable($data)">
+				<a href="#" data-bind="attr: { 'data-route': 'Sms.Checklists/ServiceCaseChecklist/EditTemplate/' + Id() }" data-toggle="modal" data-target="#lgModal">
+					@(Html.Localize("Edit"))
+				</a>
+			</li>
+			<!-- /ko -->
+			<!-- /ko -->
+		</lv-actions>
+	</div>
+</div>

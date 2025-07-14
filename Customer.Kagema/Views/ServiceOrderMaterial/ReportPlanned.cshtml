@@ -1,0 +1,60 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Article.Model.Enums
+@using Crm.Library.Extensions;
+@using Crm.Library.Globalization.Extensions
+
+<div class="modal-header card-header ch-alt">
+	<button type="button" class="close" data-dismiss="modal" aria-label="@(Html.Localize("Close"))">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title" style="text-align:center" >@(Html.Localize("ReportPlannedMaterials"))</h4>
+
+
+</div>
+<div class="modal-body card-body card-padding">
+	<div class="container" style="background-color:#f7f7f7; margin-bottom:20px">
+		<p style="margin:25px;color:black;font-weight:500;text-align:center;font-size:15px">
+			@Html.Localize("TheFollowingQuantitiesAreUsedForPre-plannedMaterial") :</p>
+	</div>
+
+	<!-- ko foreach: $root.ServiceOrderMaterials() -->
+
+	<div>
+
+		<div class="media-body">
+			<div>
+				<div class="col-sm-8">
+					<div class="lv-title" style="color:black">
+						<span data-bind="text: ItemNo"></span> - <span data-bind="text: Description"></span>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-4">
+				<div class="row">
+					<span class="col-xs-2 p-r-5 visible-xs">@(Html.Localize("EstimatedQty")):</span>
+					<span class="col-xs-5 col-sm-5 text-right p-r-5 p-l-5" data-bind="money: EstimatedQty"></span>
+					<span class="col-xs-4 col-sm-7 p-0 text-nowrap">
+						<span data-bind="lookupValue: QuantityUnitKey, lookups: $root.lookups.quantityUnits"></span>
+						<span class="hidden-xs c-black p-l-5">(@(Html.Localize("EstimatedQty")))</span>
+					</span>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+	</br>
+	<hr />
+	<!-- /ko -->
+
+</div>
+
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-bind="click: Helper.Database.clearTrackedEntities" data-dismiss="modal">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: save, disable: loading">
+		@(Html.Localize("Save"))
+	</button>
+</div>

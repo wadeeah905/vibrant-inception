@@ -1,0 +1,81 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<div class="lv-item media p-10">
+	<div class="col-xs-1 col-sm-1 p-l-0 p-r-0">
+		<!-- ko if: IsAlternative -->
+			<span class="small" data-bind="visible: IsAlternative">@(Html.Localize("Alternative"))</span>
+		<!-- /ko -->
+		<!-- ko ifnot: IsAlternative -->
+			<p data-bind="text: ($index()+1) + '.'"></p>
+		<!-- /ko -->	
+	</div>
+
+	<div class="col-xs-11 col-sm-2 p-r-0">
+		<!-- ko if: CustomArticleNo -->
+			<span data-bind="text: CustomArticleNo"></span>
+		<!-- /ko -->
+		<!-- ko ifnot: CustomArticleNo -->
+			<span data-bind="text: ArticleNo"></span>
+		<!-- /ko -->
+	</div>
+
+	<div class="col-xs-12 col-sm-3 p-r-0">
+		<p class="m-b-10" data-bind="css: { 'name-underline': AdditionalInformation }">
+			<!-- ko ifnot: CustomDescription -->
+			<spam data-bind="text: ArticleDescription"></spam>
+			<!-- /ko -->
+			<!-- ko if: CustomDescription -->
+			<span data-bind="text: CustomDescription"></span>
+			<!-- /ko -->
+		</p>
+		<!-- ko if: AdditionalInformation -->
+			<p class="pre-line" data-bind="text: AdditionalInformation"></p>
+		<!-- /ko -->
+	</div>
+
+	<div class="visible-xs hidden-print col-xs-6">
+			<span>@(Html.Localize("Quantity"))</span>:
+	</div>
+	<div class="col-xs-6 col-sm-2 text-right p-r-0">
+		<span data-bind="text: QuantityValue"></span>
+		<span data-bind="lookupValue: QuantityUnitKey, lookups: $root.lookups.quantityUnits"></span>
+	</div>
+
+	<div class="visible-xs hidden-print col-xs-6">
+		<span>@(Html.Localize("UnitPrice"))</span>:
+	</div>
+	<div class="col-xs-6 col-sm-2 text-right p-r-0 text-nowrap">
+		<span data-bind="lookupValue: CurrencyKey, lookups: $root.lookups.currencies"></span>
+		<span data-bind="money: Price"></span>
+	</div>
+
+	<div class="visible-xs hidden-print col-xs-4">
+		<span>@(Html.Localize("Total"))</span>:
+	</div>
+	<div class="col-xs-8 col-sm-2 text-nowrap p-r-0 text-right">
+		<p class="m-b-5" data-bind="css: { 'f-700': !Discount() }">
+			<span data-bind="lookupValue: CurrencyKey, lookups: $root.lookups.currencies"></span>
+			<span data-bind="money: Price()*QuantityValue()"></span>
+		</p>
+		<p class="m-b-5" data-bind="visible: Discount">
+			<small class="normal-white-space">
+				<span>@(Html.Localize("Discount"))</span><br/>
+				<span>-</span>&nbsp;<span data-bind="visible: DiscountType() === 1"><span data-bind="text: Discount"></span><span>%</span></span><span data-bind="visible: DiscountType() === 2"><span data-bind="lookupValue: CurrencyKey, lookups: $root.lookups.currencies"></span>&nbsp;<span data-bind="text: Discount()*QuantityValue()"></span></span>
+				<span> / </span>
+				<span data-bind="visible: DiscountType() === 2"><span data-bind="text: $root.getDiscountPercentageValue($data)"></span><span>%</span></span><span data-bind="visible: DiscountType() === 1"><span data-bind="lookupValue: CurrencyKey, lookups: $root.lookups.currencies"></span>&nbsp;<span data-bind="text: $root.getDiscountExactValue($data)"></span></span>
+			</small>
+		</p>
+		<p class="m-b-5" data-bind="visible: Discount, css: { 'f-700': Discount }">
+			<span data-bind="lookupValue: CurrencyKey, lookups: $root.lookups.currencies"></span>
+			<span data-bind="money: $root.getCalculatedPriceWithDiscount($data)"></span>
+		</p>
+		<!-- ko if: VATLevelKey() -->
+		<p class="m-b-5">
+			<small>
+				<span>(</span>&nbsp;<span>@(Html.Localize("VAT"))</span>&nbsp;<span data-bind="text: $root.lookups.vatLevel.$array.filter(function(v) { return v.Key === VATLevelKey() })[0].PercentageValue"></span><span>%</span>&nbsp;<span>)</span>
+			</small>
+		</p>
+		<!-- /ko -->
+	</div>
+</div>

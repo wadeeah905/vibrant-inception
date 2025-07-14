@@ -1,0 +1,35 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Modularization.Extensions
+
+<pmb-block params="icon: 'equalizer', caption: 'Checklists', context: { serviceCaseTemplate: serviceCaseTemplate, creationDynamicForm: creationDynamicForm, completionDynamicForm: completionDynamicForm }, onSave: onSaveChecklists, condition: window.AuthorizationManager.isAuthorizedForAction('ServiceCaseTemplate', 'Edit')">
+	<pmbb-view>
+		<pmbb-view-entry params="caption: 'CreationDynamicForm'">
+			<!-- ko with: creationDynamicForm -->
+			<span data-bind="text: Helper.DynamicForm.getTitle.call($parentContext.$parent, $data)"></span>
+			<!-- /ko -->
+			<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: creationDynamicForm"></span>
+			@Html.PluginRenderActions("ServiceCaseTemplateChecklistInformationView")
+		</pmbb-view-entry>
+		<pmbb-view-entry params="caption: 'CompletionDynamicForm'">
+			<!-- ko with: completionDynamicForm -->
+			<span data-bind="text: Helper.DynamicForm.getTitle.call($parentContext.$parent, $data)"></span>
+			<!-- /ko -->
+			<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: completionDynamicForm"></span>
+		</pmbb-view-entry>
+	</pmbb-view>
+	<pmbb-edit>
+		<pmbb-edit-entry params="caption: 'CreationDynamicForm'">
+			<!-- ko with: serviceCaseTemplate().ExtensionValues -->
+			<select class="form-control" data-bind="select2autocompleter: { data: CreationDynamicFormId, autocompleteOptions: { table: 'CrmDynamicForms_DynamicForm', orderBy: ['Id'], mapDisplayObject: Helper.DynamicForm.mapForSelect2Display, joins: $root.getDynamicFormAutocompleteFilterJoins(), customFilter: $root.getDynamicFormAutocompleteFilter, placeholder: $parentContext.$parent.placeholder, onSelect: function(x) { $parent.creationDynamicForm(x ? x.asKoObservable() : x); } } }">
+			</select>
+			<!-- /ko -->
+		</pmbb-edit-entry>
+		<pmbb-edit-entry params="caption: 'CompletionDynamicForm'">
+			<!-- ko with: serviceCaseTemplate().ExtensionValues -->
+			<select class="form-control" data-bind="select2autocompleter: { data: CompletionDynamicFormId, autocompleteOptions: { table: 'CrmDynamicForms_DynamicForm', orderBy: ['Id'], mapDisplayObject: Helper.DynamicForm.mapForSelect2Display, joins: $root.getDynamicFormAutocompleteFilterJoins(), customFilter: $root.getDynamicFormAutocompleteFilter, placeholder: $parentContext.$parent.placeholder, onSelect: function(x) { $parent.completionDynamicForm(x ? x.asKoObservable() : x); } } }">
+			</select>
+			<!-- /ko -->
+		</pmbb-edit-entry>
+		@Html.PluginRenderActions("ServiceCaseTemplateChecklistInformationEdit")
+	</pmbb-edit>
+</pmb-block>

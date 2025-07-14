@@ -1,0 +1,131 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div class="modal-header card-header ch-alt">
+	<button type="button" class="close" data-dismiss="modal" aria-label="@(Html.Localize("Close"))">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title">
+		@(Html.Localize("EditOrder"))
+	</h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<p>
+		@(Html.Localize("SaveOrderHint"))
+	</p>
+	<p class="m-t-10">
+	</p>
+	<form role="form" data-bind="with: order">
+		<!-- ko if: (!window.Helper.Offline || window.Helper.Offline.status === 'online') -->
+		<div class="form-group" data-bind="validationElement: OrderNo" title="">
+			<div class="fg-line">
+				<label class="fg-label control-label" data-bind="visible: 'OrderNo'">
+					<span>@Html.Localize("OrderNo")</span>
+				</label>
+				<input type="text" class="form-control fg-input" name="OrderNo" data-bind="value: OrderNo, attr: { maxlength: 30}, disable: window.Crm.Order.Settings.Order.OrderNoIsEditable == false" disabled="">
+			</div>
+			<small class="help-block pre-line" data-bind="validationMessage: OrderNo" style="display: none;"></small>
+		</div>
+		<!-- /ko -->
+		<div class="form-group" data-bind="validationElement: CustomerOrderNumber">
+			<div class="fg-line">
+				<label class="fg-label control-label">@(Html.Localize("CustomerOrderNumber"))</label>
+				<input name="CustomerOrderNumber" type="text" class="form-control" data-bind="value: CustomerOrderNumber">
+			</div>
+			<small class="help-block" data-bind="validationMessage: CustomerOrderNumber"></small>
+		</div>
+		<!-- ko if: Crm.Order.Settings.OrderComissionEnabled -->
+		<div class="form-group" data-bind="validationElement: Comission">
+			<div class="fg-line">
+				<label class="fg-label control-label">@(Html.Localize("Comission"))</label>
+				<input name="Comission" type="text" class="form-control" data-bind="value: Comission">
+			</div>
+			<small class="help-block" data-bind="validationMessage: Comission"></small>
+		</div>
+		<!-- /ko -->
+		<div class="form-group has-feedback" data-bind="validationElement: OrderDate">
+			<label class="control-label">@(Html.Localize("OrderDate"))</label>
+			<div class="dtp-container fg-line">
+				<input name="Orderdate" type="text" class="form-control date-picker" data-bind="datePicker: OrderDate" placeholder="@(Html.Localize("ClickHere"))">
+			</div>
+			<span class="zmdi zmdi-calendar form-control-feedback"></span>
+			<small class="help-block" data-bind="validationMessage: OrderDate"></small>
+		</div>
+
+		<div class="form-group has-feedback" data-bind="validationElement: DeliveryDate">
+			<label class="control-label">@(Html.Localize("DeliveryDate"))</label>
+			<div class="dtp-container fg-line">
+				<input name="DeliveryDate" type="text" class="form-control date-picker" data-bind="datePicker: DeliveryDate" placeholder="@(Html.Localize("ClickHere"))">
+			</div>
+			<span class="zmdi zmdi-calendar form-control-feedback"></span>
+			<small class="help-block" data-bind="validationMessage: DeliveryDate"></small>
+		</div>
+
+		@await Html.PartialAsync("BaseOrderContactSelection")
+
+		<!-- ko if: Crm.Order.Settings.OrderDeliveryAddressEnabled -->
+		<div class="form-group delivery-address" data-bind="validationElement: DeliveryAddressId">
+			<div class="fg-line select">
+				<label class="fg-label control-label">@(Html.Localize("DeliveryAddress"))</label>
+				<address-selector params="addressId: DeliveryAddressId, lookups: $root.lookups, addresses: $root.addresses"/>
+			</div>
+			<small class="help-block" data-bind="validationMessage: DeliveryAddressId"></small>
+		</div>
+		<!-- /ko -->
+
+		<!-- ko if: Crm.Order.Settings.OrderBillingAddressEnabled -->
+		<div class="form-group billing-address" data-bind="validationElement: BillingAddressId">
+			<div class="fg-line select">
+				<label class="fg-label control-label">@(Html.Localize("BillAddress"))</label>
+				<address-selector params="addressId: BillingAddressId, lookups: $root.lookups, addresses: $root.addresses"/>
+			</div>
+			<small class="help-block" data-bind="validationMessage: BillingAddressId"></small>
+		</div>
+		<!-- /ko -->
+		<div class="form-group" data-bind="validationElement: CurrencyKey">
+			<div class="fg-line">
+				<label class="fg-label control-label">@(Html.Localize("Currency"))</label>
+				<select class="form-control" data-bind="select2autocompleter: { data: CurrencyKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('Main_Currency')}">
+				</select>
+			</div>
+			<small class="help-block" data-bind="validationMessage: CurrencyKey"></small>
+		</div>
+		@Html.PluginRenderActions("OrderSaveForm")
+		<!-- ko if: Crm.Order.Settings.OrderPrivateDescriptionEnabled -->
+		<div class="form-group">
+			<div class="fg-line">
+				<label class="fg-label control-label">@(Html.Localize("T_AdditionalInformation"))</label>
+				<textarea name="PrivateDescription" class="form-control fg-input" data-bind="value: PrivateDescription, autosize: true"></textarea>
+			</div>
+		</div>
+		<!-- /ko -->
+		<signature-pad params="signature: Signature, signatureDate: SignatureDate, signatureName: SignatureName"></signature-pad>
+		<button id="toggleDataProtectionInfo" data-bind="visible: $root.signatureAcceptanceRequired" class="btn btn-default btn-sm waves-effect m-t-10" type="button" data-toggle="collapse" data-target="#dataPrivacyPolicy" aria-expanded="false" aria-controls="dataPrivacyPolicy"><i class="zmdi zmdi-info-outline"></i>
+			@(Html.Localize("DataProtectionInfo"))
+		</button>
+		<div id="dataPrivacyPolicy" class="m-t-10 collapse" aria-expanded="false">
+			@await Html.PartialAsync("DataPrivacyPolicy")
+		</div>
+		<div class="form-group p-t-10" data-bind="validationElement: $root.order().SignPrivacyPolicyAccepted">
+			<div class="checkbox m-b-15">
+				<label>
+					<input type="checkbox" data-bind="checked: $root.order().SignPrivacyPolicyAccepted, attr: { name: 'SignPrivacyPolicyAccepted' }">
+					<i class="input-helper"></i>
+					<span data-bind="text: window.Helper.String.getTranslatedString('AcceptPrivacyPolicy');"></span>
+					<span class="required" data-bind="visible: $root.signatureAcceptanceRequired">*</span>
+				</label>
+			</div>
+			<small class="help-block" data-bind="validationMessage: $root.order().SignPrivacyPolicyAccepted"></small>
+		</div>
+	</form>
+	<p></p>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-bind="click: Helper.Database.clearTrackedEntities" data-dismiss="modal">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: save, disable: loading">
+		@(Html.Localize("Save"))
+	</button>
+</div>

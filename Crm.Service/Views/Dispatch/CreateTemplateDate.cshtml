@@ -1,0 +1,21 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<fieldset data-bind="with: dispatch">
+	<legend class="p-t-25 m-b-25 c-black b-0 f-500 f-14">
+		@(Html.Localize("Date"))
+	</legend>
+	<div class="row">
+		<div class="col-sm-4">
+			<form-element params="value: Date, caption: 'Date', type: 'datePicker'"></form-element>
+		</div>
+		<div class="col-sm-2">
+			<form-element params="value: Time, caption: 'Time', type: 'timePicker'"></form-element>
+		</div>
+		<div class="col-sm-2">
+			<form-element params="value: Duration, caption: 'Duration', type: 'durationPicker'"></form-element>
+		</div>
+	</div>
+	@Html.PluginRenderActions("CreateAdHocServiceOrderFormDate")
+</fieldset>

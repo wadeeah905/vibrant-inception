@@ -1,0 +1,21 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<li>
+	<a href="#" id="open-prepared-visit-list" data-trigger="#right-nav" data-route="Crm.VisitReport/VisitList/PreparedVisitIndexTemplate" data-target="#right-nav">
+		<i class="zmdi zmdi-calendar-close"></i>
+		@(Html.Localize("PreparedVisits"))
+	</a>
+</li>
+<li>
+	<a href="#" id="open-recommended-visit-list" data-trigger="#right-nav" data-route="Crm.VisitReport/VisitList/RecommendedVisitIndexTemplate" data-target="#right-nav">
+		<i class="zmdi zmdi-calendar-alt"></i>
+		@(Html.Localize("RecommendedVisits"))
+	</a>
+</li>
+<li>
+	<a href="#" id="open-circuit-visit-list" data-trigger="#right-nav" data-route="Crm.VisitReport/VisitList/CircuitVisitIndexTemplate" data-target="#right-nav">
+		<i class="zmdi zmdi-gps-dot"></i>
+		@(Html.Localize("Circuit"))
+	</a>
+</li>

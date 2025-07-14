@@ -1,0 +1,123 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<!-- ko if: baseOrder().OrderEntryType() === 'MultiDelivery' -->
+<div role="tabpanel" class="tab-pane" id="tab-treeview" data-bind="with: tabs()['tab-treeview']">
+	<div class="listview lv-bordered">
+		<div class="lv-body">
+			<form role="form">
+				<div class="form-group">
+					<div class="fg-line">
+						<label class="fg-label control-label">@(Html.Localize("ArticleSearch"))</label>
+						<div class="input-group">
+							<select class="form-control" data-bind="select2autocompleter: { data: articleAutocomplete, autocompleteOptions: Helper.Article.getArticleSelect2Options($root, true)}" >
+							</select>
+							<!-- ko component: { name: "barcode-scanner", params: { value: articleAutocomplete, source: () => database.CrmArticle_Article, column: 'BarCode', id: 'Id' } } -->
+							<!-- /ko -->
+						</div>
+					</div>
+				</div>
+				@Html.PluginRenderActions("OrderTreeViewArticleSearchForm")
+			</form>
+			<hr/>
+			<script type="text/html" id="article-group-template">
+				<div class="panel panel-collapse">
+					<div class="panel-heading" role="tab" data-bind="click: $root.tabs()['tab-treeview']().toggleSelectedArticleGroup" style="height: 80px;">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-bind="attr: { 'data-parent': '#articlegroup-accordion-' + ($parent.id || 0), 'href': '#collapse-' + id }" style="height: 90px; padding-top: 13px; padding-left: 0px">
+								<!-- ko if: articleGroup.Base64Image -->
+								<div class="lv-avatar pull-left order-article-image" data-bind="style: { backgroundImage: 'url(data:image/jpeg;base64,' + articleGroup.Base64Image+ ')' }"></div>
+								<!-- /ko -->
+								<!-- ko ifnot: articleGroup.Base64Image -->
+								<div class="lv-avatar pull-left bgm-gray order-article-image" data-bind="text: articleGroup.Value[0]"></div>
+								<!-- /ko -->
+								<span data-bind="text: articleGroup.Value" class="order-article-image"></span>
+								<i class="zmdi zmdi-chevron-down zmdi-hc-lg"></i>
+							</a>
+						</h4>
+					</div>
+					<div class="panel-collapse collapse" data-bind="attr: { id: 'collapse-' + id }">
+						<!-- ko if: visible -->
+						<div class="panel-body" style="padding-left: 12px">
+							<div class="panel-group m-b-5" role="tablist" aria-multiselectable="true" data-bind="attr: { id: 'articlegroup-accordion-' + id }, template: { name: 'article-group-template', foreach: childArticleGroups }">
+							</div>
+							<!-- ko foreach: items -->
+							<div class="lv-item media" data-bind="infiniteScrollItem: { index: $index(), array: $parent.items }, attr: { id: 'article-'+ Id() }" style="padding-left: 30px">
+								<div class="media-body">
+									<!-- ko if: DocumentAttributes().length > 0 -->
+									<div class="lv-avatar pull-left order-article-image" data-bind="fileResource: DocumentAttributes()[0].FileResource" data-toggle="modal" data-target="#{{Id}}"></div>
+									@await Html.PartialAsync("ArticleImageModal")
+									<!-- /ko -->
+									<!-- ko if: DocumentAttributes().length === 0 -->
+									<div class="lv-avatar bgm-gray pull-left order-article-image" data-bind="text: Description()[0].toUpperCase()"></div>
+									<!-- /ko -->
+									<div class="media-body">
+										<div class="col-xs-6">
+											<div class="lv-title m-b-5">
+												<span data-bind="text: ItemNo"></span>
+											</div>
+											<div class="small m-b-5">
+												<span data-bind="text: Description"></span>
+											</div>
+										</div>
+										<div class="m-r-5 col-xs-4 text-right">
+											<p class="m-b-0 f-700">
+												@Html.Localize("UnitPrice"):
+												<!-- ko if: Price --><span class="price" data-bind="money: Price"></span><!-- /ko -->
+												<!-- ko ifnot: Price -->@Html.Localize("Unspecified")<!-- /ko -->
+											</p>
+										</div>
+										<div class="col-xs-1"></div>
+									</div>
+									<div class="lv-small m-t-10 form order-delivery-dates" data-bind="foreach: $root.tabs()['tab-treeview']().deliveryDates" style="margin-top: 30px !important;">
+										<!-- ko with: $root.tabs()['tab-treeview']().getDeliveryDateViewModel($data, $parent) -->
+										<div class="form-group col-xs-4 col-sm-4 col-md-3 p-l-0" data-bind="validationElement: quantity">
+											<label>
+												<span data-bind="dateText: deliveryDate, visible: deliveryDate"></span>
+												<span data-bind="visible: !deliveryDate">@(Html.Localize("RuleViolation.Required", Html.Localize("DeliveryDate")))</span>
+											</label>
+											<input type="number" class="form-control input-sm" placeholder="0" data-bind="value: quantity, enable: $root.isEditable() && !!deliveryDate, attr: { min: $root.negativeQuantitiesAllowed() ? '' : 0, max: $root.positiveQuantitiesAllowed() ? '' : 0 }, event: { blur: save }">
+											<small class="help-block" data-bind="validationMessage: quantity"></small>
+										</div>
+										<!-- /ko -->
+									</div>
+									<div class="lv-actions actions dropdown" style="right: -5px">
+										<a href="#" data-toggle="dropdown" aria-expanded="false">
+											<i class="zmdi zmdi-more-vert"></i>
+										</a>
+										<ul class="dropdown-menu dropdown-menu-right">
+											<li>
+												<a href="#" data-bind="attr: { href: '#/Crm.Article/Article/DetailsTemplate/' + Id() }">
+													Details
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div> 
+							<!-- /ko -->
+							 @await Html.PartialAsync("Material/GenericListPreloader") 
+							<!-- ko if: items().length === 0 && childArticleGroups.length === 0 -->
+							<div class="lv-item media">
+								<div class="media-body">
+									<div class="lv-small">
+										@(Html.Localize("TreeViewArticleGroupEmptyState"))
+									</div>
+								</div>
+							</div>
+							<!-- /ko -->
+						</div>
+						<!-- /ko -->
+					</div>
+				</div>
+			</script>
+			<div class="panel-group m-b-5" id="articlegroup-accordion-0" role="tablist" aria-multiselectable="true" style="padding-left: 10px">
+				<!-- ko template: { name: 'article-group-template', foreach: articleGroups } -->
+				<!-- /ko -->
+			</div>
+		</div>
+	</div>
+	<floating-action-button data-route="Crm.Order/BaseOrder/AddDelivery" data-toggle="modal" data-target="#smModal" params="title: 'AddDelivery'" data-bind="visible: $root.isEditable"></floating-action-button>
+</div>
+<!-- /ko -->

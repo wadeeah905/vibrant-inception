@@ -1,0 +1,8 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<int>
+@using Crm.Library.Globalization.Extensions
+
+@{ var count = Model; }
+
+<li class="visitreports">
+	<a href="#visitreports">@(Html.Localize("VisitReports")) (@(count))</a>
+</li>

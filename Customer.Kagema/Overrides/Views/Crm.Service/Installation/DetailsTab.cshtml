@@ -1,0 +1,316 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-details">
+	<pmb-block params="icon: 'equalizer', caption: 'BackgroundInfo', context: { installation: installation }, condition: window.AuthorizationManager.isAuthorizedForAction('Installation', 'Edit')">
+		<pmbb-view>
+			<!-- ko with: installation -->
+			<span data-bind="text: BackgroundInfo"></span>
+			<span data-bind="translatedText: 'BackgroundInformationEmptyState', ifnot: BackgroundInfo"></span>
+			<!-- /ko -->
+		</pmbb-view>
+		<pmbb-edit>
+			<!-- ko with: installation -->
+			<div class="fg-line">
+				<textarea class="form-control" rows="5" placeholder="@(Html.Localize("BackgroundInfo"))..." data-bind="value: BackgroundInfo"></textarea>
+			</div>
+			<!-- /ko -->
+		</pmbb-edit>
+	</pmb-block>
+	<pmb-block params="icon: 'equalizer', caption: 'TechnicianInformation', context: { installation: installation }, condition: window.AuthorizationManager.isAuthorizedForAction('Installation', 'Edit')">
+		<pmbb-view>
+			<!-- ko with: installation -->
+			<span data-bind="text: TechnicianInformation"></span>
+			<span data-bind="translatedText: 'NoTechnicianInformation', ifnot: TechnicianInformation"></span>
+			<!-- /ko -->
+		</pmbb-view>
+		<pmbb-edit>
+			<!-- ko with: installation -->
+			<div class="fg-line">
+				<textarea class="form-control" rows="5" placeholder="@(Html.Localize("TechnicianInformation"))..." data-bind="value: TechnicianInformation"></textarea>
+			</div>
+			<!-- /ko -->
+		</pmbb-edit>
+	</pmb-block>
+	<pmb-block id="general-information-pmb" params="icon: 'equalizer', caption: 'General', context: { installation: installation }, onBeforeSave: $root.onBeforeSaveGeneral, condition: window.AuthorizationManager.isAuthorizedForAction('Installation', 'Edit')">
+		<pmbb-view>
+			<!-- ko with: installation -->
+			<!-- ko ifnot: window.Crm.Service.Settings.InstallationNoIsEditable == false && window.Crm.Service.Settings.InstallationNoIsGenerated == false && window.Crm.Service.Settings.InstallationNoIsCreateable == false && InstallationNo() == null -->
+			<pmbb-view-entry params="caption: 'InstallationNo'">
+				<span data-bind="text: InstallationNo"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: InstallationNo"></span>
+			</pmbb-view-entry>
+			<!-- /ko -->
+			<pmbb-view-entry params="caption: 'LegacyInstallationId'">
+				<span data-bind="text: LegacyInstallationId"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: LegacyInstallationId"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'Description'">
+				<span data-bind="text: Description"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: Description"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'InstallationType'">
+				<span data-bind="if: InstallationTypeKey, lookupValue: InstallationTypeKey, lookups: $root.lookups.installationTypes"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: InstallationTypeKey"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'Manufacturer'">
+				<span data-bind="if: ManufacturerKey, lookupValue: ManufacturerKey, lookups: $root.lookups.manufacturers"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ManufacturerKey"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'ExternalReference'">
+				<span data-bind="text: ExternalReference"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ExternalReference"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'Manufacturer'">
+				<span data-bind="if: ManufacturerKey, lookupValue: ManufacturerKey, lookups: $root.lookups.manufacturers"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ManufacturerKey"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'ManufactureDate'">
+				<span data-bind="if: ManufactureDate, dateText: ManufactureDate"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ManufactureDate"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'KickoffDate'">
+				<span data-bind="if: KickOffDate, dateText: KickOffDate"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: KickOffDate"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'WarrantyFrom'">
+				<span data-bind="if: WarrantyFrom, dateText: WarrantyFrom"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: WarrantyFrom"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'WarrantyUntil'">
+				<span data-bind="if: WarrantyUntil, dateText: WarrantyUntil"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: WarrantyUntil"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'InstallationStatus'">
+				<span data-bind="if: StatusKey, lookupValue: StatusKey, lookups: $root.lookups.installationHeadStatuses"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: StatusKey"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'Station'">
+				<span data-bind="if: ExtensionValues().KagemaStandort, text: ExtensionValues().KagemaStandort"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ExtensionValues().KagemaStandort"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'ExactPlace'">
+				<span data-bind="text: ExactPlace"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ExactPlace"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'Room'">
+				<span data-bind="text: Room"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: Room"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'ResponsibleUser'">
+				<!-- ko if: ResponsibleUserUser -->
+				<span data-bind="text: Helper.User.getDisplayName(ResponsibleUserUser)"></span>
+				<!-- /ko -->
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ResponsibleUserUser"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'PreferredUser'">
+				<!-- ko if: PreferredUserUser -->
+				<span data-bind="text: Helper.User.getDisplayName(PreferredUserUser)"></span>
+				<!-- /ko -->
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: PreferredUserUser"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'MotorTyp'">
+				<span data-bind="if: ExtensionValues().MotorTyp, text: ExtensionValues().MotorTyp"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ExtensionValues().MotorTyp"></span>
+			</pmbb-view-entry>	
+			<pmbb-view-entry params="caption: 'MotorNummer'">
+				<span data-bind="if: ExtensionValues().MotorNummer, text: ExtensionValues().MotorNummer"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ExtensionValues().MotorNummer"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'GeneratorTyp'">
+				<span data-bind="if: ExtensionValues().GeneratorTyp, text: ExtensionValues().GeneratorTyp"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ExtensionValues().GeneratorTyp"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'GeneratorNummer'">
+				<span data-bind="if: ExtensionValues().KagemaStandort, text: ExtensionValues().GeneratorNummer"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ExtensionValues().GeneratorNummer"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'PumpeTyp'">
+				<span data-bind="if: ExtensionValues().PumpeTyp, text: ExtensionValues().PumpeTyp"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ExtensionValues().PumpeTyp"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'PumpeNummer'">
+				<span data-bind="if: ExtensionValues().PumpeNummer, text: ExtensionValues().PumpeNummer"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ExtensionValues().PumpeNummer"></span>
+			</pmbb-view-entry>
+
+
+
+
+
+
+
+			@Html.PluginRenderActions("InstallationDetailsGeneralView")
+			<!-- /ko -->
+		</pmbb-view>
+		<pmbb-edit>
+			<!-- ko with: installation -->
+			<!-- ko ifnot: (window.Crm.Service.Settings.InstallationNoIsEditable == false && window.Crm.Service.Settings.InstallationNoIsGenerated == false && window.Crm.Service.Settings.InstallationNoIsCreateable == false && InstallationNo() == null) || (window.Helper.Offline !== undefined ? window.Helper.Offline.status=='offline' : false) -->
+			<pmbb-edit-entry params="caption: 'InstallationNo', validationElement: InstallationNo">
+				<input type="text" id="InstallationNo" class="form-control" data-bind="value: InstallationNo, disable: window.Crm.Service.Settings.InstallationNoIsEditable == false">
+			</pmbb-edit-entry>
+			<!-- /ko -->
+			<pmbb-edit-entry params="caption: 'LegacyInstallationId', validationElement: LegacyInstallationId">
+				<input type="text" class="form-control" data-bind="value: LegacyInstallationId">
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'Description', validationElement: Description">
+				<input type="text" class="form-control" data-bind="value: Description">
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'InstallationType', validationElement: InstallationTypeKey">
+				<select class="form-control" data-bind="select2autocompleter: { data: InstallationTypeKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_InstallationType'), placeholder: $parent.placeholder }">
+				</select>
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'Manufacturer', validationElement: ManufacturerKey">
+				<select class="form-control" data-bind="select2autocompleter: { data: ManufacturerKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_Manufacturer'), placeholder: $parent.placeholder }">
+				</select>
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'ExternalReference', validationElement: ExternalReference">
+				<input type="text" class="form-control" data-bind="value: ExternalReference">
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'Manufacturer', validationElement: ManufacturerKey">
+				<select class="form-control" data-bind="select2autocompleter: { data: ManufacturerKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_Manufacturer') }">
+				</select>
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'ManufactureDate', validationElement: ManufactureDate">
+				<input type="text" class="form-control date-picker" data-bind="datePicker: ManufactureDate" placeholder="@(Html.Localize("ClickHere"))">
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'KickoffDate', validationElement: KickOffDate">
+				<input type="text" class="form-control date-picker" data-bind="datePicker: KickOffDate" placeholder="@(Html.Localize("ClickHere"))">
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'WarrantyFrom', validationElement: WarrantyFrom">
+				<input type="text" class="form-control date-picker" data-bind="datePicker: WarrantyFrom" placeholder="@(Html.Localize("ClickHere"))">
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'WarrantyUntil', validationElement: WarrantyUntil">
+				<input type="text" class="form-control date-picker" data-bind="datePicker: WarrantyUntil" placeholder="@(Html.Localize("ClickHere"))">
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'InstallationStatus', validationElement: StatusKey">
+				<select class="form-control" data-bind="select2autocompleter: { data: StatusKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_InstallationHeadStatus'), placeholder: $parent.placeholder }">
+				</select>
+			</pmbb-edit-entry>
+@* 			<pmbb-edit-entry params="caption: 'Station', validationElement: StationKey">
+				<select class="form-control" data-bind="select2autocompleter: { data: StationKey, autocompleteOptions: { orderBy: ['Name'], table: 'Main_Station', customFilter: Helper.Station.getSelect2Filter.bind($data), mapDisplayObject: Helper.Station.mapForSelect2Display, onSelect: Helper.Station.onSelect.bind($parent,$data), placeholder: $parent.placeholder } }">
+				</select>
+			</pmbb-edit-entry> *@
+			<pmbb-edit-entry params="caption: 'ExactPlace', validationElement: ExactPlace">
+				<input type="text" class="form-control" data-bind="value: ExactPlace">
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'Room', validationElement: Room">
+				<input type="text" class="form-control" data-bind="value: Room">
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'ResponsibleUser', validationElement: ResponsibleUser">
+				<select class="form-control" data-bind="select2autocompleter: { data: ResponsibleUser, autocompleteOptions: { orderBy: ['LastName'], table: 'Main_User', mapDisplayObject: Helper.User.mapForSelect2Display, customFilter: Helper.User.filterUserQuery, onSelect: user => $data.ResponsibleUserUser(user), placeholder: $parent.placeholder } }">
+				</select>
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'PreferredUser', validationElement: PreferredUser">
+				<select class="form-control" data-bind="select2autocompleter: { data: PreferredUser, autocompleteOptions: { orderBy: ['LastName'], table: 'Main_User', mapDisplayObject: Helper.User.mapForSelect2Display, customFilter: Helper.User.filterUserQuery, placeholder: $parent.placeholder, onSelect: user => $data.PreferredUserUser(user) } }">
+				</select>
+			</pmbb-edit-entry>
+			@Html.PluginRenderActions("InstallationDetailsGeneralEdit")
+			<!-- /ko -->
+		</pmbb-edit>
+	</pmb-block>
+	<!-- ko requiredPermission: { name: 'ServiceContract', group: 'WebAPI' } -->
+	<pmb-block params="icon: 'receipt', caption: 'ActiveServiceContracts', context: { installation: installation }, condition: false">
+		<pmbb-view>
+			<!-- ko foreach: $root.serviceContracts -->
+			<hr data-bind="visible: $index() > 0" />
+			<pmbb-view-entry params="caption: 'ContractNo'">
+				<!-- ko requiredPermission: { name: 'Read', group: 'ServiceContract' } -->
+				<a href="#/Crm.Service/ServiceContract/DetailsTemplate/{{Id}}">
+					<span data-bind="text: ContractNo"></span>
+				</a>
+				<!-- /ko -->
+				<!-- ko noRequiredPermission: { name: 'Read', group: 'ServiceContract' } -->
+				<span data-bind="text: ContractNo"></span>
+				<!-- /ko -->
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'ContractType'">
+				<span data-bind="lookupValue: ContractTypeKey, lookups: $root.lookups.serviceContractTypes"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'ResponsibleUser'">
+				<!-- ko if: ResponsibleUserUser -->
+				<span data-bind="text: Helper.User.getDisplayName(ResponsibleUserUser)"></span>
+				<!-- /ko -->
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ResponsibleUserUser"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'ExternalReference'">
+				<span data-bind="text: ExternalReference"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ExternalReference"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'ValidTo'">
+				<span data-bind="dateText: ValidTo"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ValidTo"></span>
+			</pmbb-view-entry>
+			@Html.PluginRenderActions("InstallationDetailsServiceContractInfo")
+			<!-- /ko -->
+		</pmbb-view>
+		<!-- ko if: $root.serviceContracts().length === 0 -->
+		@(Html.Localize("NoActiveServiceContractsForInstallation"))
+		<!-- /ko -->
+		<!-- ko requiredPermission: { name: 'View', group: 'ServiceContract' } -->
+		<a class="lv-footer" href="#/Crm.Service/ServiceContractList/IndexTemplate?filters=%7B%22Installations%22%3A%7B%22Value%22%3A%22{{$root.installation().Id}}%22%2C%22Operator%22%3A%7B%22type%22%3A%22some%22%2C%22collectionName%22%3A%22Installations%22%2C%22collectionProperty%22%3A%22ChildId%22%7D%7D%7D&bookmark=%7B%22Category%22%3A%22Show%22%2C%22Key%22%3A%22All%22%7D">
+			@(Html.Localize("ShowAll"))
+		</a>
+		<!-- /ko -->
+	</pmb-block>
+	<!-- /ko -->
+	<pmb-block params="icon: 'phone', caption: 'ContactInformation', context: { installation: installation }, condition: window.AuthorizationManager.isAuthorizedForAction('Installation', 'Edit')">
+		<pmbb-view>
+			<!-- ko with: installation -->
+			<pmbb-view-entry params="caption: 'InstallationParentName'">
+				<!-- ko with: Company -->
+				<!-- ko requiredPermission: { name: 'Read', group: 'Company' } -->
+				<a href="#" data-bind="attr: { href: '#/Main/Company/DetailsTemplate/' + Id() }">
+					<span data-bind="text: Helper.Company.getDisplayName($data)"></span>
+				</a>
+				<!-- /ko -->
+				<!-- ko noRequiredPermission: { name: 'Read', group: 'Company' } -->
+					<span data-bind="text: Helper.Company.getDisplayName($data)"></span>
+				<!-- /ko -->
+				<!-- /ko -->
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'InstallationContact'">
+				<address>
+					<address-block params="address: Address, lookups: $root.lookups, showCommunicationData: true"></address-block>
+				</address>
+			</pmbb-view-entry>
+			<!-- ko if: Person() -->
+			<pmbb-view-entry params="caption: 'ContactPerson'">
+				<!-- ko with: Person -->
+				<!-- ko requiredPermission: { name: 'Read', group: 'Person' } -->
+				<a href="#" data-bind="attr: { href: '#/Main/Person/DetailsTemplate/' + Id() }">
+					<span data-bind="text: Helper.Person.getDisplayName($data)"></span>
+				</a>
+				<!-- /ko -->
+				<!-- ko noRequiredPermission: { name: 'Read', group: 'Person' } -->
+					<span data-bind="text: Helper.Person.getDisplayName($data)"></span>
+				<!-- /ko -->
+				<!-- /ko -->
+			</pmbb-view-entry>
+			<!-- /ko -->
+			@Html.PluginRenderActions("InstallationDetailsContactInformationView")
+			<!-- /ko -->
+		</pmbb-view>
+		<pmbb-edit>
+			<!-- ko with: installation -->
+			<pmbb-edit-entry params="caption: 'InstallationContact', validationElement: LocationContactId">
+				<select class="form-control" data-bind="select2autocompleter: { data: LocationContactId, autocompleteOptions: { orderBy: ['Name'], table: 'Main_Company', mapDisplayObject: Helper.Company.mapForSelect2Display, customFilter: Helper.Company.getSelect2Filter.bind($data), onSelect: $root.onLocationContactSelect.bind($data), placeholder: $parent.placeholder } }">
+				</select>
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'Address', validationElement: LocationAddressKey">
+				<select class="form-control" data-bind="select2autocompleter: { data: LocationAddressKey, autocompleteOptions: { orderBy: ['Name1', 'Name2', 'Name3', 'ZipCode', 'City', 'Street'], table: 'Main_Address', customFilter: $root.locationAddressFilter.bind($data), mapDisplayObject: Helper.Address.mapForSelect2Display, onSelect: $root.onLocationAddressSelect.bind($data), placeholder: $parent.placeholder } }, disable: LocationContactId() === null">
+				</select>
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'ContactPerson', validationElement: LocationPersonId">
+				<select class="form-control" data-bind="select2autocompleter: { data: LocationPersonId, autocompleteOptions: { orderBy: ['Surname', 'Firstname'], table: 'Main_Person', customFilter: $root.contactPersonFilter.bind($data), mapDisplayObject: Helper.Person.mapForSelect2Display, onSelect: $root.onLocationPersonSelect.bind($data), placeholder: $parent.placeholder } }, disable: LocationContactId() === null">
+				</select>
+			</pmbb-edit-entry>
+			@Html.PluginRenderActions("InstallationDetailsContactInformationEdit")
+			<!-- /ko -->
+		</pmbb-edit>
+	</pmb-block>
+	@Html.PluginRenderActions("InstallationMaterialDetailsTabExtensions")
+	@Html.PluginRenderActions("ContactMaterialDetailsTabExtensions")
+</div>
+

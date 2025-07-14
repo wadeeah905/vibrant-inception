@@ -1,0 +1,18 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Modularization.Extensions
+
+<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-persons" data-bind="with: tabs()['tab-persons']">
+	<empty-state-box params="mood: 'sad', title: 'PersonsEmptyStateTitle', text: 'PersonsEmptyState'" data-bind="visible: items().length === 0">
+	</empty-state-box>
+	@Html.PluginRenderActions("MaterialGenericListResourceExtensions")
+	<div class="generic-list listview lv-bordered">
+		<div class="lv-body" data-bind="foreach: items">
+			 @await Html.PartialAsync("../PersonList/MaterialItemTemplate") 
+		</div>
+	</div>
+	 @await Html.PartialAsync("MaterialPaging") 
+	<!-- ko requiredPermission: { name: 'Create', group: 'Person' } -->
+	<floating-action-button params="href: '#/Main/Person/CreateTemplate?parentId=' + $root.serviceObject().Id() + '&parentType=ServiceObject&redirectUrl=/Crm.Service/ServiceObject/DetailsTemplate/' + $root.serviceObject().Id() + '%3Ftab%3Dtab-persons', icon: 'account-add', title: 'AddNewPerson'"></floating-action-button>
+	<!-- /ko -->
+</div>
+

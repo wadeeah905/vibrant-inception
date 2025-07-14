@@ -1,0 +1,113 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+</tr>
+<!-- ko if: $data.innerInstance instanceof database.CrmService_ServiceOrderTimePosting.CrmService_ServiceOrderTimePosting -->
+<!-- ko if: $root.isFirstServiceOrderEntry($data,$parent.Entries,$index()) == true -->
+<tr>
+	<td></td>
+	<td colspan="4">
+		<!-- ko with: $data.ServiceOrder -->
+		<div>
+			<strong>
+				@(Html.Localize("ServiceOrder")):
+				<span data-bind="text: OrderNo"></span>, <span data-bind="lookupValue: TypeKey, lookups: $root.lookups.serviceOrderTypes"></span>
+			</strong>
+		</div>
+		<!-- ko with: $data.Company -->
+		<div>
+			<small data-bind="text: Name"></small>
+		</div>
+		<!-- /ko -->
+		<div>
+			<small data-bind="text: Street"></small>
+		</div>
+		<div>
+			<small>
+				<span data-bind="text: ZipCode"></span>
+				<span data-bind="text: City"></span>
+			</small>
+		</div>
+		<!-- ko with: $data.Installation -->
+		<small>
+			<strong>
+				@(Html.Localize("Installation"))
+			</strong>
+			<br />
+			<span data-bind=" text:LegacyInstallationId !== null  ? LegacyInstallationId : InstallationNo"></span>
+			, <span data-bind="text: Description"></span>
+		</small>
+		<!-- /ko -->
+		<!-- /ko -->
+		<div>
+			<small class="text-muted" data-bind="text: Description"></small>
+		</div>
+	</td>
+</tr>
+<!-- /ko -->
+<!-- ko if: $root.isSameOrderAsPrevious($data,$parent.Entries,$index()) == true -->
+<tr>
+	<td style="border-top: none"></td>
+	<td style="border-top: none">
+		<div>
+			<span data-bind="text: ItemNo"></span>
+			<!-- ko with: $data.Article -->
+			<span data-bind="text: Description"></span>
+			<!-- /ko -->
+		</div>
+		<!-- ko if: $data.Kilometers -->
+		<div>
+			<small class="c-gray">
+				@(Html.Localize("Kilometers")):
+				<span data-bind="text: Kilometers"></span>
+			</small>
+		</div>
+		<!-- /ko -->
+	</td>
+	<td style="border-top: none">
+		<span data-bind="dateText: { value: From, pattern: { time: 'short' } }"></span>
+		-
+		<span data-bind="dateText: { value: To, pattern: { time: 'short' } }"></span>
+	</td>
+	<td class="text-right" style="border-top: none">
+		<span data-bind="durationText: Duration"></span>
+	</td>
+	<td class="text-right" style="border-top: none"></td>
+</tr>
+<!-- /ko -->
+<!-- ko ifnot: $root.isSameOrderAsPrevious($data,$parent.Entries,$index()) == true -->
+<tr>
+	<td></td>
+	<td>
+		<div>
+			<strong data-bind="visible: $root.isFirstServiceOrderEntry($data,$parent.Entries,$index()) == false">
+				<!-- ko with: $data.ServiceOrder -->
+				<span data-bind="text: OrderNo"></span> 
+				<!-- /ko -->
+			</strong>
+			<span data-bind="text: ItemNo"></span>
+			<!-- ko with: $data.Article -->
+			<span data-bind="text: Description"></span>
+			<!-- /ko -->
+		</div>
+		<!-- ko if: $data.Kilometers -->
+		<div>
+			<small class="c-gray">
+				@(Html.Localize("Kilometers")):
+				<span data-bind="text: Kilometers"></span>
+			</small>
+		</div>
+		<!-- /ko -->
+	</td>
+	<td>
+		<span data-bind="dateText: { value: From, pattern: { time: 'short' } }"></span>
+		-
+		<span data-bind="dateText: { value: To, pattern: { time: 'short' } }"></span>
+	</td>
+	<td class="text-right">
+		<span data-bind="durationText: Duration"></span>
+	</td>
+	<td class="text-right"></td>
+</tr>
+<!-- /ko -->
+<!-- /ko -->
+<tr>

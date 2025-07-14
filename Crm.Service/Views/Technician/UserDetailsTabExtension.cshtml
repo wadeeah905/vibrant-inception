@@ -1,0 +1,26 @@
+﻿<pmb-block params="icon: 'wrench', caption: 'Service', context: { user: user }">
+	<pmbb-view>
+		<!-- ko with: user().ExtensionValues -->
+		<pmbb-view-entry params="caption: 'DefaultStoreNo'">
+			<span data-bind="text: DefaultStoreNo"></span>
+			<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: DefaultStoreNo"></span>
+		</pmbb-view-entry>
+		<pmbb-view-entry params="caption: 'DefaultLocationNo'">
+			<span data-bind="text: DefaultLocationNo"></span>
+			<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: DefaultLocationNo"></span>
+		</pmbb-view-entry>
+		<!-- /ko -->
+	</pmbb-view>
+	<pmbb-edit>
+		<!-- ko with: user().ExtensionValues -->
+		<pmbb-edit-entry params="caption: 'DefaultStoreNo', validationElement: DefaultStoreNo">
+			<select class="form-control" data-bind="select2autocompleter: { data: DefaultStoreNo, autocompleteOptions: { orderBy: ['StoreNo', 'Name'], table: 'CrmService_Store', joins: ['Locations'], placeholder: $parent.placeholder, getElementByIdQuery: function(query, storeNo){ return storeNo ? query.filter('it.StoreNo === this.storeNo', { storeNo }) : query }, mapDisplayObject: function (x) { return { id: x.StoreNo, item: x, text: x.StoreNo + ' - ' + x.Name }; }, onSelect: $root.onStoreSelect.bind($root, $data) } }"></select>
+		</pmbb-edit-entry>
+		<!-- ko if: DefaultStoreNo() -->
+		<pmbb-edit-entry params="caption: 'DefaultLocationNo', validationElement: DefaultLocationNo">
+			<select class="form-control" data-bind="select2autocompleter: { data: DefaultLocationNo, autocompleteOptions: { orderBy: ['LocationNo'], table: 'CrmService_Location', placeholder: $parent.placeholder, customFilter: (query, term) => $root.locationFilter(query, term, $data.DefaultStoreNo()), getElementByIdQuery: function(query, locationNo){ return locationNo ? query.filter('it.LocationNo === this.locationNo', { locationNo }) : query }, mapDisplayObject: function (x) { return { id: x.LocationNo, item: x, text: x.LocationNo }; } } }"></select>
+		</pmbb-edit-entry>
+		<!-- /ko -->
+		<!-- /ko -->
+	</pmbb-edit>
+</pmb-block>

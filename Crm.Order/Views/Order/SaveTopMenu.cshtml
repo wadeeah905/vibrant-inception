@@ -1,0 +1,9 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<li data-bind="requiredPermission: { name: 'Edit', group: 'Order' }">
+	<a href="#" data-route="Crm.Order/Order/Save" data-toggle="modal" data-target="#modal">
+		<i class="zmdi zmdi-edit"></i>
+		@(Html.Localize("Edit"))
+	</a>
+</li>

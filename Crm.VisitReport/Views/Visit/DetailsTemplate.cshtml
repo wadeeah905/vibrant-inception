@@ -1,0 +1,76 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Modularization.Extensions
+@using Crm.Library.Globalization.Extensions
+
+<ul class="top-menu">
+	@Html.PluginRenderActions("VisitDetailsTopMenu")
+	@Html.PluginRenderActions("ContactDetailsTopMenu")
+</ul>
+
+<div class="container">
+	<div class="card" id="profile-main">
+		<div class="pm-overview c-overflow" tabindex="4">
+			<div class="pmo-pic">
+				<!-- ko with: visit -->
+				 @await Html.PartialAsync("ContactVisibilityAlert") 
+				<!-- /ko -->
+				<div class="p-relative">
+					<div class="p-25 bgm-white text-center" data-bind="with: visit">
+						<p id="visit-legacyname" class="f-500">
+							@(Html.Localize("Visit"))
+							@(Html.Localize("For"))
+							<!-- ko with: Parent -->
+							<a href="#" data-bind="attr: { href: '#/Main/Company/DetailsTemplate/' + Id() }">
+								<span data-bind="text: Helper.Company.getDisplayName($data)"></span>
+							</a>
+							<!-- /ko -->
+						</p>
+						<hr />
+						<p data-bind="with: ResponsibleUserUser">
+							<i class="zmdi zmdi-account-o"></i> <span data-bind="text: Helper.User.getDisplayName($data)"></span>
+						</p>
+						<div class="btn-group m-b-10">
+							<button type="button" class="btn btn-lg btn-primary f-13 dropdown-toggle waves-effect" data-toggle="dropdown" aria-expanded="false" data-bind="enable: $root.canSetStatus">
+								<span data-bind="lookupValue: StatusKey, lookups: $root.lookups.visitStatuses"></span>
+								<span class="caret" data-bind="visible: $root.canSetStatus"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu" data-bind="foreach: $root.settableStatuses">
+								<!-- ko if: Key !== null -->
+								<li data-bind="css: { 'active': $root.visit().StatusKey() === Key }">
+									<a href="#" data-bind="lookupValue: Key, lookups: $root.lookups.visitStatuses, click: $root.setStatus"></a>
+								</li>
+								<!-- /ko -->
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="pmo-block pmo-contact">
+				<h2>@(Html.Localize("AddressInformation"))</h2>
+				<ul>
+					<!-- ko if: address -->
+						<li>
+							<i class="zmdi zmdi-pin"></i>
+							<address class="m-b-0"><address-block params="address: address, lookups: lookups"></address-block></address>
+						</li>
+					<!-- /ko -->
+				</ul>
+			</div>
+			
+			@Html.PluginRenderActions("MaterialVisitSidebarExtensions")
+			@Html.PluginRenderActions("MaterialContactSidebarExtensions")
+		</div>
+
+		<div class="pm-body clearfix">
+			<ul class="tab-nav tn-justified" role="tablist" tabindex="1">
+				@Html.PluginRenderActions("VisitDetailsMaterialTabHeader")
+			</ul>
+			<div class="tab-content">
+				@Html.PluginRenderActions("VisitDetailsMaterialTab")
+			</div>
+		</div>
+	</div>
+
+</div>
+

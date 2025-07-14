@@ -1,0 +1,22 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<fieldset data-bind="with: ExtensionValues">
+	<legend class="p-t-25 m-b-25 c-black b-0 f-500 f-14">
+		@(Html.Localize("Checklists"))
+	</legend>
+	<div class="row">
+		<div class="col-md-6">
+			<form-element id="CreationDynamicFormId" params="value: CreationDynamicFormId, caption: 'CreationDynamicForm', type: 'select'">
+				<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { table: 'CrmDynamicForms_DynamicForm', orderBy: ['Id'], mapDisplayObject: Helper.DynamicForm.mapForSelect2Display, joins: $root.getDynamicFormAutocompleteFilterJoins(), customFilter: $root.getDynamicFormAutocompleteFilter, placeholder: placeholder } }">
+				</select>
+			</form-element>
+		</div>
+		<div class="col-md-6">
+			<form-element id="CompletionDynamicFormId" params="value: CompletionDynamicFormId, caption: 'CompletionDynamicForm', type: 'select'">
+				<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { table: 'CrmDynamicForms_DynamicForm', orderBy: ['Id'], mapDisplayObject: Helper.DynamicForm.mapForSelect2Display, joins: $root.getDynamicFormAutocompleteFilterJoins(), customFilter: $root.getDynamicFormAutocompleteFilter, placeholder: placeholder } }">
+				</select>
+			</form-element>
+		</div>
+	</div>
+</fieldset>

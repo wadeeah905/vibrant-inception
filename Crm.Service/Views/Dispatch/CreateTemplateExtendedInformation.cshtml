@@ -1,0 +1,22 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<fieldset data-bind="visible: showExtendedInformation(), with: dispatch">
+	<legend class="p-t-25 m-b-25 c-black b-0 f-500 f-14">
+		@(Html.Localize("ExtendedInformation"))
+	</legend>
+	<form-element id="ErrorCodeKey" params="value: ErrorCodeKey, caption: 'ErrorCode', type: 'select'", data-bind="visible: $root.lookups.errorCodes.$array.length > 0">
+		<select name="ErrorCodeKey" class="form-control" data-bind="select2autocompleter: { data: value, default: Helper.Lookup.getLookupValue($root.lookups.errorCodes, value), autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_ErrorCode'), placeholder: placeholder }">
+		</select>
+	</form-element>
+	<form-element id="ComponentKey" params="value: ComponentKey, caption: 'Component', type: 'select'" data-bind="visible: $root.lookups.components.$array.length > 0">
+		<select name="ComponentKey" class="form-control" data-bind="select2autocompleter: { data: value, default: Helper.Lookup.getLookupValue($root.lookups.components, value), autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_Component'), placeholder: placeholder }">
+		</select>
+	</form-element>
+	<form-element id="CauseOfFailureKey" params="value: CauseOfFailureKey, caption: 'CauseOfFailure', type: 'select'" data-bind="visible: $root.lookups.causeOfFailures.$array.length > 0">
+		<select name="CauseOfFailureKey" class="form-control" data-bind="select2autocompleter: { data: value, default: Helper.Lookup.getLookupValue($root.lookups.causeOfFailures, value), autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_CauseOfFailure'), placeholder: placeholder }">
+		</select>
+	</form-element>
+	@Html.PluginRenderActions("CreateAdHocServiceOrderFormExtendedInformation")
+</fieldset>

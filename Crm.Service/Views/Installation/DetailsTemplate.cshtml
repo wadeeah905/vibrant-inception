@@ -1,0 +1,52 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Modularization.Extensions
+@using Crm.Library.Globalization.Extensions
+@using Crm.Service.Model
+
+<ul class="top-menu">
+	@Html.PluginRenderActions("InstallationDetailsTopMenu")
+	@Html.PluginRenderActions("ContactDetailsTopMenu")
+</ul>
+
+<div class="container">
+	<div>
+		<div class="card" id="profile-main">
+			<div class="pm-overview c-overflow hide-print" tabindex="4">
+				<div class="pmo-pic">
+					<div class="text-center bgm-white c-black p-20">
+						<!-- ko with: installation -->
+						<h4>
+							<span id="installation-title" data-bind="text: Helper.Installation.getDisplayName($data)"></span>
+							<br />
+							<small data-bind="lookupValue: InstallationTypeKey, lookups: $root.lookups.installationTypes"></small>
+						</h4>
+						<hr />
+						<p data-bind="with: ResponsibleUserUser">
+							<i class="zmdi zmdi-account-o"></i> <span data-bind="text: Helper.User.getDisplayName($data)"></span>
+						</p>
+						<p>
+							<!-- ko with: ServiceObject -->
+							@(Html.Localize("ServiceObject")) 
+							<a href="#" data-bind="attr: { href: '#/Crm.Service/ServiceObject/DetailsTemplate/' + Id() }">	
+								<span data-bind="text: Helper.ServiceObject.getDisplayName($data)"></span>
+							</a>
+							<!-- /ko -->
+						</p>
+						<!-- /ko -->
+					</div>
+				</div>
+				 @await Html.PartialAsync("ContactDetailsTagBlock", typeof(Installation)) 
+				@Html.PluginRenderActions("MaterialInstallationSidebarExtensions")
+				@Html.PluginRenderActions("MaterialContactSidebarExtensions")
+			</div>
+			<div class="pm-body clearfix">
+				<ul class="tab-nav tn-justified" role="tablist" tabindex="1">
+					@Html.PluginRenderActions("InstallationDetailsMaterialTabHeader")
+				</ul>
+				<div class="tab-content">
+					@Html.PluginRenderActions("InstallationDetailsMaterialTab")
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

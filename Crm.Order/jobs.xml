@@ -1,0 +1,48 @@
+﻿<job-scheduling-data xmlns="http://quartznet.sourceforge.net/JobSchedulingData"
+			 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			 version="2.0">
+
+	<processing-directives>
+		<overwrite-existing-data>true</overwrite-existing-data>
+	</processing-directives>
+
+	<schedule>
+		<job>
+			<name>BaseOrderPdfSenderAgent</name>
+			<group>Crm.Order</group>
+			<description>Sends order and offer pdfs</description>
+			<job-type>Crm.Order.BackgroundServices.BaseOrderPdfSenderAgent, Crm.Order</job-type>
+			<durable>true</durable>
+			<recover>false</recover>
+		</job>
+		<trigger>
+			<cron>
+				<name>BaseOrderPdfSenderAgentTrigger</name>
+				<group>Crm.Order</group>
+				<description>Runs every minute to send unsent pdfs</description>
+				<job-name>BaseOrderPdfSenderAgent</job-name>
+				<job-group>Crm.Order</job-group>
+				<cron-expression>0 * * * * ?</cron-expression>
+			</cron>
+		</trigger>
+
+		<job>
+			<name>OfferExpirationCheckerAgent</name>
+			<group>Crm.Order</group>
+			<description>Marks sent offers as expired if the valid to date is exceeded</description>
+			<job-type>Crm.Order.BackgroundServices.OfferExpirationCheckerAgent, Crm.Order</job-type>
+			<durable>true</durable>
+			<recover>false</recover>
+		</job>
+		<trigger>
+			<cron>
+				<name>OfferExpirationCheckerAgentTrigger</name>
+				<group>Crm.Order</group>
+				<description>Runs daily to check if an offer is already expired</description>
+				<job-name>OfferExpirationCheckerAgent</job-name>
+				<job-group>Crm.Order</job-group>
+				<cron-expression>0 0 3 * * ?</cron-expression>
+			</cron>
+		</trigger>
+	</schedule>
+</job-scheduling-data>

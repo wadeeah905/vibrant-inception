@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="AddChecklist" xml:space="preserve">
+    <value>Add checklist</value>
+  </data>
+  <data name="Checklists" xml:space="preserve">
+    <value>Checklists</value>
+  </data>
+  <data name="CompletedBy" xml:space="preserve">
+    <value>Completed by</value>
+  </data>
+  <data name="InProgressBy" xml:space="preserve">
+    <value>In progress by</value>
+  </data>
+  <data name="NoServiceOrderChecklistsAdded" xml:space="preserve">
+    <value>No checklists were attached to this order.</value>
+  </data>
+  <data name="NotCompleted" xml:space="preserve">
+    <value>Not completed yet</value>
+  </data>
+  <data name="ServiceOrderChecklistsEmptySlate" xml:space="preserve">
+    <value>No checklists were attached to this service order yet.</value>
+  </data>
+  <data name="SmsChecklists_ServiceOrderChecklist" xml:space="preserve">
+    <value>Service order checklists</value>
+  </data>
+  <data name="RequiredForServiceOrderCompletion" xml:space="preserve">
+    <value>Required for service order completion</value>
+  </data>
+  <data name="SendToCustomer" xml:space="preserve">
+    <value>Send to customer</value>
+  </data>
+  <data name="TheFollowingChecklistsAreRequiredForServiceOrderCompletion" xml:space="preserve">
+    <value>The following checklists have to be completed before the service order can be completed:</value>
+  </data>
+  <data name="ChecklistInstallationTypeRelationship" xml:space="preserve">
+    <value>Checklist-{Installation} relationship</value>
+  </data>
+  <data name="ChecklistInstallationTypeRelationshipAlreadyExists" xml:space="preserve">
+    <value>Relationship already exists</value>
+  </data>
+  <data name="WillBeSentToCustomer" xml:space="preserve">
+    <value>will be sent to customer</value>
+  </data>
+  <data name="ChecklistRequired" xml:space="preserve">
+    <value>Checklist is required</value>
+  </data>
+  <data name="SelectedChecklistDisabledAdd" xml:space="preserve">
+    <value>The selected checklist has been disabled, it can not be linked to this service order.</value>
+  </data>
+  <data name="SelectedChecklistDisabledEdit" xml:space="preserve">
+    <value>The selected checklist has been disabled, it can not be edited.</value>
+  </data>
+  <data name="Deactivated" xml:space="preserve">
+    <value>Deactivated</value>
+  </data>
+  <data name="CreationDynamicForm" xml:space="preserve">
+    <value>Creation form</value>
+  </data>
+  <data name="CreationDynamicFormId" xml:space="preserve">
+    <value>Creation form</value>
+  </data>
+  <data name="ServiceOrderChecklistEmptySlate" xml:space="preserve">
+    <value>There are no checklists available</value>
+  </data>
+  <data name="CompletionDynamicForm" xml:space="preserve">
+    <value>Completion form</value>
+  </data>
+  <data name="CompletionDynamicFormId" xml:space="preserve">
+    <value>Completion form</value>
+  </data>
+  <data name="CompletionDynamicForms" xml:space="preserve">
+    <value>Completion forms</value>
+  </data>
+  <data name="IncompleteCompletionDynamicFormMessage" xml:space="preserve">
+    <value>There is an incomplete completion form. Should the service case status be changed anyways?</value>
+  </data>
+  <data name="IncompleteCompletionDynamicFormsMessage" xml:space="preserve">
+    <value>There are incomplete completion forms for 
+{0}.
+
+Should the statuses be changed anyways?</value>
+  </data>
+  <data name="ViewCreationDynamicForm" xml:space="preserve">
+    <value>View creation form</value>
+  </data>
+  <data name="ViewCompletionDynamicForm" xml:space="preserve">
+    <value>View completion form</value>
+  </data>
+  <data name="PreviewCompletionDynamicForm" xml:space="preserve">
+    <value>Preview completion form</value>
+  </data>
+  <data name="EditCompletionDynamicForm" xml:space="preserve">
+    <value>Edit completion form</value>
+  </data>
+  <data name="CanAttachServiceCases" xml:space="preserve">
+    <value>Can attach service cases</value>
+  </data>
+  <data name="SmsChecklists_ServiceCaseChecklist" xml:space="preserve">
+    <value>Service case checklist</value>
+  </data>
+  <data name="ServiceCaseChecklistEmptySlate" xml:space="preserve">
+    <value>There are no checklists available</value>
+  </data>
+  <data name="ConfirmDiscardServiceCase" xml:space="preserve">
+    <value>Are you sure you want to discard the unsaved service case?</value>
+  </data>
+  <data name="CannotCreateServiceCase" xml:space="preserve">
+    <value>Service case cannot be created here</value>
+  </data>
+  <data name="AddPDFChecklist" xml:space="preserve">
+    <value>Add PDF checklist</value>
+  </data>
+  <data name="Delete Signature" xml:space="preserve">
+    <value>Delete signature</value>
+  </data>
+  <data name="Edit_PDF" xml:space="preserve">
+    <value>Edit PDF</value>
+  </data>
+  <data name="PDF-Checklist" xml:space="preserve">
+    <value>PDF checklist</value>
+  </data>
+  <data name="PDF-Checklists" xml:space="preserve">
+    <value>PDF Checklists</value>
+  </data>
+  <data name="PdfDynamicFormDesignerEmptySlate" xml:space="preserve">
+    <value>Please upload a pdf.</value>
+  </data>
+  <data name="PreviewText" xml:space="preserve">
+    <value>This is just a preview of the attached PDF. To fill the PDF with data, please edit it.</value>
+  </data>
+  <data name="Save Signature" xml:space="preserve">
+    <value>Save signature</value>
+  </data>
+</root>

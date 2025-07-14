@@ -1,0 +1,46 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Order.Model.Lookups
+
+<li data-bind="requiredPermission: { name: 'PreviewOffer', group: 'Offer' }">
+	<a href="#" data-route="Crm.Order/Offer/Pdf" data-toggle="modal" data-target="#lgModal">
+		<i class="zmdi zmdi-file-text"></i>
+		@(Html.Localize("Preview"))
+	</a>
+</li>
+<li data-bind="visible: !$root.hasCustomerEmail() && !offer().IsLocked() && offer().OrderNo() && !offer().SendConfirmation() && !offer().ConfirmationSent(), requiredPermission: { name: 'SendOffer', group: 'Offer' }">
+	<a href="#" data-route="Crm.Order/Offer/EnterCustomerEmail" data-toggle="modal" data-target="#lgModal">
+		<i class="zmdi zmdi-mail-send"></i>
+		@(Html.Localize("Send"))
+	</a>
+</li>
+<li data-bind="visible: $root.hasCustomerEmail() && !offer().IsLocked() && offer().OrderNo() && !offer().SendConfirmation() && !offer().ConfirmationSent(), requiredPermission: { name: 'SendOffer', group: 'Offer' }">
+	<a href="#" data-bind="click: sendConfirmation">
+		<i class="zmdi zmdi-mail-send"></i>
+		@(Html.Localize("Send"))
+	</a>
+</li>
+<li class="disabled" data-bind="visible: offer().ReadyForExport, requiredPermission: { name: 'SendOffer', group: 'Offer' }">
+	<a href="#">
+		<i class="zmdi zmdi-mail-send"></i>
+		@(Html.Localize("Send"))
+	</a>
+</li>
+<li class="disabled" data-bind="visible: offer().SendConfirmation() && !offer().ConfirmationSent(), requiredPermission: { name: 'SendOffer', group: 'Offer' }">
+	<a href="#">
+		<i class="zmdi zmdi-mail-send"></i>
+		@(Html.Localize("Sending"))
+	</a>
+</li>
+<li data-bind="visible: offer().StatusKey() === '@OrderStatus.OpenKey' &&  offer().ConfirmationSent(), requiredPermission: { name: 'SendOffer', group: 'Offer' }">
+	<a href="#" data-bind="click: sendConfirmation">
+		<i class="zmdi zmdi-mail-send"></i>
+		@(Html.Localize("SendAgain"))
+	</a>
+</li>
+<li class="disabled" data-bind="visible: offer().StatusKey() !== '@OrderStatus.OpenKey' &&  offer().ConfirmationSent(), requiredPermission: { name: 'SendOffer', group: 'Offer' }">
+	<a href="#">
+		<i class="zmdi zmdi-mail-send"></i>
+		@(Html.Localize("SendAgain"))
+	</a>
+</li>

@@ -1,0 +1,95 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<!-- ko if: baseOrder().OrderEntryType() === 'SingleDelivery' || baseOrder().OrderEntryType() === 'MultiDelivery' -->
+<div role="tabpanel" class="tab-pane" id="tab-listview" data-bind="with: tabs()['tab-listview']">
+	<div class="listview lv-bordered">
+		<div class="lv-body">
+			<!-- ko foreach: orderItems.indexKeys.DeliveryDate().sort() -->
+			<div class="lv-header" data-bind="dateText: $data, css: { 'p-t-0': $index() === 0,  'p-t-30': $index() > 0 }, visible: $data">
+			</div>
+			<!-- ko foreach: $root.orderItems.index.DeliveryDate()[$data] -->
+			<div class="lv-item media" data-bind="attr: {'id': 'orderItem-' + Id()}">
+				<span class="f-700 p-t-10 pull-left" data-bind="text: ($index() + 1)+'.'"></span>
+				<!-- ko if: Article() && Article().DocumentAttributes().length > 0 -->
+				<div class="lv-avatar pull-left order-article-image" data-bind="fileResource: Article().DocumentAttributes()[0].FileResource" data-toggle="modal" data-target="#{{Article().Id}}"></div>
+				<!-- ko with: Article -->
+				@await Html.PartialAsync("ArticleImageModal")
+				<!-- /ko -->
+				<!-- /ko -->
+				<!-- ko if: Article() === null || Article().DocumentAttributes().length === 0 -->
+				<div class="lv-avatar bgm-gray pull-left order-article-image" data-bind="text: ArticleDescription()[0].toUpperCase()"></div>
+				<!-- /ko -->
+				<div class="media-body">
+					<div class="col-xs-6">
+						<div class="lv-title m-b-5">
+							<!-- ko if: CustomArticleNo -->
+								<span data-bind="text: CustomArticleNo"></span>
+							<!-- /ko -->
+							<!-- ko ifnot: CustomArticleNo -->
+								<span data-bind="text: ArticleNo"></span>
+							<!-- /ko -->
+							@*@Html.PluginRenderActions("OrderListViewTabItemTitle")*@
+						</div>
+						<div class="small m-b-5">
+							<!-- ko if: CustomDescription -->
+								<span data-bind="text: CustomDescription"></span>
+							<!-- /ko -->
+							<!-- ko ifnot: CustomDescription -->
+								<span data-bind="text: ArticleDescription"></span>
+							<!-- /ko -->
+						</div>
+						<div class="small">
+							<span>@(Html.Localize("Quantity"))</span>: 
+							<span data-bind="text: QuantityValue"></span>
+							<span data-bind="lookupValue: QuantityUnitKey, lookups: $root.lookups.quantityUnits"></span>
+						</div>
+						<div class="small">
+							<span>@(Html.Localize("UnitPrice"))</span>: 
+							<span data-bind="text: $root.getCurrencyValue($root.baseOrder().CurrencyKey())"></span>
+							<span data-bind="text: Price"></span>
+						</div>
+					</div>
+					<div class="m-r-5 col-xs-4 text-right">
+						<p class="m-b-0" data-bind="css: { 'f-700': !Discount() }">
+							<span data-bind="text: $root.getCurrencyValue($root.baseOrder().CurrencyKey())"></span> <span class="price" data-bind="money: Price()*QuantityValue()"></span>
+						</p>
+						<p class="m-b-5 m-t-5" data-bind="visible: Discount">
+							<small class="normal-white-space">
+								<span>@(Html.Localize("Discount"))</span><br/>
+								<span>-</span>&nbsp;<span data-bind="visible: DiscountType() === 1"><span data-bind="text: Discount"></span><span>%</span></span><span data-bind="visible: DiscountType() === 2"><span data-bind="text: $root.getCurrencyValue($root.baseOrder().CurrencyKey())"></span>&nbsp;<span data-bind="text: Discount()*QuantityValue()"></span></span>
+								<span> / </span>
+								<span data-bind="visible: DiscountType() === 2"><span data-bind="text: $root.getDiscountPercentageValue($data)"></span><span>%</span></span><span data-bind="visible: DiscountType() === 1"><span data-bind="text: $root.getCurrencyValue($root.baseOrder().CurrencyKey())"></span>&nbsp;<span data-bind="text: $root.getDiscountExactValue($data)"></span></span>
+							</small>
+						</p>
+						<p class="m-b-0 f-700" data-bind="visible: Discount">
+							<span data-bind="text: $root.getCurrencyValue($root.baseOrder().CurrencyKey())"></span>&nbsp;<span class="price" data-bind="money: $root.getCalculatedPriceWithDiscount($data)"></span>
+						</p>
+					</div>
+					<div class="lv-actions actions dropdown col-xs-2 text-right">
+						<a class="edit" href="#" data-trigger="#right-nav" data-bind="click: $root.selectItem, visible: $root.isEditable, tooltip: true" title="@(Html.Localize("Edit"))">
+							<i class="zmdi zmdi-edit"></i>
+						</a>
+						@Html.PluginRenderActions("OrderListViewTabItemAction")
+						<a class="delete" href="#" data-bind="click: $root.removeOrderItem, visible: $root.isEditable, tooltip: true" title="@(Html.Localize("Remove"))">
+							<i class="zmdi zmdi-delete"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+			<!-- /ko -->
+			<!-- /ko -->
+			<!-- ko if: orderItems().length === 0 -->
+			<div class="lv-item media">
+				<div class="media-body">
+					<div class="lv-small" data-bind="translatedText: 'No' + baseOrder().OrderType() + 'ItemsInfo'">
+					</div>
+				</div>
+			</div>
+			<!-- /ko -->
+		</div>
+	</div>
+	<button class="btn btn-float btn-primary m-btn waves-effect waves-circle waves-float animated bounceIn" data-trigger="#right-nav" data-bind="click: $root.newItem.bind($root, null), visible: $root.isEditable"><i class="zmdi zmdi-plus"></i></button>
+</div>
+<!-- /ko -->

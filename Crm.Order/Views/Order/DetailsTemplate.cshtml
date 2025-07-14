@@ -1,0 +1,45 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<ul class="top-menu">
+	@Html.PluginRenderActions("OrderDetailsTopMenu")
+</ul>
+
+<div class="container">
+	<!-- ko with: order -->
+	 @await Html.PartialAsync("ContactVisibilityAlert") 
+	<!-- /ko -->
+	<div class="row">
+		<div class="col-md-7" id="left">
+			<div class="card">
+				<div class="card-header ch-alt p-b-0">
+					<ul class="tab-nav tn-justified" role="tablist">
+						@Html.PluginRenderActions("OrderDetailsTemplateTabHeader")
+					</ul>
+				</div>
+				<div class="card-body card-padding" id="configuration">
+					<div id="infoAlert" class="alert alert-info alert-dismissible animated zoomInDown" role="alert" data-bind="visible: alertInfoText">
+						<button type="button" class="close" data-hide="alert" aria-label="@(Html.Localize("Exit"))">
+							<span aria-hidden="true">�</span>
+						</button>
+						<span data-bind="text: alertInfoText"></span>
+						<p>
+							<a href="#" data-hide="alert" class="alert-link">@(Html.Localize("Exit"))</a>
+						</p>
+					</div>
+					<div role="tabpanel" class="tab" id="complextab">
+						<div class="tab-content">
+							@Html.PluginRenderActions("OrderDetailsTemplateTab")
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5" id="right">
+			 @await Html.PartialAsync("Summary") 
+		</div>
+	</div>
+</div>
+
+ @await Html.PartialAsync("OrderItemEditor") 

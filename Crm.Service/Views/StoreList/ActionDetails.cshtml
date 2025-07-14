@@ -1,0 +1,13 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<li>
+	<a id="manage-Locations" href="#" data-toggle="modal" data-target="#modal" data-route="Crm.Service/Store/EditTemplate/{{$data.Id}}">
+		@(Html.Localize("Edit"))
+	</a>
+</li>
+<li>
+	<a href="#" data-bind="click: () => $root.deleteStore($data)">
+		@(Html.Localize("Delete"))
+	</a>
+</li>

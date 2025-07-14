@@ -1,0 +1,31 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div class="modal-header card-header ch-alt">
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	<h4 class="modal-title">
+		@(Html.Localize("AddDelivery"))
+	</h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<form role="form">
+		<div class="form-group has-feedback" data-bind="validationElement: deliveryDate">
+			<label class="control-label">@(Html.Localize("DeliveryDate"))</label>
+			<div class="dtp-container fg-line">
+				<input name="DeliveryDate" type="text" class="form-control date-picker" data-bind="datePicker: deliveryDate" placeholder="@(Html.Localize("ClickHere"))">
+			</div>
+			<span class="zmdi zmdi-calendar form-control-feedback"></span>
+			<small class="help-block" data-bind="validationMessage: deliveryDate"></small>
+		</div>
+		@Html.PluginRenderActions("OrderTreeViewDeliveryDateForm")
+	</form>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-bind="click: Helper.Database.clearTrackedEntities" data-dismiss="modal">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: addDeliveryDate">
+		@(Html.Localize("Add"))
+	</button>
+</div>

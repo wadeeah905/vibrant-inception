@@ -1,0 +1,20 @@
+@inherits Crm.Library.Modularization.CrmViewPage
+@{
+    Layout = "~/Views/Shared/Layout/HtmlTemplateLayout.cshtml";
+}
+@using Crm.Library.Globalization.Extensions
+
+@section TemplateMainContent {
+
+    <div class="reportcontainer">
+        <div class="report">
+            <div >
+                <div style="text-align: right; float: right; white-space: nowrap; font-size: 10px !important;">
+                    @(Html.Localize("Page")) <span>[page]</span> @(Html.Localize("of")) <span>[toPage]</span>
+                </div>
+                @await Html.PartialAsync("Report/FooterContent")
+            </div>
+        </div>
+    </div>
+
+}

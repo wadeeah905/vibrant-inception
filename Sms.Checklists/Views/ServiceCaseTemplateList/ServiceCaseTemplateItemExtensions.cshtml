@@ -1,0 +1,15 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- ko if: CreationDynamicForm -->
+<div class="small" data-bind="with: CreationDynamicForm">
+	@(Html.Localize("CreationDynamicForm")):
+	<span data-bind="text: Helper.DynamicForm.getTitle.call($parentContext.$parent, $data)"></span>
+</div>
+<!-- /ko -->
+<!-- ko if: CompletionDynamicForm -->
+<div class="small" data-bind="with: CompletionDynamicForm">
+	@(Html.Localize("CompletionDynamicForm")):
+	<span data-bind="text: Helper.DynamicForm.getTitle.call($parentContext.$parent, $data)"></span>
+</div>
+<!-- /ko -->

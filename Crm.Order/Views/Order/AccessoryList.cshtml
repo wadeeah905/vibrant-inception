@@ -1,0 +1,38 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Article.Rest.Model
+@using Crm.Library.Globalization.Extensions
+@using Crm.Offline.Extensions
+
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>@(Html.Localize("ItemNo"))</th>
+			<th>@(Html.Localize("Description"))</th>
+			<th>@(Html.Localize("Price"))</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody data-bind="foreach: articles">
+		<tr>
+			<td>
+				@(Html.TemplateText<ArticleRest>(x => x.ItemNo))
+			</td>
+			<td>
+				@(Html.TemplateText<ArticleRest>(x => x.Description))				
+			</td>
+			<td>
+				@(Html.TemplateText<ArticleRest>(x => x.Price))				
+			</td>
+			<td>
+				<button class="btn btn-default" data-bind="click: $root.add.bind($root), visible: $root.isAdded($data) == false">
+					<i class="fa fa-plus-circle"></i>
+					@(Html.Localize("Add"))
+				</button>
+				<button class="btn btn-success" disabled="disabled" data-bind="visible: $root.isAdded($data)">
+					<i class="fa fa-check-circle-o"></i>
+					@(Html.Localize("Added"))
+				</button>
+			</td>
+		</tr>	
+	</tbody>
+</table>

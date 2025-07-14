@@ -1,0 +1,16 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Order.Model.Lookups
+
+<li data-bind="visible: offer().StatusKey() === '@OrderStatus.OpenKey' && (!offer().IsLocked() || offer().SendConfirmation()), requiredPermission: { name: 'Edit', group: 'Offer' }">
+	<a href="#" data-route="Crm.Order/Offer/Cancel" data-toggle="modal" data-target="#lgModal">
+		<i class="zmdi zmdi-block"></i>
+		@(Html.Localize("Cancel"))
+	</a>
+</li>
+<li class="disabled" data-bind="visible: offer().StatusKey() !== '@OrderStatus.OpenKey' || (offer().IsLocked() && !offer().SendConfirmation()), requiredPermission: { name: 'Edit', group: 'Offer' }">
+	<a href="#">
+		<i class="zmdi zmdi-block"></i>
+		@(Html.Localize("Cancel"))
+	</a>
+</li>

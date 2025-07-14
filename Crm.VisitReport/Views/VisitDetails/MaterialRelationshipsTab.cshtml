@@ -1,0 +1,49 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<CrmModel>
+@using Crm.ViewModels
+@using Crm.Library.Modularization.Extensions
+@using Crm.Library.Globalization.Extensions
+
+<div role="tabpanel" class="tab-pane" id="tab-relationships" data-bind="with: tabs()['tab-relationships']">
+	<!-- ko if: isEmptyStateVisible -->
+	<empty-state-box params="mood: 'sad', title: 'RelationshipsEmptyStateTitle', text: 'NoRelationshipInfo'"></empty-state-box>
+	<!-- /ko -->
+	<!-- ko ifnot: isEmptyStateVisible -->
+	<div id="generic-list-business-relationships" class="card generic-list">
+		<!-- ko if: contactPersonRelationships().length -->
+		<div class="card-header ch-alt">
+			<h2>@(Html.Localize("ContactPersons"))</h2>
+		</div>
+		<!-- /ko -->
+		<!-- ko with: contactPersonRelationships.index.RelationshipTypeKey -->
+		<div class="listview lv-bordered">
+			<div class="lv-body" data-bind="foreach: { data: Object.keys($data).sort(), as: 'typeKey' }">
+				<div class="lv-header" data-bind="lookupValue: typeKey, lookups: $root.tabs()['tab-relationships']().lookups.contactPersonRelationshipTypes"></div>
+				<!-- ko foreach: $parent[typeKey] -->
+				<!-- ko with: { person: Child, lookups: $root.tabs()['tab-relationships']().lookups } -->
+				<!-- ko with: person -->
+				@await Html.PartialAsync("../PersonList/MaterialItemTemplate")
+				<!-- /ko -->
+				<!-- /ko -->
+				<!-- /ko -->
+			</div>
+		</div>
+		<!-- /ko -->
+		<!-- ko with: genericContactPersonRelationships -->
+		@await Html.PartialAsync("MaterialPaging")
+		<!-- /ko -->
+	</div>
+	@Html.PluginRenderActions("VisitDetailsRelationshipTypeExtension")
+	<!-- /ko -->
+	<!-- ko if: $root.visitIsEditable -->
+	<floating-action-button>
+		<!-- ko requiredPermission: { name: 'AddContactPersonRelationship', group: 'Visit' } -->
+		<li data-bind="with: $root">
+			<a id="add-contactperson-relationship" href="#" data-mfb-label="@(Html.Localize("AddContactPersonRelationship"))" data-route="Crm.VisitReport/ContactPersonRelationship/EditTemplate/" data-toggle="modal" data-target="#modal">
+				<i class="zmdi zmdi-accounts-alt"></i>
+			</a>
+		</li>
+		<!-- /ko -->
+		@Html.PluginRenderActions("VisitDetailsRelationshipTypeActionExtension")
+	</floating-action-button>
+	<!-- /ko -->
+</div>

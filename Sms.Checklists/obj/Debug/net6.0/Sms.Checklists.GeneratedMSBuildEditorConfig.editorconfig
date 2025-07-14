@@ -1,0 +1,143 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Sms.Checklists
+build_property.RootNamespace = Sms.Checklists
+build_property.ProjectDir = C:\Source\crm6\src\Crm.Web\Plugins\Sms.Checklists\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Source\crm6\src\Crm.Web\Plugins\Sms.Checklists
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/ChecklistInstallationTypeRelationship/FormDesignerSidebarTabContent.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hlY2tsaXN0SW5zdGFsbGF0aW9uVHlwZVJlbGF0aW9uc2hpcFxGb3JtRGVzaWduZXJTaWRlYmFyVGFiQ29udGVudC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/ChecklistInstallationTypeRelationship/FormDesignerSidebarTabHeader.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hlY2tsaXN0SW5zdGFsbGF0aW9uVHlwZVJlbGF0aW9uc2hpcFxGb3JtRGVzaWduZXJTaWRlYmFyVGFiSGVhZGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/Checklist/ChecklistResponseFooter.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hlY2tsaXN0XENoZWNrbGlzdFJlc3BvbnNlRm9vdGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/Checklist/ChecklistResponseHeader.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hlY2tsaXN0XENoZWNrbGlzdFJlc3BvbnNlSGVhZGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/Checklist/MaterialChecklistsTab.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hlY2tsaXN0XE1hdGVyaWFsQ2hlY2tsaXN0c1RhYi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/Checklist/MaterialChecklistsTabHeader.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hlY2tsaXN0XE1hdGVyaWFsQ2hlY2tsaXN0c1RhYkhlYWRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/Checklist/PrimaryActionAddServiceOrderChecklist.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2hlY2tsaXN0XFByaW1hcnlBY3Rpb25BZGRTZXJ2aWNlT3JkZXJDaGVja2xpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/DynamicForm/CanAttachServiceCasesEditorTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRHluYW1pY0Zvcm1cQ2FuQXR0YWNoU2VydmljZUNhc2VzRWRpdG9yVGVtcGxhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/DynamicForm/MaterialCanAttachServiceCasesEditorTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRHluYW1pY0Zvcm1cTWF0ZXJpYWxDYW5BdHRhY2hTZXJ2aWNlQ2FzZXNFZGl0b3JUZW1wbGF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/ServiceCaseChecklistList/MaterialItemTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZUNhc2VDaGVja2xpc3RMaXN0XE1hdGVyaWFsSXRlbVRlbXBsYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/ServiceCaseList/ItemTemplateServiceCaseChecklistActions.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZUNhc2VMaXN0XEl0ZW1UZW1wbGF0ZVNlcnZpY2VDYXNlQ2hlY2tsaXN0QWN0aW9ucy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/ServiceCaseTemplateList/DynamicFormFilters.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZUNhc2VUZW1wbGF0ZUxpc3RcRHluYW1pY0Zvcm1GaWx0ZXJzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/ServiceCaseTemplateList/ServiceCaseTemplateItemExtensions.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZUNhc2VUZW1wbGF0ZUxpc3RcU2VydmljZUNhc2VUZW1wbGF0ZUl0ZW1FeHRlbnNpb25zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/ServiceCaseTemplate/CreateServiceCaseTemplateForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZUNhc2VUZW1wbGF0ZVxDcmVhdGVTZXJ2aWNlQ2FzZVRlbXBsYXRlRm9ybS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/ServiceCaseTemplate/DetailsChecklistInformation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZUNhc2VUZW1wbGF0ZVxEZXRhaWxzQ2hlY2tsaXN0SW5mb3JtYXRpb24uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/ServiceCase/ChecklistsTab.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZUNhc2VcQ2hlY2tsaXN0c1RhYi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/ServiceCase/ChecklistsTabHeader.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZUNhc2VcQ2hlY2tsaXN0c1RhYkhlYWRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/ServiceCase/CreateServiceCaseForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZUNhc2VcQ3JlYXRlU2VydmljZUNhc2VGb3JtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/ServiceCase/CreateServiceCaseFormBasicInformation.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZUNhc2VcQ3JlYXRlU2VydmljZUNhc2VGb3JtQmFzaWNJbmZvcm1hdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/ServiceCase/CreateTemplateForm.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZUNhc2VcQ3JlYXRlVGVtcGxhdGVGb3JtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/ServiceCase/DetailsBasicInformationEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZUNhc2VcRGV0YWlsc0Jhc2ljSW5mb3JtYXRpb25FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/ServiceCase/DetailsBasicInformationView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZUNhc2VcRGV0YWlsc0Jhc2ljSW5mb3JtYXRpb25WaWV3LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/ServiceOrderChecklistList/JobFilterTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZU9yZGVyQ2hlY2tsaXN0TGlzdFxKb2JGaWx0ZXJUZW1wbGF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/ServiceOrderChecklistList/MaterialItemPdfTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZU9yZGVyQ2hlY2tsaXN0TGlzdFxNYXRlcmlhbEl0ZW1QZGZUZW1wbGF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/ServiceOrderChecklistList/MaterialItemTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZU9yZGVyQ2hlY2tsaXN0TGlzdFxNYXRlcmlhbEl0ZW1UZW1wbGF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/ServiceOrderChecklist/CreatePdfTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZU9yZGVyQ2hlY2tsaXN0XENyZWF0ZVBkZlRlbXBsYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/ServiceOrderChecklist/CreateTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZU9yZGVyQ2hlY2tsaXN0XENyZWF0ZVRlbXBsYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/ServiceOrderChecklist/DispatchJobTemplateAttributes.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZU9yZGVyQ2hlY2tsaXN0XERpc3BhdGNoSm9iVGVtcGxhdGVBdHRyaWJ1dGVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/ServiceOrderChecklist/DynamicFormElementActionCreateServiceCase.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZU9yZGVyQ2hlY2tsaXN0XER5bmFtaWNGb3JtRWxlbWVudEFjdGlvbkNyZWF0ZVNlcnZpY2VDYXNlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/ServiceOrderChecklist/ServiceOrderChecklistDynamicFormDetailsModalBody.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZU9yZGVyQ2hlY2tsaXN0XFNlcnZpY2VPcmRlckNoZWNrbGlzdER5bmFtaWNGb3JtRGV0YWlsc01vZGFsQm9keS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Sms.Checklists/Views/ServiceOrderChecklist/ServiceOrderChecklistEditModalDynamicFormElementServiceCases.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZU9yZGVyQ2hlY2tsaXN0XFNlcnZpY2VPcmRlckNoZWNrbGlzdEVkaXRNb2RhbER5bmFtaWNGb3JtRWxlbWVudFNlcnZpY2VDYXNlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 

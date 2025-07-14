@@ -1,0 +1,23 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Modularization.Extensions
+
+<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-details">
+	<pmb-block class="report-details-pmb" params="icon: 'label-alt-outline', caption: 'Reportdetails', context: { serviceOrder: serviceOrder }, condition: serviceOrderIsEditable">
+         @await Html.PartialAsync("ServiceOrderMaterialDetails/DetailsTabReportDetails") 
+	</pmb-block>
+	<pmb-block class="dispatch-location-pmb" params="icon: 'pin-drop', caption: 'DispatchLocation', context: { serviceOrder: serviceOrder }, condition: serviceOrderIsEditable, onCancel: $root.onLocationPmbCancel.bind($root)">
+         @await Html.PartialAsync("ServiceOrderMaterialDetails/DetailsTabLocation") 
+	</pmb-block>
+     @await Html.PartialAsync("ServiceOrderMaterialDetails/DetailsTabScheduling") 
+     @await Html.PartialAsync("ServiceOrderMaterialDetails/DetailsTabServiceObject") 
+     @await Html.PartialAsync("ServiceOrderMaterialDetails/DetailsTabServiceContract") 
+     @await Html.PartialAsync("ServiceOrderMaterialDetails/DetailsTabCustomerContact") 
+     @await Html.PartialAsync("ServiceOrderMaterialDetails/DetailsTabInitiator") 
+     @await Html.PartialAsync("ServiceOrderMaterialDetails/DetailsTabInvoicing") 
+	<statisticskey-info params="entity: serviceOrder, condition: serviceOrderIsEditable"></statisticskey-info>
+	<floating-action-button>
+		@Html.PluginRenderActions("ServiceOrderDetailsPrimaryAction")
+	</floating-action-button>
+	@Html.PluginRenderActions("ContactMaterialDetailsTabExtensions")
+</div>
+

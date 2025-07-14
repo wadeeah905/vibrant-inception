@@ -1,0 +1,10 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<floating-action-button>
+    <li data-bind="with: $data">
+        <a id="add-store" href="#" data-mfb-label="@(Html.Localize("AddStore"))" data-route="Crm.Service/Store/EditTemplate" data-toggle="modal" data-target="#modal">
+            <i class="zmdi zmdi-plus"></i>
+        </a>
+    </li>
+</floating-action-button>

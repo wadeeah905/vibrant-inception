@@ -1,0 +1,46 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-installations" data-bind="with: tabs()['tab-installations']">
+	<ul class="top-menu">
+		@Html.PluginRenderActions($"DispatchInstallationsTabTopMenu")
+		<li data-bind="visible: true, tooltip: true" data-placement="bottom" title="@(Html.Localize("Filter"))">
+			<a id="open-generic-list-filter" data-trigger="#right-nav" href="#" data-route="@("Crm.Service/InstallationList/FilterTemplate")">
+				<i class="tm-icon zmdi zmdi-search-in-page"></i>
+			</a>
+		</li>
+	</ul>
+	<empty-state-box params="mood: 'excited', title: 'NoInstallations', text: 'NoServiceOrderInstallationsInfo'" data-bind="visible: items().length === 0 && !isFiltered()">
+	</empty-state-box>
+	<p class="p-10" data-bind="visible: items().length === 0 && isFiltered()">
+		@(Html.Localize("NoRecordsForSearchCriteria"))
+	</p>
+	<div class="panel-group p-l-20 p-r-20" role="tablist" id="accordion-installations">
+		<!-- ko foreach: items -->
+		 @await Html.PartialAsync("GenericListItemGroup") 
+		<div class="panel panel-collapse" data-bind="infiniteScrollItem: { index: $index(), array: $parent.items }">
+			<div class="panel-heading" role="tab" data-bind="attr: { id: 'heading-' + $index() }, css: { 'active': $index() === 0 && $parent.firstInstallationActive() }">
+				<h4 class="panel-title">
+					<div class="lv-avatar pull-left" data-bind="text: $parent.getAvatarText($data), style: { backgroundColor: $parent.getAvatarColor($data) }">
+					</div>
+					<a class="p-b-25 m-t-15" data-toggle="collapse" data-parent="#accordion-installations" data-bind="attr: { href: '#collapse-' + $index(), 'aria-controls': 'collapse-' + $index(), 'aria-expanded': $index() === 0 && $parent.firstInstallationActive() ? 'true' : 'false' }">
+						<i class="zmdi zmdi-chevron-down zmdi-hc-lg"></i> @(Html.Localize("Installation")) <span data-bind="text: InstallationNo"></span> - <span data-bind="text: Description"></span>
+					</a>
+				</h4>
+			</div>
+			<div class="collapse" role="tabpanel" data-bind="attr: { id: 'collapse-' + $index(), 'aria-expanded': $index() === 0 && $parent.firstInstallationActive() ? 'true' : 'false', 'aria-labelledby': 'heading-' + $index() }, css: { 'in': $index() === 0 && $parent.firstInstallationActive() }">
+				<div class="panel-body">
+					<pmb-block params="context: { installation: $data }, showHeader: false, css: 'm-0 p-0'">
+					@Html.PluginRenderActions("DispatchInstallationTemplate")
+					</pmb-block>
+				</div>
+			</div>
+		</div>
+		<!-- /ko -->
+	</div>
+	 @await Html.PartialAsync("Material/GenericListPreloader") 
+	<floating-action-button>
+		@Html.PluginRenderActions("DispatchInstallationsTabPrimaryAction")
+	</floating-action-button>
+</div>

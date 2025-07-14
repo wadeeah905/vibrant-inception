@@ -1,0 +1,16 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<pmbb-edit-entry params="caption: 'Checklist'">
+	<!-- ko with: ExtensionValues -->
+	<select class="form-control" data-bind="select2autocompleter: { data: AffectedDynamicFormReferenceId, autocompleteOptions: { table: 'SmsChecklists_ServiceOrderChecklist', joins: ['DynamicForm', 'DynamicForm.Languages', 'DynamicForm.Localizations', 'ServiceOrderTime'], orderBy: ['Id'], mapDisplayObject: Helper.ServiceOrderChecklist.mapForSelect2Display, customFilter: $root.getChecklistAutocompleteFilter.bind($parentContext.$parentContext.$parentContext.$parent), onSelect: $root.onSelectChecklist.bind($root), placeholder: $parentContext.$parent.placeholder, getElementByIdQuery: $root.getElementByIdQuery } }, disable: !$parent.OriginatingServiceOrderId()">
+	</select>
+	<!-- /ko -->
+</pmbb-edit-entry>
+<pmbb-edit-entry params="caption: 'DynamicFormElement'">
+	<!-- ko with: ExtensionValues -->
+	<!-- ko with: $root.dynamicFormElements -->
+	<select class="form-control" data-bind="select2autocompleter: { data: $root.dynamicFormElements(), optionsText: function(x){ return x.text; }, optionsValue: 'id', placeholder: $parentContext.$parent.placeholder }, value: $parent.AffectedDynamicFormElementId, disable: !$parent.AffectedDynamicFormReferenceId()">
+	</select>
+	<!-- /ko -->
+	<!-- /ko -->
+</pmbb-edit-entry>

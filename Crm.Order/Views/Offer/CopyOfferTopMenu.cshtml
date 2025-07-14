@@ -1,0 +1,9 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<li data-bind="requiredPermission: { name: 'Load', group: 'Offer' }">
+	<a href="#" data-route="Crm.Order/Offer/Copy" data-toggle="modal" data-target="#lgModal">
+		<i class="zmdi zmdi-copy"></i>
+		@(Html.Localize("CopyOffer"))
+	</a>
+</li>

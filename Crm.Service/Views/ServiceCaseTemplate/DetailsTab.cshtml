@@ -1,0 +1,70 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Modularization.Extensions
+
+<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-details">
+	<pmb-block params="icon: 'equalizer', caption: 'BasicInformation', context: { serviceCaseTemplate: serviceCaseTemplate }, condition: window.AuthorizationManager.isAuthorizedForAction('ServiceCaseTemplate', 'Edit')">
+		<pmbb-view>
+			<!-- ko with: serviceCaseTemplate -->
+			<pmbb-view-entry params="caption: 'Name'">
+				<span data-bind="text: Name"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: Name"></span>
+			</pmbb-view-entry>
+			@Html.PluginRenderActions("ServiceCaseTemplateDetailsBasicInformationView")
+			<!-- /ko -->
+		</pmbb-view>
+		<pmbb-edit>
+			<!-- ko with: serviceCaseTemplate -->
+			<pmbb-edit-entry params="caption: 'Name', validationElement: Name">
+				<input type="text" class="form-control" data-bind="value: Name">
+			</pmbb-edit-entry>
+			@Html.PluginRenderActions("ServiceCaseTemplateDetailsBasicInformationEdit")
+			<!-- /ko -->
+		</pmbb-edit>
+	</pmb-block>
+	<pmb-block params="icon: 'equalizer', caption: 'BasicInformationServiceCase', context: { serviceCaseTemplate: serviceCaseTemplate }, condition: window.AuthorizationManager.isAuthorizedForAction('ServiceCaseTemplate', 'Edit')">
+		<pmbb-view>
+			<!-- ko with: serviceCaseTemplate -->
+			<pmbb-view-entry params="caption: 'Category'">
+				<span data-bind="if: CategoryKey, lookupValue: CategoryKey, lookups: $root.lookups.serviceCaseCategories"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: CategoryKey"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'Priority'">
+				<span data-bind="if: PriorityKey, lookupValue: PriorityKey, lookups: $root.lookups.servicePriorities"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: PriorityKey"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'ResponsibleUser'">
+				<span data-bind="text: Helper.User.getDisplayName(ResponsibleUserUser)"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'Skills'">
+            	<!-- ko if: RequiredSkillKeys().length > 0 -->
+            	<span data-bind="text: $root.getSkillsFromKeys(RequiredSkillKeys()).map(function(x){ return x.text; }).join(', ')"></span>
+            	<!-- /ko -->
+            	<span class="c-gray" data-bind="translatedText: 'Unspecified', if: RequiredSkillKeys().length === 0"></span>
+            </pmbb-view-entry>
+			@Html.PluginRenderActions("ServiceCaseDetailsBasicInformationServiceCaseView")
+			<!-- /ko -->
+		</pmbb-view>
+		<pmbb-edit>
+			<!-- ko with: serviceCaseTemplate -->
+			<pmbb-edit-entry params="caption: 'Category', validationElement: CategoryKey">
+				<select class="form-control" data-bind="select2autocompleter: { data: CategoryKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_ServiceCaseCategory'), placeholder: $parent.placeholder }">
+				</select>
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'Priority', validationElement: PriorityKey">
+				<select class="form-control" data-bind="select2autocompleter: { data: PriorityKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_ServicePriority'), placeholder: $parent.placeholder }">
+				</select>
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'ResponsibleUser', validationElement: ResponsibleUser">
+				<select class="form-control" data-bind="select2autocompleter: { data: ResponsibleUser, autocompleteOptions: { orderBy: ['LastName'], table: 'Main_User', mapDisplayObject: Helper.User.mapForSelect2Display, customFilter: Helper.User.filterUserQuery, onSelect: user => $data.ResponsibleUserUser(user), placeholder: $parent.placeholder } }">
+				</select>
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'Skills'">
+				<select class="form-control" multiple="multiple" data-bind="select2autocompleter: { data: RequiredSkillKeys, autocompleteOptions: { table: 'Main_Skill', customFilter: Helper.Lookup.queryLookup, mapDisplayObject: Helper.Lookup.mapLookupForSelect2Display, getElementByIdQuery: Helper.Lookup.getLookupByKeyQuery, placeholder: $parent.placeholder } }">
+				</select>
+			</pmbb-edit-entry>
+			@Html.PluginRenderActions("ServiceCaseDetailsBasicInformationServiceCaseEdit")
+			<!-- /ko -->
+		</pmbb-edit>
+	</pmb-block>
+	@Html.PluginRenderActions("ServiceCaseTemplateDetailsTabExtensions")
+</div>

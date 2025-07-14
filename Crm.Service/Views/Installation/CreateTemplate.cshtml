@@ -1,0 +1,149 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Extensions
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div class="container">
+	<div class="card">
+		<div class="card-header ch-alt" data-bind="with: installation">
+			<h2>@(Html.Localize("CreateInstallation"))</h2>
+		</div>
+		<div class="card-body card-padding">
+			<form role="form" data-bind="with: installation">
+				<fieldset>
+					<legend class="m-b-25 c-black b-0 f-500 f-14">
+						@(Html.Localize("BasicInformation"))
+					</legend>
+					<div class="row">
+						<!-- ko if: window.Crm.Service.Settings.InstallationNoIsCreateable && (!window.Helper.Offline || window.Helper.Offline.status === 'online') -->
+						<div class="col-md-4">
+							<form-element params="value: InstallationNo, caption: 'InstallationNo', type: 'text'"></form-element>
+						</div>
+						<!-- /ko -->
+						<div class="col-md-4">
+							<form-element params="value: LegacyInstallationId, caption: 'LegacyInstallationId', type: 'text'"></form-element>
+						</div>
+						<div class="col-md-4">
+							<form-element params="value: ExternalReference, caption: 'ExternalReference', type: 'text'"></form-element>
+						</div>
+					</div>
+					<form-element params="value: Description, caption: 'Description', type: 'text'"></form-element>
+					<div class="row">
+						<div class="col-md-6">
+							<form-element id="InstallationTypeKey" params="value: InstallationTypeKey, caption: 'InstallationType', type: 'select2'">
+								<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_InstallationType'), placeholder: placeholder }">
+								</select>
+							</form-element>
+						</div>
+						<div class="col-md-6">
+							<form-element id="ManufacturerKey" params="value: ManufacturerKey, caption: 'Manufacturer', type: 'select2'">
+								<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_Manufacturer'), placeholder: placeholder }">
+								</select>
+							</form-element>
+						</div>
+					</div>
+					@Html.PluginRenderActions("CreateInstallationFormBasicInformation")
+				</fieldset>
+				<fieldset>
+					<legend class="p-t-25 m-b-25 c-black b-0 f-500 f-14">
+						@(Html.Localize("ContactInformation"))
+					</legend>
+					<form-element id="LocationContactId" params="value: LocationContactId, caption: 'InstallationParentName', type: 'select2'">
+						<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name'], table: 'Main_Company', mapDisplayObject: Helper.Company.mapForSelect2Display, customFilter: Helper.Company.getSelect2Filter.bind($data), onSelect: $root.onLocationContactSelect.bind($root), placeholder: placeholder } }">
+						</select>
+					</form-element>
+					<!-- ko ifnot: $root.addAddress() -->
+					<form-element id="LocationAddressKey" params="value: LocationAddressKey, caption: 'InstallationContact', type: 'select2', disable: !LocationContactId()">
+						<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name1', 'Name2', 'Name3', 'ZipCode', 'City', 'Street'], table: 'Main_Address', customFilter: $root.locationAddressFilter.bind($parent), mapDisplayObject: Helper.Address.mapForSelect2Display, placeholder: placeholder } }, disable: disable">
+						</select>
+					</form-element>
+					<!-- ko requiredPermission: { name: 'Create', group: 'Company' } -->
+					<p data-bind="visible: LocationContactId()">
+						@(Html.Localize("or"))
+						<a href="#" data-bind="click: $root.toggleAddAddress">
+							@(Html.Localize("AddAddress"))
+						</a>
+					</p>
+					<!-- /ko -->
+					<!-- /ko -->
+					<!-- ko if: $root.addAddress() && LocationContactId() -->
+						<p class="control-label m-b-5">
+							@(Html.Localize("Address"))
+						</p>
+						<address-editor params="contactId: $data.LocationContactId(), onLoad: $root.onLoadAddressEditor.bind($root)"></address-editor>
+						<p>
+							@(Html.Localize("or"))
+							<a href="#" data-bind="click: $root.toggleAddAddress">
+								@(Html.Localize("AddressSelection"))
+							</a>
+						</p>
+					<!-- /ko -->
+					<form-element id="LocationPersonId" params="value: LocationPersonId, caption: 'ContactPerson', type: 'select2', disable: !LocationContactId()">
+						<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Surname', 'Firstname'], table: 'Main_Person', customFilter: $root.contactPersonFilter.bind($parent), mapDisplayObject: Helper.Person.mapForSelect2Display, placeholder: placeholder } }, disable: disable">
+						</select>
+					</form-element>
+					@Html.PluginRenderActions("CreateInstallationFormContactInformation")
+				</fieldset>
+				<fieldset>
+					<legend class="p-t-25 m-b-25 c-black b-0 f-500 f-14">
+						@(Html.Localize("ExtendedInformation"))
+					</legend>
+					<div class="row">
+						<div class="col-md-3">
+							<form-element params="value: ManufactureDate, caption: 'ManufactureDate', type: 'datePicker'"></form-element>
+						</div>
+						<div class="col-md-3">
+							<form-element params="value: KickOffDate, caption: 'KickoffDate', type: 'datePicker'"></form-element>
+						</div>
+						<div class="col-md-3">
+							<form-element params="value: WarrantyFrom, caption: 'WarrantyFrom', type: 'datePicker'"></form-element>
+						</div>
+						<div class="col-md-3">
+							<form-element params="value: WarrantyUntil, caption: 'WarrantyUntil', type: 'datePicker'"></form-element>
+						</div>
+					</div>
+					<form-element id="StatusKey" params="value: StatusKey, caption: 'InstallationStatus', type: 'select2'">
+						<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_InstallationHeadStatus'), placeholder: placeholder }">
+						</select>
+					</form-element>
+					<form-element params="value: BackgroundInfo, caption: 'BackgroundInfo', type: 'textarea'"></form-element>
+					<div class="row">
+						<div class="col-md-6">
+							<form-element params="value: ExactPlace, caption: 'ExactPlace', type: 'text'"></form-element>
+						</div>
+						<div class="col-md-6">
+							<form-element params="value: Room, caption: 'Room', type: 'text'"></form-element>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<form-element id="ResponsibleUser" params="value: ResponsibleUser, caption: 'ResponsibleUser', type: 'select2'">
+								<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['LastName'], table: 'Main_User', mapDisplayObject: Helper.User.mapForSelect2Display, customFilter: Helper.User.filterUserQuery, placeholder: placeholder } }">
+								</select>
+							</form-element>
+						</div>
+						<div class="col-md-6">
+							<form-element id="PreferredUser" params="value: PreferredUser, caption: 'PreferredUser', type: 'select2'">
+								<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['LastName'], table: 'Main_User', mapDisplayObject: Helper.User.mapForSelect2Display, customFilter: Helper.User.filterUserQuery, placeholder: placeholder } }">
+								</select>
+							</form-element>
+						</div>
+					</div>
+					@Html.PluginRenderActions("CreateInstallationFormExtendedInformation")
+				</fieldset>
+				@Html.PluginRenderActions("CreateInstallationForm")
+				<!-- ko requiredPermission: { name: 'Edit', group: 'Visibility' } -->
+				<fieldset>
+					<legend class="p-t-25 m-b-25 c-black b-0 f-500 f-14">
+						@(Html.Localize("Visibility"))
+					</legend>
+					<!-- ko with: $root.visibilityViewModel -->
+					@Html.RenderAction("Selection", "Visibility")
+					<!-- /ko -->
+				</fieldset>
+				<!-- /ko -->
+			</form>
+		</div>
+		 @await Html.PartialAsync("CreateFormFooter") 
+	</div>
+</div>

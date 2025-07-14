@@ -1,0 +1,9 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+<!-- ko if: $root.plugin !== 'Crm.Campaigns' -->
+<li data-bind="requiredPermission: { name: 'Create', group: 'Visit' }">
+	<a data-bind="attr: { 'href': '#/Crm.VisitReport/Visit/CreateTemplate?companyId=' + Id() }">
+		@(Html.Localize("AddVisit"))
+	</a>
+</li>
+<!-- /ko -->

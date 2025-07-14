@@ -1,0 +1,52 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div class="lv-item media" data-bind="css: 'visitreport_' + Id()">
+	<div class="media-body">
+		<div class="lv-title m-b-5">
+			<span data-bind="text: $parent.getVisitReportTitle($data.DynamicForm)"></span>
+			<div class="small">
+				<!-- ko with: Visit -->
+					<span data-bind="translatedText: 'VisitAim'"></span>:
+					<span class="c-gray" data-bind="translatedText: 'Unspecified', visible: !CustomAim() && !VisitAimKey()"></span>
+					<span data-bind="text: CustomAim"></span>
+					<span data-bind="lookupValue: VisitAimKey, lookups: $parentContext.$parent.lookups.visitAims"></span>
+				<!-- /ko -->
+			</div>
+		</div>
+		<ul class="lv-attrs">
+			<li data-bind="visible: Date">
+				<i class="zmdi zmdi-calendar"></i>
+				<span data-bind="dateText: Date"></span>
+			</li>
+			<!-- ko with: ResponsibleUserUser -->
+			<li>
+				<i class="zmdi zmdi-account-o"></i>
+				<span data-bind="text: Helper.User.getDisplayName($data)"></span>
+			</li>
+			<!-- /ko -->
+		</ul>
+		<lv-actions>
+			<li data-bind="requiredPermission: { name: 'Edit', group: 'VisitReport' }, visible: Completed() === false">
+				<a href="#" data-bind="attr: { 'data-route': 'Crm.VisitReport/VisitReport/EditTemplate/' + Id() }, translatedText: 'Edit'" data-toggle="modal" data-target="#lgModal">
+				</a>
+			</li>
+			<li data-bind="requiredPermission: { name: 'Read', group: 'VisitReport' }">
+				<a href="#" data-bind="attr: { 'data-route': 'Crm.VisitReport/VisitReport/DetailsTemplate/' + Id() }, translatedText: Completed() ? 'View' : 'Preview'" data-toggle="modal" data-target="#lgModal">
+				</a>
+			</li>
+			<!-- ko if: Completed() === false -->
+			<li data-bind="requiredPermission: { name: 'Delete', group: 'VisitReport' }">
+				<a href="#" data-bind="translatedText: 'Delete', click: $parentContext.$parentContext.$parent.deleteVisitReport">
+				</a>
+			</li>
+			<!-- /ko -->
+			<!-- ko if: VisitId() && $root.controller !== "Visit"-->
+			<li data-bind="requiredPermission: { name: 'Read', group: 'Visit' }">
+				<a href="#" data-bind="attr: { href: '#/Crm.VisitReport/Visit/DetailsTemplate/' + VisitId() }, translatedText: 'ViewVisit'">
+				</a>
+			</li>
+			<!-- /ko -->
+		</lv-actions>
+	</div>
+</div>
+

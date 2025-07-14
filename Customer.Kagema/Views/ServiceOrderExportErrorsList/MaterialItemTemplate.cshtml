@@ -1,0 +1,84 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Modularization.Extensions
+@using Crm.Library.Globalization.Extensions
+
+<div class="lv-item media">
+	<div class="lv-avatar pull-left" data-bind="text: Helper.ServiceOrder.getTypeAbbreviation($data, $root.lookups.serviceOrderTypes), style: { backgroundColor: Helper.Lookup.getLookupColor($root.lookups.serviceOrderTypes, $data.TypeKey) }, visible: !$parent.selectedItems || $parent.selectedItems().length === 0"></div>
+
+	<div class="media-body">
+		<div class="col-xs-12">
+			<div class="lv-title">
+				<div>
+					<!-- ko requiredPermission: { name: 'Read', group: 'ServiceOrder' } -->
+					<a href="#/Crm.Service/ServiceOrder/DetailsTemplate/{{Id}}">
+						<span data-bind="text: OrderNo"></span>
+					</a>
+					<!-- /ko -->
+					<!-- ko noRequiredPermission: { name: 'Read', group: 'ServiceOrder' } -->
+					<span data-bind="text: OrderNo"></span>
+					<!-- /ko -->
+					<small class="c-gray" data-bind="lookupValue: TypeKey, lookups: $root.lookups.serviceOrderTypes"></small>
+
+				</div>
+				<div data-bind="with: ServiceOrderTemplate">
+					@(Html.Localize("ServiceOrderTemplate"))
+					<!-- ko requiredPermission: { name: 'Read', group: 'ServiceOrderTemplate' } -->
+					<a href="#/Crm.Service/ServiceOrderTemplate/Details/{{Id}}">
+						<span data-bind="text: Helper.ServiceOrder.getDisplayName($data)"></span>
+					</a>
+					<!-- /ko -->
+					<!-- ko noRequiredPermission: { name: 'Read', group: 'ServiceOrderTemplate' } -->
+					<span data-bind="text: Helper.ServiceOrder.getDisplayName($data)"></span>
+					<!-- /ko -->
+				</div>
+
+				<div data-bind="with: Installation">
+					@(Html.Localize("For"))
+
+					<!-- ko requiredPermission: { name: 'Read', group: 'Installation' } -->
+					<a href="#/Crm.Service/Installation/DetailsTemplate/{{Id}}">
+						<span data-bind="text: Helper.Installation.getDisplayName($data)"></span>
+					</a>
+					<!-- /ko -->
+					<!-- ko noRequiredPermission: { name: 'Read', group: 'Installation' } -->
+					<span data-bind="text: Helper.Installation.getDisplayName($data)"></span>
+					<!-- /ko -->
+				</div>
+				<div data-bind="with: Company">
+					@(Html.Localize("At"))
+					<!-- ko requiredPermission: { name: 'Read', group: 'Company' } -->
+					<a href="#/Main/Company/DetailsTemplate/{{Id}}">
+						<span data-bind="text: Helper.Company.getDisplayName($data)"></span>
+					</a>
+					<!-- /ko -->
+					<!-- ko noRequiredPermission: { name: 'Read', group: 'Company' } -->
+					<span data-bind="text: Helper.Company.getDisplayName($data)"></span>
+					<!-- /ko -->
+				</div>
+
+				<div>
+					@(Html.Localize("CreateDate")):
+					<span data-bind="dateText: CreateDate"></span>
+				</div>
+				<div>
+					<span style="color:red" data-bind="text: ExtensionValues().ExportDetails()"> </span>
+
+				</div>
+			</div>
+			<ul class="lv-attrs">
+				<li>
+					@(Html.Localize("Status")):
+					<span data-bind="lookupValue: $data.StatusKey, lookups: $root.lookups.serviceOrderStatuses"></span>
+				</li>
+				<li data-bind="visible: $data.PriorityKey">
+					<i class="zmdi zmdi-circle" data-bind="style: { color: Helper.Lookup.getLookupColor($root.lookups.servicePriorities, $data.PriorityKey) }"></i>
+					@(Html.Localize("Priority")):
+					<span data-bind="lookupValue: $data.PriorityKey, lookups: $root.lookups.servicePriorities"></span>
+				</li>
+
+			</ul>
+
+		</div>
+
+	</div>
+</div>

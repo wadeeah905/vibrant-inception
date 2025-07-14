@@ -1,0 +1,10 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- ko if: baseOrder().OrderEntryType() === 'MultiDelivery' -->
+<li role="presentation">
+	<a class="col-xs-4" aria-expanded="false" href="#tab-treeview" aria-controls="tab-treeview" role="tab" data-toggle="tab">
+		@(Html.Localize("OrderTreeTabTitle"))
+	</a>
+</li>
+<!-- /ko -->

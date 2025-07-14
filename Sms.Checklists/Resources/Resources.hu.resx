@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Action" xml:space="preserve">
+    <value>Tevékenység</value>
+  </data>
+  <data name="AddChecklist" xml:space="preserve">
+    <value>Ellenőrzési lista csatolása</value>
+  </data>
+  <data name="Checklists" xml:space="preserve">
+    <value>Ellenőrzési listák </value>
+  </data>
+  <data name="CompletedBy" xml:space="preserve">
+    <value>Lezárta </value>
+  </data>
+  <data name="InProgressBy" xml:space="preserve">
+    <value>Feldolgozás alatt általa</value>
+  </data>
+  <data name="NoServiceOrderChecklistsAdded" xml:space="preserve">
+    <value>Ehhez a rendeléshez nincs ellenőrzési lista hozzárendelve </value>
+  </data>
+  <data name="NotCompleted" xml:space="preserve">
+    <value>Lezáratlan</value>
+  </data>
+  <data name="ServiceOrderChecklistsEmptySlate" xml:space="preserve">
+    <value>Ehhez a szerviz-rendeléshez nincsellenőrzési lista hozzárendelve </value>
+  </data>
+  <data name="SmsChecklists_ServiceOrderChecklist" xml:space="preserve">
+    <value>Serviceorder-Checklists</value>
+  </data>
+  <data name="RequiredForServiceOrderCompletion" xml:space="preserve">
+    <value>Szervizrendelés befejezéséhez szükséges</value>
+  </data>
+  <data name="SendToCustomer" xml:space="preserve">
+    <value>Ügyfélnek kiküldeni</value>
+  </data>
+  <data name="TheFollowingChecklistsAreRequiredForServiceOrderCompletion" xml:space="preserve">
+    <value>A következő csekklistákat teljesíteni kell a szervizrendelés befejezése előtt:</value>
+  </data>
+  <data name="ChecklistInstallationTypeRelationship" xml:space="preserve">
+    <value>Csekklista-{Installation} kapcsolat</value>
+  </data>
+  <data name="ChecklistInstallationTypeRelationshipAlreadyExists" xml:space="preserve">
+    <value>Kapcsolat már létezik</value>
+  </data>
+  <data name="WillBeSentToCustomer" xml:space="preserve">
+    <value>ügyfélhez kiküldendő</value>
+  </data>
+  <data name="ChecklistRequired" xml:space="preserve">
+    <value>Ellenőrzési lista kötelező</value>
+  </data>
+  <data name="SelectedChecklistDisabledAdd" xml:space="preserve">
+    <value>A kiválasztott csekklista időközben deaktiválva lett így nem tudja hozzácsatolni ehhez a szervizrendeléshez.</value>
+  </data>
+  <data name="SelectedChecklistDisabledEdit" xml:space="preserve">
+    <value>A kiválasztott csekklista időközben deaktiválva lett így nem tudja szerkeszteni.</value>
+  </data>
+  <data name="Deactivated" xml:space="preserve">
+    <value>Deaktivált</value>
+  </data>
+  <data name="CreationDynamicForm" xml:space="preserve">
+    <value>Űrlap készítés</value>
+  </data>
+  <data name="CreationDynamicFormId" xml:space="preserve">
+    <value>Űrlap készítés</value>
+  </data>
+  <data name="ServiceOrderChecklistEmptySlate" xml:space="preserve">
+    <value>Nincs elérhető ellenőrző lista</value>
+  </data>
+  <data name="CompletionDynamicForm" xml:space="preserve">
+    <value>Űrlap befejezés</value>
+  </data>
+  <data name="CompletionDynamicFormId" xml:space="preserve">
+    <value>Űrlap befejezés</value>
+  </data>
+  <data name="CompletionDynamicForms" xml:space="preserve">
+    <value>Befejező űrlap</value>
+  </data>
+  <data name="IncompleteCompletionDynamicFormMessage" xml:space="preserve">
+    <value>Egy befejező űrlap még nincs kitöltve. Ennek ellenére is megváltoztatja a szervizeset státuszát?</value>
+  </data>
+  <data name="IncompleteCompletionDynamicFormsMessage" xml:space="preserve">
+    <value>Több befejező űrlap nincs kitöltve a következő dinamikus formulához: 
+{0}.
+
+Ennek ellenére is megváltoztatja a státuszokat?</value>
+  </data>
+  <data name="ViewCreationDynamicForm" xml:space="preserve">
+    <value>Nézet készítő űrlap</value>
+  </data>
+  <data name="ViewCompletionDynamicForm" xml:space="preserve">
+    <value>Befejező űrlap nézet</value>
+  </data>
+  <data name="PreviewCompletionDynamicForm" xml:space="preserve">
+    <value>Befejező űrlap előnézete</value>
+  </data>
+  <data name="EditCompletionDynamicForm" xml:space="preserve">
+    <value>Befejező űrlap szerkesztése</value>
+  </data>
+  <data name="CanAttachServiceCases" xml:space="preserve">
+    <value>Hozzárendelhet szervizeseteket</value>
+  </data>
+  <data name="SmsChecklists_ServiceCaseChecklist" xml:space="preserve">
+    <value>Szervizeset csekklista</value>
+  </data>
+  <data name="ServiceCaseChecklistEmptySlate" xml:space="preserve">
+    <value>Nincs elérhető ellenőrző lista</value>
+  </data>
+  <data name="ConfirmDiscardServiceCase" xml:space="preserve">
+    <value>Biztos el szeretné dobni a nem mentett szervizesetet?</value>
+  </data>
+  <data name="CannotCreateServiceCase" xml:space="preserve">
+    <value>Szervíz eset nem hozható létre itt</value>
+  </data>
+  <data name="AddPDFChecklist" xml:space="preserve">
+    <value>Pdf ellenőrző lista hozzáadása</value>
+  </data>
+  <data name="Delete Signature" xml:space="preserve">
+    <value>Aláírás törlése</value>
+  </data>
+  <data name="Edit_PDF" xml:space="preserve">
+    <value>Pdf szerkesztése</value>
+  </data>
+  <data name="PDF-Checklist" xml:space="preserve">
+    <value>Pdf ellenőrző lista</value>
+  </data>
+  <data name="PDF-Checklists" xml:space="preserve">
+    <value>Pdf ellenőrző listák</value>
+  </data>
+  <data name="PdfDynamicFormDesignerEmptySlate" xml:space="preserve">
+    <value>Kérem töltsön fel pdf-et min-den nyelvhez mielőtt men-tené az ellenőrző listát</value>
+  </data>
+  <data name="PreviewText" xml:space="preserve">
+    <value>Ez a csatolt pdf-nek csak az előnézete. Az adatok mega-dásához kérem szerkessze.</value>
+  </data>
+  <data name="Save Signature" xml:space="preserve">
+    <value>Aláírás mentése</value>
+  </data>
+</root>

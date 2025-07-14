@@ -1,0 +1,27 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<li data-bind="requiredPermission: { name: 'PreviewOrder', group: 'Order' }">
+	<a href="#" data-route="Crm.Order/Order/Pdf" data-toggle="modal" data-target="#lgModal">
+		<i class="zmdi zmdi-file-text"></i>
+		@(Html.Localize("Preview"))
+	</a>
+</li>
+<li data-bind="visible: order().SendConfirmation() === false && order().ConfirmationSent() === false, requiredPermission: { name: 'SendOrder', group: 'Order' }">
+	<a href="#" data-bind="click: sendConfirmation">
+		<i class="zmdi zmdi-mail-send"></i>
+		@(Html.Localize("Send"))
+	</a>
+</li>
+<li class="disabled" data-bind="visible: order().SendConfirmation() === true && order().ConfirmationSent() === false, requiredPermission: { name: 'SendOrder', group: 'Order' }">
+	<a href="#">
+		<i class="zmdi zmdi-mail-send"></i>
+		@(Html.Localize("Sending"))
+	</a>
+</li>
+<li data-bind="visible: order().ConfirmationSent() === true, requiredPermission: { name: 'SendOrder', group: 'Order' }">
+	<a href="#" data-bind="click: sendConfirmation">
+		<i class="zmdi zmdi-mail-send"></i>
+		@(Html.Localize("SendAgain"))
+	</a>
+</li>

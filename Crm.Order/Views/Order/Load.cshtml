@@ -1,0 +1,78 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div class="modal-header card-header ch-alt">
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	<h4 class="modal-title">
+		@(Html.Localize("LoadOrder"))
+	</h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<div class="pmb-block">
+		<div class="pmbb-header">
+			<h2>
+				<i class="zmdi zmdi-equalizer m-r-5"></i> @(Html.Localize("OwnOrders"))
+			</h2>
+		</div>
+		<div class="pmbb-body">
+			<div class="listview lv-bordered generic-list">
+				<div class="lv-body" data-bind="foreach: items">
+					<div class="lv-item" data-bind="visible: Id() !== $parent.currentOrderId()">
+						<div class="lv-title" data-bind="text: PrivateDescription"></div>
+						<div class="small" data-bind="with: Company">
+							@(Html.Localize("CompanyParentName"))
+							<a class="text-muted" data-bind="attr: { href: '#/Main/Company/DetailsTemplate/' + Id() }, text: Helper.Company.getDisplayName($data)"></a>
+						</div>
+						@Html.PluginRenderActions("OrderLoadItemTemplateDetails")
+						<ul class="lv-attrs">
+							<li>
+								<span data-bind="lookupValue: CurrencyKey, lookups: $parent.lookups.currencies"></span>
+								<span data-bind="money: Price() || CalculatedPriceWithDiscount()"></span>
+							</li>
+							<li>
+								<i class="zmdi zmdi-time"></i>
+								<span data-bind="dateText: OrderDate"></span>
+							</li>
+							@Html.PluginRenderActions("OrderLoadItemTemplateAttributes")
+						</ul>
+						<div class="lv-actions actions dropdown">
+							<a href="#" data-toggle="dropdown" aria-expanded="true">
+								<i class="zmdi zmdi-more-vert"></i>
+							</a>
+
+							<ul class="dropdown-menu dropdown-menu-right">
+								<li>
+									<a data-bind="attr: { href: '#/Crm.Order/Order/DetailsTemplate/' + Id() }">
+										@(Html.Localize("Load"))
+									</a>
+								</li>
+								<li>
+									<a href="#" data-bind="click: $parent.discard">
+										@(Html.Localize("Discard"))
+									</a>
+								</li>
+							    @Html.PluginRenderActions("OrderLoadItemTemplateActions")
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- ko if: items().length === 0 -->
+					<div class="lv-item media">
+						<div class="row media-body">
+							<div class="col-xs-12">
+								<small class="lv-small">@(Html.Localize("NoRecordsForSearchCriteria"))</small>
+							</div>
+						</div>
+					</div>
+				<!-- /ko -->
+			</div>
+			 @await Html.PartialAsync("MaterialPaging") 
+		</div>
+	</div>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-dismiss="modal">
+		@(Html.Localize("Close"))
+	</button>
+</div>

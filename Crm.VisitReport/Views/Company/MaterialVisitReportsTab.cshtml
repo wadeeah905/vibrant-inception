@@ -1,0 +1,37 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-visit-reports" data-bind="with: tabs()['tab-visit-reports']">
+	<ul class="top-menu">
+		<li data-bind="visible: true, tooltip: true" data-placement="bottom" title="@(Html.Localize("Filter"))">
+			<a id="open-generic-list-filter" data-trigger="#right-nav" href="#" data-route="@("Crm.VisitReport/VisitReportList/FilterTemplate")">
+				<i class="tm-icon zmdi zmdi-search-in-page"></i>
+			</a>
+		</li>
+	</ul>
+	<empty-state-box params="mood: 'sad', title: 'VisitReportsEmptyStateTitle', text: 'VisitReportsEmptyState'" data-bind="visible: items().length === 0">
+	</empty-state-box>
+	@Html.PluginRenderActions("MaterialGenericListResourceExtensions")
+	<div class="generic-list listview lv-bordered">
+		<div class="lv-body" data-bind="foreach: items">
+			<!-- ko if: $index() === 0 || ($parent.items()[$index() -1] && $parent.items()[$index() -1].Completed() !== $data.Completed()) -->
+			<div class="lv-header" data-bind="translatedText: 'InProgress', visible: Completed() === false, css: { 'p-t-0': $index() === 0, 'p-t-30': $index() > 0 }">
+			</div>
+			<div class="lv-header" data-bind="translatedText: 'Completed', visible: Completed() === true, css: { 'p-t-0': $index() === 0, 'p-t-30': $index() > 0 }">
+			</div>
+			<!-- /ko -->
+			 @await Html.PartialAsync("../VisitReportList/MaterialItemTemplate") 
+		</div>
+	</div>
+	 @await Html.PartialAsync("MaterialPaging") 
+	<!-- ko requiredPermission: { name: 'Create', group: 'VisitReport' } -->
+	<floating-action-button>
+		<li>
+			<a href="#" data-mfb-label="@(Html.Localize("CreateVisitReport"))" data-route="Crm.VisitReport/VisitReport/CreateTemplate/?referenceKey={{$root.company().Id}}" data-toggle="modal" data-target="#modal">
+				<i class="zmdi zmdi-plus"></i>
+			</a>
+		</li>
+	</floating-action-button>
+	<!-- /ko -->
+</div>
+

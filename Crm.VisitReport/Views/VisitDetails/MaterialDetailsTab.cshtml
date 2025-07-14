@@ -1,0 +1,117 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-details">
+
+	<pmb-block id="general-pmb" params="icon: 'account', caption: 'General', context: { visit: visit }, condition: window.AuthorizationManager.isAuthorizedForAction('Visit', 'Edit') && visitIsEditable, onBeforeSave: onBeforeSaveVisit">
+		<pmbb-view>
+			<!-- ko with: visit -->
+				<pmbb-view-entry params="caption: 'VisitTitle'">
+					<span data-bind="text: Name"></span>
+					<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: Name"></span>
+				</pmbb-view-entry>
+				<pmbb-view-entry params="caption: 'ResponsibleUser'">
+					<!-- ko if: ResponsibleUserUser -->
+					<span data-bind="text: Helper.User.getDisplayName(ResponsibleUserUser)"></span>
+					<!-- /ko -->
+					<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ResponsibleUserUser"></span>
+				</pmbb-view-entry>
+				<!-- ko if: VisitAimKey -->
+				<pmbb-view-entry params="caption: 'VisitAim'">
+					<span data-bind="if: VisitAimKey, lookupValue: VisitAimKey, lookups: $root.lookups.visitAims"></span>
+					<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: VisitAimKey"></span>
+				</pmbb-view-entry>
+				<!-- /ko -->
+				<!-- ko ifnot: VisitAimKey -->
+				<pmbb-view-entry params="caption: 'CustomVisitAim'">
+					<span data-bind="text: CustomAim"></span>
+					<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: CustomAim"></span>
+				</pmbb-view-entry>
+				<!-- /ko -->
+				<pmbb-view-entry params="caption: 'PlannedDate'">
+					<span data-bind="dateText: PlannedDate"></span>
+					<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: PlannedDate"></span>
+					<span data-bind="dateText: { value: PlannedTime, pattern: { time: 'short' } }"></span>
+					<!-- ko if: !!PlannedEndDate() -->
+						- <span data-bind="dateText: { value: PlannedEndDate, pattern: { time: 'short' } }"></span>
+					<!-- /ko -->
+				</pmbb-view-entry>
+				<pmbb-view-entry params="caption: 'PlannedDuration'">
+					<!-- ko if: !!PlannedDuration() -->
+					<span data-bind="durationText: PlannedDuration"></span>
+					<!-- /ko -->
+					<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: PlannedDuration"></span>
+				</pmbb-view-entry>
+				<pmbb-view-entry params="caption: 'AdditionalContactPerson'">
+					<span data-bind="text: ContactPerson"></span>
+					<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ContactPerson"></span>
+				</pmbb-view-entry>
+			<!-- /ko -->
+			<pmbb-view-entry params="caption: 'Address'">
+				<address-block params="address: $root.address, lookups: $root.lookups"></address-block>
+			</pmbb-view-entry>
+		</pmbb-view>
+		<pmbb-edit>
+			<!-- ko with: visit -->
+				<pmbb-edit-entry params="caption: 'VisitTitle', validationElement: Name">
+					<input type="text" class="form-control" data-bind="value: Name" />
+				</pmbb-edit-entry>
+				<pmbb-edit-entry params="caption: 'VisitAim', validationElement: VisitAimKey">
+					<select class="form-control" data-bind="select2autocompleter: { data: VisitAimKey, autocompleteOptions: { customFilter: Helper.Lookup.queryLookup,table: 'CrmVisitReport_VisitAim', mapDisplayObject: Helper.Lookup.mapLookupForSelect2Display,getElementByIdQuery: Helper.Lookup.getLookupByKeyQuery, placeholder: window.Helper.String.getTranslatedString('SetCustomVisitAim') }}, event: { change: $root.onVisitAimChange }">
+					</select>
+				</pmbb-edit-entry>
+				<pmbb-edit-entry params="caption: 'CustomVisitAim', validationElement: CustomAim">
+					<input type="text" class="form-control" data-bind="value: CustomAim, disable: $data.VisitAimKey() != null" />
+				</pmbb-edit-entry>
+				<pmbb-edit-entry params="caption: 'PlannedDate', validationElement: PlannedDate">
+					<input type="text" class="form-control date-picker" data-bind="datePicker: PlannedDate" placeholder="@(Html.Localize("ClickHere"))">
+				</pmbb-edit-entry>
+				<pmbb-edit-entry params="caption: 'From', validationElement: PlannedTime">
+					<input type="text" class="form-control date-picker" data-bind="datePicker: PlannedTime, datePickerOptions: { pickTime: true }" placeholder="@(Html.Localize("ClickHere"))">
+				</pmbb-edit-entry>
+				<pmbb-edit-entry params="caption: 'To', validationElement: PlannedEndDate">
+					<input type="text" class="form-control date-picker" data-bind="datePicker: PlannedEndDate, datePickerOptions: { pickTime: true }" placeholder="@(Html.Localize("ClickHere"))">
+				</pmbb-edit-entry>
+				<pmbb-edit-entry params="caption: 'AdditionalContactPerson', validationElement: ContactPerson">
+					<input type="text" class="form-control" data-bind="value: ContactPerson" />
+				</pmbb-edit-entry>
+				<pmbb-edit-entry params="caption: 'Address', validationElement: AddressId">
+					<select class="form-control" data-bind="select2autocompleter: { data: AddressId, autocompleteOptions: { orderBy: ['Name1', 'Name2', 'Name3', 'ZipCode', 'City', 'Street'], table: 'Main_Address', customFilter: $root.addressFilter.bind($root), mapDisplayObject: Helper.Address.mapForSelect2Display, onSelect: $root.onAddressSelect.bind($root) } }">
+					</select>
+				</pmbb-edit-entry>
+			<!-- /ko -->
+		</pmbb-edit>
+	</pmb-block>
+
+	<pmb-block params="icon: 'equalizer', caption: 'BackgroundInfo', context: { visit: visit }, condition: window.AuthorizationManager.isAuthorizedForAction('Visit', 'Edit') && visitIsEditable">
+		<pmbb-view>
+			<!-- ko with: visit -->
+				<pmbb-view-entry params="caption: 'BackgroundInfo'">
+					<span data-bind="text: BackgroundInfo"></span>
+					<span data-bind="translatedText: 'BackgroundInformationEmptyState', ifnot: BackgroundInfo"></span>
+				</pmbb-view-entry>
+			<!-- /ko -->
+			<!-- ko with: $root.company -->
+				<pmbb-view-entry params="caption: 'VisitsNeeded'">
+					<span data-bind="text: ExtensionValues().VisitFrequencyValue, visible: ExtensionValues().VisitFrequencyValue"></span>
+					<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ExtensionValues().VisitFrequencyValue"></span>
+				</pmbb-view-entry>
+				<pmbb-view-entry params="caption: 'VisitsNeededTimeUnit'">
+					<span data-bind="if: ExtensionValues().VisitFrequencyTimeUnitKey, lookupValue: ExtensionValues().VisitFrequencyTimeUnitKey, lookups: $root.lookups.timeUnits"></span>
+					<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ExtensionValues().VisitFrequencyTimeUnitKey"></span>
+				</pmbb-view-entry>
+			<!-- /ko -->
+		</pmbb-view>
+		<pmbb-edit>
+			<!-- ko with: visit -->
+				<pmbb-edit-entry params="caption: 'BackgroundInfo', validationElement: BackgroundInfo">
+					<textarea class="form-control" rows="5" data-bind="value: BackgroundInfo"></textarea>
+				</pmbb-edit-entry>
+			<!-- /ko -->
+		</pmbb-edit>
+	</pmb-block>
+
+	@Html.PluginRenderActions("VisitMaterialDetailsTabExtensions")
+	@Html.PluginRenderActions("ContactMaterialDetailsTabExtensions")
+</div>

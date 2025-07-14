@@ -1,0 +1,34 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+
+<div id="ContactId" class="form-group" data-bind="validationElement: ContactId">
+	<div class="fg-line">
+		<label class="fg-label control-label">@(Html.Localize("Contact"))</label>
+		<select name="ContactId" class="form-control" data-bind="select2autocompleter: { data: ContactId, autocompleteOptions: { table: 'Main_Company', orderBy: ['Name'], joins: Helper.Company.getAutocompleteJoins(), customFilter: Helper.Company.getSelect2Filter, mapDisplayObject: Helper.Company.mapDisplayNameWithAddressForSelect2} }" >
+		</select>
+	</div>
+	<small class="help-block" data-bind="validationMessage: ContactId"></small>
+</div>
+<div id="ContactPersonId" class="form-group" data-bind="validationElement: ContactPersonId">
+	<div class="fg-line">
+		<label class="fg-label control-label">@(Html.Localize("ContactPerson"))</label>
+		<select name="ContactPersonId" class="form-control" data-bind="select2autocompleter: { data: ContactPersonId, autocompleteOptions: { table: 'Main_Person', orderBy: ['Surname'], joins: ['Address', 'Address.Emails'], customFilter: $root.personAutocompleteFilter, mapDisplayObject: function (p) { return { id: p.Id, text: Helper.Person.getDisplayName(p),item: p  }; }, onSelect:  $root.onPersonSelect } }" >
+		</select>
+	</div>
+	<small class="help-block" data-bind="validationMessage: ContactPersonId"></small>
+</div>
+<div class="form-group" data-bind="validationElement: CustomEmail">
+	<div class="fg-line">
+		<label class="fg-label control-label">@(Html.Localize("EMail"))</label>
+		<input name="CustomEmail" type="email" class="form-control" data-bind="value: CustomEmail">
+	</div>
+	<small class="help-block" data-bind="validationMessage: CustomEmail"></small>
+</div>
+<div class="form-group" data-bind="validationElement: CustomFax">
+	<div class="fg-line">
+		<label class="fg-label control-label">@(Html.Localize("Fax"))</label>
+		<input name="CustomFax" type="text" class="form-control" data-bind="value: CustomFax">
+	</div>
+	<small class="help-block" data-bind="validationMessage: CustomFax"></small>
+</div>

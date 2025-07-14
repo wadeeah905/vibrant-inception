@@ -1,0 +1,25 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-installations" data-bind="with: tabs()['tab-installations']">
+	<empty-state-box params="mood: 'sad', title: 'NoInstallations', text: 'NoServiceObjectInstallationsInfo'" data-bind="visible: items().length === 0">
+	</empty-state-box>
+	@Html.PluginRenderActions("MaterialGenericListResourceExtensions")
+	<div class="generic-list listview lv-bordered">
+		<div class="lv-body" data-bind="foreach: items">
+			 @await Html.PartialAsync("GenericListItemGroup") 
+			 @await Html.PartialAsync("../InstallationList/MaterialItemTemplate") 
+		</div>
+	</div>
+	 @await Html.PartialAsync("MaterialPaging") 
+	<floating-action-button>
+		<!-- ko requiredPermission: { name: 'Edit', group: 'ServiceObject' } -->
+		<li data-bind="with: $root">
+			<a id="add-installation" href="#" data-mfb-label="@(Html.Localize("AddInstallation"))" data-route="Crm.Service/ServiceObject/AddInstallation/{{$root.serviceObject().Id()}}" data-toggle="modal" data-target="#modal">
+				<i class="zmdi zmdi-plus"></i>
+			</a>
+		</li>
+		<!-- /ko -->
+	</floating-action-button>
+</div>

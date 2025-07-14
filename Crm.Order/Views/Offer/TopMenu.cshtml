@@ -1,0 +1,45 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<li data-bind="requiredPermission: { name: 'PreviewOffer', group: 'Offer' }">
+	<a href="#" data-route="Crm.Order/Offer/Pdf" data-toggle="modal" data-target="#lgModal">
+		<i class="zmdi zmdi-file-text"></i>
+		@(Html.Localize("Preview"))
+	</a>
+</li>
+<li data-bind="requiredPermission: { name: 'EditVisibility', group: 'UserAdmin' }">
+	<a href="#" data-route="Main/Visibility/Edit" data-toggle="modal" data-target="#modal">
+		<i class="zmdi zmdi-eye"></i>
+		@(Html.Localize("EditVisibility"))
+	</a>
+</li>
+<li data-bind="requiredPermission: { name: 'Edit', group: 'Offer' }">
+	<a href="#" data-route="Crm.Order/Offer/Save" data-toggle="modal" data-target="#modal">
+		<i class="zmdi zmdi-check"></i>
+		@(Html.Localize("Save"))
+	</a>
+</li>
+<li data-bind="visible: offer().SendConfirmation() === false && offer().ConfirmationSent() === false, requiredPermission: { name: 'SendOffer', group: 'Offer' }">
+	<a href="#" data-bind="click: sendConfirmation">
+		<i class="zmdi zmdi-mail-send"></i>
+		@(Html.Localize("Send"))
+	</a>
+</li>
+<li class="disabled" data-bind="visible: offer().SendConfirmation() === true && offer().ConfirmationSent() === false, requiredPermission: { name: 'SendOffer', group: 'Offer' }">
+	<a href="#">
+		<i class="zmdi zmdi-mail-send"></i>
+		@(Html.Localize("Sending"))
+	</a>
+</li>
+<li data-bind="visible: offer().ConfirmationSent() === true, requiredPermission: { name: 'SendOffer', group: 'Offer' }">
+	<a href="#" data-bind="click: sendConfirmation">
+		<i class="zmdi zmdi-mail-send"></i>
+		@(Html.Localize("SendAgain"))
+	</a>
+</li>
+<li data-bind="requiredPermission: { name: 'Load', group: 'Offer' }">
+	<a href="#" data-route="Crm.Order/Offer/Load" data-toggle="modal" data-target="#lgModal">
+		<i class="zmdi zmdi-square-down"></i>
+		@(Html.Localize("Load"))
+	</a>
+</li>

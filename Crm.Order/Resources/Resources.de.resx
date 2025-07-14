@@ -1,0 +1,857 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddItemAbbreviated" xml:space="preserve">
+    <value>Hinzuf.</value>
+  </data>
+  <data name="OrderType" xml:space="preserve">
+    <value>Auftragstyp</value>
+  </data>
+  <data name="BillAddress" xml:space="preserve">
+    <value>Rechnungsadresse</value>
+  </data>
+  <data name="BillingAddressId" xml:space="preserve">
+    <value>Rechnungsadresse</value>
+  </data>
+  <data name="CancelUpdateItemAbbreviated" xml:space="preserve">
+    <value>Abbr.</value>
+  </data>
+  <data name="CarDump" xml:space="preserve">
+    <value>Autolager</value>
+  </data>
+  <data name="ClosedOrders" xml:space="preserve">
+    <value>Abgeschlossene Aufträge</value>
+  </data>
+  <data name="ConfirmDeleteOrder" xml:space="preserve">
+    <value>Wollen Sie diesen Auftrag wirklich löschen?</value>
+  </data>
+  <data name="CreateOrder" xml:space="preserve">
+    <value>Auftrag anlegen</value>
+  </data>
+  <data name="DeliveryAddress" xml:space="preserve">
+    <value>Lieferadresse</value>
+  </data>
+  <data name="DeliveryAddressId" xml:space="preserve">
+    <value>Lieferadresse</value>
+  </data>
+  <data name="DeliveryDate" xml:space="preserve">
+    <value>Lieferdatum</value>
+  </data>
+  <data name="EditAllUsersOrders" xml:space="preserve">
+    <value>Aufträge aller Benutzer bearbeiten</value>
+  </data>
+  <data name="EditOrder" xml:space="preserve">
+    <value>Auftrag bearbeiten</value>
+  </data>
+  <data name="NewOrderItem" xml:space="preserve">
+    <value>Neue Auftragsposition</value>
+  </data>
+  <data name="NewOfferItem" xml:space="preserve">
+    <value>Neue Angebotsposition</value>
+  </data>
+  <data name="NonClosedOrders" xml:space="preserve">
+    <value>Nicht abgeschlossene Aufträge</value>
+  </data>
+  <data name="NoNonClosedOrders" xml:space="preserve">
+    <value>Keine nicht-abgeschlossenen Aufträge vorhanden.</value>
+  </data>
+  <data name="NoOrderItemsInfo" xml:space="preserve">
+    <value>Der Auftrag besitzt keine Positionen.</value>
+  </data>
+  <data name="NoOfferItemsInfo" xml:space="preserve">
+    <value>Das Angebot besitzt keine Positionen.</value>
+  </data>
+  <data name="NoOrdersInfo" xml:space="preserve">
+    <value>Keine Aufträge vorhanden.</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>Auftrag</value>
+  </data>
+  <data name="OrderDate" xml:space="preserve">
+    <value>Auftragsdatum</value>
+  </data>
+  <data name="OrderInformation" xml:space="preserve">
+    <value>Auftragsinformationen</value>
+  </data>
+  <data name="OrderItems" xml:space="preserve">
+    <value>Auftragspositionen</value>
+  </data>
+  <data name="Orders" xml:space="preserve">
+    <value>Aufträge</value>
+  </data>
+  <data name="PositionAbbreviated" xml:space="preserve">
+    <value>Pos.</value>
+  </data>
+  <data name="Sample" xml:space="preserve">
+    <value>Muster</value>
+  </data>
+  <data name="SeeAllUsersOrders" xml:space="preserve">
+    <value>Aufträge aller Benutzer sehen</value>
+  </data>
+  <data name="Unit" xml:space="preserve">
+    <value>Einheit</value>
+  </data>
+  <data name="UpdateItemAbbreviated" xml:space="preserve">
+    <value>Aktual.</value>
+  </data>
+  <data name="MissingStreet" xml:space="preserve">
+    <value>Straße fehlt</value>
+  </data>
+  <data name="StreetRequired" xml:space="preserve">
+    <value>Um einen Auftrag anzulegen, muss für den Kontakt zunächst eine Straße hinterlegt werden.</value>
+  </data>
+  <data name="Comission" xml:space="preserve">
+    <value>Kommission</value>
+  </data>
+  <data name="CustomerNumber" xml:space="preserve">
+    <value>Kundennummer</value>
+  </data>
+  <data name="Discount" xml:space="preserve">
+    <value>Rabatt</value>
+  </data>
+  <data name="OrderNumber" xml:space="preserve">
+    <value>Auftragsnummer</value>
+  </data>
+  <data name="Representative" xml:space="preserve">
+    <value>Vertreter</value>
+  </data>
+  <data name="DiscountedTotalPrice" xml:space="preserve">
+    <value>Gesamtsumme (zzgl. MwSt.)</value>
+  </data>
+  <data name="DiscountFromTotalPrice" xml:space="preserve">
+    <value>Gesamtrabatt Wert (zzgl. MwSt.)</value>
+  </data>
+  <data name="VAT" xml:space="preserve">
+    <value>MwSt.</value>
+  </data>
+  <data name="PrivateDescription" xml:space="preserve">
+    <value>Interne Bemerkung</value>
+  </data>
+  <data name="PublicDescription" xml:space="preserve">
+    <value>Bemerkung</value>
+  </data>
+  <data name="CloseOrder" xml:space="preserve">
+    <value>Auftrag abschließen</value>
+  </data>
+  <data name="ReallyCloseOrder" xml:space="preserve">
+    <value>Soll der Auftrag abgeschlossen werden? Änderungen sind danach nicht mehr möglich.</value>
+  </data>
+  <data name="CustomerOrderNumber" xml:space="preserve">
+    <value>Kundenbestellnummer</value>
+  </data>
+  <data name="UnitPrice" xml:space="preserve">
+    <value>Einzelpreis</value>
+  </data>
+  <data name="NoOrdersMatch" xml:space="preserve">
+    <value>Zum gewählten Filter wurden keine Ergebnisse gefunden.</value>
+  </data>
+  <data name="ExportOrders" xml:space="preserve">
+    <value>Aufträge exportieren</value>
+  </data>
+  <data name="CalculatedPriceWithDiscount" xml:space="preserve">
+    <value>Preis</value>
+  </data>
+  <data name="ShowAllItems" xml:space="preserve">
+    <value>Alle anzeigen</value>
+  </data>
+  <data name="EditOffer" xml:space="preserve">
+    <value>Angebot bearbeiten</value>
+  </data>
+  <data name="ExportOffers" xml:space="preserve">
+    <value>Angebote exportieren</value>
+  </data>
+  <data name="NoOffersAvailable" xml:space="preserve">
+    <value>Keine Angebote vorhanden.</value>
+  </data>
+  <data name="Offer" xml:space="preserve">
+    <value>Angebot</value>
+  </data>
+  <data name="OfferDate" xml:space="preserve">
+    <value>Angebotsdatum</value>
+  </data>
+  <data name="OfferNumber" xml:space="preserve">
+    <value>Angebotsnummer</value>
+  </data>
+  <data name="Offers" xml:space="preserve">
+    <value>Angebote</value>
+  </data>
+  <data name="OrderCreatedBy" xml:space="preserve">
+    <value>Auftrag erstellt von {0} {1}</value>
+  </data>
+  <data name="CreatedOrder" xml:space="preserve">
+    <value>Eine neuer Auftrag wurde erstellt.</value>
+  </data>
+  <data name="CreatedOffer" xml:space="preserve">
+    <value>Ein neues Angebot wurde erstellt.</value>
+  </data>
+  <data name="OfferCreatedBy" xml:space="preserve">
+    <value>Angebot erstellt von {0} {1}</value>
+  </data>
+  <data name="ConfirmDeletion" xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie diesen Artikel löschen möchten?</value>
+  </data>
+  <data name="ExportDate" xml:space="preserve">
+    <value>Datenexport am</value>
+  </data>
+  <data name="NoOrdersAvailable" xml:space="preserve">
+    <value>Keine Aufträge vorhanden.</value>
+  </data>
+  <data name="OfferStatusSetBy" xml:space="preserve">
+    <value>Angebot geändert von {0} {1}</value>
+  </data>
+  <data name="OrdersAndOffers" xml:space="preserve">
+    <value>Angebote und Aufträge</value>
+  </data>
+  <data name="OrderStatusSetBy" xml:space="preserve">
+    <value>Auftrag geändert von {0} {1}</value>
+  </data>
+  <data name="DeleteOrder" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="NoExportedOrders" xml:space="preserve">
+    <value>Keine Aufträge exportiert.</value>
+  </data>
+  <data name="NoExportedOrdersMatch" xml:space="preserve">
+    <value>Zum gewählten Filter wurden keine Ergebnisse gefunden.</value>
+  </data>
+  <data name="NoOffersMatch" xml:space="preserve">
+    <value>Zum gewählten Filter wurden keine Ergebnisse gefunden.</value>
+  </data>
+  <data name="SeeAllBaseOrders" xml:space="preserve">
+    <value>Alle Basis-Aufträge anzeigen</value>
+  </data>
+  <data name="OrderListDiscount" xml:space="preserve">
+    <value>Rabatt</value>
+  </data>
+  <data name="PrivateDescriptionRequiredOnDummyCustomer" xml:space="preserve">
+    <value>Interne Bemerkung für vorläufigen Kunde erforderlich.</value>
+  </data>
+  <data name="CloseOffer" xml:space="preserve">
+    <value>Angebot abschließen</value>
+  </data>
+  <data name="CustomerOfferNumber" xml:space="preserve">
+    <value>Anfragenummer</value>
+  </data>
+  <data name="OrderClosed" xml:space="preserve">
+    <value>Auftrag abgeschlossen</value>
+  </data>
+  <data name="OrderStatusSet" xml:space="preserve">
+    <value>Auftrag geändert</value>
+  </data>
+  <data name="OrderFor" xml:space="preserve">
+    <value>Auftrag {1} für {0}</value>
+  </data>
+  <data name="CreateOffer" xml:space="preserve">
+    <value>Angebot anlegen</value>
+  </data>
+  <data name="DeliveryProhibited" xml:space="preserve">
+    <value>Liefersperre</value>
+  </data>
+  <data name="OfferClosed" xml:space="preserve">
+    <value>Angebot abgeschlossen</value>
+  </data>
+  <data name="OfferFor" xml:space="preserve">
+    <value>Angebot {1} für {0}</value>
+  </data>
+  <data name="OfferStatusSetTo" xml:space="preserve">
+    <value>Angebot auf {0} geändert</value>
+  </data>
+  <data name="AddTaskCategories" xml:space="preserve">
+    <value>Aufgabenkategorien hinzufügen</value>
+  </data>
+  <data name="SignHere" xml:space="preserve">
+    <value>hier unterschreiben</value>
+  </data>
+  <data name="AllowedArticleGroupValues" xml:space="preserve">
+    <value>Artikelgruppen erlaubt</value>
+  </data>
+  <data name="CommunicationType" xml:space="preserve">
+    <value>Kommunikationsart</value>
+  </data>
+  <data name="YouAreNotAllowedToEditThisOffer" xml:space="preserve">
+    <value>Sie sind nicht berechtigt, dieses Angebot zu bearbeiten.</value>
+  </data>
+  <data name="YouAreNotAllowedToEditThisOrder" xml:space="preserve">
+    <value>Sie sind nicht berechtigt, diesen Auftrag zu bearbeiten.</value>
+  </data>
+  <data name="CanHaveOrders" xml:space="preserve">
+    <value>kann Aufträge haben</value>
+  </data>
+  <data name="DetailsForOrder" xml:space="preserve">
+    <value>Details zu Auftrag {0}</value>
+  </data>
+  <data name="DetailsForOffer" xml:space="preserve">
+    <value>Details zu Angebot {0}</value>
+  </data>
+  <data name="AllowedArticleTypeValues" xml:space="preserve">
+    <value>Artikeltypen erlaubt</value>
+  </data>
+  <data name="OrderDetails" xml:space="preserve">
+    <value>Auftragsdetails</value>
+  </data>
+  <data name="OrderCategory" xml:space="preserve">
+    <value>Auftragstyp</value>
+  </data>
+  <data name="OrderCategoryKey" xml:space="preserve">
+    <value>Auftragstyp</value>
+  </data>
+  <data name="PleaseSelectAnOrderCategory_WithWarning" xml:space="preserve">
+    <value>Bitte wählen Sie eine Kategorie.
+Beachten Sie jedoch, dass diese zu einem späteren Zeitpunkt nicht mehr geändert werden kann.</value>
+  </data>
+  <data name="DiscountedTotalPriceWithVAT" xml:space="preserve">
+    <value>Gesamtsumme</value>
+  </data>
+  <data name="TotalPriceNoVAT" xml:space="preserve">
+    <value>Gesamtsumme (zzgl. MwSt.)</value>
+  </data>
+  <data name="ItemPrice" xml:space="preserve">
+    <value>Preis</value>
+  </data>
+  <data name="CustomerFlags" xml:space="preserve">
+    <value>Customer Flags</value>
+  </data>
+  <data name="OrderSuccessfullySent" xml:space="preserve">
+    <value>Der Auftrag wurde erfolgreich versandt.</value>
+  </data>
+  <data name="OrderFailedSending" xml:space="preserve">
+    <value>Beim Senden des Auftags ist ein Fehler aufgetreten.</value>
+  </data>
+  <data name="ConfirmSending" xml:space="preserve">
+    <value>Möchten Sie diesen Auftrag an die oben angegebenen Daten versenden?</value>
+  </data>
+  <data name="OrderDoesntExist" xml:space="preserve">
+    <value>Dieser Auftrag ist nicht vorhanden.</value>
+  </data>
+  <data name="OrderClosedMessage" xml:space="preserve">
+    <value>Dieser Auftrag ist geschlossen und kann nicht mehr bearbeitet werden.</value>
+  </data>
+  <data name="CloseOrderConfirmation" xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie diesen Auftrag schließen wollen?</value>
+  </data>
+  <data name="DeleteOrderConfirmation" xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie diesen Auftrag löschen wollen?</value>
+  </data>
+  <data name="OrderFailedSaving" xml:space="preserve">
+    <value>Beim Speichern des Auftrages ist es zu Fehlern gekommen.</value>
+  </data>
+  <data name="OrderSuccessfullySaved" xml:space="preserve">
+    <value>Auftrag erfolgreich gespeichert.</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Gesamtanzahl der Artikel</value>
+  </data>
+  <data name="OrderSimpleTabTitle" xml:space="preserve">
+    <value>Listenansicht</value>
+  </data>
+  <data name="OrderTreeTabTitle" xml:space="preserve">
+    <value>Baumansicht</value>
+  </data>
+  <data name="ItemHasNoPositions" xml:space="preserve">
+    <value>Dieser Artikel hat keine Positionen.</value>
+  </data>
+  <data name="Remarks" xml:space="preserve">
+    <value>Bemerkungen</value>
+  </data>
+  <data name="AddShipmentDate" xml:space="preserve">
+    <value>Lieferdatum hinzufügen</value>
+  </data>
+  <data name="ArticleGroups" xml:space="preserve">
+    <value>Artikelgruppen</value>
+  </data>
+  <data name="OrderSummaryTabTitle" xml:space="preserve">
+    <value>Auftragsübersicht</value>
+  </data>
+  <data name="OfferSummaryTabTitle" xml:space="preserve">
+    <value>Angebotsübersicht</value>
+  </data>
+  <data name="HasUniqueHashError" xml:space="preserve">
+    <value>Der Artikel, den Sie ausgewählt haben, ist bereits in der Liste mit dem gleichen Versanddatum oder Musterstatus.</value>
+  </data>
+  <data name="DeliveryDateRejectMessage" xml:space="preserve">
+    <value>Dieser Liefertermin steht im Konflikt mit einer bestehenden Lieferung.</value>
+  </data>
+  <data name="ThisOrder" xml:space="preserve">
+    <value>diesen Auftrag</value>
+  </data>
+  <data name="ThisOffer" xml:space="preserve">
+    <value>dieses Angebot</value>
+  </data>
+  <data name="SendOrder" xml:space="preserve">
+    <value>Auftrag versenden</value>
+  </data>
+  <data name="SimpleTab" xml:space="preserve">
+    <value>Reiter Einfachansicht Zugriff</value>
+  </data>
+  <data name="SummaryTab" xml:space="preserve">
+    <value>Reiter Zusammenfassung Zugriff</value>
+  </data>
+  <data name="TreeTab" xml:space="preserve">
+    <value>Reiter Baumansicht Zugriff</value>
+  </data>
+  <data name="OrderTab" xml:space="preserve">
+    <value>Zugriff auf Reiter "Aufträge"</value>
+  </data>
+  <data name="DocumentNo" xml:space="preserve">
+    <value>Dokumentennummer</value>
+  </data>
+  <data name="CrmOrder_Offer" xml:space="preserve">
+    <value>Angebote</value>
+  </data>
+  <data name="CrmOrder_Order" xml:space="preserve">
+    <value>Aufträge</value>
+  </data>
+  <data name="CrmOrder_OrderItem" xml:space="preserve">
+    <value>Auftragspositionen</value>
+  </data>
+  <data name="Calculation" xml:space="preserve">
+    <value>Kalkulation</value>
+  </data>
+  <data name="MarginAbsolute" xml:space="preserve">
+    <value>Marge</value>
+  </data>
+  <data name="MarginRelative" xml:space="preserve">
+    <value>Marge in %</value>
+  </data>
+  <data name="Subtotal" xml:space="preserve">
+    <value>Zwischensumme</value>
+  </data>
+  <data name="AcquisitionPrice" xml:space="preserve">
+    <value>Einstandspreis</value>
+  </data>
+  <data name="SelectedOptions" xml:space="preserve">
+    <value>Optionen</value>
+  </data>
+  <data name="IsOption" xml:space="preserve">
+    <value>Optional</value>
+  </data>
+  <data name="SetIsOption" xml:space="preserve">
+    <value>Als Option hinzufügen</value>
+  </data>
+  <data name="OptionalItems" xml:space="preserve">
+    <value>Zusatzoptionen</value>
+  </data>
+  <data name="SalesPrice" xml:space="preserve">
+    <value>Verkaufspreis</value>
+  </data>
+  <data name="AddAlternative" xml:space="preserve">
+    <value>Alternative hinzufügen</value>
+  </data>
+  <data name="AcceptAlternative" xml:space="preserve">
+    <value>Übernehmen</value>
+  </data>
+  <data name="AlternativeSelectionInformation" xml:space="preserve">
+    <value>Alternativauswahl für {0}</value>
+  </data>
+  <data name="SaveOffer" xml:space="preserve">
+    <value>Angebot speichern</value>
+  </data>
+  <data name="SaveOfferHint" xml:space="preserve">
+    <value>Sie können das Angebot in Ihren privaten Einstellungen speichern, optional kann eine Verbindung zu einem Firmenkontakt hergestellt werden.</value>
+  </data>
+  <data name="SaveOrder" xml:space="preserve">
+    <value>Auftrag speichern</value>
+  </data>
+  <data name="SaveOrderHint" xml:space="preserve">
+    <value>Sie können den Auftrag in Ihren privaten Einstellungen speichern, optional kann eine Verbindung zu einem Firmenkontakt hergestellt werden.</value>
+  </data>
+  <data name="LoadOffer" xml:space="preserve">
+    <value>Angebot laden</value>
+  </data>
+  <data name="LoadOrder" xml:space="preserve">
+    <value>Auftrag laden</value>
+  </data>
+  <data name="OwnOffers" xml:space="preserve">
+    <value>Eigene Angebote</value>
+  </data>
+  <data name="OwnOrders" xml:space="preserve">
+    <value>Eigene Aufträge</value>
+  </data>
+  <data name="DiscardOffer" xml:space="preserve">
+    <value>Angebot verwerfen</value>
+  </data>
+  <data name="DiscardOrder" xml:space="preserve">
+    <value>Auftrag verwerfen</value>
+  </data>
+  <data name="DiscardOrderConfirmationMessage" xml:space="preserve">
+    <value>Möchten Sie den Auftrag verwerfen?</value>
+  </data>
+  <data name="Discarded" xml:space="preserve">
+    <value>Verworfen</value>
+  </data>
+  <data name="DiscardOfferSuccessMessage" xml:space="preserve">
+    <value>Das Angebot wurde verworfen.</value>
+  </data>
+  <data name="DiscardOrderSuccessMessage" xml:space="preserve">
+    <value>Der Auftrag wurde verworfen.</value>
+  </data>
+  <data name="OfferSummaryTitle" xml:space="preserve">
+    <value>Zusammenfassung</value>
+  </data>
+  <data name="OfferSummary" xml:space="preserve">
+    <value>Aktuelles Angebot in der Übersicht</value>
+  </data>
+  <data name="OrderSummaryTitle" xml:space="preserve">
+    <value>Zusammenfassung</value>
+  </data>
+  <data name="OrderSummary" xml:space="preserve">
+    <value>Aktueller Auftrag in der Übersicht</value>
+  </data>
+  <data name="CrmOrder_CalculationPosition" xml:space="preserve">
+    <value>Auftragsposition (Kalkulation)</value>
+  </data>
+  <data name="CalculationPosition" xml:space="preserve">
+    <value>Auftragsposition (Kalkulation)</value>
+  </data>
+  <data name="CalculationPositionType" xml:space="preserve">
+    <value>Kalkulationstyp</value>
+  </data>
+  <data name="HasPurchasePrice" xml:space="preserve">
+    <value>Mit Einkaufspreis</value>
+  </data>
+  <data name="IsAbsolute" xml:space="preserve">
+    <value>Absolutwert</value>
+  </data>
+  <data name="IsDefault" xml:space="preserve">
+    <value>Standard</value>
+  </data>
+  <data name="IsDiscount" xml:space="preserve">
+    <value>Rabatt</value>
+  </data>
+  <data name="CrmOrder_CalculationPositionType" xml:space="preserve">
+    <value>Angebotskalkulationstyp</value>
+  </data>
+  <data name="OfferEmailText" xml:space="preserve">
+    <value>Sehr geehrte Damen und Herren,
+
+wir bedanken uns für Ihr Interesse an unseren Produkten und übersenden Ihnen die gewünschten Informationen.</value>
+  </data>
+  <data name="OfferText" xml:space="preserve">
+    <value>Sehr geehrte Damen und Herren,
+
+wir bedanken uns für Ihr Interesse an unseren Produkten und übersenden Ihnen die gewünschten Informationen.
+Ihr Angebot enthält die folgenden Artikel:</value>
+  </data>
+  <data name="OrderEmailText" xml:space="preserve">
+    <value>Sehr geehrte Damen und Herren,
+
+wir bedanken uns für Ihr Interesse an unseren Produkten und übersenden Ihnen die gewünschten Informationen.</value>
+  </data>
+  <data name="OrderText" xml:space="preserve">
+    <value>Sehr geehrte Damen und Herren,
+
+wir bedanken uns für Ihr Interesse an unseren Produkten und übersenden Ihnen die gewünschten Informationen.
+Ihr Auftrag enthält die folgenden Artikel:</value>
+  </data>
+  <data name="OfferFooterText" xml:space="preserve">
+    <value>Für weitere Fragen stehen wir Ihnen jederzeit gerne in einem persönlichen Gespräch zur Verfügung.
+Wir würden uns freuen, wenn Ihnen unser Angebot zusagt und verbleiben
+
+mit freundlichen Grüßen</value>
+  </data>
+  <data name="OrderFooterText" xml:space="preserve">
+    <value>Mit freundlichen Grüßen</value>
+  </data>
+  <data name="HasAccessory" xml:space="preserve">
+    <value>Zubehör verfügbar</value>
+  </data>
+  <data name="Accessory" xml:space="preserve">
+    <value>Zubehör</value>
+  </data>
+  <data name="CalculationPositionRemoved" xml:space="preserve">
+    <value>Position gelöscht</value>
+  </data>
+  <data name="OrderItemRemoved" xml:space="preserve">
+    <value>Position gelöscht</value>
+  </data>
+  <data name="NoOrderItemDeliveryDate" xml:space="preserve">
+    <value>N/A</value>
+  </data>
+  <data name="OfferFrom" xml:space="preserve">
+    <value>Angebot vom</value>
+  </data>
+  <data name="OrderFrom" xml:space="preserve">
+    <value>Auftrag vom</value>
+  </data>
+  <data name="OffersEmptyStateTitle" xml:space="preserve">
+    <value>Keine Angebote</value>
+  </data>
+  <data name="OffersEmptyState" xml:space="preserve">
+    <value>Für diese Firma wurden noch keine Angebote erstellt.</value>
+  </data>
+  <data name="OrdersEmptyStateTitle" xml:space="preserve">
+    <value>Keine Aufträge</value>
+  </data>
+  <data name="OrdersEmptyState" xml:space="preserve">
+    <value>Für diese Firma wurden noch keine Aufträge erstellt.</value>
+  </data>
+  <data name="TreeViewArticleGroupEmptyState" xml:space="preserve">
+    <value>Es befinden sich keine Artikel in dieser Artikelgruppe.</value>
+  </data>
+  <data name="OrderEntryType" xml:space="preserve">
+    <value>Auftragserfassungsart</value>
+  </data>
+  <data name="CrmOrder_OrderEntryType" xml:space="preserve">
+    <value>Auftragserfassungsarten</value>
+  </data>
+  <data name="AllowNegativeQuantities" xml:space="preserve">
+    <value>Negative Mengen zulässig</value>
+  </data>
+  <data name="AllowPositiveQuantities" xml:space="preserve">
+    <value>Positive Mengen zulässig</value>
+  </data>
+  <data name="SelectAlternativesFromOffer" xml:space="preserve">
+    <value>Bitte wählen Sie, welche der angebotenen Alternativen in den Auftrag übernommen werden sollen:</value>
+  </data>
+  <data name="SelectOptionalItemsFromOffer" xml:space="preserve">
+    <value>Bitte wählen Sie, welche der angebotenen Optionen in den Auftrag übernommen werden sollen:</value>
+  </data>
+  <data name="AddDelivery" xml:space="preserve">
+    <value>Lieferung hinzufügen</value>
+  </data>
+  <data name="CrmOrder_OrderStatus" xml:space="preserve">
+    <value>Auftragstatus</value>
+  </data>
+  <data name="Sending" xml:space="preserve">
+    <value>Wird gesendet</value>
+  </data>
+  <data name="SendAgain" xml:space="preserve">
+    <value>Erneut senden</value>
+  </data>
+  <data name="OrderItem" xml:space="preserve">
+    <value>Auftragsposition</value>
+  </data>
+  <data name="Permission" xml:space="preserve">
+    <value>Berechtigung</value>
+  </data>
+  <data name="RecentPage" xml:space="preserve">
+    <value>Zuletzt aufgerufene Seite</value>
+  </data>
+  <data name="CrmOrder_OrderCategory" xml:space="preserve">
+    <value>Auftragstypen</value>
+  </data>
+  <data name="CreateOrderFromOffer" xml:space="preserve">
+    <value>Auftrag aus dem Angebot erstellen</value>
+  </data>
+  <data name="OfferItem" xml:space="preserve">
+    <value>Artikel</value>
+  </data>
+  <data name="PreviewOffer" xml:space="preserve">
+    <value>Vorschau Angebot</value>
+  </data>
+  <data name="PreviewOrder" xml:space="preserve">
+    <value>Vorschau Auftrag</value>
+  </data>
+  <data name="DiscardOfferConfirmationMessage" xml:space="preserve">
+    <value>Möchten Sie das Angebot verwerfen?</value>
+  </data>
+  <data name="OrderStatusSetTo" xml:space="preserve">
+    <value>Auftrag auf {0} geändert</value>
+  </data>
+  <data name="ConfirmSendingOffer" xml:space="preserve">
+    <value>Möchten Sie dieses Angebot an die oben angegebenen Daten versenden?</value>
+  </data>
+  <data name="DeleteOfferConfirmation" xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie dieses Angebot löschen wollen?</value>
+  </data>
+  <data name="OfferItems" xml:space="preserve">
+    <value>Angebotspositionen</value>
+  </data>
+  <data name="NoContactEmailPresent" xml:space="preserve">
+    <value>E-mail Adresse vom Kontakt wurde nicht gefunden</value>
+  </data>
+  <data name="OrderWillBeSent" xml:space="preserve">
+    <value>{0} wird an den Empfänger versendet</value>
+  </data>
+  <data name="Exported" xml:space="preserve">
+    <value>Exportiert</value>
+  </data>
+  <data name="WaitingOnExport" xml:space="preserve">
+    <value>Warten auf Export</value>
+  </data>
+  <data name="Warning_NoContactEmailPresent" xml:space="preserve">
+    <value>Die Bestellung kann nicht gesendet werden, wenn keine E-mail Adresse vom Kontakt angegeben wird</value>
+  </data>
+  <data name="CopyOffer" xml:space="preserve">
+    <value>Angebot kopieren</value>
+  </data>
+	<data name="VATtype" xml:space="preserve">
+    <value>MwSt.-Typ</value>
+  </data>
+	<data name="TotalPriceWithoutVAT" xml:space="preserve">
+    <value>Gesamtpreis ohne MwSt.</value>
+  </data>
+	<data name="OnlyVAT" xml:space="preserve">
+    <value>Nur MwSt.</value>
+  </data>
+	<data name="TotalPriceWithVAT" xml:space="preserve">
+    <value>Gesamtpreis mit MwSt.</value>
+  </data>
+	<data name="SalesPriceTaxIncluded" xml:space="preserve">
+    <value>Verkaufspreis (inkl. MwSt.)</value>
+  </data>
+	<data name="Alternative" xml:space="preserve">
+    <value>Alternative</value>
+  </data>
+	<data name="RuleViolation.DiscountBiggerThanPrice" xml:space="preserve">
+    <value>Rabatt ist größer als der Preis</value>
+  </data>
+	<data name="CustomArticleNo" xml:space="preserve">
+    <value>Benutzerdefinierte Artikelnr.</value>
+  </data>
+	<data name="DiscountPerPiece" xml:space="preserve">
+    <value>Rabatt (pro Stück)</value>
+  </data>
+  <data name="Representative-Usergroup" xml:space="preserve">
+    <value>Vertreter (Benutzergruppe)</value>
+  </data>
+  <data name="CrmOrder_OrderCancelReasonCategory" xml:space="preserve">
+    <value>Kategorien für abgebrochene Aufträge</value>
+  </data>
+  <data name="OfferNo" xml:space="preserve">
+    <value>Angebotsnummer</value>
+  </data>
+  <data name="T_AdditionalInformation" xml:space="preserve">
+    <value>Zusatzinformationen</value>
+  </data>
+  <data name="CancelOffer" xml:space="preserve">
+    <value>Angebot stornieren</value>
+  </data>
+  <data name="CancelExport" xml:space="preserve">
+    <value>Export abbrechen</value>
+  </data>
+  <data name="ConfirmExportOffer" xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie dieses Angebot exportieren möchten?</value>
+  </data>
+  <data name="OfferAlreadyExported" xml:space="preserve">
+    <value>Angebot bereits exportiert.</value>
+  </data>
+  <data name="OrderAlreadyExported" xml:space="preserve">
+    <value>Auftrag bereits exportiert.</value>
+  </data>
+  <data name="ConfirmExportOrder" xml:space="preserve">
+    <value>Sind Sie sicher, dass Sie diesen Auftrag exportieren möchten?</value>
+  </data>
+  <data name="CannotCompleteOrder" xml:space="preserve">
+    <value>Auftrag kann nicht abgeschlossen werden</value>
+  </data>
+  <data name="OrderCompleted" xml:space="preserve">
+    <value>Bestellung abgeschlossen</value>
+  </data>
+</root>

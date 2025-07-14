@@ -1,0 +1,30 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Modularization.Extensions
+
+<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-locations" data-bind="with: tabs()['tab-locations']">
+	<empty-state-box params="mood: 'excited', title: 'Locations', text: 'LocationsEmptySlateDescription'" data-bind="visible: items().length === 0 && !isFiltered()">
+	</empty-state-box>
+	<div class="generic-list listview lv-bordered">
+		<div class="lv-body">
+			<div data-bind="foreach: items">
+				<div class="lv-item media" >
+					@await Html.PartialAsync("GenericListBulkControl")
+					<div class="lv-avatar pull-left" data-bind="text: Helper.Store.getStoreNameAbbrevation($data.LocationNo()), style: {backgroundColor: 'orange'}"></div>
+					<div class="media-body">
+						<div class="row">
+							<div class="col-xs-12">
+								<div class="lv-title">
+									<span data-bind="text: LocationNo"></span>
+								</div>
+							</div>
+						</div>
+						<lv-actions>@Html.PluginRenderActions("LocationItemTemplateActions")</lv-actions>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<floating-action-button>
+		@Html.PluginRenderActions("StoreMaterialsTabPrimaryAction")
+	</floating-action-button>
+</div>

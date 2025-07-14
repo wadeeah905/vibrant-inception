@@ -1,0 +1,575 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddPossibleAim" xml:space="preserve">
+    <value>Añadir objetivo</value>
+  </data>
+  <data name="AddPossibleAnswer" xml:space="preserve">
+    <value>Añadir respuesta</value>
+  </data>
+  <data name="ClosedVisitReports" xml:space="preserve">
+    <value>Informes de visitas cerradas</value>
+  </data>
+  <data name="CreateVisitReport" xml:space="preserve">
+    <value>Crear informe de visitar</value>
+  </data>
+  <data name="EditMasterData" xml:space="preserve">
+    <value>Editar información principal</value>
+  </data>
+  <data name="EditVisitPossibleAims" xml:space="preserve">
+    <value>Editar objetivos</value>
+  </data>
+  <data name="NonClosedVisitReports" xml:space="preserve">
+    <value>Informes de visitas no cerradas</value>
+  </data>
+  <data name="NoNonClosedVisitReports" xml:space="preserve">
+    <value>No hay informes de visitas no cerradas</value>
+  </data>
+  <data name="NoVisitReportsInfo" xml:space="preserve">
+    <value>No hay informes de visita disponibles</value>
+  </data>
+  <data name="PleaseChooseAQuestion" xml:space="preserve">
+    <value>Elija una pregunta de la derecha.</value>
+  </data>
+  <data name="Questions" xml:space="preserve">
+    <value>Preguntas</value>
+  </data>
+  <data name="VisitAim" xml:space="preserve">
+    <value>Objetivos de la visita</value>
+  </data>
+  <data name="VisitDate" xml:space="preserve">
+    <value>Fecha de la visita</value>
+  </data>
+  <data name="VisitReport" xml:space="preserve">
+    <value>Informe de visita</value>
+  </data>
+  <data name="VisitReportClosed" xml:space="preserve">
+    <value>Informe de visita cerrado</value>
+  </data>
+  <data name="VisitReportClosedBy" xml:space="preserve">
+    <value>Informe de visita cerrado por  {0} {1}</value>
+  </data>
+  <data name="VisitReports" xml:space="preserve">
+    <value>Fecha de iniciación</value>
+  </data>
+  <data name="InProgress" xml:space="preserve">
+    <value>En progreso</value>
+  </data>
+  <data name="WeeklyOverview" xml:space="preserve">
+    <value>Resumen de la semana</value>
+  </data>
+  <data name="AddVisit" xml:space="preserve">
+    <value>Añadir visita</value>
+  </data>
+  <data name="CloseVisitReportButtonText" xml:space="preserve">
+    <value>Completado</value>
+  </data>
+  <data name="EditVisit" xml:space="preserve">
+    <value>Editar visita</value>
+  </data>
+  <data name="NoVisitsInfo" xml:space="preserve">
+    <value>No hay visitas programadas</value>
+  </data>
+  <data name="TourPlanning" xml:space="preserve">
+    <value>Planificador de viajes</value>
+  </data>
+  <data name="Visits" xml:space="preserve">
+    <value>Visitas</value>
+  </data>
+  <data name="ConfirmDeleteVisit" xml:space="preserve">
+    <value>¿Desea realmente eliminar esta visita?</value>
+  </data>
+  <data name="Display" xml:space="preserve">
+    <value>Mostrar</value>
+  </data>
+  <data name="VisitFrequency" xml:space="preserve">
+    <value>Frequencia de visita</value>
+  </data>
+  <data name="ConfirmDeleteVisitReport" xml:space="preserve">
+    <value>¿Realmente quiere eliminar este informe de visita?</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Actual</value>
+  </data>
+  <data name="Difference" xml:space="preserve">
+    <value>Diff.</value>
+  </data>
+  <data name="NoVisitStatisticsInfo" xml:space="preserve">
+    <value>No hay direcciones a visitar para el usuario seleccionado en la región seleccionada. ¿Están configuradas las frecuencias de visita de la empresa?</value>
+  </data>
+  <data name="Frequency" xml:space="preserve">
+    <value>Frecuencia</value>
+  </data>
+  <data name="NoCompaniesWithStartLetter" xml:space="preserve">
+    <value>Ninguna empresa con la letra inicial {0}</value>
+  </data>
+  <data name="DailyView" xml:space="preserve">
+    <value>Vista diaria</value>
+  </data>
+  <data name="VisitFrequencyText" xml:space="preserve">
+    <value>{0} por año</value>
+  </data>
+  <data name="WeeklyView" xml:space="preserve">
+    <value>Vista semana</value>
+  </data>
+  <data name="EditAllUsersTourPlanning" xml:space="preserve">
+    <value>Editar la planificación del viaje de todos los usuarios</value>
+  </data>
+  <data name="EditAllUsersVisitReports" xml:space="preserve">
+    <value>Editar los informes de visita de todos los usuarios</value>
+  </data>
+  <data name="SeeAllUsersTourPlanning" xml:space="preserve">
+    <value>Ver todos los planes de viaje de los usuarios</value>
+  </data>
+  <data name="SeeAllUsersVisitReports" xml:space="preserve">
+    <value>Ver todos los informes de visita de los usuarios</value>
+  </data>
+  <data name="Zieldetails" xml:space="preserve">
+    <value>Detalles de la visita</value>
+  </data>
+  <data name="Reporting" xml:space="preserve">
+    <value>Informes</value>
+  </data>
+  <data name="CloseVisitReportConfirmMessage" xml:space="preserve">
+    <value>¿Está seguro de que quiere completar este Informe de Visita?
+Ya no será posible editarlo.</value>
+  </data>
+  <data name="ListOfNotesHeaderVisitReport" xml:space="preserve">
+    <value>Notas sobre este informe de visita</value>
+  </data>
+  <data name="ContactPersons" xml:space="preserve">
+    <value>Personas de contacto</value>
+  </data>
+  <data name="AddContactPersonRelationship" xml:space="preserve">
+    <value>Añadir persona de contacto</value>
+  </data>
+  <data name="CustomerContactPerson" xml:space="preserve">
+    <value>Persona de contacto del cliente</value>
+  </data>
+  <data name="NoCustomerContactPerson" xml:space="preserve">
+    <value>No hay personas de contacto para este cliente.</value>
+  </data>
+  <data name="AdditionalContactPerson" xml:space="preserve">
+    <value>Persona de contacto adicional</value>
+  </data>
+  <data name="AdditionalContactPersonInformation" xml:space="preserve">
+    <value>Usted tiene la oportunidad de añadir cada persona existente en el sistema después de guardar este informe de visita.&lt;br /&gt;
+		Las personas que no existen en el sistema pueden ser añadidas textualmente aquí.</value>
+  </data>
+  <data name="UnsavedChangesGetLost" xml:space="preserve">
+    <value>Los cambios no guardados se perderán, si confirma para continuar.</value>
+  </data>
+  <data name="NotScheduledVisits" xml:space="preserve">
+    <value>Visitas no programadas</value>
+  </data>
+  <data name="ScheduledVisits" xml:space="preserve">
+    <value>Visitas planificadas</value>
+  </data>
+  <data name="Additional" xml:space="preserve">
+    <value>Adicional</value>
+  </data>
+  <data name="Step" xml:space="preserve">
+    <value>Paso</value>
+  </data>
+  <data name="VisitInformation" xml:space="preserve">
+    <value>Información de la visita</value>
+  </data>
+  <data name="AddDate" xml:space="preserve">
+    <value>Añadir fecha</value>
+  </data>
+  <data name="AddTime" xml:space="preserve">
+    <value>Añadir tiempo</value>
+  </data>
+  <data name="AddDuration" xml:space="preserve">
+    <value>Añadir duración</value>
+  </data>
+  <data name="ContactPersonNotEmpty" xml:space="preserve">
+    <value>Ya hay entradas adicionales.&lt;br /&gt;
+Si confirma, se perderán.&lt;br /&gt;
+¿Realmente quiere continuar?</value>
+  </data>
+  <data name="SelectCompanyToShowCustomerContactPerson" xml:space="preserve">
+    <value>Las personas del contacto aparecerán una vez seleccione una empresa.</value>
+    <comment>english version still holds the value in german, left comment in resources.eng</comment>
+  </data>
+  <data name="LastVisit" xml:space="preserve">
+    <value>Ultima visita</value>
+  </data>
+  <data name="Prepared" xml:space="preserve">
+    <value>Preparado</value>
+  </data>
+  <data name="NoVisitsPrepared" xml:space="preserve">
+    <value>No hay visitar preparadas</value>
+  </data>
+  <data name="Circuit" xml:space="preserve">
+    <value>Circuito</value>
+  </data>
+  <data name="NoAddressesFound" xml:space="preserve">
+    <value>No se han encontrado direcciones en los alrededores.</value>
+  </data>
+  <data name="DisplayCustomersInCircuit" xml:space="preserve">
+    <value>Mostrar clientes en {0} o en {1}</value>
+  </data>
+  <data name="OwnCircuit" xml:space="preserve">
+    <value>circuito propio</value>
+  </data>
+  <data name="AddressCircuit" xml:space="preserve">
+    <value>La proximidad de una dirección</value>
+  </data>
+  <data name="CreatedAgo" xml:space="preserve">
+    <value>Creado {0}</value>
+  </data>
+  <data name="Topics" xml:space="preserve">
+    <value>Temas</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>Tema</value>
+  </data>
+  <data name="AddTopic" xml:space="preserve">
+    <value>Añadir tema</value>
+  </data>
+  <data name="PleaseAddTopicText" xml:space="preserve">
+    <value>Por favor, introduzca un texto para su tema.</value>
+  </data>
+  <data name="NoTopicInfoTitle" xml:space="preserve">
+    <value>¿Qué es un tema?</value>
+  </data>
+  <data name="NoTopicInfo" xml:space="preserve">
+    <value>Puede entrar en los temas discutidos de la visita.</value>
+  </data>
+  <data name="ListOfTopicsHeaderVisit" xml:space="preserve">
+    <value>Temas sobre este informe de visita</value>
+  </data>
+  <data name="TopicBy" xml:space="preserve">
+    <value>Tema por  {0} {1}</value>
+  </data>
+  <data name="AttachToTopic" xml:space="preserve">
+    <value>Adjuntar al tema</value>
+  </data>
+  <data name="MovePreparedVisitToSelectedDate" xml:space="preserve">
+    <value>¿Está seguro de que quiere planificar la visita en la fecha actual seleccionada?</value>
+  </data>
+  <data name="NotPossibleToSelectPastDate" xml:space="preserve">
+    <value>No es posible seleccionar una fecha pasada.</value>
+  </data>
+  <data name="GeoLocationNotSupported" xml:space="preserve">
+    <value>Su navegador no soporta esta función.</value>
+  </data>
+  <data name="CarbonCopy" xml:space="preserve">
+    <value>CC</value>
+  </data>
+  <data name="DecisionsAndTasks" xml:space="preserve">
+    <value>Decisiones / Tareas</value>
+  </data>
+  <data name="MarketSegment" xml:space="preserve">
+    <value>Segmento de mercado</value>
+  </data>
+  <data name="VisitParticipants" xml:space="preserve">
+    <value>Participantes</value>
+  </data>
+  <data name="TargetGroup" xml:space="preserve">
+    <value>Grupo objectivo</value>
+  </data>
+  <data name="Todos" xml:space="preserve">
+    <value>Por hacer</value>
+  </data>
+  <data name="CustomerCategory" xml:space="preserve">
+    <value>Categoría del cliente</value>
+  </data>
+  <data name="NoCompaniesFound" xml:space="preserve">
+    <value>No se han encontrado empresas</value>
+  </data>
+  <data name="Recommended" xml:space="preserve">
+    <value>Recomendado</value>
+  </data>
+  <data name="TimeSinceLastVisit" xml:space="preserve">
+    <value>Tiempo desde la ultima visita</value>
+  </data>
+  <data name="VisitsNeeded" xml:space="preserve">
+    <value>Visitas necesarias</value>
+  </data>
+  <data name="VisitFrequencyPerTimeUnit" xml:space="preserve">
+    <value>{0} veces por {1}</value>
+  </data>
+  <data name="UniqueVisitFrequencyPerTimeUnit" xml:space="preserve">
+    <value>{0} vez(ces) por {1}</value>
+    <comment>tiempo =&gt; veces</comment>
+  </data>
+  <data name="IssuedBy" xml:space="preserve">
+    <value>Emitido por</value>
+  </data>
+  <data name="LastFiveVisits" xml:space="preserve">
+    <value>Ultimas cinco visitas</value>
+  </data>
+  <data name="LastFiveVisitReports" xml:space="preserve">
+    <value>Ultimos cinco informes de visitas</value>
+  </data>
+  <data name="ByUser" xml:space="preserve">
+    <value>por {0}</value>
+  </data>
+  <data name="MaximumDistance" xml:space="preserve">
+    <value>Distancia maxima</value>
+  </data>
+  <data name="Visit" xml:space="preserve">
+    <value>Visita</value>
+  </data>
+  <data name="ViewAllReporting" xml:space="preserve">
+    <value>Ver todos los informes</value>
+  </data>
+  <data name="VisitReportBackgroundInformation" xml:space="preserve">
+    <value>Ver information de referencia</value>
+    <comment>background information =&gt; informacion de referencia</comment>
+  </data>
+  <data name="VisitsNeededTimeUnit" xml:space="preserve">
+    <value>Unidad de tiempo para las visitas necesarias</value>
+  </data>
+  <data name="SetCustomVisitAim" xml:space="preserve">
+    <value>Fijar objectivo personalizado</value>
+  </data>
+  <data name="UseVisitAimSelection" xml:space="preserve">
+    <value>Utilizar la selección del objetivo de la visita</value>
+  </data>
+  <data name="AreYouSureConfirmation" xml:space="preserve">
+    <value>¿Está seguro?</value>
+  </data>
+  <data name="VisitAimSelectionConfirmation" xml:space="preserve">
+    <value>El objetivo personalizado será eliminado.</value>
+    <comment>Custom entered aim value will be removed. =&gt; </comment>
+  </data>
+  <data name="CrmVisitReport_Visit" xml:space="preserve">
+    <value>Visitas</value>
+  </data>
+  <data name="PlannedVisits" xml:space="preserve">
+    <value>Visitas planeadas</value>
+  </data>
+  <data name="PreparedVisits" xml:space="preserve">
+    <value>Visitas preparadas</value>
+  </data>
+  <data name="AllVisits" xml:space="preserve">
+    <value>Todas las visitas</value>
+  </data>
+  <data name="CustomVisitAim" xml:space="preserve">
+    <value>Objetivo de la visita personalizada</value>
+  </data>
+  <data name="VisitReportsEmptyStateTitle" xml:space="preserve">
+    <value>No hay informes de visita</value>
+  </data>
+  <data name="VisitReportsEmptyState" xml:space="preserve">
+    <value>Todavía no se ha creado ningún informe de visita para este contacto.</value>
+  </data>
+  <data name="VisitReportsForVisitEmptyState" xml:space="preserve">
+    <value>Todavía no se han creado informes de visita para esta visita.</value>
+  </data>
+  <data name="CrmVisitReport_VisitReport" xml:space="preserve">
+    <value>Informes de visitas</value>
+  </data>
+  <data name="CrmVisitReport_ContactPersonRelationship" xml:space="preserve">
+    <value>Personas de contacto (visitas)</value>
+  </data>
+  <data name="CrmVisitReport_ContactPersonRelationshipType" xml:space="preserve">
+    <value>Tipos de personas de contacto (Visitas)</value>
+  </data>
+  <data name="CrmVisitReport_VisitAim" xml:space="preserve">
+    <value>Objectivos de la visita</value>
+  </data>
+  <data name="CrmVisitReport_VisitTopic" xml:space="preserve">
+    <value>Temas de la visita</value>
+  </data>
+  <data name="RecommendedVisits" xml:space="preserve">
+    <value>Visitas recomendadas</value>
+  </data>
+  <data name="VisitsEmptyState" xml:space="preserve">
+    <value>No hay visitas disponibles para este contacto</value>
+  </data>
+  <data name="VisitsEmptyStateTitle" xml:space="preserve">
+    <value>No hay visitas</value>
+  </data>
+  <data name="TopicsEmptyStateTitle" xml:space="preserve">
+    <value>No hay temas</value>
+  </data>
+  <data name="VisitReportsThisYear" xml:space="preserve">
+    <value>Informes de visitas del año en curso</value>
+  </data>
+  <data name="VisitReportDate" xml:space="preserve">
+    <value>A partir de</value>
+  </data>
+  <data name="PlannedEndTimeAfterPlannedTimeRuleViolation" xml:space="preserve">
+    <value>La hora de finalización prevista tiene que ser posterior a la hora de inicio.</value>
+  </data>
+  <data name="ThisVisit" xml:space="preserve">
+    <value>Esta visita</value>
+  </data>
+  <data name="Error_VisitReportDynamicFormDoesNotExist_title" xml:space="preserve">
+    <value>No se ha encontrado ningún informe de visita publicado</value>
+  </data>
+  <data name="Error_VisitReportDynamicFormDoesNotExist" xml:space="preserve">
+    <value>No se puede crear un informe de visita, ya que no se ha publicado ninguno. Por favor, pida a su administrador que publique uno.</value>
+  </data>
+  <data name="ViewVisit" xml:space="preserve">
+    <value>Ver visita</value>
+  </data>
+  <data name="VisitTitle" xml:space="preserve">
+    <value>Título de la visita</value>
+  </data>
+  <data name="PlannedEndDate" xml:space="preserve">
+    <value>Fin planeado</value>
+  </data>
+  <data name="ChooseRadius" xml:space="preserve">
+    <value>Elegir distancia</value>
+  </data>
+  <data name="LatitudeMin" xml:space="preserve">
+    <value>Latitud mínima</value>
+  </data>
+  <data name="LatitudeMax" xml:space="preserve">
+    <value>Latitud máxima</value>
+  </data>
+  <data name="LongitudeMin" xml:space="preserve">
+    <value>Longitud mínima</value>
+  </data>
+  <data name="LongitudeMax" xml:space="preserve">
+    <value>Longitud máxima</value>
+  </data>
+  <data name="OpenVisitReportsWarningMessage" xml:space="preserve">
+    <value>Esta visita tiene asignados informes abiertos. La visita no se puede completar.</value>
+  </data>
+  <data name="VisitCompleteWarningMessage" xml:space="preserve">
+    <value>¿Seguro que quieres completar esta visita?</value>
+  </data>
+  <data name="SetInProgress" xml:space="preserve">
+    <value>Establecer en progreso</value>
+  </data>
+  <data name="VisitCompleted" xml:space="preserve">
+    <value>Visita completada</value>
+  </data>
+  <data name="VisitInProgress" xml:space="preserve">
+    <value>Visita configurada como En curso</value>
+  </data>
+  <data name="CrmVisitReport_VisitStatus" xml:space="preserve">
+    <value>Estado de la visita</value>
+  </data>
+  <data name="DecreaseDistance" xml:space="preserve">
+    <value>Reducir la distancia</value>
+  </data>
+  <data name="IncreaseDistance" xml:space="preserve">
+    <value>Aumentar la distancia</value>
+  </data>
+  <data name="EditContactPersonRelationship" xml:space="preserve">
+    <value>Editar persona de contacto</value>
+  </data>
+</root>

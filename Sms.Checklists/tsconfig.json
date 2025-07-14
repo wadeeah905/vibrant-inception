@@ -1,0 +1,15 @@
+﻿{
+	"extends": "../../tsconfig",
+	"compilerOptions": {
+		"outDir": "Content/js/dist",
+		"esModuleInterop": true
+	},
+	"include": [
+		"Content/ts/**/*.ts",
+		"Content/js/**/*.js",
+		"gulp-tasks/*.ts"
+	],
+	"exclude": [
+		"Content/js/dist/**/*"
+	]
+}

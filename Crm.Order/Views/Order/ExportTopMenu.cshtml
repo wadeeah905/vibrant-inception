@@ -1,0 +1,28 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Order.Model.Lookups
+
+<li data-bind="visible: !order().ReadyForExport() && !order().IsExported(), requiredPermission: { name: 'Edit', group: 'Order' }, click: exportOrder">
+	<a href="#">
+		<i class="zmdi zmdi-mail-reply"></i>
+		@(Html.Localize("Export"))
+	</a>
+</li>
+<li class="disabled" data-bind="visible: order().ReadyForExport() && !order().IsExported() && window.Helper.Offline && window.Helper.Offline.status == 'offline', requiredPermission: { name: 'Edit', group: 'Order' }">
+	<a href="#">
+		<i class="zmdi zmdi-mail-reply"></i>
+		@(Html.Localize("CancelExport"))
+	</a>
+</li>
+<li data-bind="visible: order().ReadyForExport() && !order().IsExported() && (!window.Helper.Offline || window.Helper.Offline.status == 'online'), requiredPermission: { name: 'Edit', group: 'Order' }, click: cancelExport">
+	<a href="#">
+		<i class="zmdi zmdi-mail-reply"></i>
+		@(Html.Localize("CancelExport"))
+	</a>
+</li>
+<li class="disabled" data-bind="visible:  order().IsExported(), requiredPermission: { name: 'Edit', group: 'Order' }">
+	<a href="#">
+		<i class="zmdi zmdi-mail-reply"></i>
+		@(Html.Localize("Exported"))
+	</a>
+</li>

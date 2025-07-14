@@ -1,0 +1,46 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Offline.Extensions
+@using Crm.VisitReport.ViewModels
+@using (Html.TemplateContext("$root"))
+{
+	@using (Html.TemplateCondition("formReference().ReferenceType() == 'VisitReport'"))
+	{
+		<div>
+			@using (Html.TemplateContext<VisitReportResponseViewModel>(x => x.Company))
+			{
+				<div>
+					<span class="f-700" data-bind="translatedText: 'Customer'"></span>:
+					<span data-bind="text: Helper.Company.getDisplayName($data)"></span>
+				</div>
+			}
+			@using (Html.TemplateContext<VisitReportResponseViewModel>(x => x.VisitAddress))
+			{
+				<div>
+					<span class="f-700" data-bind="translatedText: 'Address'"></span>:
+					<span data-bind="text: Street() + ','"></span>
+					<span data-bind="text: ZipCode() + ' ' + City()"></span>
+				</div>
+			}
+			@using (Html.TemplateContext<VisitReportResponseViewModel>(x => x.Visit))
+			{
+				<!-- ko if: CustomAim() -->
+				<div>
+					<span class="f-700" data-bind="translatedText: 'VisitAim'"></span>:
+					<span data-bind="text: CustomAim()"></span>
+				</div>
+				<!-- /ko -->
+			}
+			@using (Html.TemplateContext<VisitReportResponseViewModel>(x => x.ResponsibleUser))
+			{
+				<div>
+					<span class="f-700" data-bind="translatedText: 'ResponsibleUser'"></span>:
+					<span data-bind="text: Helper.User.getDisplayName($data)"></span>
+				</div>
+			}
+			<div>
+				<span class="f-700" data-bind="translatedText: 'VisitReportDate'"></span>:
+				<span data-bind="dateText: formReference().Date"></span>
+			</div>
+		</div>
+	}
+}

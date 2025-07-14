@@ -1,0 +1,9 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+<!-- ko if: !isClosed() && !order().IsOffer() -->
+	<div class="primary-action">
+		<a href="#" class="btn btn-lg btn-primary delete-order" data-bind="enable: canBeClosed(), click: close">
+			<i class="fa fa-share"></i> @(Html.Localize("CloseOrder"))
+		</a>
+	</div>
+<!-- /ko -->

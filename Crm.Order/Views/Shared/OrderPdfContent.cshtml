@@ -1,0 +1,127 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Offline.Extensions
+@using Crm.Order.Rest.Model
+
+<div>
+	<!-- ko ifnot: loading -->
+		<div class="row">
+			<div class="col-xs-12 col-sm-6">
+				@using (Html.TemplateContext("address"))
+				{
+					<table style="width: 100%">
+						<tr>
+							<td><span data-bind="text: Name1"></span></td>
+						</tr>
+						<tr>
+							<td><span data-bind="text: Street"></span></td>
+						</tr>
+						<tr>
+							<td><span data-bind="text: ZipCode"></span>&nbsp;<span data-bind="text: City"></span></td>
+						</tr>
+					</table>
+				}
+			</div>
+			<div class="col-xs-12 col-sm-6">
+				<table style="width: 100%">
+					<tr>
+						<td class="f-700">
+							@(Html.Localize("Date"))
+						</td>
+						<td>
+							<span data-bind="dateText: date"></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="f-700">
+							@(Html.Localize("CustomerNo"))
+						</td>
+						<td>
+							<!-- ko if: company -->
+							<!-- ko with: company -->
+							<span data-bind="text: LegacyId"></span>
+							<!-- /ko -->
+							<!-- /ko -->
+						</td>
+					</tr>
+					<tr>
+						<td class="f-700">
+							@(Html.Localize("CustomerOrderNumber"))
+						</td>
+						<td>
+							@using (Html.TemplateContext("order"))
+							{
+								<span data-bind="text: CustomerOrderNumber"></span>
+							}
+						</td>
+					</tr>
+					<tr>
+						<td class="f-700">
+							@(Html.Localize("LocationPersonId"))
+						</td>
+						<td>
+							@using (Html.TemplateContext("responsibleUser"))
+							{
+								<span data-bind="text: Helper.User.getDisplayName($data)"></span>
+							}
+						</td>
+					</tr>
+					<tr>
+						<td class="f-700">
+							@(Html.Localize("EMail"))
+						</td>
+						<td>
+							@using (Html.TemplateContext("responsibleUser"))
+							{
+								<a data-bind="attr: { href: 'mailto:' + Email() }, text: Email"></a>
+							}
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<h2 data-bind="with: order">
+			@(Html.Localize("Order"))
+			<span data-bind="text: OrderNo, visible: OrderNo"></span>
+		</h2>
+		<p style="white-space: pre-line">
+			@(Html.Localize("OrderText"))
+		</p>
+
+		@await Html.PartialAsync("PdfTable")
+
+		<p style="white-space: pre-line">
+			@(Html.Localize("OrderFooterText"))
+		</p>
+		@using (Html.TemplateContext("responsibleUser"))
+		{
+			<p>
+				<span data-bind="text: Helper.User.getDisplayName($data)"></span>
+			</p>
+		}
+
+		@using (Html.TemplateContext("order"))
+		{
+			<div class="row">
+				@using (Html.TemplateCondition<BaseOrderRest>(x => x.Signature))
+				{
+					<div class="col-xs-12 col-sm-6">
+						<div class="underline">
+							<input class="signature" type="hidden" data-bind="signaturePad: Signature" data-sign-width="250" data-sigpencolour="#000000" data-sigbgcolour="#FFFFFF" data-sigbordercolour="#FFFFFF"/>
+						</div>
+						<div>
+							@(Html.TemplateText<BaseOrderRest>(x => x.SignatureDate).Pattern(DateTimePattern.DateMedium)) / @(Html.TemplateText<BaseOrderRest>(x => x.SignatureName))
+						</div>
+					</div>
+				}
+			</div>
+			<div class="clearfix" style="clear: both"></div>
+			@using (Html.TemplateCondition<BaseOrderRest>(x => x.SignPrivacyPolicyAccepted))
+			{
+				<!-- ko with: $parent -->
+				await Html.RenderPartialAsync("DataPrivacyPolicy");
+				<!-- /ko -->
+			}
+		}
+	<!-- /ko -->
+</div>

@@ -1,0 +1,16 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div class="lv-item media with-checkbox">
+	<div class="checkbox pull-left">
+		<label>
+			<input type="checkbox" data-bind="checked: $parent.selectedArticleIds, value: Id"><i class="input-helper"></i>
+		</label>
+	</div>
+	<div class="media-body">
+		<div class="lv-title" data-bind="text: ItemNo"></div>
+		<small class="small" data-bind="text: Description"></small>
+		<div class="lv-actions actions dropdown">
+			<span class="m-r-5" data-bind="text: $root.getCurrencyValue($root.baseOrder().CurrencyKey())"></span><span class="m-r-5" data-bind="money: Price"></span>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,857 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddItemAbbreviated" xml:space="preserve">
+    <value>Hozzáfűz</value>
+  </data>
+  <data name="BillAddress" xml:space="preserve">
+    <value>Számlázási cím</value>
+  </data>
+  <data name="BillingAddressId" xml:space="preserve">
+    <value>Számlázási cím</value>
+  </data>
+  <data name="CancelUpdateItemAbbreviated" xml:space="preserve">
+    <value>Rövidítés</value>
+  </data>
+  <data name="CarDump" xml:space="preserve">
+    <value>Autó raktár</value>
+  </data>
+  <data name="ClosedOrders" xml:space="preserve">
+    <value>Lezárt rendelések</value>
+  </data>
+  <data name="ConfirmDeleteOrder" xml:space="preserve">
+    <value>Valóban törölni akarja ezt a rendelést?</value>
+  </data>
+  <data name="CreateOrder" xml:space="preserve">
+    <value>Rendelés létrehozása</value>
+  </data>
+  <data name="DeliveryAddress" xml:space="preserve">
+    <value>Szállítási cím</value>
+  </data>
+  <data name="DeliveryAddressId" xml:space="preserve">
+    <value>Szállítási cím</value>
+  </data>
+  <data name="DeliveryDate" xml:space="preserve">
+    <value>Szállítás időpontja</value>
+  </data>
+  <data name="EditAllUsersOrders" xml:space="preserve">
+    <value>Minden felhasználó rendelésének szerkesztése</value>
+  </data>
+  <data name="EditOrder" xml:space="preserve">
+    <value>Rendelés szerkesztése</value>
+  </data>
+  <data name="NewOrderItem" xml:space="preserve">
+    <value>Új rendelési pozíció</value>
+  </data>
+  <data name="NonClosedOrders" xml:space="preserve">
+    <value>Lezáratlan rendelések</value>
+  </data>
+  <data name="NoNonClosedOrders" xml:space="preserve">
+    <value>Nincsenek lezárt rendelések</value>
+  </data>
+  <data name="NoOrderItemsInfo" xml:space="preserve">
+    <value>A rendelésben nincsenek tételek</value>
+  </data>
+  <data name="NoOrdersInfo" xml:space="preserve">
+    <value>Nincsenek rendelések</value>
+  </data>
+  <data name="Order" xml:space="preserve">
+    <value>Rendelés</value>
+  </data>
+  <data name="OrderDate" xml:space="preserve">
+    <value>Rendelés dátuma</value>
+  </data>
+  <data name="OrderInformation" xml:space="preserve">
+    <value>Információk a rendelésről</value>
+  </data>
+  <data name="OrderItems" xml:space="preserve">
+    <value>Rendelési tételek</value>
+  </data>
+  <data name="Orders" xml:space="preserve">
+    <value>Rendelések</value>
+  </data>
+  <data name="PositionAbbreviated" xml:space="preserve">
+    <value>Poz.</value>
+  </data>
+  <data name="Sample" xml:space="preserve">
+    <value>Minta</value>
+  </data>
+  <data name="SeeAllUsersOrders" xml:space="preserve">
+    <value>Minden felhasználói rendelés megtekintése</value>
+  </data>
+  <data name="Unit" xml:space="preserve">
+    <value>Egység</value>
+  </data>
+  <data name="UpdateItemAbbreviated" xml:space="preserve">
+    <value>Naprakész tétel, rövidítve</value>
+  </data>
+  <data name="MissingStreet" xml:space="preserve">
+    <value>Hiányzó utca</value>
+  </data>
+  <data name="StreetRequired" xml:space="preserve">
+    <value>Egy rendelés létrehozásához a kapcsolat számára útvonalat kell kijelölni</value>
+  </data>
+  <data name="Comission" xml:space="preserve">
+    <value>Megbízatás</value>
+  </data>
+  <data name="CustomerNumber" xml:space="preserve">
+    <value>Vevő száma</value>
+  </data>
+  <data name="Discount" xml:space="preserve">
+    <value>Árengedmény</value>
+  </data>
+  <data name="OrderNumber" xml:space="preserve">
+    <value>Rendelési szám</value>
+  </data>
+  <data name="Representative" xml:space="preserve">
+    <value>Képviselő</value>
+  </data>
+  <data name="DiscountedTotalPrice" xml:space="preserve">
+    <value>Végösszeg</value>
+  </data>
+  <data name="DiscountFromTotalPrice" xml:space="preserve">
+    <value>Teljes árengedmény értéke</value>
+  </data>
+  <data name="VAT" xml:space="preserve">
+    <value>Áfa</value>
+  </data>
+  <data name="PrivateDescription" xml:space="preserve">
+    <value>Magánjellegű leírás</value>
+  </data>
+  <data name="PublicDescription" xml:space="preserve">
+    <value>Megjegyzés</value>
+  </data>
+  <data name="CloseOrder" xml:space="preserve">
+    <value>Rendelés lezárása</value>
+  </data>
+  <data name="UnitPrice" xml:space="preserve">
+    <value>Egységár</value>
+  </data>
+  <data name="CustomerOrderNumber" xml:space="preserve">
+    <value>Rendelési szám</value>
+  </data>
+  <data name="NoOrdersMatch" xml:space="preserve">
+    <value>A kiválasztott szemponthoz eredmény nem található</value>
+  </data>
+  <data name="ExportOrders" xml:space="preserve">
+    <value>Rendelés elküldése</value>
+  </data>
+  <data name="CalculatedPriceWithDiscount" xml:space="preserve">
+    <value>Ár</value>
+  </data>
+  <data name="ShowAllItems" xml:space="preserve">
+    <value>Minden tétel megjelenítése</value>
+  </data>
+  <data name="Offer" xml:space="preserve">
+    <value>Ajánlat</value>
+  </data>
+  <data name="OfferDate" xml:space="preserve">
+    <value>Az ajánlat dátuma</value>
+  </data>
+  <data name="Offers" xml:space="preserve">
+    <value>Ajánlatok</value>
+  </data>
+  <data name="OrderCreatedBy" xml:space="preserve">
+    <value>Rendelést készítette {0} {1}</value>
+  </data>
+  <data name="CreatedOrder" xml:space="preserve">
+    <value>Új rendelés készült</value>
+  </data>
+  <data name="CreateOffer" xml:space="preserve">
+    <value>Ajánlatot tenni</value>
+  </data>
+  <data name="OfferCreatedBy" xml:space="preserve">
+    <value>Az ajánlatot {0} {1} készítette</value>
+  </data>
+  <data name="ConfirmDeletion" xml:space="preserve">
+    <value>Biztos, hogy ezt az árucikket törli?</value>
+  </data>
+  <data name="ExportDate" xml:space="preserve">
+    <value>Exportálva</value>
+  </data>
+  <data name="NoOrdersAvailable" xml:space="preserve">
+    <value>Nincsenek rendelések</value>
+  </data>
+  <data name="NoOffersAvailable" xml:space="preserve">
+    <value>Nincs ajánlat</value>
+  </data>
+  <data name="OrdersAndOffers" xml:space="preserve">
+    <value>Ajánlatok és rendelések</value>
+    <comment>The order of the words got mixed, I guess</comment>
+  </data>
+  <data name="DeleteOrder" xml:space="preserve">
+    <value>Törlés</value>
+  </data>
+  <data name="EditOffer" xml:space="preserve">
+    <value>Ajánlat szerkesztése</value>
+  </data>
+  <data name="NoOffersMatch" xml:space="preserve">
+    <value>A kiválasztott szemponthoz eredmény nem található</value>
+  </data>
+  <data name="OfferNumber" xml:space="preserve">
+    <value>Az ajánlat száma</value>
+  </data>
+  <data name="OrderStatusSetBy" xml:space="preserve">
+    <value>A rendelés megváltoztatva {0} {1}</value>
+  </data>
+  <data name="SeeAllBaseOrders" xml:space="preserve">
+    <value>Minden bázisrendelés kijelzése</value>
+  </data>
+  <data name="OrderListDiscount" xml:space="preserve">
+    <value>Árengedmény</value>
+  </data>
+  <data name="PrivateDescriptionRequiredOnDummyCustomer" xml:space="preserve">
+    <value> Az ideiglenes vevő számára szükséges belső megjegyzés</value>
+  </data>
+  <data name="CloseOffer" xml:space="preserve">
+    <value>Ajánlat lezárása</value>
+  </data>
+  <data name="CustomerOfferNumber" xml:space="preserve">
+    <value>Ajánlat száma</value>
+  </data>
+  <data name="OrderStatusSet" xml:space="preserve">
+    <value>A rendelés megváltoztatva</value>
+  </data>
+  <data name="OrderFor" xml:space="preserve">
+    <value>{1} rendelés {0} számára</value>
+  </data>
+  <data name="CreatedOffer" xml:space="preserve">
+    <value>Új ajánlat készült</value>
+  </data>
+  <data name="DeliveryProhibited" xml:space="preserve">
+    <value>Szállítás tiltott</value>
+  </data>
+  <data name="OfferClosed" xml:space="preserve">
+    <value>Lezárt ajánlat</value>
+  </data>
+  <data name="OrderClosed" xml:space="preserve">
+    <value>Rendelés lezárása</value>
+  </data>
+  <data name="OfferFor" xml:space="preserve">
+    <value>Ajánlat {1} a {0} számára</value>
+  </data>
+  <data name="OfferStatusSetBy" xml:space="preserve">
+    <value>Az ajánlat módosítva {0} {1} által</value>
+  </data>
+  <data name="OfferStatusSetTo" xml:space="preserve">
+    <value>Ajánlat módosítva {0}</value>
+  </data>
+  <data name="AddTaskCategories" xml:space="preserve">
+    <value>Feladatok kategóriájának hozzáfűzése</value>
+  </data>
+  <data name="SignHere" xml:space="preserve">
+    <value>Itt aláírni</value>
+  </data>
+  <data name="YouAreNotAllowedToEditThisOffer" xml:space="preserve">
+    <value>Ön nem jogosult ennek az ajánlatnak a szerkesztésére</value>
+  </data>
+  <data name="YouAreNotAllowedToEditThisOrder" xml:space="preserve">
+    <value>Ön nem jogosult ennek a rendelésnek a szerkesztésére</value>
+  </data>
+  <data name="OrderType" xml:space="preserve">
+    <value>Rendelés típusa</value>
+  </data>
+  <data name="NewOfferItem" xml:space="preserve">
+    <value>Új ajánlat pozíció</value>
+  </data>
+  <data name="NoOfferItemsInfo" xml:space="preserve">
+    <value>Az ajánlatban nincsenek tételek</value>
+  </data>
+  <data name="ExportOffers" xml:space="preserve">
+    <value>Ajánlat exportálása</value>
+  </data>
+  <data name="NoExportedOrders" xml:space="preserve">
+    <value>Nincs exportált rendelés</value>
+  </data>
+  <data name="NoExportedOrdersMatch" xml:space="preserve">
+    <value>Nem talááltunk exportált rendelést</value>
+  </data>
+  <data name="AllowedArticleGroupValues" xml:space="preserve">
+    <value>Engedélyezett cikkcsoportok</value>
+  </data>
+  <data name="CommunicationType" xml:space="preserve">
+    <value>Kapcsolattartás típusa</value>
+  </data>
+  <data name="CanHaveOrders" xml:space="preserve">
+    <value>Rendelés engedélyezett</value>
+  </data>
+  <data name="DetailsForOrder" xml:space="preserve">
+    <value>{0} rendelés részletei</value>
+  </data>
+  <data name="DetailsForOffer" xml:space="preserve">
+    <value>{0} ajánlat részletei</value>
+  </data>
+  <data name="AllowedArticleTypeValues" xml:space="preserve">
+    <value>Engedélyezett cikk típusok</value>
+  </data>
+  <data name="OrderDetails" xml:space="preserve">
+    <value>Rendelés részletei</value>
+  </data>
+  <data name="OrderCategory" xml:space="preserve">
+    <value>Rendelés típusa</value>
+  </data>
+  <data name="PleaseSelectAnOrderCategory_WithWarning" xml:space="preserve">
+    <value>Kérem válaszzon egy rendelés kategóriát. Figyelem, később nem módosítható.</value>
+  </data>
+  <data name="DiscountedTotalPriceWithVAT" xml:space="preserve">
+    <value>Teljes ár</value>
+  </data>
+  <data name="TotalPriceNoVAT" xml:space="preserve">
+    <value>Teljes ár (ÁFA nélkül)</value>
+  </data>
+  <data name="ItemPrice" xml:space="preserve">
+    <value>Ár</value>
+  </data>
+  <data name="CustomerFlags" xml:space="preserve">
+    <value>Ügyfél jelzések</value>
+  </data>
+  <data name="OrderSuccessfullySent" xml:space="preserve">
+    <value>A rendelés sikeresen kiküldve.</value>
+  </data>
+  <data name="OrderFailedSending" xml:space="preserve">
+    <value>A rendelés kiküldése közben hiba lépett fel.</value>
+  </data>
+  <data name="ConfirmSending" xml:space="preserve">
+    <value>Biztosan ki szeretné küldeni a rendelést az alábbi adatokkal?</value>
+  </data>
+  <data name="OrderDoesntExist" xml:space="preserve">
+    <value>A rendelés nem elérhető.</value>
+  </data>
+  <data name="OrderClosedMessage" xml:space="preserve">
+    <value>A rendelés lezárva. A továbbiakban nem szerkeszthető.</value>
+  </data>
+  <data name="CloseOrderConfirmation" xml:space="preserve">
+    <value>Biztosan le akarja zárni ezt a rendelést?</value>
+  </data>
+  <data name="DeleteOrderConfirmation" xml:space="preserve">
+    <value>Biztosan törölni akarja ezt a rendelést?</value>
+  </data>
+  <data name="OrderFailedSaving" xml:space="preserve">
+    <value>A rendelés mentése sikertelen.</value>
+  </data>
+  <data name="OrderSuccessfullySaved" xml:space="preserve">
+    <value>A rendelés mentése sikeres.</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Cikkek végösszege</value>
+  </data>
+  <data name="OrderSimpleTabTitle" xml:space="preserve">
+    <value>Lista nézet</value>
+  </data>
+  <data name="OrderTreeTabTitle" xml:space="preserve">
+    <value>Fa nézet</value>
+  </data>
+  <data name="ItemHasNoPositions" xml:space="preserve">
+    <value>Nincs a rendeléshez hozzáadott pozíció</value>
+  </data>
+  <data name="Remarks" xml:space="preserve">
+    <value>Megjegyzések</value>
+  </data>
+  <data name="AddShipmentDate" xml:space="preserve">
+    <value>Szállítási dátum hozzáadása</value>
+  </data>
+  <data name="ArticleGroups" xml:space="preserve">
+    <value>Cikkcsoportok</value>
+  </data>
+  <data name="OrderSummaryTabTitle" xml:space="preserve">
+    <value>Rendelés áttekintés</value>
+  </data>
+  <data name="OfferSummaryTabTitle" xml:space="preserve">
+    <value>Ajánlat áttekintés</value>
+  </data>
+  <data name="HasUniqueHashError" xml:space="preserve">
+    <value>A lista már tartalmazza a kiválaszott cikket ugyanezzel a szállítási dátummal és minta státusszal.</value>
+  </data>
+  <data name="DeliveryDateRejectMessage" xml:space="preserve">
+    <value>A teljesítés időpontja ütközik egy másik kiszállítással.</value>
+  </data>
+  <data name="ThisOrder" xml:space="preserve">
+    <value>ez a rendelés</value>
+  </data>
+  <data name="ThisOffer" xml:space="preserve">
+    <value>ez az ajánlat</value>
+  </data>
+  <data name="SendOrder" xml:space="preserve">
+    <value>Rendelés küldése</value>
+  </data>
+  <data name="SimpleTab" xml:space="preserve">
+    <value>{OrderSimpleTabTitle}</value>
+  </data>
+  <data name="SummaryTab" xml:space="preserve">
+    <value>{OrderSummaryTabTitle}</value>
+  </data>
+  <data name="TreeTab" xml:space="preserve">
+    <value>{OrderTreeTabTitle}</value>
+  </data>
+  <data name="OrderTab" xml:space="preserve">
+    <value>Rendelés fül</value>
+  </data>
+  <data name="DocumentNo" xml:space="preserve">
+    <value>Dokumentum sorszáma</value>
+  </data>
+  <data name="CrmOrder_Order" xml:space="preserve">
+    <value>Rendelés</value>
+  </data>
+  <data name="CrmOrder_Offer" xml:space="preserve">
+    <value>Ajánlat</value>
+  </data>
+  <data name="CrmOrder_OrderItem" xml:space="preserve">
+    <value>Rendelés elem</value>
+  </data>
+  <data name="OrderItem" xml:space="preserve">
+    <value>Rendelés elem</value>
+  </data>
+  <data name="Permission" xml:space="preserve">
+    <value>Jogosultság</value>
+  </data>
+  <data name="ReallyCloseOrder" xml:space="preserve">
+    <value>Biztosan lezárja a rendelést? További módosításra ezután nem lesz lehetőség.</value>
+  </data>
+  <data name="OrderCategoryKey" xml:space="preserve">
+    <value>Rendelés típusa</value>
+  </data>
+  <data name="Calculation" xml:space="preserve">
+    <value>Kalkuláció</value>
+  </data>
+  <data name="MarginAbsolute" xml:space="preserve">
+    <value>Margó</value>
+  </data>
+  <data name="MarginRelative" xml:space="preserve">
+    <value>Margó %-ban</value>
+  </data>
+  <data name="Subtotal" xml:space="preserve">
+    <value>Részösszeg</value>
+  </data>
+  <data name="AcquisitionPrice" xml:space="preserve">
+    <value>Beszerzési ár</value>
+  </data>
+  <data name="SelectedOptions" xml:space="preserve">
+    <value>Opciók</value>
+  </data>
+  <data name="IsOption" xml:space="preserve">
+    <value>Opcionális</value>
+  </data>
+  <data name="SetIsOption" xml:space="preserve">
+    <value>Hozzáad mint opció</value>
+  </data>
+  <data name="OptionalItems" xml:space="preserve">
+    <value>További opciók</value>
+  </data>
+  <data name="SalesPrice" xml:space="preserve">
+    <value>Eladási ár</value>
+  </data>
+  <data name="AddAlternative" xml:space="preserve">
+    <value>Alternatíva hozzáadása</value>
+  </data>
+  <data name="AcceptAlternative" xml:space="preserve">
+    <value>Alkalmaz</value>
+  </data>
+  <data name="AlternativeSelectionInformation" xml:space="preserve">
+    <value>Alternatíva választás ehhez: {0}</value>
+  </data>
+  <data name="SaveOffer" xml:space="preserve">
+    <value>Ajánlat mentése</value>
+  </data>
+  <data name="SaveOfferHint" xml:space="preserve">
+    <value>Az ajánlatot elmentheti saját beállításaihoz, de hozzá is adhatja egy céghez.</value>
+  </data>
+  <data name="SaveOrder" xml:space="preserve">
+    <value>Rendelés mentése</value>
+  </data>
+  <data name="SaveOrderHint" xml:space="preserve">
+    <value>A rendelést elmentheti saját beállításaihoz, de hozzá is adhatja egy céghez.</value>
+  </data>
+  <data name="LoadOffer" xml:space="preserve">
+    <value>Ajánlat betöltése</value>
+  </data>
+  <data name="LoadOrder" xml:space="preserve">
+    <value>Rendelés betöltése</value>
+  </data>
+  <data name="OwnOffers" xml:space="preserve">
+    <value>Saját ajánlatok</value>
+  </data>
+  <data name="OwnOrders" xml:space="preserve">
+    <value>Saját rendelések</value>
+  </data>
+  <data name="DiscardOffer" xml:space="preserve">
+    <value>Ajánlat eldobása</value>
+  </data>
+  <data name="DiscardOrder" xml:space="preserve">
+    <value>Rendelés eldobása</value>
+  </data>
+  <data name="DiscardOrderConfirmationMessage" xml:space="preserve">
+    <value>Biztosan eldobja a rendelést?</value>
+  </data>
+  <data name="Discarded" xml:space="preserve">
+    <value>Eldobva</value>
+  </data>
+  <data name="DiscardOfferSuccessMessage" xml:space="preserve">
+    <value>Az ajánlat sikeresen eldobva.</value>
+  </data>
+  <data name="DiscardOrderSuccessMessage" xml:space="preserve">
+    <value>A rendelés sikeresen eldobva.</value>
+  </data>
+  <data name="OfferSummaryTitle" xml:space="preserve">
+    <value>Összefoglalás</value>
+  </data>
+  <data name="OfferSummary" xml:space="preserve">
+    <value>A jelenlegi ajánlat összefoglalása</value>
+  </data>
+  <data name="OrderSummaryTitle" xml:space="preserve">
+    <value>Összefoglalás</value>
+  </data>
+  <data name="OrderSummary" xml:space="preserve">
+    <value>A jelenlegi rendelés összefoglalása</value>
+  </data>
+  <data name="CrmOrder_CalculationPosition" xml:space="preserve">
+    <value>Rendelés pozíció (kalkuláció)</value>
+  </data>
+  <data name="CalculationPosition" xml:space="preserve">
+    <value>Rendelés pozíció (kalkuláció)</value>
+  </data>
+  <data name="CalculationPositionType" xml:space="preserve">
+    <value>Kalkuláció típus</value>
+  </data>
+  <data name="HasPurchasePrice" xml:space="preserve">
+    <value>Van vételár?</value>
+  </data>
+  <data name="IsAbsolute" xml:space="preserve">
+    <value>Abszolút</value>
+  </data>
+  <data name="IsDefault" xml:space="preserve">
+    <value>Alapértelmezett</value>
+  </data>
+  <data name="IsDiscount" xml:space="preserve">
+    <value>Árleszállított</value>
+  </data>
+  <data name="CrmOrder_CalculationPositionType" xml:space="preserve">
+    <value>Kalkuláció pozíció típus</value>
+  </data>
+  <data name="OfferEmailText" xml:space="preserve">
+    <value>Kedves Uram / Hölgyem,
+
+Szeretnénk megköszönni érdeklődését a termékünk iránt és küldjük a kért információkat.</value>
+  </data>
+  <data name="OfferText" xml:space="preserve">
+    <value>Kedves Uram / Hölgyem,
+
+Szeretnénk megköszönni érdeklődését a termékünk iránt és küldjük a kért információkat.
+Az Ön ajánlata a következő cikkeket tartalmazza:</value>
+  </data>
+  <data name="OrderEmailText" xml:space="preserve">
+    <value>Kedves Uram / Hölgyem,
+
+Szeretnénk megköszönni érdeklődését a termékünk iránt és küldjük a kért információkat.</value>
+  </data>
+  <data name="OrderText" xml:space="preserve">
+    <value>Kedves Uram / Hölgyem,
+
+Szeretnénk megköszönni érdeklődését a termékünk iránt és küldjük a kért információkat.
+Az Ön rendelése a következő cikkeket tartalmazza:</value>
+  </data>
+  <data name="OfferFooterText" xml:space="preserve">
+    <value>Ha további kérdései vannak, kérjük lépjen kapcsolatba velünk.
+Örülnénk, ha ajánlatunk megfelelne Önnek.
+
+Üdvözlettel</value>
+  </data>
+  <data name="OrderFooterText" xml:space="preserve">
+    <value>Üdvözlettel</value>
+  </data>
+  <data name="HasAccessory" xml:space="preserve">
+    <value>Tartozék elérhető</value>
+  </data>
+  <data name="Accessory" xml:space="preserve">
+    <value>Tartozék</value>
+  </data>
+  <data name="CalculationPositionRemoved" xml:space="preserve">
+    <value>Pozíció eltávolítva</value>
+  </data>
+  <data name="OrderItemRemoved" xml:space="preserve">
+    <value>Pozíció eltávolítva</value>
+  </data>
+  <data name="NoOrderItemDeliveryDate" xml:space="preserve">
+    <value>N/A</value>
+  </data>
+  <data name="OfferFrom" xml:space="preserve">
+    <value>Ajánlat innen</value>
+  </data>
+  <data name="OrderFrom" xml:space="preserve">
+    <value>Rendelés innen</value>
+  </data>
+  <data name="OffersEmptyStateTitle" xml:space="preserve">
+    <value>Nincs ajánlat</value>
+  </data>
+  <data name="OffersEmptyState" xml:space="preserve">
+    <value>Ehhez a céghez még nem készült ajánlat</value>
+  </data>
+  <data name="OrdersEmptyStateTitle" xml:space="preserve">
+    <value>Nincs rendelés</value>
+  </data>
+  <data name="OrdersEmptyState" xml:space="preserve">
+    <value>Ehhez a céghez még nem készült rendelés</value>
+  </data>
+  <data name="TreeViewArticleGroupEmptyState" xml:space="preserve">
+    <value>Ebben a cikkcsoportban nincsenek cikkek</value>
+  </data>
+  <data name="OrderEntryType" xml:space="preserve">
+    <value>Rendelés bejegyzés típus</value>
+  </data>
+  <data name="CrmOrder_OrderEntryType" xml:space="preserve">
+    <value>Rendelés bejegyzés típusok</value>
+  </data>
+  <data name="AllowNegativeQuantities" xml:space="preserve">
+    <value>Negatív mennyiségek engedélyezése</value>
+  </data>
+  <data name="AllowPositiveQuantities" xml:space="preserve">
+    <value>Pozitív mennyiségek engedélyezése</value>
+  </data>
+  <data name="SelectAlternativesFromOffer" xml:space="preserve">
+    <value>Kérem válassza ki, hogy a felajánlott alternatívák közül melyiket használjuk a rendelésben:</value>
+  </data>
+  <data name="SelectOptionalItemsFromOffer" xml:space="preserve">
+    <value>Kérem válassza ki, hogy a felajánlott lehetőségek közül melyiket használjuk a rendelésben:</value>
+  </data>
+  <data name="AddDelivery" xml:space="preserve">
+    <value>Szállítás hozáadása</value>
+  </data>
+  <data name="CrmOrder_OrderStatus" xml:space="preserve">
+    <value>Rendelés státusz</value>
+  </data>
+  <data name="Sending" xml:space="preserve">
+    <value>Küldés</value>
+  </data>
+  <data name="SendAgain" xml:space="preserve">
+    <value>Újraküldés</value>
+  </data>
+  <data name="RecentPage" xml:space="preserve">
+    <value>Legutóbbi oldal</value>
+  </data>
+  <data name="CrmOrder_OrderCategory" xml:space="preserve">
+    <value>Rendelés kategóriák</value>
+  </data>
+  <data name="DiscardOfferConfirmationMessage" xml:space="preserve">
+    <value>Biztosan el akarja dobni ezt a rendelést?</value>
+  </data>
+  <data name="CreateOrderFromOffer" xml:space="preserve">
+    <value>Rendelés létrehozása ajánlatból</value>
+  </data>
+  <data name="OfferItem" xml:space="preserve">
+    <value>Ajánlat elem</value>
+  </data>
+  <data name="PreviewOffer" xml:space="preserve">
+    <value>Ajánlat előnézete</value>
+  </data>
+  <data name="PreviewOrder" xml:space="preserve">
+    <value>Rendelés előnézete</value>
+  </data>
+  <data name="OrderStatusSetTo" xml:space="preserve">
+    <value>A rendelés {0} státuszra változott</value>
+  </data>
+  <data name="ConfirmSendingOffer" xml:space="preserve">
+    <value>Biztosan ki szeretné küldeni az ajánlatot az alábbi adatokkal?</value>
+  </data>
+  <data name="DeleteOfferConfirmation" xml:space="preserve">
+    <value>Biztosan törölni akarja ezt az ajánlatot?</value>
+  </data>
+  <data name="OfferItems" xml:space="preserve">
+    <value>Tételek</value>
+  </data>
+  <data name="NoContactEmailPresent" xml:space="preserve">
+    <value>Nincs megadva kapcsolati E-mail</value>
+  </data>
+  <data name="Warning_NoContactEmailPresent" xml:space="preserve">
+    <value>Kapcsolati E-mail nélkül rendelés nem küldhető el</value>
+  </data>
+  <data name="OrderWillBeSent" xml:space="preserve">
+    <value>{0} hamarosan kiküldésre kerül a címzettnek</value>
+  </data>
+	<data name="VATtype" xml:space="preserve">
+    <value>Áfa típus</value>
+  </data>
+	<data name="TotalPriceWithoutVAT" xml:space="preserve">
+    <value>Teljes ár Áfa nélkül</value>
+  </data>
+	<data name="OnlyVAT" xml:space="preserve">
+    <value>Csak Áfa</value>
+  </data>
+	<data name="TotalPriceWithVAT" xml:space="preserve">
+    <value>Teljes ár Áfával</value>
+  </data>
+	<data name="SalesPriceTaxIncluded" xml:space="preserve">
+    <value>Eladási ár (adót beleértve)</value>
+  </data>
+	<data name="Alternative" xml:space="preserve">
+    <value>Alternatív</value>
+  </data>
+	<data name="RuleViolation.DiscountBiggerThanPrice" xml:space="preserve">
+    <value>Kedvezmény nagyobb, mint az ár</value>
+  </data>
+	<data name="CustomArticleNo" xml:space="preserve">
+    <value>Egyedi cikkszám</value>
+  </data>
+	<data name="DiscountPerPiece" xml:space="preserve">
+    <value>Árengedmény (per darab)</value>
+  </data>
+  <data name="Representative-Usergroup" xml:space="preserve">
+    <value>Képviselő (Felhasználói csoport)</value>
+  </data>
+  <data name="OfferNo" xml:space="preserve">
+    <value>Ajánlat nem.</value>
+  </data>
+	<data name="CopyOffer" xml:space="preserve">
+		<value>Ajánlat másolása</value>
+	</data>
+	<data name="Exported" xml:space="preserve">
+		<value>Exportált</value>
+	</data>
+	<data name="WaitingOnExport" xml:space="preserve">
+		<value>Exportra vár</value>
+	</data>
+	<data name="CrmOrder_OrderCancelReasonCategory" xml:space="preserve">
+		<value>A törölt rendelések kategóriái</value>
+	</data>
+	<data name="T_AdditionalInformation" xml:space="preserve">
+		<value>További információ</value>
+	</data>
+	<data name="CancelOffer" xml:space="preserve">
+		<value>Törölje az ajánlatot</value>
+	</data>
+  <data name="CancelExport" xml:space="preserve">
+    <value>Exportálás megszakítása</value>
+  </data>
+  <data name="ConfirmExportOffer" xml:space="preserve">
+    <value>Biztos benne, hogy exportálni szeretné ezt az ajánlatot?</value>
+  </data>
+  <data name="OfferAlreadyExported" xml:space="preserve">
+    <value>Az ajánlatot már exportálták.</value>
+  </data>
+  <data name="OrderAlreadyExported" xml:space="preserve">
+    <value>A rendelést már exportálták.</value>
+  </data>
+  <data name="ConfirmExportOrder" xml:space="preserve">
+    <value>Biztos benne, hogy exportálni szeretné ezt a rendelést?</value>
+  </data>
+	<data name="CannotCompleteOrder" xml:space="preserve">
+		<value>A rendelés nem teljesíthető</value>
+	</data>
+	<data name="OrderCompleted" xml:space="preserve">
+		<value>Rendelés teljesítve</value>
+	</data>
+</root>

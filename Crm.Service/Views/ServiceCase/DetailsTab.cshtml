@@ -1,0 +1,185 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Modularization.Extensions
+
+<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-details">
+	<pmb-block id="basic-information-pmb" params="icon: 'equalizer', caption: 'BasicInformation', context: { serviceCase: serviceCase }, condition: isEditable(), onAfterSave: (pmbbViewModel) => $root.handleOnAfterSave?.(pmbbViewModel), onSave: (pmbbViewModel) => $root.handleOnSave?.(pmbbViewModel)">
+		<pmbb-view>
+			<!-- ko with: serviceCase -->
+			<!-- ko ifnot: window.Crm.Service.Settings.ServiceCase.ServiceCaseNoIsEditable == false && window.Crm.Service.Settings.ServiceCase.ServiceCaseNoIsGenerated == false && window.Crm.Service.Settings.ServiceCase.ServiceCaseNoIsCreateable == false && ServiceCaseNo() == null -->
+			<pmbb-view-entry params="caption: 'ServiceCaseNo'">
+				<span data-bind="text: ServiceCaseNo"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ServiceCaseNo"></span>
+			</pmbb-view-entry>
+			<!-- /ko -->
+			<pmbb-view-entry params="caption: 'CreateUser'">
+				<span data-bind="userDisplayName: { UserName: ServiceCaseCreateUser, Users: $root.users }"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'CreateDate'">
+				<span data-bind="dateText: ServiceCaseCreateDate"></span>
+			</pmbb-view-entry>
+			<!-- ko if: CompletionDate -->
+			<pmbb-view-entry params="caption: 'CompletionDate'">
+				<span data-bind="dateText: CompletionDate"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'CompletionUser'">
+				<!-- ko if: CompletionUserUser -->
+				<span data-bind="text: Helper.User.getDisplayName(CompletionUserUser)"></span>
+				<!-- /ko -->
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: CompletionUserUser"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'CompletionServiceOrder'">
+				<!-- ko with: CompletionServiceOrder -->
+				<a href="#" data-bind="attr: { href: '#/Crm.Service/ServiceOrder/DetailsTemplate/' + Id() }">
+					<span data-bind="text: Helper.ServiceOrder.getDisplayName($data)"></span>
+				</a>
+				<!-- /ko -->
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: CompletionServiceOrder"></span>
+			</pmbb-view-entry>
+			<!-- /ko -->
+			<pmbb-view-entry params="caption: 'Station'">
+				<!-- ko with: Station -->
+					<span data-bind="text: Name"></span>
+				<!-- /ko -->
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: Station"></span>
+			</pmbb-view-entry>
+			<!-- ko requiredPermission: { name: 'ServiceObject', group: 'WebAPI' } -->
+			<pmbb-view-entry params="caption: 'ServiceObject'">
+				<!-- ko with: ServiceObject -->
+				<a href="#" data-bind="attr: { href: '#/Crm.Service/ServiceObject/DetailsTemplate/' + Id() }">
+					<span data-bind="text: Helper.ServiceObject.getDisplayName($data)"></span>
+				</a>
+				<!-- /ko -->
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ServiceObject"></span>
+			</pmbb-view-entry>
+			<!-- /ko -->
+			<pmbb-view-entry params="caption: 'AffectedCompany'">
+				<!-- ko with: AffectedCompany -->
+				<a href="#" data-bind="attr: { href: '#/Main/Company/DetailsTemplate/' + Id() }">
+					<span data-bind="text: Helper.Company.getDisplayName($data)"></span>
+				</a>
+				<!-- /ko -->
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: AffectedCompany"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'ContactPerson'">
+				<!-- ko with: ContactPerson -->
+				<a href="#" data-bind="attr: { href: '#/Main/Person/DetailsTemplate/' + Id() }">
+					<span data-bind="text: Helper.Person.getDisplayName($data)"></span>
+				</a>
+				<!-- /ko -->
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ContactPerson"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'AffectedInstallation'">
+				<!-- ko with: AffectedInstallation -->
+				<a href="#" data-bind="attr: { href: '#/Crm.Service/Installation/DetailsTemplate/' + Id() }">
+					<span data-bind="text: Helper.Installation.getDisplayName($data)"></span>
+				</a>
+				<!-- /ko -->
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: AffectedInstallation"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'OriginatingServiceOrder'">
+				<!-- ko with: OriginatingServiceOrder -->
+				<a href="#" data-bind="attr: { href: '#/Crm.Service/ServiceOrder/DetailsTemplate/' + Id() }">
+					<span data-bind="text: OrderNo"></span>
+				</a>
+				<!-- /ko -->
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: OriginatingServiceOrder"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'OriginatingServiceOrderTime'">
+				<!-- ko with: OriginatingServiceOrderTime -->
+				<a href="#" data-bind="attr: { href: '#/Crm.Service/ServiceOrder/DetailsTemplate/' + OrderId() }">
+					<span data-bind="text: Helper.ServiceOrderTime.getAutocompleteDisplay($data)"></span>
+				</a>
+				<!-- /ko -->
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: OriginatingServiceOrderTime"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'Skills'">
+                <!-- ko if: RequiredSkillKeys().length > 0 -->
+                <span data-bind="text: $root.getSkillsFromKeys(RequiredSkillKeys()).map(function(x){ return x.text; }).join(', ')"></span>
+                <!-- /ko -->
+                <span class="c-gray" data-bind="translatedText: 'Unspecified', if: RequiredSkillKeys().length === 0"></span>
+            </pmbb-view-entry>
+			@Html.PluginRenderActions("ServiceCaseDetailsBasicInformationView")
+			<!-- /ko -->
+		</pmbb-view>
+		<pmbb-edit>
+			<!-- ko with: serviceCase -->
+			<!-- ko ifnot: (window.Crm.Service.Settings.ServiceCase.ServiceCaseNoIsEditable == false && window.Crm.Service.Settings.ServiceCase.ServiceCaseNoIsGenerated == false && window.Crm.Service.Settings.ServiceCase.ServiceCaseNoIsCreateable == false && ServiceCaseNo() == null) || (window.Helper.Offline !== undefined ? window.Helper.Offline.status=='offline' : false) -->
+			<pmbb-edit-entry params="caption: 'ServiceCaseNo', validationElement: ServiceCaseNo">
+				<input type="text" id="ServiceCaseNo" class="form-control" data-bind="value: ServiceCaseNo, disable: window.Crm.Service.Settings.ServiceCase.ServiceCaseNoIsEditable == false">
+			</pmbb-edit-entry>
+			<!-- /ko -->
+			<pmbb-edit-entry params="caption: 'Station', validationElement: StationKey">
+				<select class="form-control" data-bind="select2autocompleter: { data: StationKey, autocompleteOptions: { orderBy: ['Name'], table: 'Main_Station', customFilter: Helper.Station.getSelect2Filter.bind($data), mapDisplayObject: Helper.Station.mapForSelect2Display, onSelect: Helper.Station.onSelect.bind($parent,$data), placeholder: $parent.placeholder } }">
+			</select>
+			</pmbb-edit-entry>
+			<!-- ko requiredPermission: { name: 'ServiceObject', group: 'WebAPI' } -->
+			<pmbb-edit-entry params="caption: 'ServiceObject', validationElement: ServiceObjectId">
+				<select class="form-control" data-bind="select2autocompleter: { data: ServiceObjectId, autocompleteOptions: { orderBy: ['ObjectNo', 'Name'], table: 'CrmService_ServiceObject', mapDisplayObject: Helper.ServiceObject.mapForSelect2Display, placeholder: $parent.placeholder, onSelect: function(value) { ServiceObject(value ? value.asKoObservable() : null); } } }"></select>
+			</pmbb-edit-entry>
+			<!-- /ko -->
+			<pmbb-edit-entry params="caption: 'AffectedCompany', validationElement: AffectedCompanyKey">
+				<select class="form-control" data-bind="select2autocompleter: { data: AffectedCompanyKey, autocompleteOptions: { orderBy: ['Name'], table: 'Main_Company', mapDisplayObject: Helper.Company.mapForSelect2Display, customFilter: Helper.Company.getSelect2Filter.bind($data), onSelect: $root.onAffectedCompanySelect.bind($data), placeholder: $parent.placeholder } }"></select>
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'ContactPerson', validationElement: ContactPersonId">
+				<select class="form-control" data-bind="select2autocompleter: { data: ContactPersonId, autocompleteOptions: { orderBy: ['Surname', 'Firstname'], table: 'Main_Person', customFilter: $root.contactPersonFilter.bind($data), mapDisplayObject: Helper.Person.mapForSelect2Display, onSelect: $root.onContactPersonSelect.bind($data), placeholder: $parent.placeholder } }, disable: !AffectedCompanyKey()"></select>
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'AffectedInstallation', validationElement: AffectedInstallationKey">
+				<select class="form-control" data-bind="select2autocompleter: { data: AffectedInstallationKey, autocompleteOptions: { orderBy: ['InstallationNo', 'Description'], table: 'CrmService_Installation', customFilter: $root.installationFilter.bind($parentContext.$parentContext.$parentContext.$parent.editContext()), mapDisplayObject: Helper.Installation.mapForSelect2Display, onSelect: $root.onAffectedInstallationSelect.bind($data), placeholder: $parent.placeholder } }"></select>
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'OriginatingServiceOrder', validationElement: OriginatingServiceOrderId">
+				<select class="form-control" data-bind="select2autocompleter: { data: OriginatingServiceOrderId, autocompleteOptions: { orderBy: ['OrderNo', 'ErrorMessage'], table: 'CrmService_ServiceOrderHead', customFilter: $root.serviceOrderFilter.bind($root), mapDisplayObject: Helper.ServiceOrder.mapForSelect2Display, onSelect: $root.onSelectOriginatingServiceOrder.bind($parentContext.$parentContext.$parentContext.$parent.editContext()), placeholder: $parent.placeholder } }"></select>
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'OriginatingServiceOrderTime', validationElement: OriginatingServiceOrderTimeId">
+				<select class="form-control" data-bind="select2autocompleter: { data: OriginatingServiceOrderTimeId, autocompleteOptions: { orderBy: ['PosNo'], table: 'CrmService_ServiceOrderTime', customFilter: $root.serviceOrderTimeFilter.bind($parentContext.$parentContext.$parentContext.$parent.editContext()), mapDisplayObject: Helper.ServiceOrderTime.mapForSelect2Display, placeholder: $parent.placeholder, onSelect: function(value) { OriginatingServiceOrderTime(value ? value.asKoObservable() : null); } } }, disable: !$data.OriginatingServiceOrderId()"></select>
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'Skills'">
+				<select class="form-control" multiple="multiple" data-bind="select2autocompleter: { data: $root.serviceCase().RequiredSkillKeys, autocompleteOptions: { table: 'Main_Skill', customFilter: Helper.Lookup.queryLookup, mapDisplayObject: Helper.Lookup.mapLookupForSelect2Display, getElementByIdQuery: Helper.Lookup.getLookupByKeyQuery, placeholder: $parent.placeholder } }">
+				</select>
+			</pmbb-edit-entry>
+			@Html.PluginRenderActions("ServiceCaseDetailsBasicInformationEdit")
+			<!-- /ko -->
+		</pmbb-edit>
+	</pmb-block>
+	<statisticskey-info params="entity: serviceCase, condition: isEditable"></statisticskey-info>
+	<pmb-block params="icon: 'equalizer', caption: 'ExtendedInformation', context: { serviceCase: serviceCase }, condition: isEditable()">
+		<pmbb-view>
+			<!-- ko with: serviceCase -->
+			<pmbb-view-entry params="caption: 'ErrorMessage'">
+				<span data-bind="text: { value: ErrorMessage, expand: true }"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ErrorMessage"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'Priority'">
+				<span data-bind="if: PriorityKey, lookupValue: PriorityKey, lookups: $root.lookups.servicePriorities"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: PriorityKey"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'ServiceCaseCategory'">
+				<span data-bind="if: CategoryKey, lookupValue: CategoryKey, lookups: $root.lookups.serviceCaseCategories"></span>
+				<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: CategoryKey"></span>
+			</pmbb-view-entry>
+			<pmbb-view-entry params="caption: 'ResponsibleUser'">
+				<span data-bind="text: Helper.User.getDisplayName(ResponsibleUserUser)"></span>
+			</pmbb-view-entry>
+			@Html.PluginRenderActions("ServiceCaseDetailsExtendedInformationView")
+			<!-- /ko -->
+		</pmbb-view>
+		<pmbb-edit>
+			<!-- ko with: serviceCase -->
+			<pmbb-edit-entry params="caption: 'ErrorMessage', validationElement: ErrorMessage">
+				<input type="text" class="form-control" data-bind="value: ErrorMessage">
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'Priority', validationElement: PriorityKey">
+				<select class="form-control" data-bind="select2autocompleter: { data: PriorityKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_ServicePriority'), placeholder: $parent.placeholder }"></select>
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'ServiceCaseCategory', validationElement: CategoryKey">
+				<select class="form-control" data-bind="select2autocompleter: { data: CategoryKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_ServiceCaseCategory'), placeholder: $parent.placeholder }"></select>
+			</pmbb-edit-entry>
+			<pmbb-edit-entry params="caption: 'ResponsibleUser', validationElement: ResponsibleUser">
+				<select class="form-control" data-bind="select2autocompleter: { data: ResponsibleUser, autocompleteOptions: { orderBy: ['LastName'], table: 'Main_User', mapDisplayObject: Helper.User.mapForSelect2Display, customFilter: Helper.User.filterUserQuery, onSelect: $root.onRensponsibleUserSelect.bind($data), placeholder: $parent.placeholder } }"></select>
+			</pmbb-edit-entry>
+			<!-- /ko -->
+			@Html.PluginRenderActions("ServiceCaseDetailsExtendedInformationEdit")
+		</pmbb-edit>
+	</pmb-block>
+	@Html.PluginRenderActions("ServiceCaseDetailsTabExtensions")
+	@Html.PluginRenderActions("ContactMaterialDetailsTabExtensions")
+</div>

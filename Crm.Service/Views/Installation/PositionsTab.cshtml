@@ -1,0 +1,87 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-positions" data-bind="with: tabs()['tab-positions']">
+	<div class="card-header generic-list-header">
+		<div class="row">
+			<!-- ko if: levelPage() > 0 && !loading()-->
+			<div id="return-to-tree-view" class="lv-avatar bgm-gray m-l-20 m-r-0 search-back col-xs-2" data-bind="click: backToPreviousView">
+				<a href="#" class=" c-white" data-bind="tooltip: true" title="@(Html.Localize("Back"))">
+					<i class="zmdi zmdi-arrow-back"></i>
+				</a>
+			</div>
+
+			<ol class="breadcrumb  p-t-0 m-b-0 m-t-5 p-l-20 col-xs-9" style=" border-bottom: 0px;">
+				<!-- ko foreach: parents-->
+				<li class="breadcrumb-item" data-bind="tabBreadcrumd:{text: ItemNo()+' - '+Description(), index: $index(), length: $parent.parents().length, position: $data},tooltip: true">
+				</li>
+				<!-- /ko -->
+			</ol>
+			<!-- /ko -->
+			<ul class="actions text-capitalize col-xs-1 m-t-15" data-bind="css: { 'actions-alt' : selectedItems().length > 0 }">
+				<!-- ko if: bookmarks().length > 0 && items().length>0 -->
+				<li id="bookmark-dropdown" class="dropdown" style="position: absolute; right: 20%; margin-right: 30%;">
+					<a href="#" data-toggle="dropdown" aria-expanded="true">
+						<i class="zmdi zmdi-bookmark" style=" padding-right: 30px;"></i>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-right" data-bind="foreach: bookmarks.indexKeys.Category()">
+						<li role="presentation" class="dropdown-header pull-right" data-bind="text: $data"></li>
+						<!-- ko foreach: $parent.bookmarks.index.Category()[$data] -->
+						<li data-bind="attr: { 'class': $data.Key.toLowerCase() + '-filter' }, css: { 'active': $parentContext.$parent.bookmark() === $data }">
+							<a href="#" data-bind="click: $parentContext.$parent.toggleBookmark.bind($parentContext.$parent, $data, null)">
+								<span data-bind="text: Name"></span>
+							</a>
+						</li>
+						<!-- /ko -->
+					</ul>
+				</li>
+				<li id="close-expand-all" style="position: absolute; right: 0;">
+					<a href="#" data-toggle="dropdown" aria-expanded="true">
+						<i class="zmdi zmdi-more-vert"></i>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-right">
+						<li>
+							<a href="#" data-bind="click: $root.tabs()['tab-positions']().expandAllPositions.bind($root.tabs()['tab-positions']())">
+									@(Html.Localize("ExpandAll"))
+							</a>
+						</li>
+						<li>
+							<a href="#" data-bind="click: $root.tabs()['tab-positions']().closeAllPositions.bind($root.tabs()['tab-positions']())">
+									@(Html.Localize("CollapseAll"))
+							</a>
+						</li>
+					</ul>
+				</li>
+				<!-- /ko -->
+			</ul>
+		</div>
+
+
+	</div>
+	<empty-state-box params="mood: 'sad', title: 'Material', text: 'NoInstallationPositionsInfo'" data-bind="visible: items().length === 0">
+	</empty-state-box>
+	@Html.PluginRenderActions("MaterialGenericListResourceExtensions")
+	<div class="generic-list listview lv-bordered">
+		<div class="panel-group m-b-5 p-r-10" id="position-group-accordion" role="tablist" aria-multiselectable="true">
+			@await Html.PartialAsync("../InstallationPositionList/MaterialItemTemplate")
+			<div class="lv-body" data-bind="visible: !loading()">
+
+				<!-- ko template: { name: 'position-group-template', foreach: items } -->
+				<!-- /ko -->
+			</div>
+		</div>
+	</div>
+	<!-- ko if: (levelPage()===0 || ( levelPage()>0 && !!$parent.Article)) && !loading()-->
+	@await Html.PartialAsync("../InstallationPositionList/InstallationPositionsMaterialPaging")
+	<!-- /ko -->
+	<floating-action-button>
+		<!-- ko requiredPermission: { name: 'Create', group: 'InstallationPosition' } -->
+		<li data-bind="with: $root">
+			<a id="add-installation-position" href="#" data-mfb-label="@(Html.Localize("AddInstallationPosition"))" data-route="Crm.Service/InstallationPosition/EditTemplate/?installationId={{$root.installation().Id()}}" data-toggle="modal" data-target="#lgModal">
+				<i class="zmdi zmdi-plus"></i>
+			</a>
+		</li>
+		<!-- /ko -->
+	</floating-action-button>
+</div>

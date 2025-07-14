@@ -1,0 +1,164 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Extensions
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div class="container">
+	<div class="card">
+		<div class="card-header ch-alt" data-bind="with: serviceContract">
+			<h2>@(Html.Localize("CreateServiceContract"))</h2>
+		</div>
+		<div class="card-body card-padding">
+			<form role="form" data-bind="with: serviceContract">
+				<fieldset>
+					<legend class="m-b-25 c-black b-0 f-500 f-14">
+						@(Html.Localize("BasicInformation"))
+					</legend>
+					<!-- ko if : window.Crm.Service.Settings.ServiceContract.ServiceContractNoIsCreateable && (!window.Helper.Offline || window.Helper.Offline.status === 'online') -->
+					<div class="form-group" data-bind="validationElement: Name" title="">
+						<div class="fg-line">
+							<label class="fg-label control-label" data-bind="visible: 'Name'">
+								<span>@Html.Localize("ContractNo")</span>
+							</label>
+							<input type="text" class="form-control fg-input" name="ContractNo" data-bind="value: Name, attr: { maxlength: 20}">
+						</div>
+						<small class="help-block pre-line" data-bind="validationMessage: Name" style="display: none;"></small>
+					</div>
+					<!-- /ko -->
+					<div class="row">
+						<div class="col-md-3">
+							<form-element id="ContractTypeKey" params="value: ContractTypeKey, caption: 'ServiceContractType', type: 'select2'">
+								<select class="form-control" data-bind="select2autocompleter: { data: value, default: Helper.Lookup.getLookupValue($root.lookups.serviceContractTypes, value), autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_ServiceContractType'), placeholder: placeholder}">
+								</select>
+							</form-element>
+						</div>
+						<div class="col-md-3">
+							<form-element id="StatusKey" params="value: StatusKey, caption: 'Status', type: 'select2'">
+								<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_ServiceContractStatus'), placeholder: placeholder}">
+								</select>
+							</form-element>
+						</div>
+						<div class="col-md-6">
+							<form-element params="value: ExternalReference, caption: 'ExternalReference', type: 'text'"></form-element>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<form-element params="value: ValidFrom, caption: 'ValidFrom', type: 'datePicker'"></form-element>
+						</div>
+						<div class="col-md-6">
+							<form-element params="value: ValidTo, caption: 'ValidTo', type: 'datePicker'"></form-element>
+						</div>
+					</div>
+					<!-- ko requiredPermission: { name: 'ServiceObject', group: 'WebAPI' } -->
+					<form-element id="ServiceObjectId" params="value: ServiceObjectId, caption: 'ServiceObject', type: 'select2'">
+						<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['ObjectNo'], table: 'CrmService_ServiceObject', mapDisplayObject: Helper.ServiceObject.mapForSelect2Display, placeholder: placeholder } }">
+						</select>
+					</form-element>
+					<!-- /ko -->
+					<form-element id="ParentId" params="value: ParentId, caption: 'BusinessPartner', type: 'select2'">
+						<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name'], table: 'Main_Company', mapDisplayObject: Helper.Company.mapForSelect2Display, customFilter: Helper.Company.getSelect2Filter.bind($data), placeholder: placeholder } }">
+						</select>
+					</form-element>
+					@Html.PluginRenderActions("CreateServiceContractFormBasicInformation")
+				</fieldset>
+				<fieldset>
+					<legend class="p-t-25 m-b-25 c-black b-0 f-500 f-14">
+						@(Html.Localize("Payer"))
+					</legend>
+					<form-element id="PayerId" params="value: PayerId, caption: 'Company', type: 'select2'">
+						<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name'], table: 'Main_Company', mapDisplayObject: Helper.Company.mapForSelect2Display, customFilter: Helper.Company.getSelect2Filter.bind($data), onSelect: $root.onSelectPayer.bind($parent), placeholder: placeholder } }">
+						</select>
+					</form-element>
+					<form-element id="PayerAddressId" params="value: PayerAddressId, caption: 'Address', type: 'select2', disable: !PayerId()">
+						<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name1', 'Name2', 'Name3', 'ZipCode', 'City', 'Street'], table: 'Main_Address', customFilter: $root.payerAddressFilter.bind($parent), mapDisplayObject: Helper.Address.mapForSelect2Display, placeholder: placeholder, onSelect: function(value) { $parent.PayerAddress(value ? value.asKoObservable() : null); } } }, disable: disable">
+						</select>
+					</form-element>
+					@Html.PluginRenderActions("CreateServiceContractFormPayer")
+				</fieldset>
+				<fieldset>
+					<legend class="p-t-25 m-b-25 c-black b-0 f-500 f-14">
+						@(Html.Localize("InvoiceRecipient"))
+					</legend>
+					<form-element id="InvoiceRecipientId" params="value: InvoiceRecipientId, caption: 'Company', type: 'select2'">
+						<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name'], table: 'Main_Company', mapDisplayObject: Helper.Company.mapForSelect2Display, customFilter: Helper.Company.getSelect2Filter.bind($data), onSelect: $root.onSelectInvoiceRecipient.bind($parent), placeholder: placeholder } }">
+						</select>
+					</form-element>
+					<form-element id="InvoiceAddressKey" params="value: InvoiceAddressKey, caption: 'Address', type: 'select2', disable: !InvoiceRecipientId()">
+						<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name1', 'Name2', 'Name3', 'ZipCode', 'City', 'Street'], table: 'Main_Address', customFilter: $root.invoiceAddressFilter.bind($parent), mapDisplayObject: Helper.Address.mapForSelect2Display, placeholder: placeholder, onSelect: function(value) { $parent.InvoiceAddress(value ? value.asKoObservable() : null); } } }, disable: disable">
+						</select>
+					</form-element>
+					@Html.PluginRenderActions("CreateServiceContractFormInvoiceRecipient")
+				</fieldset>
+				<fieldset>
+					<legend class="p-t-25 m-b-25 c-black b-0 f-500 f-14">
+						@(Html.Localize("InvoiceConditions"))
+					</legend>
+					<div class="row">
+						<div class="col-md-3">
+							<form-element params="value: Price, caption: 'Price', type: 'number', quantityStep: 100"></form-element>
+						</div>
+						<div class="col-md-3">
+							<form-element id="PriceCurrencyKey" params="value: PriceCurrencyKey, caption: 'Currency', type: 'select2'">
+								<select class="form-control" data-bind="select2autocompleter: { data: value, default: Helper.Lookup.getLookupValue($root.lookups.currencies, value), autocompleteOptions: Helper.Lookup.getAutocompleteOptions('Main_Currency'), placeholder: placeholder}">
+								</select>
+							</form-element>
+						</div>
+						<div class="col-md-3">
+							<form-element params="value: NoPaymentsUntil, caption: 'NoPaymentsUntil', type: 'datePicker'"></form-element>
+						</div>
+						<div class="col-md-3">
+							<form-element params="value: PriceGuaranteedUntil, caption: 'PriceGuaranteedUntil', type: 'datePicker'"></form-element>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3">
+							<form-element id="PaymentTypeKey" params="value: PaymentTypeKey, caption: 'PaymentType', type: 'select2'">
+								<select class="form-control" data-bind="select2autocompleter: { data: value, default: Helper.Lookup.getLookupValue($root.lookups.paymentTypes, value), autocompleteOptions: Helper.Lookup.getAutocompleteOptions('Main_PaymentType'), placeholder: placeholder}">
+								</select>
+							</form-element>
+						</div>
+						<div class="col-md-3">
+							<form-element id="PaymentIntervalKey" params="value: PaymentIntervalKey, caption: 'PaymentInterval', type: 'select2'">
+								<select class="form-control" data-bind="select2autocompleter: { data: value, default: Helper.Lookup.getLookupValue($root.lookups.paymentIntervals, value), autocompleteOptions: Helper.Lookup.getAutocompleteOptions('Main_PaymentInterval'), placeholder: placeholder}">
+								</select>
+							</form-element>
+						</div>
+						<div class="col-md-3">
+							<form-element id="PaymentConditionKey" params="value: PaymentConditionKey, caption: 'PaymentCondition', type: 'select2'">
+								<select class="form-control" data-bind="select2autocompleter: { data: value, default: Helper.Lookup.getLookupValue($root.lookups.paymentConditions, value), autocompleteOptions: Helper.Lookup.getAutocompleteOptions('Main_PaymentCondition'), placeholder: placeholder}">
+								</select>
+							</form-element>
+						</div>
+					</div>
+					<form-element params="value: InvoiceSpecialConditions, caption: 'InvoiceSpecialConditions', type: 'textarea'"></form-element>
+					<form-element params="value: InternalInvoiceInformation, caption: 'InternalInvoiceInformation', type: 'textarea'"></form-element>
+					@Html.PluginRenderActions("CreateServiceContractFormInvoiceConditions")
+				</fieldset>
+				<fieldset>
+					<legend class="p-t-25 m-b-25 c-black b-0 f-500 f-14">
+						@(Html.Localize("ExtendedInformation"))
+					</legend>
+					<form-element params="value: BackgroundInfo, caption: 'BackgroundInfo', type: 'textarea'"></form-element>
+					<form-element id="ResponsibleUser" params="value: ResponsibleUser, caption: 'ResponsibleUser', type: 'select2'">
+						<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['LastName'], table: 'Main_User', mapDisplayObject: Helper.User.mapForSelect2Display, customFilter: Helper.User.filterUserQuery, placeholder: $parent.placeholder } }">
+						</select>
+					</form-element>
+					@Html.PluginRenderActions("CreateServiceContractFormExtendedInformation")
+				</fieldset>
+				@Html.PluginRenderActions("CreateServiceContractForm")
+				<!-- ko requiredPermission: { name: 'Edit', group: 'Visibility' } -->
+				<fieldset>
+					<legend class="p-t-25 m-b-25 c-black b-0 f-500 f-14">
+						@(Html.Localize("Visibility"))
+					</legend>
+					<!-- ko with: $root.visibilityViewModel -->
+					@Html.RenderAction("Selection", "Visibility")
+					<!-- /ko -->
+				</fieldset>
+				<!-- /ko -->
+			</form>
+		</div>
+		@await Html.PartialAsync("CreateFormFooter")
+	</div>
+</div>

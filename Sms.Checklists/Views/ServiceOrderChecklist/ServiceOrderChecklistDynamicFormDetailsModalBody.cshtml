@@ -1,0 +1,52 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div class="row">
+	<div class="col-xs-6">
+		<!-- ko with: serviceOrder -->
+		<div>
+			<span class="f-700" data-bind="translatedText: 'Customer'"></span>:
+			<span data-bind="text: Helper.Company.getDisplayName(Company())"></span>
+		</div>
+		<div>
+			<span class="f-700" data-bind="translatedText: 'Address'"></span>:
+			<span data-bind="text: Street() + ',', visible: Street"></span>
+			<span data-bind="text: (ZipCode() || '') + ' ' + (City() || '')"></span>
+		</div>
+		<div>
+			<span class="f-700" data-bind="translatedText: 'ResponsibleUser'"></span>:
+			<span data-bind="text: Helper.User.getDisplayName(ResponsibleUserUser())"></span>
+		</div>
+		<!-- ko if: window.Crm.Service.Settings.ServiceContract.MaintenanceOrderGenerationMode === 'OrderPerInstallation' -->
+		<!-- ko with: Installation -->
+		<div>
+			<span class="f-700" data-bind="translatedText: 'Installation'"></span>:
+			<span data-bind="text: Helper.Installation.getDisplayName($data)"></span>
+		</div>
+		<!-- /ko -->
+		<!-- /ko -->
+		<!-- /ko -->
+		<!-- ko if: window.Crm.Service.Settings.ServiceContract.MaintenanceOrderGenerationMode === 'JobPerInstallation' && formReference().ServiceOrderTime() -->
+		<!-- ko with: formReference().ServiceOrderTime() -->
+		<div>
+			<span class="f-700" data-bind="translatedText: 'ServiceOrderTime'"></span>:
+			<span data-bind="text: PosNo"></span>
+			<!-- ko if: Description() -->
+			<span data-bind="text: Description"></span>
+			<!-- /ko -->
+			<!-- ko if: Installation() -->
+			<div>
+				<span class="f-700" data-bind="translatedText: 'Installation'"></span>:
+				<span data-bind="text: Helper.Installation.getDisplayName($data.Installation())"></span>
+			</div>
+			<!-- /ko -->
+		</div>
+		<!-- /ko -->
+		<!-- /ko -->
+	</div>
+	<div class="col-xs-6">
+		<!-- ko with: serviceOrder -->
+		<h2 class="text-right" data-bind="translatedText: 'OrderNo'"></h2>
+		<h4 class="text-right c-gray" data-bind="text: OrderNo"></h4>
+		<!-- /ko -->
+	</div>
+</div>

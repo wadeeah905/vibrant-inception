@@ -1,0 +1,5 @@
+1- Execute the Synonyms script found in folder "Synonyms"
+2- Execute all the sp scripts found in folder "Procedures"
+3- Execute all the scripts found in folder "Functions"
+4- Execute sll the scripts found in folder "OneTime"
+5- Run/Schedule the execution of the batch file

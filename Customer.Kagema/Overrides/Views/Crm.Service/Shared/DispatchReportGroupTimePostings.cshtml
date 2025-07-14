@@ -1,0 +1,141 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Offline.Extensions
+@using Crm.Service.Rest.Model
+
+<table class="table" data-bind="visible: $parent.showTimePostingsTable($data)">
+	<thead>
+		<tr>
+			<th class="bgm-bluegray col-xs-3">
+				<span class="c-white" data-bind="translatedText: { key: 'Date', language: $parent.selectedLanguage }">@(Html.Localize("Date"))</span>
+			</th>
+			<th class="bgm-bluegray col-xs-2">
+				<span class="c-white" data-bind="translatedText: { key: 'Article', language: $parent.selectedLanguage }">@(Html.Localize("Article"))</span>
+			</th>
+			<th class="bgm-bluegray col-xs-6">
+				<span class="c-white" data-bind="translatedText: { key: 'Activity', language: $parent.selectedLanguage }">@(Html.Localize("Activity"))</span>
+			</th>
+			<th class="bgm-bluegray col-xs-1 text-right">
+				<span class="c-white" data-bind="translatedText: { key: 'Duration', language: $parent.selectedLanguage }">@(Html.Localize("Duration"))</span>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@using (Html.TemplateCondition("ServiceOrderTimePostings.length === 0"))
+		{
+			<tr>
+				<td colspan="4" data-bind="translatedText: { key: 'NoUsedTimes', language: $parent.selectedLanguage }">
+					@(Html.Localize("NoUsedTimes"))
+				</td>
+			</tr>
+		}
+		@using (Html.TemplateContext("$parent.filterPositions($data, 'Time')"))
+		{
+			@using (Html.TemplateForEach("$data"))
+			{
+
+				@using (Html.TemplateCondition("$data.Article && $data.Article()"))
+				{
+                    @using (Html.TemplateCondition("window.ko.unwrap($data.Article().ExtensionValues).ShowDistanceInput() == false && window.ko.unwrap($data.Article().ExtensionValues).lumpsum() == false "))
+					{
+						<tr>
+							<td class="col-xs-2">
+								<div>
+									<b>
+										@(
+																	Html.TemplateDate<ServiceOrderTimePostingRest>(x => x.Date)
+																	)
+									</b>
+								</div>
+								<div data-bind="text: $parentContext.$parentContext.$parent.lookups.timePostingUserDisplayNames[ko.unwrap($data.Username)]"></div>
+								<div>
+									@Html.Raw(string.Format("{0} - {1}", Html.TemplateTime<ServiceOrderTimePostingRest>(x => x.From), Html.TemplateTime<ServiceOrderTimePostingRest>(x => x.To)))
+								</div>
+							</td>
+							<td class="col-xs-2">
+								<b>
+									@(
+																Html.TemplateText<ServiceOrderTimePostingRest>(x => x.ItemNo)
+																)
+								</b>
+							</td>
+							<td class="col-xs-7">
+								<div>
+									<b data-bind="text: $parentContext.$parentContext.$parent.lookups.articleDescriptions[ko.unwrap($data.ItemNo)]"></b>
+								</div>
+								<div data-bind="text: Description"></div>
+								<div data-bind="visible: Kilometers() !== null">
+									<span data-bind="translatedText: { key: 'Kilometers', language: $parentContext.$parentContext.$parent.selectedLanguage }">
+										@(
+																	Html.Localize("Kilometers")
+																	)
+									</span>: <span data-bind="text: Kilometers"></span>
+								</div>
+							</td>
+							<td class="col-xs-1 text-right">
+								<b><span data-bind="durationText: Duration"></span></b>&nbsp;<span data-bind="translatedText: { key: 'HourAbbreviation', language: $parentContext.$parentContext.$parent.selectedLanguage }">
+									@(
+																Html.Localize("HourAbbreviation")
+																)
+								</span>
+							</td>
+						</tr>
+					}
+					@using (Html.TemplateCondition("window.ko.unwrap($data.Article().ExtensionValues).ShowDistanceInput() == true && window.ko.unwrap($root.serviceOrder().ExtensionValues).TravelFlateRate() == false"))
+					{
+						<tr>
+							<td class="col-xs-2">
+								<div>
+									<b>
+										@(
+																	Html.TemplateDate<ServiceOrderTimePostingRest>(x => x.Date)
+																	)
+									</b>
+								</div>
+								<div data-bind="text: $parentContext.$parentContext.$parent.lookups.timePostingUserDisplayNames[ko.unwrap($data.Username)]"></div>
+								<div>
+									@Html.Raw(string.Format("{0} - {1}", Html.TemplateTime<ServiceOrderTimePostingRest>(x => x.From), Html.TemplateTime<ServiceOrderTimePostingRest>(x => x.To)))
+								</div>
+							</td>
+							<td class="col-xs-2">
+								<b>
+									@(
+																Html.TemplateText<ServiceOrderTimePostingRest>(x => x.ItemNo)
+																)
+								</b>
+							</td>
+							<td class="col-xs-7">
+								<div>
+									<b data-bind="text: $parentContext.$parentContext.$parent.lookups.articleDescriptions[ko.unwrap($data.ItemNo)]"></b>
+								</div>
+								<div data-bind="text: Description"></div>
+								<div data-bind="visible: Kilometers() !== null">
+									<span data-bind="translatedText: { key: 'Kilometers', language: $parentContext.$parentContext.$parent.selectedLanguage }">
+										@(
+																	Html.Localize("Kilometers")
+																	)
+									</span>: <span data-bind="text: Kilometers"></span>
+								</div>
+							</td>
+							<td class="col-xs-1 text-right">
+								<b><span data-bind="durationText: Duration"></span></b>&nbsp;<span data-bind="translatedText: { key: 'HourAbbreviation', language: $parentContext.$parentContext.$parent.selectedLanguage }">
+									@(
+																Html.Localize("HourAbbreviation")
+																)
+								</span>
+							</td>
+						</tr>
+					}
+				}
+			}
+			@using (Html.TemplateContext("{ types: $parentContext.$parent.getLumpSumPositionTypes($parent), language: $parentContext.$parent.selectedLanguage }"))
+			{
+				@using (Html.TemplateCondition("types.Time"))
+				{
+					<tr>
+						<td colspan="4" data-bind="translatedText: { key: 'ContainsLumpSumPositions', args: [Helper.String.getTranslatedString('Times')], language: language }"></td>
+					</tr>
+				}
+			}		}
+	</tbody>
+</table>

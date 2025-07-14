@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    Microsoft ResX Schema
+
+    Version 2.0
+
+    The primary goals of this format is to allow a simple XML format
+    that is mostly human readable. The generation and parsing of the
+    various data types are done through the TypeConverter classes
+    associated with the data types.
+
+    Example:
+
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+
+    There are any number of "resheader" rows that contain simple
+    name/value pairs.
+
+    Each data row contains a name, and value. The row also contains a
+    type or mimetype. Type corresponds to a .NET class that support
+    text/value conversion through the TypeConverter architecture.
+    Classes that don't support this are serialized and stored with the
+    mimetype set.
+
+    The mimetype is used for serialized objects, and tells the
+    ResXResourceReader how to depersist the object. This is currently not
+    extensible. For a given mimetype the value must be set accordingly:
+
+    Note - application/x-microsoft.net.object.binary.base64 is the format
+    that the ResXResourceWriter will generate, however the reader can
+    read any of the formats listed below.
+
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddPossibleAim" xml:space="preserve">
+    <value>Cél hozzáadása</value>
+  </data>
+  <data name="AddPossibleAnswer" xml:space="preserve">
+    <value>Válasz hozzáadása</value>
+  </data>
+  <data name="ClosedVisitReports" xml:space="preserve">
+    <value>Lezárt látogatói jelentés</value>
+  </data>
+  <data name="CreateVisitReport" xml:space="preserve">
+    <value>Látogatói jelentés csatolása</value>
+  </data>
+  <data name="EditMasterData" xml:space="preserve">
+    <value>Alapadatok szerkesztése</value>
+  </data>
+  <data name="EditVisitPossibleAims" xml:space="preserve">
+    <value> Célok szerkesztése</value>
+  </data>
+  <data name="NonClosedVisitReports" xml:space="preserve">
+    <value>Nincs lezárt látogatási jelentés</value>
+  </data>
+  <data name="NoNonClosedVisitReports" xml:space="preserve">
+    <value> Nincs lezáratlan látogatási jelentés</value>
+  </data>
+  <data name="NoVisitReportsInfo" xml:space="preserve">
+    <value>Nincs  látogatási jelentés</value>
+  </data>
+  <data name="PleaseChooseAQuestion" xml:space="preserve">
+    <value>Válasszon egyet a  jobb oldalon lévő kérdésekből</value>
+  </data>
+  <data name="Questions" xml:space="preserve">
+    <value>Kérdések</value>
+  </data>
+  <data name="VisitAim" xml:space="preserve">
+    <value>Látogatás célja</value>
+  </data>
+  <data name="VisitDate" xml:space="preserve">
+    <value>Látogatás időpontja</value>
+  </data>
+  <data name="VisitReport" xml:space="preserve">
+    <value>Jelentés a látogatásról </value>
+  </data>
+  <data name="VisitReportClosed" xml:space="preserve">
+    <value>Látogatásról szóló jelentés befejezve</value>
+  </data>
+  <data name="VisitReportClosedBy" xml:space="preserve">
+    <value> A látogatásról szóló jelentés befejezve {0} {1} által</value>
+  </data>
+  <data name="VisitReports" xml:space="preserve">
+    <value>Látogatási jelentések</value>
+  </data>
+  <data name="InProgress" xml:space="preserve">
+    <value>Folyamatban</value>
+  </data>
+  <data name="WeeklyOverview" xml:space="preserve">
+    <value>Heti nézet</value>
+  </data>
+  <data name="AddVisit" xml:space="preserve">
+    <value>Látogatás hozzáadása</value>
+  </data>
+  <data name="CloseVisitReportButtonText" xml:space="preserve">
+    <value>Lezárni</value>
+  </data>
+  <data name="EditVisit" xml:space="preserve">
+    <value>Látogatás szerkesztése</value>
+  </data>
+  <data name="NoVisitsInfo" xml:space="preserve">
+    <value>Nincs tervezett látogatás</value>
+  </data>
+  <data name="TourPlanning" xml:space="preserve">
+    <value>Utazások tervezése</value>
+  </data>
+  <data name="Visits" xml:space="preserve">
+    <value>Látogatások </value>
+  </data>
+  <data name="ConfirmDeleteVisit" xml:space="preserve">
+    <value>Valóban törölni akarja ezt a látogatást?</value>
+  </data>
+  <data name="Display" xml:space="preserve">
+    <value>Megmutat</value>
+  </data>
+  <data name="VisitFrequency" xml:space="preserve">
+    <value>Látogatás gyakorisága</value>
+  </data>
+  <data name="ConfirmDeleteVisitReport" xml:space="preserve">
+    <value>Valóban törölni alarja ezt a látogatási jelentést?</value>
+  </data>
+  <data name="Actual" xml:space="preserve">
+    <value>Jelenlegi</value>
+  </data>
+  <data name="Difference" xml:space="preserve">
+    <value>Különféle</value>
+  </data>
+  <data name="NoVisitStatisticsInfo" xml:space="preserve">
+    <value>A kiválasztott munkatársnak a választott területen nincs olyan címe, amit meg kell látogatni. A látogatási gyakoriság be lett állítva?</value>
+  </data>
+  <data name="Frequency" xml:space="preserve">
+    <value>Gyakoriság</value>
+  </data>
+  <data name="NoCompaniesWithStartLetter" xml:space="preserve">
+    <value>Nincs cég {0} kezdőbetűvel</value>
+  </data>
+  <data name="DailyView" xml:space="preserve">
+    <value>Napi nézet </value>
+  </data>
+  <data name="VisitFrequencyText" xml:space="preserve">
+    <value>évente {0}</value>
+  </data>
+  <data name="WeeklyView" xml:space="preserve">
+    <value>Heti nézet</value>
+  </data>
+  <data name="EditAllUsersTourPlanning" xml:space="preserve">
+    <value>Minden felhasználó túratervének feldolgozása</value>
+  </data>
+  <data name="EditAllUsersVisitReports" xml:space="preserve">
+    <value>Minden felhasználó látogatásí jelentésének feldolgozása</value>
+  </data>
+  <data name="SeeAllUsersTourPlanning" xml:space="preserve">
+    <value>Minden felhasználó látogatási tervének megtekintése</value>
+  </data>
+  <data name="SeeAllUsersVisitReports" xml:space="preserve">
+    <value>Minden felhasználó látogatási jelentésének megtekintése</value>
+  </data>
+  <data name="Zieldetails" xml:space="preserve">
+    <value>Részletek</value>
+  </data>
+  <data name="Reporting" xml:space="preserve">
+    <value>Kiértékelés</value>
+  </data>
+  <data name="CloseVisitReportConfirmMessage" xml:space="preserve">
+    <value>Valóban le szeretné zárni ezt a látogatói jelentést?
+Ezután szerkesztésre többé nincs lehetőség.</value>
+  </data>
+  <data name="ListOfNotesHeaderVisitReport" xml:space="preserve">
+    <value>Megjegyzések ehhez a látogatásijelentéshez</value>
+  </data>
+  <data name="ContactPersons" xml:space="preserve">
+    <value>Kapcsolattartó személy</value>
+  </data>
+  <data name="AddContactPersonRelationship" xml:space="preserve">
+    <value>Kapcsolattartó hozzárendelése</value>
+  </data>
+  <data name="CustomerContactPerson" xml:space="preserve">
+    <value>Kapcsolattartó személy a vevőnél</value>
+  </data>
+  <data name="NoCustomerContactPerson" xml:space="preserve">
+    <value>A kiválasztott cégnek nincs kapcsolattartója</value>
+  </data>
+  <data name="AdditionalContactPerson" xml:space="preserve">
+    <value>További kapcsolattartó személyek</value>
+  </data>
+  <data name="AdditionalContactPersonInformation" xml:space="preserve">
+    <value>Meg van a lehetősége minden személynek a rendszerből a látogatói jelentések melléklete szerinti hozzáadásának.  &lt;br/&gt;  A rendszerben nemtalálható személyeket szövegesen lehet hozzáadni</value>
+  </data>
+  <data name="UnsavedChangesGetLost" xml:space="preserve">
+    <value>Elmentetlen változtatások nyugtázáskor elvesznek</value>
+  </data>
+  <data name="NotScheduledVisits" xml:space="preserve">
+    <value>Nincs ütemezett látogatás</value>
+  </data>
+  <data name="ScheduledVisits" xml:space="preserve">
+    <value>Tervezett látogatások</value>
+  </data>
+  <data name="Additional" xml:space="preserve">
+    <value>További</value>
+  </data>
+  <data name="Step" xml:space="preserve">
+    <value>Lépés</value>
+  </data>
+  <data name="VisitInformation" xml:space="preserve">
+    <value>Látogatási információk</value>
+  </data>
+  <data name="AddDate" xml:space="preserve">
+    <value>Dátum hozzárendelése</value>
+  </data>
+  <data name="AddTime" xml:space="preserve">
+    <value> Időpont (óra) hozzáadása</value>
+  </data>
+  <data name="AddDuration" xml:space="preserve">
+    <value>Időtartam hozzárendelése</value>
+  </data>
+  <data name="ContactPersonNotEmpty" xml:space="preserve">
+    <value>Vannak már további bejegyzések? &lt;br/&gt;   Ezek megerősítéskor elvesznek, valóban szeretne továbbmenni?</value>
+  </data>
+  <data name="SelectCompanyToShowCustomerContactPerson" xml:space="preserve">
+    <value>Miután egy céget kiválasztott, a kapcsolattartó személyek megjelenítődnek.</value>
+  </data>
+  <data name="LastVisit" xml:space="preserve">
+    <value>Utólsó látogatás</value>
+  </data>
+  <data name="Prepared" xml:space="preserve">
+    <value>Előkészítve</value>
+  </data>
+  <data name="NoVisitsPrepared" xml:space="preserve">
+    <value>Nincs előkészített látogatás</value>
+  </data>
+  <data name="Circuit" xml:space="preserve">
+    <value>Körzet</value>
+  </data>
+  <data name="NoAddressesFound" xml:space="preserve">
+    <value>A környéken nem található cím.</value>
+  </data>
+  <data name="DisplayCustomersInCircuit" xml:space="preserve">
+    <value>Vevők megjelenítése {0}-ban vagy {1}-ben</value>
+  </data>
+  <data name="OwnCircuit" xml:space="preserve">
+    <value>Saját körzet</value>
+  </data>
+  <data name="AddressCircuit" xml:space="preserve">
+    <value>Egy cím körzete</value>
+  </data>
+  <data name="CreatedAgo" xml:space="preserve">
+    <value>{0} létrehozva</value>
+  </data>
+  <data name="Topics" xml:space="preserve">
+    <value>Témák</value>
+  </data>
+  <data name="Topic" xml:space="preserve">
+    <value>Téma </value>
+  </data>
+  <data name="AddTopic" xml:space="preserve">
+    <value>Téma hozzáadása</value>
+  </data>
+  <data name="PleaseAddTopicText" xml:space="preserve">
+    <value>Adjon szöveget a témához</value>
+  </data>
+  <data name="NoTopicInfoTitle" xml:space="preserve">
+    <value>Mi a téma?</value>
+  </data>
+  <data name="NoTopicInfo" xml:space="preserve">
+    <value>A látogatás témái itt rögzíthetőek</value>
+  </data>
+  <data name="ListOfTopicsHeaderVisit" xml:space="preserve">
+    <value> Témák ehhez a látogatási jelentéshez</value>
+  </data>
+  <data name="TopicBy" xml:space="preserve">
+    <value>Téma {0}-tól {1}-ig</value>
+  </data>
+  <data name="AttachToTopic" xml:space="preserve">
+    <value>Hozzáadása a témához</value>
+  </data>
+  <data name="MovePreparedVisitToSelectedDate" xml:space="preserve">
+    <value>Tényleg a kiválasztott napra szeretné tervezni a látogatást?</value>
+  </data>
+  <data name="NotPossibleToSelectPastDate" xml:space="preserve">
+    <value>Múltbeli dátum nem választható ki.</value>
+  </data>
+  <data name="GeoLocationNotSupported" xml:space="preserve">
+    <value>Ezt a funkciót a böngésző nem támogatja</value>
+  </data>
+  <data name="CarbonCopy" xml:space="preserve">
+    <value>Másolat </value>
+  </data>
+  <data name="DecisionsAndTasks" xml:space="preserve">
+    <value>Határozatok/feladatok</value>
+  </data>
+  <data name="MarketSegment" xml:space="preserve">
+    <value>Piaci szegmens</value>
+  </data>
+  <data name="VisitParticipants" xml:space="preserve">
+    <value>Résztvevő</value>
+  </data>
+  <data name="TargetGroup" xml:space="preserve">
+    <value>Célcsoport</value>
+  </data>
+  <data name="Todos" xml:space="preserve">
+    <value>Tennivalók</value>
+  </data>
+  <data name="CustomerCategory" xml:space="preserve">
+    <value>Vevő kategória</value>
+  </data>
+  <data name="NoCompaniesFound" xml:space="preserve">
+    <value>Nem találhatóak cégek</value>
+  </data>
+  <data name="Recommended" xml:space="preserve">
+    <value>Ajánlott</value>
+  </data>
+  <data name="TimeSinceLastVisit" xml:space="preserve">
+    <value>Az utolsó látogatás óta eltelt idő</value>
+  </data>
+  <data name="VisitsNeeded" xml:space="preserve">
+    <value>Szükséges látogatások száma</value>
+  </data>
+  <data name="VisitFrequencyPerTimeUnit" xml:space="preserve">
+    <value>{0} alkalom per {1}</value>
+  </data>
+  <data name="UniqueVisitFrequencyPerTimeUnit" xml:space="preserve">
+    <value>{0} alkalom per {1}</value>
+  </data>
+  <data name="IssuedBy" xml:space="preserve">
+    <value>Összeállítva</value>
+  </data>
+  <data name="LastFiveVisits" xml:space="preserve">
+    <value>Utólsó öt látogatás</value>
+  </data>
+  <data name="LastFiveVisitReports" xml:space="preserve">
+    <value> Utólsó öt látogatási jelentés</value>
+  </data>
+  <data name="ByUser" xml:space="preserve">
+    <value> {0} által</value>
+  </data>
+  <data name="MaximumDistance" xml:space="preserve">
+    <value>Legnagyobb távolság</value>
+  </data>
+  <data name="Visit" xml:space="preserve">
+    <value>Látogatás</value>
+  </data>
+  <data name="ViewAllReporting" xml:space="preserve">
+    <value>Összes riport megtekintése</value>
+  </data>
+  <data name="SetCustomVisitAim" xml:space="preserve">
+    <value>Egyedi cél beállítása</value>
+  </data>
+  <data name="UseVisitAimSelection" xml:space="preserve">
+    <value>Látogatási cél választása</value>
+  </data>
+  <data name="CrmVisitReport_Visit" xml:space="preserve">
+    <value>Látogatások</value>
+  </data>
+  <data name="CrmVisitReport_VisitReport" xml:space="preserve">
+    <value>Látogatási riportok</value>
+  </data>
+  <data name="CrmVisitReport_ContactPersonRelationship" xml:space="preserve">
+    <value>Kapcsolattartó személyek (Látogatások)</value>
+  </data>
+  <data name="CrmVisitReport_VisitTopic" xml:space="preserve">
+    <value>Látogatási témák</value>
+  </data>
+  <data name="CrmVisitReport_ContactPersonRelationshipType" xml:space="preserve">
+    <value>Kapcsolattartó személy típusok (Látogatások)</value>
+  </data>
+  <data name="CrmVisitReport_VisitAim" xml:space="preserve">
+    <value>Látogatási célok</value>
+  </data>
+  <data name="VisitAimSelectionConfirmation" xml:space="preserve">
+    <value>Az egyedileg megadott látogatási cél törlésre kerül.</value>
+  </data>
+  <data name="AllVisits" xml:space="preserve">
+    <value>Összes látogatás</value>
+  </data>
+  <data name="AreYouSureConfirmation" xml:space="preserve">
+    <value>Biztos benne?</value>
+  </data>
+  <data name="CustomVisitAim" xml:space="preserve">
+    <value>Egyedi látogatási cél</value>
+  </data>
+  <data name="PlannedEndTimeAfterPlannedTimeRuleViolation" xml:space="preserve">
+    <value>A tervezett befejezési időpontnak a kezdési időpont után kell lennie.</value>
+  </data>
+  <data name="PlannedVisits" xml:space="preserve">
+    <value>Tervezett látogatások</value>
+  </data>
+  <data name="PreparedVisits" xml:space="preserve">
+    <value>Előkészített látogatások</value>
+  </data>
+  <data name="RecommendedVisits" xml:space="preserve">
+    <value>Ajánlott látogatások</value>
+  </data>
+  <data name="ThisVisit" xml:space="preserve">
+    <value>Ez a látogatás</value>
+  </data>
+  <data name="TopicsEmptyStateTitle" xml:space="preserve">
+    <value>Nincs téma</value>
+  </data>
+  <data name="VisitReportBackgroundInformation" xml:space="preserve">
+    <value>Látogatás részletei</value>
+  </data>
+  <data name="VisitReportDate" xml:space="preserve">
+    <value>dátum</value>
+  </data>
+  <data name="VisitReportsEmptyState" xml:space="preserve">
+    <value>Jelenleg nincs elérhető látogatási jelentés ehhez a kontakthoz.</value>
+  </data>
+  <data name="VisitReportsEmptyStateTitle" xml:space="preserve">
+    <value>Nincs látogatási jelentés</value>
+  </data>
+  <data name="VisitReportsForVisitEmptyState" xml:space="preserve">
+    <value>Jelenleg nincs elérhető látogatási jelentés ehhez a látogatáshoz.</value>
+  </data>
+  <data name="VisitReportsThisYear" xml:space="preserve">
+    <value>Látogatási jelentések ebben az évben</value>
+  </data>
+  <data name="VisitsEmptyState" xml:space="preserve">
+    <value>Nincs elérhető látogatás ehhez a kontakthoz.</value>
+  </data>
+  <data name="VisitsEmptyStateTitle" xml:space="preserve">
+    <value>Nincs látogatás</value>
+  </data>
+  <data name="VisitsNeededTimeUnit" xml:space="preserve">
+    <value>Látogatási gyakoriság időegysége</value>
+  </data>
+  <data name="Error_VisitReportDynamicFormDoesNotExist_title" xml:space="preserve">
+    <value>Nincs kiadva látogatási jelentés</value>
+  </data>
+  <data name="Error_VisitReportDynamicFormDoesNotExist" xml:space="preserve">
+    <value>Nem lehet látogatási jelentést létrehozni, mivel nincs kiadva egy sem. Kérje meg az adminisztrátorát, hogy adjon ki egyet.</value>
+  </data>
+  <data name="ViewVisit" xml:space="preserve">
+    <value>Látogatás mutatása</value>
+  </data>
+  <data name="VisitTitle" xml:space="preserve">
+    <value>Látogatás címe</value>
+  </data>
+  <data name="PlannedEndDate" xml:space="preserve">
+    <value>Tervezett befejezés</value>
+  </data>
+  <data name="ChooseRadius" xml:space="preserve">
+    <value>Távolság választás</value>
+  </data>
+    <data name="LatitudeMin" xml:space="preserve">
+    <value>Min szélesség</value>
+  </data>
+  <data name="LatitudeMax" xml:space="preserve">
+    <value>Max szélesség</value>
+  </data>
+  <data name="LongitudeMin" xml:space="preserve">
+    <value>Min hosszúság</value>
+  </data>
+  <data name="LongitudeMax" xml:space="preserve">
+    <value>Max hosszúság</value>
+  </data>
+  <data name="OpenVisitReportsWarningMessage" xml:space="preserve">
+    <value>Ehhez a látogatáshoz nyitott jelentések tartoznak. Nem lehet befejezni a látogatást.</value>
+  </data>
+  <data name="VisitCompleteWarningMessage" xml:space="preserve">
+    <value>Biztosan be akarja fejezni a látogatást?</value>
+  </data>
+  <data name="SetInProgress" xml:space="preserve">
+    <value>Beállítás folyamatban lévőre</value>
+  </data>
+  <data name="VisitCompleted" xml:space="preserve">
+    <value>Látogartás befejezve</value>
+  </data>
+  <data name="VisitInProgress" xml:space="preserve">
+    <value>Látogatás beállítva folyamatban lévőre</value>
+  </data>
+  <data name="CrmVisitReport_VisitStatus" xml:space="preserve">
+    <value>Látogatás állapota</value>
+  </data>
+  <data name="DecreaseDistance" xml:space="preserve">
+    <value>Csökkentse a távolságot</value>
+  </data>
+  <data name="IncreaseDistance" xml:space="preserve">
+    <value>Növelje a távolságot</value>
+  </data>
+  <data name="EditContactPersonRelationship" xml:space="preserve">
+    <value>Kapcsolattartó személy szerkesztése</value>
+  </data>
+</root>

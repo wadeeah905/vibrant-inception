@@ -1,0 +1,54 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<div class="container">
+	<div class="card">
+		<div class="card-header ch-alt" data-bind="with: visit">
+			<h2>@(Html.Localize("AddVisit"))</h2>
+		</div>
+		<div class="card-body card-padding">
+			<form role="form" data-bind="with: visit">
+				<form-element params="value: Name, name: 'Name', caption: 'VisitTitle', type: 'text'"></form-element>
+				<form-element id="ParentId" params="value: ParentId, caption: 'CompanyTitle'">
+					<select name="ParentId" class="form-control" data-bind="select2autocompleter: { data: $parent.ParentId, autocompleteOptions: { table: 'Main_Company', orderBy: ['Name'], joins: Helper.Company.getAutocompleteJoins(), customFilter: Helper.Company.getSelect2Filter, mapDisplayObject: Helper.Company.mapDisplayNameWithAddressForSelect2, onSelect: $root.onSelectCompany, placeholder: placeholder } }" >
+					</select>
+				</form-element>
+				<div class="form-group" data-bind="validationElement: AddressId">
+					<div class="fg-line select">
+						<label class="fg-label control-label">@(Html.Localize("Addressinformation"))</label>
+						<address-selector params="addressId: AddressId, lookups: $root.lookups, addresses: $root.addresses"/>
+					</div>
+					<small class="help-block" data-bind="validationMessage: AddressId"></small>
+				</div>
+
+				<form-element params="value: VisitAimKey, caption: 'VisitAim', type: 'select'">
+					<select name="VisitAimKey" class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { customFilter: Helper.Lookup.queryLookup,table: 'CrmVisitReport_VisitAim', mapDisplayObject: Helper.Lookup.mapLookupForSelect2Display,getElementByIdQuery: Helper.Lookup.getLookupByKeyQuery, placeholder: window.Helper.String.getTranslatedString('SetCustomVisitAim') }}, event: { change: Helper.Visit.safeVisitAimSwitch.bind(this, $parent) }">
+					</select>
+				</form-element>
+
+				<form-element params="value: CustomAim, caption: 'CustomVisitAim', type: 'text', disable: $data.VisitAimKey() != null"></form-element>
+
+				<form-element params="value: PlannedDate, caption: 'PlannedDate', name: 'PlannedDate', type: 'datePicker'"></form-element>
+
+				<div class="form-group has-feedback" data-bind="validationElement: PlannedTime">
+					<label class="control-label">@(Html.Localize("From"))</label>
+					<div class="dtp-container fg-line">
+					<input name="PlannedTime" type="text" class="form-control date-picker" data-bind="disable: PlannedDate() === null, datePicker: PlannedTime, datePickerOptions: { pickTime: true }" placeholder="@(Html.Localize("ClickHere"))">
+					</div>
+					<span class="zmdi zmdi-calendar form-control-feedback"></span>
+					<small class="help-block" data-bind="validationMessage: PlannedTime"></small>
+				</div>
+
+				<div class="form-group has-feedback" data-bind="validationElement: PlannedEndDate">
+					<label class="control-label">@(Html.Localize("To"))</label>
+					<div class="dtp-container fg-line">
+					<input name="PlannedEndDate" type="text" class="form-control date-picker" data-bind="disable: PlannedDate() === null, datePicker: PlannedEndDate, datePickerOptions: { pickTime: true }" placeholder="@(Html.Localize("ClickHere"))">
+					</div>
+					<span class="zmdi zmdi-calendar form-control-feedback"></span>
+					<small class="help-block" data-bind="validationMessage: PlannedEndDate"></small>
+				</div>
+			</form>
+		</div>
+		 @await Html.PartialAsync("CreateFormFooter") 
+	</div>
+</div>

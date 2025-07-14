@@ -1,0 +1,25 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<div class="modal-header card-header ch-alt" data-bind="with: visitReport">
+	<button type="button" class="close" data-dismiss="modal" aria-label="@(Html.Localize("Close"))">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title">@(Html.Localize("VisitReport"))</h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<form role="form" action="#" data-bind="with: visitReport">
+		<form-element id="DynamicFormKey" params="value: DynamicFormKey, caption: 'VisitReport'">
+			<select name="DynamicFormKey" class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { table: 'CrmDynamicForms_DynamicForm', joins: [{ Selector: 'Localizations', Operation: 'filter(function(x) { return x.DynamicFormElementId == null })'}, 'Languages'], customFilter: $root.getDynamicFormAutocompleteFilter.bind($root), mapDisplayObject: Helper.DynamicForm.mapForSelect2Display, placeholder: placeholder } }" >
+			</select>
+		</form-element>
+	</form>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-dismiss="modal">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: save">
+		@(Html.Localize("Save"))
+	</button>
+</div>

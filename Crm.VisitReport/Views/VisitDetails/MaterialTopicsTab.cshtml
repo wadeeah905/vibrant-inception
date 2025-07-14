@@ -1,0 +1,26 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Modularization.Extensions
+@using Crm.Library.Globalization.Extensions
+
+<div role="tabpanel" class="tab-pane" id="tab-topics" data-bind="with: tabs()['tab-topics']">
+	<empty-state-box params="mood: 'sad', title: 'TopicsEmptyStateTitle', text: 'NoTopicInfo'" data-bind="visible: items().length === 0"></empty-state-box>
+	<div class="generic-list timeline">
+		<div class="lv-body" data-bind="foreach: items">
+			@await Html.PartialAsync("MaterialTopic")
+		</div>
+	</div>
+	@Html.PluginRenderActions("VisitDetailsTopicExtension")
+	@await Html.PartialAsync("MaterialPaging")
+	<!-- ko if: $root.visitIsEditable -->
+	<floating-action-button>
+		<!-- ko requiredPermission: { name: 'Create', group: 'Topic' } -->
+		<li>
+			<a id="add-topic" href="#" data-mfb-label="@(Html.Localize("AddTopic"))" data-route="Crm.VisitReport/Topic/EditTemplate/" data-toggle="modal" data-target="#modal">
+				<i class="zmdi zmdi-plus"></i>
+			</a>
+		</li>
+		<!-- /ko -->
+		@Html.PluginRenderActions("VisitDetailsTopicActionExtension")
+	</floating-action-button>
+	<!-- /ko -->
+</div>

@@ -1,0 +1,5 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<Crm.ViewModels.GenericListViewModel>
+@using Crm.Library.Modularization.Extensions
+
+ @await Html.PartialAsync("MaterialOffer") 
+@Html.PluginRenderActions("MaterialOfferItemExtensions")

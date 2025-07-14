@@ -1,0 +1,15 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-checklists" data-bind="with: tabs()['tab-checklists']">
+	<empty-state-box params="mood: 'happy', title: 'Checklists', text: 'ServiceOrderChecklistEmptySlate'" data-bind="visible: items().length === 0 && !isFiltered()">
+	</empty-state-box>
+	<div class="generic-list listview lv-bordered">
+		<div class="lv-body">
+			<div data-bind="foreach: items">
+				 @await Html.PartialAsync("GenericListItemGroup") 
+				 @await Html.PartialAsync("../ServiceCaseChecklistList/MaterialItemTemplate") 
+			</div>
+		</div>
+	</div>
+	 @await Html.PartialAsync("Material/GenericListPreloader") 
+</div>

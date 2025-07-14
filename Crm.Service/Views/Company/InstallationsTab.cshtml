@@ -1,0 +1,33 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-installations" data-bind="with: tabs()['tab-installations']">
+	<ul class="top-menu">
+		@Html.PluginRenderActions("CompanyInstallationsTabTopMenu")
+		<li data-bind="visible: true, tooltip: true" data-placement="bottom" title="@(Html.Localize("Filter"))">
+			<a id="open-generic-list-filter" data-trigger="#right-nav" href="#" data-route="@("Crm.Service/InstallationList/FilterTemplate")">
+				<i class="tm-icon zmdi zmdi-search-in-page"></i>
+			</a>
+		</li>
+	</ul>
+	<empty-state-box params="mood: 'sad', title: 'NoInstallations', text: 'NoCompanyInstallationsInfo'" data-bind="visible: items().length === 0">
+	</empty-state-box>
+	@Html.PluginRenderActions("MaterialGenericListResourceExtensions")
+	<div class="generic-list listview lv-bordered">
+		<div class="lv-body" data-bind="foreach: items">
+			 @await Html.PartialAsync("GenericListItemGroup") 
+			 @await Html.PartialAsync("../InstallationList/MaterialItemTemplate") 
+		</div>
+	</div>
+	 @await Html.PartialAsync("Material/GenericListPreloader") 
+	<floating-action-button>
+		<!-- ko requiredPermission: { name: 'Create', group: 'Installation' } -->
+		<li data-bind="with: $root">
+			<a data-mfb-label="@(Html.Localize("CreateInstallation"))" href="#/Crm.Service/Installation/CreateTemplate?locationContactId={{$root.company().Id()}}">
+				<i class="zmdi zmdi-plus"></i>
+			</a>
+		</li>
+		<!-- /ko -->
+	</floating-action-button>
+</div>

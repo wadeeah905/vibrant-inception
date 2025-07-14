@@ -1,0 +1,48 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<CalculationViewModel>
+@using Crm.Configurator.ViewModels
+@using Crm.Library.Globalization.Extensions
+
+@{ var salesColumnClass = Model.DisplayPurchasePrices ? String.Empty : "col-xs-offset-8"; }
+<div role="tabpanel" class="tab-pane" id="tab-calculation" data-bind="with: tabs()['tab-calculation']">
+  <dl class="dl-horizontal c-black">
+	<dt>@(Html.Localize("Description"))</dt>
+	<dd class="text-right">
+	  <div class="row m-r-0">
+		@if (Model.DisplayPurchasePrices) { 
+		<div class="col-xs-4 col-xs-offset-4 p-r-0">
+		  @(Html.Localize("PurchasePrice"))
+		</div>
+		 } 
+		<div class="col-xs-4 @(salesColumnClass) p-r-0">
+		  @(Html.Localize("SalesPrice"))
+		</div>
+	  </div>
+	</dd>
+  </dl>
+  <!-- ko foreach: calculationParameters -->
+   @await Html.PartialAsync("CalculationParameter", Model) 
+  <!-- /ko -->
+  <!-- ko if: calculationPositionTypes().length > 0 -->
+  <hr>
+  <!-- ko if: nonDefaultCalculationPositionTypes().length > 0 && $root.isEditable -->
+  <div class="row p-b-20">
+	<div class="col-md-4 p-t-10">
+	  <button class="btn btn-lg btn-default f-13 waves-effect add-calculation-position" data-bind="click: addCalculationPosition.bind($data)">
+		@(Html.Localize("Add"))
+	  </button>
+	</div>
+	<div class="col-md-8">
+		<form-element id="CalculationPositionType" params="value: selectedCalculationPositionType, caption: 'CalculationPositionType', type: 'select2'">
+			<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmOrder_CalculationPositionType')}"></select>
+		</form-element>
+	</div>
+</div>
+  <!-- /ko -->
+  <!-- ko foreach: calculationPositions -->
+   @await Html.PartialAsync("CalculationPosition", Model) 
+  <!-- /ko -->
+  <!-- /ko -->
+  <hr>
+   @await Html.PartialAsync("CalculationSummary", Model) 
+</div>
+

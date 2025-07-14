@@ -1,0 +1,27 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<ul class="top-menu bgm-blue p-l-0">
+	<li class="dropdown" data-bind="tooltip: true" data-placement="bottom" title="@(Html.Localize("Close"))">
+		<a id="close-prepared-visit-list" href="#" data-trigger="#right-nav">
+			<i class="tm-icon zmdi zmdi-close"></i>
+		</a>
+	</li>
+</ul>
+
+<div class="listview lv-bordered">
+	<div class="lv-body">
+		<div data-bind="template: { name: 'item-VisitList', foreach: items }"></div>
+		<!-- ko if: items().length === 0 -->
+			<div id="generic-list-empty-state" class="lv-item media">
+				<div class="media-body">
+					<small class="lv-small">@(Html.Localize("NoRecordsForSearchCriteria"))</small>
+				</div>
+			</div>
+		<!-- /ko -->
+	</div>
+</div>
+<span class="col-xs-12">
+	@await Html.PartialAsync("MaterialPaging") 
+	@await Html.PartialAsync("Material/GenericListItem")
+</span>

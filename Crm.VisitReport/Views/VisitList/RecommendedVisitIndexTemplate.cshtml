@@ -1,0 +1,89 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<ul class="top-menu bgm-blue p-l-0">
+	<li class="dropdown" data-bind="tooltip: true" data-placement="bottom" title="@(Html.Localize("Close"))">
+		<a id="close-prepared-visit-list" href="#" data-trigger="#right-nav">
+			<i class="tm-icon zmdi zmdi-close"></i>
+		</a>
+	</li>
+	<li class="dropdown pull-right" data-bind="tooltip: true" data-placement="bottom" title="@(Html.Localize("SortOrder"))">
+		<a href="#" data-toggle="dropdown">
+			<i class="tm-icon zmdi zmdi-unfold-more"></i>
+		</a>
+		<ul class="dropdown-menu dropdown-menu-right">
+			<li data-bind="css: { 'active': orderByDirection() === 'ASC' }">
+				<a href="#" data-bind="click: setOrderByDirection.bind($data, 'ASC'), translatedText: 'Ascending'"></a>
+			</li>
+			<li data-bind="css: { 'active': orderByDirection() === 'DESC' }">
+				<a href="#" data-bind="click: setOrderByDirection.bind($data, 'DESC'), translatedText: 'Descending'"></a>
+			</li>
+		</ul>
+	</li>
+	<li class="dropdown pull-right" data-bind="tooltip: true" data-placement="bottom" title="@(Html.Localize("SortBy"))">
+		<a href="#" data-toggle="dropdown">
+			<i class="tm-icon zmdi zmdi-sort"></i>
+		</a>
+		<ul class="dropdown-menu dropdown-menu-right">
+			<li role="presentation" class="dropdown-header pull-right" data-bind="translatedText: 'SortBy'"></li>
+			<li data-bind="css: { 'active': currentOrderBy() === 'VisitsNeeded' }">
+				<a href="#" data-bind="click: setOrderBy.bind($data, 'VisitsNeeded'), translatedText: 'VisitsNeeded'"></a>
+			</li>
+		</ul>
+	</li>
+</ul>
+
+<div class="listview lv-bordered">
+	<div class="lv-body">
+		<div data-bind="foreach: items">
+			<div class="lv-item media">
+				<div class="lv-avatar pull-left" data-bind="text: Helper.Company.getTypeAbbreviation($data.company, $parent.lookups.companyTypes), style: { backgroundColor: Helper.Company.getColor($data.company, $parent.lookups.companyTypes) }"></div>
+				<div class="media-body">
+					<div class="lv-title">
+						<a href="#" data-bind="attr: { href: '#/Main/Company/DetailsTemplate/' + Id() }">
+							<span data-bind="text: Helper.Company.getDisplayName($data)"></span>
+						</a>
+					</div>
+					<div class="lv-actions actions">
+						<a href="#" data-bind="attr: { 'data-route': 'Crm.VisitReport/Visit/EditTemplate/?companyId=' + Id() + '&addressId=' + Addresses()[0].Id() }, tooltip: true" title="@(Html.Localize("AddVisit"))" data-toggle="modal" data-target="#modal">
+							<i class="zmdi zmdi-calendar"></i>
+						</a>
+					</div>
+					<div class="media-body">
+						<small class="lv-small" data-bind="foreach: Addresses">
+							<address-block params="address: $data, lookups: $parentContext.$parent.lookups, showNames: false, showLink: false"></address-block>
+						</small>
+						<p class="small m-b-0">
+							<span data-bind="text: visitReports().length"></span>
+							/
+							<span data-bind="text: ExtensionValues().VisitFrequencyValuePerYear"></span>
+							<span data-bind="translatedText: 'VisitReportsThisYear'"></span>
+						</p>
+						<p class="small m-b-0" data-bind="visible: lastVisitReport">
+							<span data-bind="translatedText: 'LastVisit'"></span>
+							<span data-bind="dateText: lastVisitReport"></span>
+						</p>
+						<ul class="lv-attrs">
+							<li>
+								<i class="zmdi zmdi-account-o"></i>
+								<span data-bind="text: window.Helper.User.getDisplayName(ResponsibleUserUser())"></span>
+							</li>
+						</ul>
+						@Html.PluginRenderActions("MaterialCompanyItemExtensions")
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ko if: items().length === 0 -->
+			<div id="generic-list-empty-state" class="lv-item media">
+				<div class="media-body">
+					<small class="lv-small">@(Html.Localize("NoRecordsForSearchCriteria"))</small>
+				</div>
+			</div>
+		<!-- /ko -->
+	</div>
+</div>
+<span class="col-xs-12">
+	@await Html.PartialAsync("MaterialPaging") 
+</span> 

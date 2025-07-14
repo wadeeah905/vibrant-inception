@@ -1,0 +1,65 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+@using Crm.Service.Model
+
+<ul class="top-menu">
+	@Html.PluginRenderActions("ServiceCaseDetailsTopMenu")
+	@Html.PluginRenderActions("ContactDetailsTopMenu")
+</ul>
+
+<div class="container">
+	<div>
+		<div class="card" id="profile-main">
+			<div class="pm-overview c-overflow hide-print" tabindex="4">
+				<div class="pmo-pic">
+					<div class="text-center bgm-white c-black p-20">
+						<!-- ko with: serviceCase -->
+						<h4>
+							<span id="service-case-title" data-bind="text: Helper.ServiceCase.getDisplayName($data)"></span>
+							<br />
+							<small data-bind="lookupValue: CategoryKey, lookups: $root.lookups.serviceCaseCategories"></small>
+						</h4>
+						<div class="btn-group m-b-10">
+							<button id="SetStatusButton" type="button" class="btn btn-lg btn-primary f-13 dropdown-toggle waves-effect" data-toggle="dropdown" aria-expanded="false" data-bind="enable: $root.canSetStatus">
+								<span class="d-block normal-white-space" data-bind="lookupValue: StatusKey, lookups: $root.lookups.serviceCaseStatuses"></span>
+								<span class="caret" data-bind="visible: $root.canSetStatus"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu" data-bind="foreach: $root.settableStatuses">
+								<!-- ko if: Key !== null -->
+								<li data-bind="css: { 'active': $root.serviceCase().StatusKey() === Key }">
+									<a href="#" class="normal-white-space" data-bind="lookupValue: Key, lookups: $root.lookups.serviceCaseStatuses, click: $root.setStatus"></a>
+								</li>
+								<!-- /ko -->
+							</ul>
+						</div>
+						<div data-bind="with: ServiceObject">
+							@(Html.Localize("ServiceObject"))
+							<a data-bind="attr: { href: '#/Crm.Service/ServiceObject/DetailsTemplate/' + Id() }, text: Helper.ServiceObject.getDisplayName($data)"></a>
+						</div>
+						<div data-bind="with: AffectedCompany">
+							@(Html.Localize("AffectedCompany"))
+							<a data-bind="attr: { href: '#/Main/Company/DetailsTemplate/' + Id() }, text: Helper.Company.getDisplayName($data)"></a>
+						</div>
+						<div data-bind="with: AffectedInstallation">
+							@(Html.Localize("AffectedInstallation"))
+							<a data-bind="attr: { href: '#/Crm.Service/Installation/DetailsTemplate/' + Id() }, text: Helper.Installation.getDisplayName($data)"></a>
+						</div>
+						<!-- /ko -->
+					</div>
+				</div>
+				 @await Html.PartialAsync("ContactDetailsTagBlock", typeof(ServiceCase)) 
+				@Html.PluginRenderActions("MaterialServiceCaseSidebarExtensions")
+				@Html.PluginRenderActions("MaterialContactSidebarExtensions")
+			</div>
+			<div class="pm-body clearfix">
+				<ul class="tab-nav tn-justified" role="tablist" tabindex="1">
+					@Html.PluginRenderActions("ServiceCaseDetailsMaterialTabHeader")
+				</ul>
+				<div class="tab-content">
+					@Html.PluginRenderActions("ServiceCaseDetailsMaterialTab")
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

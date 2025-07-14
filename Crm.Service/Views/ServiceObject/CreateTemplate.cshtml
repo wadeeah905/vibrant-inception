@@ -1,0 +1,68 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Extensions
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div class="container">
+	<div class="card">
+		<div class="card-header ch-alt" data-bind="with: serviceObject">
+			<h2>@(Html.Localize("CreateServiceObject"))</h2>
+		</div>
+		<div class="card-body card-padding">
+			<form role="form" data-bind="with: serviceObject">
+				<fieldset>
+					<legend class="m-b-25 c-black b-0 f-500 f-14">
+						@(Html.Localize("BasicInformation"))
+					</legend>
+					<!-- ko if: window.Crm.Service.Settings.ServiceObject.ObjectNoIsCreateable && (!window.Helper.Offline || window.Helper.Offline.status === 'online') -->
+					<div class="form-group" data-bind="validationElement: ObjectNo" title="">
+						<div class="fg-line">
+							<label class="fg-label control-label" data-bind="visible: 'ObjectNo'">
+								<span>@(Html.Localize("ObjectNo"))</span>
+							</label>
+							<input type="text" class="form-control fg-input" name="ObjectNo" data-bind="value: ObjectNo, attr: { maxlength: 20}">
+						</div>
+						<small class="help-block pre-line" data-bind="validationMessage: ObjectNo" style="display: none;"></small>
+					</div>
+					<!-- /ko -->
+					<form-element params="value: Name, caption: 'Name', type: 'text'"></form-element>
+					<form-element id="CategoryKey" params="value: CategoryKey, caption: 'Category', type: 'select2'">
+						<select class="form-control" data-bind="select2autocompleter: { data: value, default: Helper.Lookup.getLookupValue($root.lookups.serviceObjectCategories, value), autocompleteOptions: { customFilter: Helper.Lookup.queryLookup, table: 'CrmService_ServiceObjectCategory', mapDisplayObject: Helper.Lookup.mapLookupForSelect2Display, placeholder: placeholder } }">
+						</select>
+					</form-element>
+					@Html.PluginRenderActions("CreateServiceObjectFormBasicInformation")
+				</fieldset>
+				<fieldset>
+					<legend class="p-t-25 m-b-25 c-black b-0 f-500 f-14">
+						@(Html.Localize("AddressInformation"))
+					</legend>
+					<address-editor params="contactId: $data.Id(), onLoad: $root.onLoadAddressEditor.bind($root)"></address-editor>
+					@Html.PluginRenderActions("CreateServiceObjectFormAddressInformation")
+				</fieldset>
+				<fieldset>
+					<legend class="p-t-25 m-b-25 c-black b-0 f-500 f-14">
+						@(Html.Localize("AdditionalInformation"))
+					</legend>
+					<form-element params="value: BackgroundInfo, caption: 'BackgroundInfo', type: 'textarea'"></form-element>
+					<form-element params="value: ResponsibleUser, caption: 'ResponsibleUser', type: 'select'">
+						<select class="form-control" name="ResponsibleUser" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['LastName'], table: 'Main_User', mapDisplayObject: Helper.User.mapForSelect2Display, customFilter: Helper.User.filterUserQuery, placeholder: placeholder } }">
+						</select>
+					</form-element>
+					@Html.PluginRenderActions("CreateServiceObjectFormAdditionalInformation")
+				</fieldset>
+				@Html.PluginRenderActions("CreateServiceObjectForm")
+				<!-- ko requiredPermission: { name: 'Edit', group: 'Visibility' } -->
+				<fieldset>
+					<legend class="p-t-25 m-b-25 c-black b-0 f-500 f-14">
+						@(Html.Localize("Visibility"))
+					</legend>
+					<!-- ko with: $root.visibilityViewModel -->
+					@Html.RenderAction("Selection", "Visibility")
+					<!-- /ko -->
+				</fieldset>
+				<!-- /ko -->
+			</form>
+		</div>
+		 @await Html.PartialAsync("CreateFormFooter") 
+	</div>
+</div>

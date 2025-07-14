@@ -1,0 +1,39 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<div class="modal-header card-header ch-alt">
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title">
+		@(Html.Localize("CancelOffer"))
+	</h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<form role="form" data-bind="with: offer">
+		<div class="form-group" data-bind="validationElement: CancelReasonCategoryKey">
+			<div class="fg-line">
+				<label class="fg-label control-label">@(Html.Localize("Category"))</label>
+				<select class="form-control" data-bind="select2autocompleter: { data: CancelReasonCategoryKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmOrder_OrderCancelReasonCategory')}">
+				</select>
+			</div>
+			<small class="help-block" data-bind="validationMessage: CancelReasonCategoryKey"></small>
+		</div>
+		<div class="form-group" data-bind="validationElement: CancelReasonText">
+			<div class="fg-line">
+				<label class="fg-label control-label">@(Html.Localize("Comment"))</label>
+				<input name="CancelReasonText" type="text" class="form-control" data-bind="value: CancelReasonText">
+			</div>
+			<small class="help-block" data-bind="validationMessage: CancelReasonText"></small>
+		</div>
+	</form>
+	<p></p>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-bind="click: Helper.Database.clearTrackedEntities" data-dismiss="modal">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: cancel, disable: loading">
+		@(Html.Localize("CancelOffer"))
+	</button>
+</div>

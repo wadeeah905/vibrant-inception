@@ -1,0 +1,38 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Modularization.Extensions
+@using Crm.Service.Model
+
+<ul class="top-menu">
+	@Html.PluginRenderActions("ServiceObjectDetailsTopMenu")
+	@Html.PluginRenderActions("ContactDetailsTopMenu")
+</ul>
+
+<div class="container">
+	<div>
+		<div class="card" id="profile-main">
+			<div class="pm-overview c-overflow hide-print" tabindex="4">
+				<div class="pmo-pic">
+					<div class="text-center bgm-white c-black p-20">
+						<!-- ko with: serviceObject -->
+						<h4>
+							<span id="service-object-title" data-bind="text: Helper.ServiceObject.getDisplayName($data)"></span>
+							<br />
+							<small data-bind="lookupValue: CategoryKey, lookups: $root.lookups.serviceObjectCategories"></small>
+						</h4>
+						<!-- /ko -->
+					</div>
+				</div>
+				 @await Html.PartialAsync("ContactDetailsTagBlock", typeof(ServiceObject)) 
+				@Html.PluginRenderActions("MaterialServiceObjectSidebarExtensions")
+			</div>
+			<div class="pm-body clearfix">
+				<ul class="tab-nav tn-justified" role="tablist" tabindex="1">
+					@Html.PluginRenderActions("ServiceObjectDetailsMaterialTabHeader")
+				</ul>
+				<div class="tab-content">
+					@Html.PluginRenderActions("ServiceObjectDetailsMaterialTab")
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

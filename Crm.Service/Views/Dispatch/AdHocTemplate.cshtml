@@ -1,0 +1,33 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div class="container">
+	<div class="card">
+		<div class="card-header ch-alt">
+			<h2>@(Html.Localize("NewAdHocOrder"))</h2>
+		</div>
+		<div class="card-body card-padding">
+			<form role="form">
+				<!-- ko if: window.Crm.Service.Settings.Dispatch.DispatchNoIsCreateable && (!window.Helper.Offline || window.Helper.Offline.status === 'online') -->
+				<fieldset data-bind="with: dispatch">
+					<legend class="p-t-25 m-b-25 c-black b-0 f-500 f-14">
+						@(Html.Localize("Dispatch"))
+					</legend>
+					<div class="form-group" data-bind="validationElement: DispatchNo" title="">
+						<div class="fg-line">
+							<label class="fg-label control-label" data-bind="visible: 'DispatchNo'">
+								<span>@Html.Localize("DispatchNo")</span>
+							</label>
+							<input type="text" class="form-control fg-input" data-bind="value: DispatchNo, attr: { maxlength: 20, name: DispatchNo}">
+						</div>
+						<small class="help-block pre-line" data-bind="validationMessage: DispatchNo" style="display: none;"></small>
+					</div>
+				</fieldset>
+				<!-- /ko -->
+				@Html.PluginRenderActions("CreateAdHocServiceOrderForm")
+			</form>
+		</div>
+		@await Html.PartialAsync("CreateFormFooter")
+	</div>
+</div>

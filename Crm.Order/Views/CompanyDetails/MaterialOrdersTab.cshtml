@@ -1,0 +1,29 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<CrmModel>
+@using Crm.ViewModels
+@using Crm.Order
+@using Crm.Library.Model.Authorization.PermissionIntegration
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div role="tabpanel" class="tab-pane" id="tab-orders" data-bind="with: tabs()['tab-orders']">
+	<empty-state-box params="mood: 'sad', title: 'OrdersEmptyStateTitle', text: 'OrdersEmptyState'" data-bind="visible: items().length === 0">
+	</empty-state-box>
+	<ul class="top-menu">
+		@Html.PluginRenderActions("OrderTopMenu")
+		<li data-bind="visible: true, tooltip: true" data-placement="bottom" title="@Html.Localize("Filter")">
+			<a id="open-generic-list-filter" data-trigger="#right-nav" href="#" data-route="Crm.Order/OrderList/FilterTemplate">
+				<i class="tm-icon zmdi zmdi-search-in-page"></i>
+			</a>
+		</li>
+	</ul>
+	<div class="listview lv-bordered generic-list" data-bind="visible: items().length > 0">
+		<div class="lv-body" data-bind="foreach: items">
+			@await Html.PartialAsync("GenericListItemGroup")
+			@await Html.PartialAsync("MaterialOrder")
+		</div>
+	</div>
+	 @await Html.PartialAsync("MaterialPaging") 
+	@if (Model.AuthorizationManager.IsAuthorizedForAction(Model.User, OrderPlugin.PermissionGroup.Order, PermissionName.Create)) { 
+		<floating-action-button params="href: '#/Crm.Order/Order/CreateTemplate?companyId=' + $root.company().Id(), title: 'CreateOrder'"></floating-action-button>
+	 } 
+</div>

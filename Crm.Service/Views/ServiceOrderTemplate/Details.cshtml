@@ -1,0 +1,73 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Modularization.Extensions
+@using Crm.Library.Globalization.Extensions
+
+<ul class="top-menu">
+	@Html.PluginRenderActions("ServiceOrderTemplateDetailsTopMenu")
+</ul>
+
+<div class="container">
+	<div>
+		<div class="card" id="profile-main">
+			<div class="pm-overview c-overflow hide-print" tabindex="4">
+				<!-- ko with: serviceOrderTemplate -->
+				<div class="pmo-pic">
+					<div class="text-center bgm-white c-black p-20">
+						<h3 class="word-break-all" id="name" data-bind="text: ErrorMessage"></h3>
+						<h4>
+							<span id="order-no" data-bind="text: OrderNo"></span>
+							<br/>
+							<small data-bind="lookupValue: TypeKey, lookups: $root.lookups.serviceOrderTypes"></small>
+						</h4>
+						<div class="btn-group m-b-10">
+							<button type="button" class="btn btn-lg btn-primary f-13 dropdown-toggle waves-effect" data-toggle="dropdown" aria-expanded="false" data-bind="enable: $root.canSetStatus">
+								<span data-bind="lookupValue: StatusKey, lookups: $root.lookups.serviceOrderStatuses"></span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<!-- ko if: PriorityKey() || UserGroup() || ResponsibleUserUser() -->
+				<div class="pmo-block">
+					<h2>@(Html.Localize("SchedulingInformation"))</h2>
+					<div>
+						<!-- ko if: PriorityKey() -->
+						<i class="zmdi zmdi-circle" data-bind="style: { color: Helper.Lookup.getLookupColor($root.lookups.servicePriorities, $data.PriorityKey) }"></i>
+						<span data-bind="if: PriorityKey, lookupValue: PriorityKey, lookups: $root.lookups.servicePriorities"></span>
+						<!-- /ko -->
+					</div>
+					<div>
+						<!-- ko if: UserGroup() -->
+						<i class="zmdi zmdi-accounts-outline"></i>
+						<span data-bind="text:UserGroup().Name"></span>
+						<!-- /ko -->
+					</div>
+					<div>
+						<!-- ko if: ResponsibleUserUser() -->
+						<i class="zmdi zmdi-account"></i>
+						<span data-bind="text:Helper.User.getDisplayName(ResponsibleUserUser)"></span>
+						<!-- /ko -->
+					</div>
+				</div>
+				<!-- /ko -->
+				<!-- ko if: RequiredSkillKeys().length > 0 -->
+				<div class="pmo-block">
+					<h2>@(Html.Localize("Skills"))</h2>
+					<span data-bind="text: $root.getSkillsFromKeys(RequiredSkillKeys()).map(function(x){ return x.text; }).join(', ')"></span>
+				</div>
+				<!-- /ko -->
+				<!-- /ko -->
+
+				@Html.PluginRenderActions("ServiceOrderTemplateSidebarExtensions")
+			</div>
+
+			<div class="pm-body clearfix">
+				<ul class="tab-nav tn-justified" role="tablist" tabindex="1">
+					@Html.PluginRenderActions("ServiceOrderTemplateDetailsTabHeader")
+				</ul>
+				<div class="tab-content">
+					@Html.PluginRenderActions("ServiceOrderTemplateDetailsTab")
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

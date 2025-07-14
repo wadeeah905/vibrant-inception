@@ -1,0 +1,73 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+@using Crm.Service.Model
+
+<ul class="top-menu">
+	@Html.PluginRenderActions("ServiceContractDetailsTopMenu")
+	@Html.PluginRenderActions("ContactDetailsTopMenu")
+</ul>
+
+<div class="container">
+	<div>
+		<div class="card" id="profile-main">
+			<div class="pm-overview c-overflow hide-print" tabindex="4">
+				<div class="pmo-pic">
+					<div class="text-center bgm-white c-black p-20">
+						<!-- ko with: serviceContract -->
+						<h4>
+							<span id="contract-no" data-bind="text: ContractNo"></span>
+							<small data-bind="lookupValue: ContractTypeKey, lookups: $root.lookups.serviceContractTypes"></small>
+						</h4>
+						<div class="btn-group m-b-10">
+							<button type="button" class="btn btn-lg btn-primary f-13 dropdown-toggle waves-effect" data-toggle="dropdown" aria-expanded="false" data-bind="enable: $root.canSetStatus">
+								<span data-bind="lookupValue: StatusKey, lookups: $root.lookups.serviceContractStatuses"></span>
+								<span class="caret" data-bind="visible: $root.canSetStatus"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu" data-bind="foreach: $root.settableStatuses">
+								<!-- ko if: Key !== null -->
+								<li data-bind="css: { 'active': $root.serviceContract().StatusKey() === Key }">
+									<a href="#" data-bind="lookupValue: Key, lookups: $root.lookups.serviceContractStatuses, click: $root.setStatus"></a>
+								</li>
+								<!-- /ko -->
+							</ul>
+						</div>
+						<div data-bind="with: ServiceObject">
+							@(Html.Localize("ServiceObject"))
+							<!-- ko requiredPermission: { name: 'Read', group: 'ServiceObject' } --> 
+							<a href="#/Crm.Service/ServiceObject/DetailsTemplate/{{Id}}">
+								<span data-bind="text: Helper.ServiceObject.getDisplayName($data)"></span>
+							</a>
+							<!-- /ko -->
+							<!-- ko noRequiredPermission: { name: 'Read', group: 'ServiceObject' } -->
+							<span data-bind="text: Helper.ServiceObject.getDisplayName($data)"></span>
+							<!-- /ko -->
+						</div>
+						<div data-bind="with: ParentCompany">
+							@(Html.Localize("At"))
+							<!-- ko requiredPermission: { name: 'Read', group: 'Company' } --> 
+							<a href="#/Main/Company/DetailsTemplate/{{Id}}">
+								<span data-bind="text: Helper.Company.getDisplayName($data)"></span>
+							</a>
+							<!-- /ko -->
+							<!-- ko noRequiredPermission: { name: 'Read', group: 'Company' } --> 
+							<span data-bind="text: Helper.Company.getDisplayName($data)"></span>
+							<!-- /ko -->
+						</div>
+						<!-- /ko -->
+					</div>
+				</div>
+				 @await Html.PartialAsync("ContactDetailsTagBlock", typeof(ServiceContract)) 
+				@Html.PluginRenderActions("MaterialServiceContractSidebarExtensions")
+			</div>
+			<div class="pm-body clearfix">
+				<ul class="tab-nav tn-justified" role="tablist" tabindex="1">
+					@Html.PluginRenderActions("ServiceContractDetailsMaterialTabHeader")
+				</ul>
+				<div class="tab-content">
+					@Html.PluginRenderActions("ServiceContractDetailsMaterialTab")
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

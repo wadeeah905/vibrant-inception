@@ -1,0 +1,22 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Modularization.Extensions
+
+<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-details">
+	<pmb-block params="icon: 'equalizer', caption: 'General', context: { dispatch: dispatch, serviceOrder: serviceOrder }, condition: dispatchIsEditable && window.AuthorizationManager.isAuthorizedForAction('Offline', 'OfflineOnlineSwitch')">
+		@Html.PluginRenderActions("DispatchGeneralInformation")
+	</pmb-block>
+	<pmb-block params="icon: 'label-alt-outline', caption: 'Reportdetails', context: { dispatch: dispatch, serviceOrder: serviceOrder }, condition: dispatchIsEditable && hasErrorLookups">
+		@Html.PluginRenderActions("DispatchReportDetails")
+	</pmb-block>
+	<pmb-block params="icon: 'pin-drop', caption: 'DispatchLocation', context: { dispatch: dispatch, serviceOrder: serviceOrder }, condition: dispatchIsEditable, onCancel: $root.onLocationPmbCancel.bind($root)">
+         @await Html.PartialAsync("ServiceOrderMaterialDetails/DetailsTabLocation") 
+	</pmb-block>
+     @await Html.PartialAsync("ServiceOrderMaterialDetails/DetailsTabServiceObject") 
+     @await Html.PartialAsync("ServiceOrderMaterialDetails/DetailsTabCustomerContact") 
+     @await Html.PartialAsync("ServiceOrderMaterialDetails/DetailsTabInitiator") 
+	<statisticskey-info params="entity: serviceOrder, condition: dispatchIsEditable"></statisticskey-info>
+	<floating-action-button>
+		@Html.PluginRenderActions("DispatchDetailsPrimaryAction")
+	</floating-action-button>
+</div>
+

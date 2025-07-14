@@ -1,0 +1,107 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Customer.Kagema
+build_property.RootNamespace = Customer.Kagema
+build_property.ProjectDir = C:\Source\crm6\src\Crm.Web\Plugins\Customer.Kagema\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Source\crm6\src\Crm.Web\Plugins\Customer.Kagema
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Customer.Kagema/Overrides/Views/Crm.Service/Dispatch/ChangeStatusTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = T3ZlcnJpZGVzXFZpZXdzXENybS5TZXJ2aWNlXERpc3BhdGNoXENoYW5nZVN0YXR1c1RlbXBsYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Customer.Kagema/Overrides/Views/Crm.Service/Dispatch/DocumentAttributeEditTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = T3ZlcnJpZGVzXFZpZXdzXENybS5TZXJ2aWNlXERpc3BhdGNoXERvY3VtZW50QXR0cmlidXRlRWRpdFRlbXBsYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Customer.Kagema/Overrides/Views/Crm.Service/Dispatch/InstallationTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = T3ZlcnJpZGVzXFZpZXdzXENybS5TZXJ2aWNlXERpc3BhdGNoXEluc3RhbGxhdGlvblRlbXBsYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Customer.Kagema/Overrides/Views/Crm.Service/Dispatch/MaterialMaterialsTab.cshtml]
+build_metadata.AdditionalFiles.TargetPath = T3ZlcnJpZGVzXFZpZXdzXENybS5TZXJ2aWNlXERpc3BhdGNoXE1hdGVyaWFsTWF0ZXJpYWxzVGFiLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Customer.Kagema/Overrides/Views/Crm.Service/Installation/DetailsTab.cshtml]
+build_metadata.AdditionalFiles.TargetPath = T3ZlcnJpZGVzXFZpZXdzXENybS5TZXJ2aWNlXEluc3RhbGxhdGlvblxEZXRhaWxzVGFiLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Customer.Kagema/Overrides/Views/Crm.Service/ServiceOrderMaterial/EditTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = T3ZlcnJpZGVzXFZpZXdzXENybS5TZXJ2aWNlXFNlcnZpY2VPcmRlck1hdGVyaWFsXEVkaXRUZW1wbGF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Customer.Kagema/Overrides/Views/Crm.Service/Shared/DispatchReportGroupHeader.cshtml]
+build_metadata.AdditionalFiles.TargetPath = T3ZlcnJpZGVzXFZpZXdzXENybS5TZXJ2aWNlXFNoYXJlZFxEaXNwYXRjaFJlcG9ydEdyb3VwSGVhZGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Customer.Kagema/Overrides/Views/Crm.Service/Shared/DispatchReportGroupMaterials.cshtml]
+build_metadata.AdditionalFiles.TargetPath = T3ZlcnJpZGVzXFZpZXdzXENybS5TZXJ2aWNlXFNoYXJlZFxEaXNwYXRjaFJlcG9ydEdyb3VwTWF0ZXJpYWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Customer.Kagema/Overrides/Views/Crm.Service/Shared/DispatchReportGroupTimePostings.cshtml]
+build_metadata.AdditionalFiles.TargetPath = T3ZlcnJpZGVzXFZpZXdzXENybS5TZXJ2aWNlXFNoYXJlZFxEaXNwYXRjaFJlcG9ydEdyb3VwVGltZVBvc3RpbmdzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Customer.Kagema/Overrides/Views/Crm.Service/Shared/ServiceOrderReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = T3ZlcnJpZGVzXFZpZXdzXENybS5TZXJ2aWNlXFNoYXJlZFxTZXJ2aWNlT3JkZXJSZXBvcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Customer.Kagema/Overrides/Views/Crm.Service/Shared/ServiceOrderReportGroupHeader.cshtml]
+build_metadata.AdditionalFiles.TargetPath = T3ZlcnJpZGVzXFZpZXdzXENybS5TZXJ2aWNlXFNoYXJlZFxTZXJ2aWNlT3JkZXJSZXBvcnRHcm91cEhlYWRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Customer.Kagema/Overrides/Views/Crm.Service/Shared/ServiceOrderReportGroupMaterials.cshtml]
+build_metadata.AdditionalFiles.TargetPath = T3ZlcnJpZGVzXFZpZXdzXENybS5TZXJ2aWNlXFNoYXJlZFxTZXJ2aWNlT3JkZXJSZXBvcnRHcm91cE1hdGVyaWFscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Customer.Kagema/Overrides/Views/Crm.Service/Shared/ServiceOrderReportGroups.cshtml]
+build_metadata.AdditionalFiles.TargetPath = T3ZlcnJpZGVzXFZpZXdzXENybS5TZXJ2aWNlXFNoYXJlZFxTZXJ2aWNlT3JkZXJSZXBvcnRHcm91cHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Customer.Kagema/Overrides/Views/Crm.Service/Shared/ServiceOrderReportGroupTimePostings.cshtml]
+build_metadata.AdditionalFiles.TargetPath = T3ZlcnJpZGVzXFZpZXdzXENybS5TZXJ2aWNlXFNoYXJlZFxTZXJ2aWNlT3JkZXJSZXBvcnRHcm91cFRpbWVQb3N0aW5ncy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Customer.Kagema/Overrides/Views/ServiceCase/CreateServiceOrderTopMenu.cshtml]
+build_metadata.AdditionalFiles.TargetPath = T3ZlcnJpZGVzXFZpZXdzXFNlcnZpY2VDYXNlXENyZWF0ZVNlcnZpY2VPcmRlclRvcE1lbnUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Customer.Kagema/Overrides/Views/ServiceOrderHeadList/MaterialPrimaryAction.cshtml]
+build_metadata.AdditionalFiles.TargetPath = T3ZlcnJpZGVzXFZpZXdzXFNlcnZpY2VPcmRlckhlYWRMaXN0XE1hdGVyaWFsUHJpbWFyeUFjdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Customer.Kagema/Overrides/Views/ServiceOrderMaterialList/MaterialItemTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = T3ZlcnJpZGVzXFZpZXdzXFNlcnZpY2VPcmRlck1hdGVyaWFsTGlzdFxNYXRlcmlhbEl0ZW1UZW1wbGF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Customer.Kagema/Overrides/Views/ServiceOrder/CreateTemplateGeneral.cshtml]
+build_metadata.AdditionalFiles.TargetPath = T3ZlcnJpZGVzXFZpZXdzXFNlcnZpY2VPcmRlclxDcmVhdGVUZW1wbGF0ZUdlbmVyYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Customer.Kagema/Overrides/Views/Shared/ServiceOrderMaterialDetails/DetailsTabReportDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = T3ZlcnJpZGVzXFZpZXdzXFNoYXJlZFxTZXJ2aWNlT3JkZXJNYXRlcmlhbERldGFpbHNcRGV0YWlsc1RhYlJlcG9ydERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Customer.Kagema/Overrides/Views/Shared/ServiceOrderMaterialDetails/DetailsTabScheduling.cshtml]
+build_metadata.AdditionalFiles.TargetPath = T3ZlcnJpZGVzXFZpZXdzXFNoYXJlZFxTZXJ2aWNlT3JkZXJNYXRlcmlhbERldGFpbHNcRGV0YWlsc1RhYlNjaGVkdWxpbmcuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Customer.Kagema/Views/ServiceOrderExportErrorsList/MaterialItemTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZU9yZGVyRXhwb3J0RXJyb3JzTGlzdFxNYXRlcmlhbEl0ZW1UZW1wbGF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Customer.Kagema/Views/ServiceOrderMaterial/ReportPlanned.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VydmljZU9yZGVyTWF0ZXJpYWxcUmVwb3J0UGxhbm5lZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 

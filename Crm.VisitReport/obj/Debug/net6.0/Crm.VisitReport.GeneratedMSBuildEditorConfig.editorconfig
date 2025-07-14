@@ -1,0 +1,179 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = Crm.VisitReport
+build_property.RootNamespace = Crm.VisitReport
+build_property.ProjectDir = C:\Source\crm6\src\Crm.Web\Plugins\Crm.VisitReport\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Source\crm6\src\Crm.Web\Plugins\Crm.VisitReport
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/Company/MaterialVisitReportsTab.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxNYXRlcmlhbFZpc2l0UmVwb3J0c1RhYi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/Company/MaterialVisitReportsTabHeader.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxNYXRlcmlhbFZpc2l0UmVwb3J0c1RhYkhlYWRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/Company/MaterialVisitsDetailsTab.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxNYXRlcmlhbFZpc2l0c0RldGFpbHNUYWIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/Company/MaterialVisitsDetailsTabHeader.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxNYXRlcmlhbFZpc2l0c0RldGFpbHNUYWJIZWFkZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/ContactPersonRelationship/EditTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFjdFBlcnNvblJlbGF0aW9uc2hpcFxFZGl0VGVtcGxhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/ContactPersonRelationship/MaterialPersonItemExtensions.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFjdFBlcnNvblJlbGF0aW9uc2hpcFxNYXRlcmlhbFBlcnNvbkl0ZW1FeHRlbnNpb25zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/ContactPersonRelationship/PersonItemTemplateActions.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFjdFBlcnNvblJlbGF0aW9uc2hpcFxQZXJzb25JdGVtVGVtcGxhdGVBY3Rpb25zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/Shared/MaterialTopic.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXE1hdGVyaWFsVG9waWMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/Shared/MaterialVisit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXE1hdGVyaWFsVmlzaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/Topic/EditTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVG9waWNcRWRpdFRlbXBsYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/VisitDetails/MaterialDetailsTab.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXREZXRhaWxzXE1hdGVyaWFsRGV0YWlsc1RhYi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/VisitDetails/MaterialDetailsTabHeader.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXREZXRhaWxzXE1hdGVyaWFsRGV0YWlsc1RhYkhlYWRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/VisitDetails/MaterialRelationshipsTab.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXREZXRhaWxzXE1hdGVyaWFsUmVsYXRpb25zaGlwc1RhYi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/VisitDetails/MaterialRelationshipsTabHeader.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXREZXRhaWxzXE1hdGVyaWFsUmVsYXRpb25zaGlwc1RhYkhlYWRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/VisitDetails/MaterialTopicsTab.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXREZXRhaWxzXE1hdGVyaWFsVG9waWNzVGFiLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/VisitDetails/MaterialTopicsTabHeader.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXREZXRhaWxzXE1hdGVyaWFsVG9waWNzVGFiSGVhZGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/VisitDetails/MaterialVisitReportsTab.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXREZXRhaWxzXE1hdGVyaWFsVmlzaXRSZXBvcnRzVGFiLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/VisitDetails/MaterialVisitReportsTabHeader.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXREZXRhaWxzXE1hdGVyaWFsVmlzaXRSZXBvcnRzVGFiSGVhZGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/VisitDetails/TopMenu.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXREZXRhaWxzXFRvcE1lbnUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/VisitList/ActionComplete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRMaXN0XEFjdGlvbkNvbXBsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/VisitList/ActionDetails.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRMaXN0XEFjdGlvbkRldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/VisitList/ActionEdit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRMaXN0XEFjdGlvbkVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/VisitList/ActionInProgress.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRMaXN0XEFjdGlvbkluUHJvZ3Jlc3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/VisitList/CircuitVisitIndexTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRMaXN0XENpcmN1aXRWaXNpdEluZGV4VGVtcGxhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/VisitList/MaterialItemTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRMaXN0XE1hdGVyaWFsSXRlbVRlbXBsYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/VisitList/MaterialPrimaryAction.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRMaXN0XE1hdGVyaWFsUHJpbWFyeUFjdGlvbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/VisitList/PreparedVisitIndexTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRMaXN0XFByZXBhcmVkVmlzaXRJbmRleFRlbXBsYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/VisitList/RecommendedVisitIndexTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRMaXN0XFJlY29tbWVuZGVkVmlzaXRJbmRleFRlbXBsYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/VisitList/TopMenu.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRMaXN0XFRvcE1lbnUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/VisitReportList/MaterialItemTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRSZXBvcnRMaXN0XE1hdGVyaWFsSXRlbVRlbXBsYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/VisitReport/CompanyTabHeader.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRSZXBvcnRcQ29tcGFueVRhYkhlYWRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/VisitReport/CreateTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRSZXBvcnRcQ3JlYXRlVGVtcGxhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/VisitReport/VisitReportDynamicFormDetailsModalBody.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRSZXBvcnRcVmlzaXRSZXBvcnREeW5hbWljRm9ybURldGFpbHNNb2RhbEJvZHkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/VisitReport/VisitReportDynamicFormEditModalBody.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRSZXBvcnRcVmlzaXRSZXBvcnREeW5hbWljRm9ybUVkaXRNb2RhbEJvZHkuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/VisitReport/VisitReportExtensions.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRSZXBvcnRcVmlzaXRSZXBvcnRFeHRlbnNpb25zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/VisitReport/VisitReportResponseHeader.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRSZXBvcnRcVmlzaXRSZXBvcnRSZXNwb25zZUhlYWRlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/Visit/CompanyItemTemplateActions.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRcQ29tcGFueUl0ZW1UZW1wbGF0ZUFjdGlvbnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/Visit/CreateTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRcQ3JlYXRlVGVtcGxhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/Visit/DetailsTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRcRGV0YWlsc1RlbXBsYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Source/crm6/src/Crm.Web/Plugins/Crm.VisitReport/Views/Visit/EditTemplate.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVmlzaXRcRWRpdFRlbXBsYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 

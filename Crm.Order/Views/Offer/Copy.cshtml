@@ -1,0 +1,36 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<div class="modal-header card-header ch-alt">
+	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title">
+		@(Html.Localize("CopyOffer"))
+	</h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<form role="form">
+		<p class="m-t-10">
+		</p>
+		<!-- ko with: newOffer -->
+		<div class="form-group has-feedback" data-bind="validationElement: ValidTo">
+			<label class="control-label">@(Html.Localize("ValidTo"))</label>
+			<div class="dtp-container fg-line">
+				<input name="ValidTo" type="text" class="form-control date-picker" data-bind="datePicker: ValidTo, datePickerOptions: { config: { minDate: new Date() } }" placeholder="@(Html.Localize("ClickHere"))">
+			</div>
+			<span class="zmdi zmdi-calendar form-control-feedback"></span>
+			<small class="help-block" data-bind="validationMessage: ValidTo"></small>
+		</div>
+		<!-- /ko -->
+	</form>
+	<p></p>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-bind="click: Helper.Database.clearTrackedEntities" data-dismiss="modal">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: submit, disable: loading">
+		@(Html.Localize("Create"))
+	</button>
+</div>

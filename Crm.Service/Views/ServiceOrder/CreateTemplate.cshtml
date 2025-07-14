@@ -1,0 +1,28 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Extensions
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div class="container">
+	<div class="card">
+		<div class="card-header ch-alt">
+			<h2>@(Html.Localize("NewServiceOrder"))</h2>
+		</div>
+		<div class="card-body card-padding">
+			<form role="form">
+				@Html.PluginRenderActions("CreateServiceOrderForm")
+				<!-- ko requiredPermission: { name: 'Edit', group: 'Visibility' } -->
+				<fieldset>
+					<legend class="p-t-25 m-b-25 c-black b-0 f-500 f-14">
+						@(Html.Localize("Visibility"))
+					</legend>
+					<!-- ko with: $root.visibilityViewModel -->
+					@Html.RenderAction("Selection", "Visibility")
+					<!-- /ko -->
+				</fieldset>
+				<!-- /ko -->
+			</form>
+		</div>
+		 @await Html.PartialAsync("CreateFormFooter") 
+	</div>
+</div>

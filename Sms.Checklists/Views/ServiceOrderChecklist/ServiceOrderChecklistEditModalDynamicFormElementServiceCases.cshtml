@@ -1,0 +1,29 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<!-- ko if: ko.unwrap(ExtensionValues).CanAttachServiceCases -->
+<div class="row m-b-15 m-l-10" data-bind="visible: $root.getServiceCases($data).length > 0">
+	<div class="col-sm-12">
+		<small>
+			<span data-bind="translatedText: $root.getServiceCases($data).length > 1 ? 'ServiceCases' : 'ServiceCase'"></span>:
+			<span data-bind="foreach: $root.getServiceCases($data)">
+				<span data-bind="visible: $index() > 0">, </span>
+				<!-- ko ifnot: window.Helper.ServiceOrderChecklist.serviceCaseIsDraft($data) -->
+				<!-- ko requiredPermission: { name: 'Read', group: 'ServiceCase' } -->
+				<a href="#" data-html="true" data-bind="popover: { title: $data.ServiceCaseNo, content: $root.getPopOverText($data), placement: 'auto bottom' }">
+					<i class="service-case-no" data-bind="text: ServiceCaseNo"></i>
+				</a>
+				<!-- /ko -->
+				<!-- ko noRequiredPermission: { name: 'Read', group: 'ServiceOrder' } -->
+				<span class="service-case-no" data-bind="text: ServiceCaseNo"></span>
+				<!-- /ko -->
+				<!-- /ko -->
+				<!-- ko if: window.Helper.ServiceOrderChecklist.serviceCaseIsDraft($data) -->
+				<a href="#" data-html="true" data-bind="popover: { title: $data.ServiceCaseNo, content: $root.getPopOverText($data), placement: 'auto bottom' }">
+					<i class="service-case-no c-gray" data-bind="text: ServiceCaseNo"></i>
+				</a>
+				<!-- /ko -->
+			</span>
+		</small>
+	</div>
+</div>
+<!-- /ko -->

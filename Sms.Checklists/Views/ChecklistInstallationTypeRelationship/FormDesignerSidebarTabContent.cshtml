@@ -1,0 +1,64 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+<div role="tabpanel" class="tab-pane animated fadeIn m-20" id="tab-checklist-installation-type-relationships" data-bind="if: $root.form().CategoryKey() === 'Checklist' || $root.form().CategoryKey() === 'PDF-Checklist' ">
+	<fieldset>
+		<legend class="m-b-25 c-black b-0 f-500 f-14" data-bind="translatedText: 'ChecklistInstallationTypeRelationship'"></legend>
+		<div data-bind="with: tabs()['tab-checklist-installation-type-relationships']">
+			<div data-bind="validationElement: checklistInstallationTypeRelationship">
+				<small class="help-block pre-line" data-bind="validationMessage: checklistInstallationTypeRelationship"></small>
+			</div>
+			<div data-bind="with: checklistInstallationTypeRelationship">
+				<form-element id="InstallationTypeKey" params="value: InstallationTypeKey, caption: 'InstallationTypeKey', type: 'select'">
+					<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_InstallationType'), placeholder: placeholder }">
+					</select>
+				</form-element>
+				<form-element id="ServiceOrderTypeKey" params="value: ServiceOrderTypeKey, caption: 'ServiceOrderTypeKey', type: 'select'">
+					<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_ServiceOrderType'), placeholder: placeholder }">
+					</select>
+				</form-element>
+				<form-element params="value: RequiredForServiceOrderCompletion, caption: 'RequiredForServiceOrderCompletion', type: 'checkbox'"></form-element>
+				<form-element params="value: SendToCustomer, caption: 'SendToCustomer', type: 'checkbox'"></form-element>
+			</div>
+			<button class="btn btn-primary waves-effect" data-bind="translatedText: 'Add', click: addRelationship"></button>
+			<!-- ko if: checklistInstallationTypeRelationships().length > 0 -->
+			<hr />
+			<table class="table">
+				<thead>
+				<tr>
+					<th>
+						<span data-bind="translatedText: 'InstallationType'"></span> / <span data-bind="translatedText: 'ServiceOrderType'"></span>
+					</th>
+					<th data-bind="translatedText: 'Required'"></th>
+					<th data-bind="translatedText: 'Send'"></th>
+					<th></th>
+				</tr>
+				</thead>
+				<tbody data-bind="foreach: checklistInstallationTypeRelationships">
+				<tr>
+					<td>
+						<span data-bind="lookupValue: InstallationTypeKey, lookups: $root.lookups.installationTypes"></span> / <span data-bind="lookupValue: ServiceOrderTypeKey, lookups: $root.lookups.serviceOrderTypes"></span>
+					</td>
+					<td>
+						<label class="checkbox">
+							<input type="checkbox" name="RequiredForServiceOrderCompletion" data-bind="checked: RequiredForServiceOrderCompletion"/>
+							<i class="input-helper"></i>
+						</label>
+					</td>
+					<td>
+						<label class="checkbox">
+							<input type="checkbox" name="SendToCustomer" data-bind="checked: SendToCustomer"/>
+							<i class="input-helper"></i>
+						</label>
+					</td>
+					<td>
+						<button class="btn btn-danger btn-sm waves-effect" data-bind="click: $parent.removeRelationship, tooltip: true" title="@(Html.Localize("Remove"))">
+							<i class="zmdi zmdi-hc-lg zmdi-delete"></i>
+						</button>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+			<!-- /ko -->
+		</div>
+	</fieldset>
+</div>

@@ -1,0 +1,14 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- ko if: $root.form().CategoryKey() === "Checklist" -->
+<!-- ko if: ['Literal', 'PageSeparator', 'SectionSeparator'].indexOf($data.FormElementType()) === -1 -->
+<div class="form-group" data-bind="with: ExtensionValues">
+	<label class="field">
+		<input data-bind="checked: CanAttachServiceCases" id="CanAttachServiceCases" name="CanAttachServiceCases" type="checkbox" value="true">
+		<input name="CanAttachServiceCases" type="hidden" value="false">
+		<span class="description">@(Html.Localize("CanAttachServiceCases"))</span>
+	</label>
+</div>
+<!-- /ko -->
+<!-- /ko -->

@@ -1,0 +1,44 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<CalculationViewModel>
+@using Crm.Configurator.ViewModels
+@using Crm.Library.Globalization.Extensions
+
+@{ var salesColumnClass = Model.DisplayPurchasePrices ? String.Empty : "col-xs-offset-8"; }
+
+<dl class="dl-horizontal c-black calculation-position">
+	<dt>
+		<span data-bind="text: CalculationPositionType.Value"></span>
+		<span data-bind="visible: CalculationPositionType.IsAbsolute() === false">(%)</span>
+	</dt>
+	<dd>
+		<div class="row">
+			@if (Model.DisplayPurchasePrices) { 
+				<div class="col-xs-4 col-xs-offset-4" data-bind="visible: CalculationPositionType.HasPurchasePrice">
+					<div class="fg-line">
+						<input type="number" step="10" class="form-control text-right" placeholder="0,00" data-bind="value: PurchasePrice, enable: $root.isEditable, event: { change: $parent.calculate.bind($parent) }">
+					</div>
+				</div>
+			 } 
+			<div class="col-xs-4 @(salesColumnClass)" data-bind="css: { 'col-xs-offset-9': CalculationPositionType.HasPurchasePrice() === false, '@(salesColumnClass)': true }">
+				<div class="col-xs-8" data-bind="css: { 'col-xs-8 p-r-0': CalculationPositionTypeKey() === 'Discount' }">
+					<input type="number" step="10" class="form-control text-right" placeholder="0,00" data-bind="value: SalesPrice, enable: $root.isEditable, event: { change: $parent.calculate.bind($parent)}, attr: { max: CalculationPositionTypeKey() === 'Discount' ? ( IsPercentage() ? 100 : $parent.baseSalesPrice() ) : '' }">
+				</div>
+				<div class="col-xs-4 p-r-0 p-l-0" data-bind="visible: CalculationPositionTypeKey() === 'Discount' ">
+					<span class="input-group-addon">
+						<button class="btn btn-default waves-effect discount-type" data-bind="text: IsPercentage() ? '%' : $root.getCurrencyValue($root.baseOrder().CurrencyKey()), click: $parent.togglePercentage.bind($parent, $data)"></button>
+					</span>
+				</div>
+			</div>
+
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="fg-line">
+					<textarea class="form-control auto-size" placeholder="@(Html.Localize("Remark"))..." data-bind="value: Remark, enable: $root.isEditable, autosize: true"></textarea>
+				</div>
+			</div>
+		</div>
+		<div class="row text-right p-t-5 p-r-15" data-bind="visible: CalculationPositionType.IsDefault() === false">
+			<button class="delete-button btn btn-default btn-sm" data-bind="click: $parent.removeCalculationPosition.bind($parent, $data)">@(Html.Localize("Remove"))</button>
+		</div>
+	</dd>
+</dl>

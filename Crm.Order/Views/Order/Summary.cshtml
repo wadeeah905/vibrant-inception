@@ -1,0 +1,86 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div id="summary" class="card">
+  <div class="card-header ch-alt m-b-10">
+	<h2>
+	  @(Html.Localize("OrderSummaryTitle"))
+	  <small>
+		@(Html.Localize("OrderSummary"))
+	  </small>
+	</h2>
+  </div>
+  <div class="card-body card-padding">
+	<div class="listview lv-bordered">
+	  <div class="lv-body">
+		<h5 class="text-uppercase">
+		  <i class="zmdi zmdi-view-headline m-r-10"></i>@(Html.Localize("General"))
+		</h5>
+		<div class="lv-item media">
+			<div class="media-body">
+				<div class="lv-title">
+					@(Html.Localize("OrderNumber"))
+				</div>
+				<small class="lv-small order-no" data-bind="text: baseOrder().OrderNo() || Helper.String.getTranslatedString('Unspecified')"></small>
+			</div>
+		</div>
+		<!-- ko with: baseOrder().Company -->
+		<div class="lv-item media">
+		  <div class="media-body">
+			<div class="lv-title">
+			  @(Html.Localize("Contact"))
+			</div>
+			<small class="lv-small">
+			  <a href="#" data-bind="attr: { href: '#/Main/Company/DetailsTemplate/' + Id() }">
+				  <span data-bind="text: Helper.Company.getDisplayName($data)"></span>
+			  </a>
+			</small>
+		  </div>
+		</div>
+		<!-- /ko -->
+		<!-- ko with: baseOrder().Person -->
+		<div class="lv-item media">
+			<div class="media-body">
+				<div class="lv-title">
+					@(Html.Localize("ContactPerson"))
+				</div>
+				<small class="lv-small" data-bind="text: Helper.Person.getDisplayName($data)"></small>
+			</div>
+		</div>
+		<!-- /ko -->
+		<div class="lv-item media">
+			<div class="media-body">
+				<div class="lv-title">
+					@(Html.Localize("OrderDate"))
+				</div>
+				<small class="lv-small" data-bind="dateText: { value: baseOrder().OrderDate, defaultText: Helper.String.getTranslatedString('Unspecified') }"></small>
+			</div>
+		</div>
+		<!-- ko if: baseOrder().OrderEntryType() === 'SingleDelivery' -->
+			<div class="lv-item media">
+				<div class="media-body">
+					<div class="lv-title">
+						@(Html.Localize("DeliveryDate"))
+					</div>
+					<small class="lv-small" data-bind="dateText: { value: baseOrder().DeliveryDate, defaultText: Helper.String.getTranslatedString('Unspecified') }"></small>
+				</div>
+			</div>
+		<!-- /ko -->
+		@Html.PluginRenderActions("OrderSummaryGeneral")
+		<h5 class="text-uppercase">
+		  <i class="zmdi zmdi-view-headline m-r-10"></i>@(Html.Localize("SalesPrice"))
+		</h5>
+		<div class="lv-item media">
+		  <div class="media-body">
+			<div class="lv-title lead pull-right m-b-0">
+			  <span data-bind="text: getCurrencyValue(baseOrder().CurrencyKey())"></span> <span class="total-price" data-bind="money: baseOrder().Price() || totalPrice()"></span>
+			</div>
+		  </div>
+		</div>
+		@Html.PluginRenderActions("OrderSummaryBottom")
+	  </div>
+	</div>
+  </div>
+</div>
+

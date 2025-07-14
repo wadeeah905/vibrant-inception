@@ -1,0 +1,16 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<pmbb-view-entry params="caption: 'Checklist'">
+	<!-- ko with: $root.affectedDynamicFormReference -->
+	<a href="#" data-route="Sms.Checklists/ServiceOrderChecklist/DetailsTemplate/{{Id}}" data-toggle="modal" data-target="#lgModal">
+		<span data-bind="text: Helper.ServiceOrderChecklist.getTitle($data)"></span>
+	</a>
+	<!-- /ko -->
+	<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: $root.affectedDynamicFormReference"></span>
+</pmbb-view-entry>
+<pmbb-view-entry params="caption: 'DynamicFormElement'">
+	<!-- ko with: $root.affectedDynamicFormElement -->
+	<span data-bind="text: $root.getElementTitle($data)"></span>
+	<!-- /ko -->
+	<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: $root.affectedDynamicFormElement"></span>
+</pmbb-view-entry>

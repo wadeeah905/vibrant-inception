@@ -1,0 +1,92 @@
+@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<div class="generic-list listview lv-bordered order-report">
+	@await Html.PartialAsync("PdfTableHead")
+	<div class="lv-body">
+		<!-- ko foreach: deliveryDates().sort() -->
+			<div class="lv-item media preview-table-header" data-bind="dateText: $data, css: { 'p-t-15': $index() === 0,  'p-t-30': $index() > 0 }, visible: $data"></div>
+			<!-- ko foreach: $root.items().filter(function(it) { return it.DeliveryDate()?.getTime() === $data?.getTime() && !it.IsOption() && it.ParentOrderItemId() === null  }) -->
+				@await Html.PartialAsync("PdfTableData")
+				<!-- ko foreach: $root.getAlternatives($data) -->
+					@await Html.PartialAsync("PdfTableData")
+				<!-- /ko -->
+			<!-- /ko -->
+		<!-- /ko -->
+		<div>
+			<div class="p-t-15" colspan="6">
+				<!-- ko if: usedVATTypes().length -->
+					<!-- ko foreach: usedVATTypes -->
+						<!-- ko with: $parent.getVATCategoryTotalPrice($data) -->
+						<div class="row text-right p-b-15">
+							<span class="f-700 col-xs-12 m-b-5">
+								<span>@(Html.Localize("Summary"))</span> (<span>@(Html.Localize("VATtype"))</span>
+								<span>: </span>
+								<span data-bind="text: $root.lookups.vatLevel.$array.filter(function(v) { return v.Key === $parent })[0].Value"></span>
+								<span> / </span>
+								<span data-bind="text: $root.lookups.vatLevel.$array.filter(function(v) { return v.Key === $parent })[0].PercentageValue"></span>
+								<span>% )</span>
+							</span>
+							<span class="col-xs-9">@(Html.Localize("TotalPriceWithoutVAT"))</span>
+							<div class="col-xs-3">
+								<span data-bind="lookupValue: $root.order().CurrencyKey(), lookups: $root.lookups.currencies"></span>
+								<span data-bind="money: TotalPrice"></span>
+							</div>
+
+							<span class="col-xs-9">@(Html.Localize("OnlyVAT"))</span>
+							<div class="col-xs-3">
+								<span data-bind="lookupValue: $root.order().CurrencyKey(), lookups: $root.lookups.currencies"></span>
+								<span data-bind="money: OnlyVAT"></span>
+							</div>
+
+							<span class="col-xs-9">@(Html.Localize("TotalPriceWithVAT"))</span>
+							<div class="col-xs-3">
+								<span data-bind="lookupValue: $root.order().CurrencyKey(), lookups: $root.lookups.currencies"></span>
+								<span data-bind="money: TotalPriceWithVAT"></span>
+							</div>
+						</div>
+						<!-- /ko -->
+					<!-- /ko -->
+				<!-- /ko -->
+
+				<div class="row"><h4 class="text-right col-xs-12 m-b-5">@(Html.Localize("Total"))</h4></div>
+
+				<div class="p-t-15 row">
+					<!-- ko foreach: calculationPositions -->
+					<div class="text-right">
+						<span class="col-xs-9" data-bind="lookupValue: CalculationPositionTypeKey, lookups: $parent.lookups.calculationPositionType"></span>
+						<div class="col-xs-3">
+							<span data-bind="visible: CalculationPositionTypeKey === 'Discount'">-</span>
+							<span data-bind="lookupValue: $parent.order().CurrencyKey(), lookups: $parent.lookups.currencies, visible: !IsPercentage"></span>
+							<span data-bind="money: SalesPrice"></span>
+							<span data-bind="visible: IsPercentage">%</span>
+						</div>
+					</div>
+					<!-- /ko -->
+				</div>
+
+				<div class="text-right f-700 p-t-15 row">
+					<span class="col-xs-9">@(Html.Localize("TotalPrice"))</span>
+					<div id="total-price" class="col-xs-3">
+						<span data-bind="lookupValue: order().CurrencyKey(), lookups: lookups.currencies"></span>
+						<span data-bind="money: order().Price() ? order().Price() : getTotalPriceWithVAT()"></span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- ko if: items().filter(function(it){ return it.IsOption() }).length > 0 -->
+<p class="f-700">
+	@(Html.Localize("OptionalItems"))
+</p>
+<table class="table">
+	@await Html.PartialAsync("PdfTableHead")
+	<div class="lv-body">
+		<!-- ko foreach: items().filter(function(it) { return it.IsOption() }) -->
+			@await Html.PartialAsync("PdfTableData")
+		<!-- /ko -->
+	</div>
+</table>
+<!-- /ko -->

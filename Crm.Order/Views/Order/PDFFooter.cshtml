@@ -1,0 +1,27 @@
+﻿@inherits Crm.Library.Modularization.CrmViewPage
+@{Layout = "~/Views/Shared/Layout/ApplicationLayout.cshtml";}
+@using Crm.Library.Model.Site
+
+@section MainContent {
+
+	<table style="border-top: 1px solid black; width: 100%; padding-top: 0.5cm;">
+		<tr>
+			@if (CrmSite.GetExtension<DomainExtension>().ReportFooterImage != null)
+			{
+				<td><img src="data:@(CrmSite.GetExtension<DomainExtension>().ReportFooterImageContentType);base64,@(Convert.ToBase64String(CrmSite.GetExtension<DomainExtension>().ReportFooterImage))" /></td>
+
+			}
+			else
+			{
+				<td>@(CrmSite.GetExtension<DomainExtension>().ReportFooterCol1)</td>
+
+				<td style="text-align: center;">@(CrmSite.GetExtension<DomainExtension>().ReportFooterCol2)</td>
+
+				<td style="text-align: right;">@(CrmSite.GetExtension<DomainExtension>().ReportFooterCol3)</td>
+
+			}
+		</tr>
+	</table>
+
+}
+

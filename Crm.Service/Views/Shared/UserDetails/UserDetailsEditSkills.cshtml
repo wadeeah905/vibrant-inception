@@ -1,0 +1,6 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<pmbb-edit-entry params="caption: 'Skills', validationElement: SkillKeys">
+	<select class="form-control" multiple="multiple" data-bind="select2autocompleter: { data: SkillKeys, autocompleteOptions: { table: 'Main_Skill', customFilter: Helper.Lookup.queryLookup, mapDisplayObject: Helper.Lookup.mapLookupForSelect2Display, getElementByIdQuery: Helper.Lookup.getLookupByKeyQuery, placeholder: $parent.placeholder } }">
+	</select>
+</pmbb-edit-entry>

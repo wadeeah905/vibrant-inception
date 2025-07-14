@@ -1,0 +1,26 @@
+{
+  "id": "53a7eeee-b41a-44c8-a403-b785ed45484f",
+  "name": "App for field service",
+  "publisher": "L-mobile",
+  "version": "1.0.0.2",
+  "brief": "",
+  "description": "",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",
+  "dependencies": [],
+  "screenshots": [],
+  "platform": "14.0.0.0",
+  "application": "14.0.0.0",
+  "idRanges": [
+    {
+      "from": 50070,
+      "to": 50089
+    }
+  ],
+  "contextSensitiveHelpUrl": "https://BC365.com/help/",
+  "showMyCode": true,
+  "runtime": "3.0"
+}

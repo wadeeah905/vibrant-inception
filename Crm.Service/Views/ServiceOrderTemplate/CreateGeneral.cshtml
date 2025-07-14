@@ -1,0 +1,34 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<fieldset data-bind="with: serviceOrderTemplate">
+	<legend class="m-b-25 c-black b-0 f-500 f-14">
+		@(Html.Localize("General"))
+	</legend>
+	<form-element params="value: ErrorMessage, caption: 'Name', type: 'text'">
+	</form-element>
+	<form-element id="TypeKey" params="value: TypeKey, caption: 'ServiceOrderType', type: 'select2'">
+		<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { customFilter: Helper.ServiceOrder.queryServiceOrderType, table: 'CrmService_ServiceOrderType', mapDisplayObject: Helper.Lookup.mapLookupForSelect2Display, placeholder: placeholder }}">
+		</select>
+	</form-element>
+	<form-element id="InvoicingTypeKey" params="value: InvoicingTypeKey, caption: 'InvoicingType', type: 'select2'">
+		<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('Main_InvoicingType'), placeholder: placeholder}">
+		</select>
+	</form-element>
+	<div class="row">
+		<div class="col-md-6">
+			<form-element id="UserGroupKey" params="value: UserGroupKey, caption: 'Usergroup', type: 'select2'">
+				<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name'], table: 'Main_Usergroup', mapDisplayObject: function(ug){ return { id: ug.Id, text: ug.Name }; }, placeholder: placeholder } }">
+				</select>
+			</form-element>
+		</div>
+		<div class="col-md-6">
+			<form-element id="ResponsibleUser" params="value: ResponsibleUser, caption: 'ResponsibleUser', type: 'select2'">
+				<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['LastName'], table: 'Main_User', mapDisplayObject: Helper.User.mapForSelect2Display, placeholder: placeholder, customFilter: function (query, term) { return Helper.User.filterUserQuery(query, term, $parent.UserGroupKey()); } } }">
+				</select>
+			</form-element>
+		</div>
+	</div>
+	@Html.PluginRenderActions("CreateServiceOrderTemplateFormGeneral")
+</fieldset>

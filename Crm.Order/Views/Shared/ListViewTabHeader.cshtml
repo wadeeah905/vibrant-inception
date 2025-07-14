@@ -1,0 +1,10 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- ko if: baseOrder().OrderEntryType() === 'SingleDelivery' || baseOrder().OrderEntryType() === 'MultiDelivery' -->
+<li role="presentation">
+	<a class="col-xs-4" aria-expanded="false" href="#tab-listview" aria-controls="tab-listview" role="tab" data-toggle="tab">
+		@(Html.Localize("OrderSimpleTabTitle"))
+	</a>
+</li>
+<!-- /ko -->

@@ -1,0 +1,64 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Offline.Extensions
+@using Crm.Library.Globalization.Extensions
+@using Crm.Rest.Model
+@using Sms.Checklists.ViewModels
+@using (Html.TemplateContext("$root")) {
+@using (Html.TemplateCondition("formReference().ReferenceType() == 'ServiceOrderChecklist'")) {
+        <div class="row m-b-15">
+            @using (Html.TemplateCondition("$root.dispatch"))
+            {
+                <div class="col-xs-4">
+                    @using (Html.TemplateContext("dispatch"))
+                    {
+                        <div>
+                            <b data-bind="translatedText: { key: 'Technician', language: $parent.selectedLanguage }">@(Html.Localize("Technician"))</b>
+                        </div>
+                        <div data-bind="text: Helper.User.getDisplayName($parent.dispatchedUser)"></div>
+                    }
+                </div>
+            }
+            <div class="col-xs-4">
+                @using (Html.TemplateContext<ServiceOrderChecklistResponseViewModel>(x => x.ServiceOrder))
+                {
+                    <div>
+                        <b>@Html.Localize("Customer")</b>
+                    </div>
+                    <div data-bind="text: Helper.Company.getDisplayName($root.CustomerContact())"></div>
+                    <div data-bind="text: Street"></div>
+                    <div>
+                        <span data-bind="text: ZipCode"></span> <span data-bind="text: City"></span>
+                    </div>
+                    <!-- ko if: $root.CausingContact() && $root.CausingContact() !== $root.CustomerContact() -->
+                    <div style="margin-top: 8px;">
+                        <b>@Html.Localize("CausingContact")</b>
+                    </div>
+                    <div data-bind="text: Helper.Company.getDisplayName($root.CausingContact())"></div>
+                    <!-- /ko -->
+                }
+            </div>
+            <div class="col-xs-4">
+                @using (Html.TemplateContext<ServiceOrderChecklistResponseViewModel>(x => x.Installation))
+                {
+                    <div>
+                        <b>Einsatzort</b>
+                    </div>
+                    <div data-bind="text: Helper.Installation.getDisplayName($data)"></div>
+                }
+                @using (Html.TemplateContext<ServiceOrderChecklistResponseViewModel>(x => x.ServiceOrder)) {
+                    <!-- ko if: $parent.ServiceOrderResponsibleUser() -->
+                    <div style="margin-top: 8px;">
+                        <b>Technischer Verantwortlicher Benutzer</b>
+                    </div>
+                    <div data-bind="text: Helper.User.getDisplayName($parent.ServiceOrderResponsibleUser())"></div>
+                    <!-- /ko -->
+                    
+                    <div style="margin-top: 8px;">
+                        <b>@Html.Localize("OrderNo")</b>
+                    </div>
+                    <div data-bind="text: OrderNo"></div>
+                } 
+            </div>
+        </div>
+     } 
+ } 

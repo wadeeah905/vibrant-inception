@@ -1,0 +1,29 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<!-- ko with: formReference -->
+<div>
+	<span class="f-700" data-bind="translatedText: 'Customer'"></span>:
+	<span data-bind="text: Helper.Company.getDisplayName(Company())"></span>
+</div>
+<!-- ko if: Visit() && Visit().Address() -->
+<div>
+	<span class="f-700" data-bind="translatedText: 'Address'"></span>:
+	<span data-bind="text: Visit().Address().Street() + ','" ></span>
+	<span data-bind="text: Visit().Address().ZipCode() + ' ' + Visit().Address().City()"></span>
+</div>
+<!-- /ko -->
+<!-- ko if: Visit() && Visit().CustomAim() -->
+<div>
+	<span class="f-700" data-bind="translatedText: 'VisitAim'"></span>:
+	<span data-bind="text: Visit().CustomAim()" ></span>
+</div>
+<!-- /ko -->
+<div>
+	<span class="f-700" data-bind="translatedText: 'ResponsibleUser'"></span>:
+	<span data-bind="text: Helper.User.getDisplayName(ResponsibleUserUser())" ></span>
+</div>
+<div>
+	<span class="f-700" data-bind="translatedText: 'VisitReportDate'"></span>:
+	<span data-bind="dateText: Date" ></span>
+</div>
+<!-- /ko -->

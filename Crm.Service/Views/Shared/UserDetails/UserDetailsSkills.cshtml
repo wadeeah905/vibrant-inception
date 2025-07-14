@@ -1,0 +1,6 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<pmbb-view-entry params="caption: 'Skills'">
+	<span data-bind="text: $root.getSkillsFromKeys(SkillKeys()).map(function(x){ return x.text; }).join(', ')"></span>
+	<span class="c-gray" data-bind="translatedText: 'Unspecified', if: SkillKeys().length === 0"></span>
+</pmbb-view-entry>

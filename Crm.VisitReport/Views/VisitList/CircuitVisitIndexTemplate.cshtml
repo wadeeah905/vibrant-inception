@@ -1,0 +1,113 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<ul class="top-menu bgm-blue p-l-0" data-bind="event: { touchmove: handleTouchMove }">
+	<li class="dropdown" data-bind="tooltip: true" data-placement="bottom" title="@(Html.Localize("Close"))">
+		<a id="close-prepared-visit-list" href="#" data-trigger="#right-nav">
+			<i class="tm-icon zmdi zmdi-close"></i>
+		</a>
+	</li>
+	<!-- ko if: getLocationPoint() -->
+	<li class="distance-information" > 
+	<!-- ko if: distance() > -1 -->
+		<span data-bind="text: distance() + ' km'"></span>
+	<!-- /ko -->
+	<!-- ko if: distance() === -1 -->
+		<span data-bind="translatedText: 'All'"></span>
+	<!-- /ko -->	
+	</li>
+	<li class="dropdown pull-right m-r-10" data-bind="tooltip: true" data-placement="bottom" title="@(Html.Localize("ChooseRadius"))">
+		<a href="#" data-toggle="dropdown">
+			<i class="tm-icon zmdi zmdi-filter-center-focus"></i>
+		</a>
+		<ul class="dropdown-menu dropdown-menu-right">
+			<li data-bind="translatedText: 'ChooseRadius'" role="presentation" class="dropdown-header pull-right"></li>
+			<li>
+				<a href="#" data-bind="click: () => setDistance(-1), translatedText: 'All'"></a>
+			</li>
+			<!-- ko foreach: distances -->
+			<li>
+				<a href="#" data-bind="click: () => $root.setDistance($data), text: $data + ' km'"></a>
+			</li>
+			<!-- /ko -->
+		</ul>
+	</li>
+	<li class="dropdown pull-right" data-bind="tooltip: true" data-placement="bottom" title="@(Html.Localize("IncreaseDistance"))">
+		<a href="#" data-bind="event: { mousedown: () => holdIncreaseDecreaseDistance(true,event), mouseup: releaseIncreaseDecreaseDistance, mouseleave: releaseIncreaseDecreaseDistance, touchstart: holdIncreaseDecreaseDistance(true,event), touchend: releaseIncreaseDecreaseDistance, touchcancel: releaseIncreaseDecreaseDistance }">
+			<i class="tm-icon zmdi zmdi-plus-circle-o nav-justified"></i>
+		</a>
+	</li>
+	<li class="dropdown pull-right" data-bind="tooltip: true" data-placement="bottom" title="@(Html.Localize("DecreaseDistance"))">
+		<a href="#" data-bind="event: { mousedown: () => holdIncreaseDecreaseDistance(false,event), mouseup: releaseIncreaseDecreaseDistance, mouseleave: releaseIncreaseDecreaseDistance, touchstart: holdIncreaseDecreaseDistance(false,event), touchend: releaseIncreaseDecreaseDistance, touchcancel: releaseIncreaseDecreaseDistance }">
+			<i class="tm-icon zmdi zmdi-minus-circle-outline nav-justified"></i>
+		</a>
+	</li>
+	<!-- /ko -->
+</ul>
+
+<div class="listview lv-bordered lv-min-height">
+	<div class="lv-body">
+		<div data-bind="foreach: items">
+			<div class="lv-item media">
+				 @await Html.PartialAsync("GenericListBulkControl") 
+				<div class="lv-avatar pull-left" data-bind="text: Helper.Company.getTypeAbbreviation($data, $parent.lookups.companyTypes), style: { backgroundColor: Helper.Company.getColor($data, $parent.lookups.companyTypes) }, visible: !$parent.selectedItems || $parent.selectedItems().length === 0"></div>
+				<div class="media-body">
+					<div class="lv-title">
+						<a href="#" data-bind="attr: { href: '#/Main/Company/DetailsTemplate/' + Id() }">
+							<span data-bind="text: Helper.Company.getDisplayName($data)"></span>
+						</a>
+					</div>
+					<div class="lv-actions actions">
+						<a href="#" data-bind="attr: { 'data-route': 'Crm.VisitReport/Visit/EditTemplate/?companyId=' + Id() + '&addressId=' + Addresses()[0].Id() }, tooltip: true" title="@(Html.Localize("AddVisit"))" data-toggle="modal" data-target="#modal">
+							<i class="zmdi zmdi-calendar"></i>
+						</a>
+					</div>
+					<div class="media-body">
+						<small class="lv-small" data-bind="foreach: Addresses">
+							<address-block params="address: $data, lookups: $parentContext.$parent.lookups, showNames: false, showLink: false"></address-block>	
+						</small>
+						<ul class="lv-attrs">
+							<li>
+								<span data-bind="if: $parent.loadingInitialPosition">
+									<i class="zmdi zmdi-pin"></i>
+									<span class="preloader pl-inline pls-gray m-l-5">
+										<svg class="pl-circular" viewBox="25 25 50 50">
+											<circle class="plc-path" cx="50" cy="50" r="20"></circle>
+										</svg>
+									</span>
+								</span>
+								<span data-bind="ifnot: $parent.loadingInitialPosition">
+									<span data-bind="if: $parent.getDistance($data)">
+										<i class="zmdi zmdi-navigation" data-bind="style: { transform: 'rotate(' + $parent.getDirection($data) + 'deg)' }"></i>
+										<span data-bind="text: $parent.getDistance($data)"></span>
+									</span>
+									<span data-bind="ifnot: $parent.getDistance($data)">
+										<i class="zmdi zmdi-pin-off"></i>
+									</span>
+								</span>
+							</li>
+							<!-- ko with: ResponsibleUserUser -->
+							<li>
+								<i class="zmdi zmdi-account-o"></i>
+								<span data-bind="text: Helper.User.getDisplayName($data)"></span>
+							</li>
+							<!-- /ko -->
+						</ul>
+						@Html.PluginRenderActions("MaterialCompanyItemExtensions")
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ko if: items().length === 0 -->
+			<div id="generic-list-empty-state" class="lv-item media">
+				<div class="media-body">
+					<small class="lv-small">@(Html.Localize("NoRecordsForSearchCriteria"))</small>
+				</div>
+			</div>
+		<!-- /ko -->
+	</div>
+</div>
+<span class="col-xs-12">
+	@await Html.PartialAsync("MaterialPaging")
+</span>

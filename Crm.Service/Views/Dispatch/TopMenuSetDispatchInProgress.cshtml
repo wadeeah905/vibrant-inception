@@ -1,0 +1,10 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<li data-bind="visible: $root.dispatch().StatusKey() === 'Read' || ($root.dispatch().StatusKey() === 'Released' && AuthorizationManager.isAuthorizedForAction('Dispatch', 'CreateForOtherUsers'))">
+	<a id="work-on-dispatch" href="#" data-bind="click: $root.workOnDispatch">
+		<i class="zmdi zmdi-thumb-up"></i>
+		@(Html.Localize("WorkOnDispatch"))
+	</a>
+</li>
+

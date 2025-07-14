@@ -1,0 +1,7 @@
+﻿@inherits Crm.Library.Modularization.CrmViewPage<Crm.Service.ViewModels.IServiceOrderReportViewModel>
+@{Layout = "~/Views/Shared/Layout/HtmlTemplateLayout.cshtml";}
+@section TemplateMainContent {
+
+	 @await Html.PartialAsync("ServiceOrderReport") 
+
+}

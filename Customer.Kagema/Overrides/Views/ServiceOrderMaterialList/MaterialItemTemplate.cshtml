@@ -1,0 +1,98 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div id="{{Id}}" class="lv-item media" data-bind="infiniteScrollItem: { index: $index(), array: $parent.items }">
+	<div class="media-body">
+		<div class="row">
+			<div class="col-sm-7">
+				<div class="lv-title">
+					<span data-bind="text: ItemNo"></span> - <span data-bind="text: Description"></span>
+				</div>
+        <div>
+                    <span data-bind="text: InternalRemark"></span>
+        </div>
+				<div>
+			 <span data-bind="text: ExternalRemark"></span> 
+              <!-- ko foreach: DocumentAttributes -->
+					<p>
+						<i class="zmdi zmdi-file"></i>
+						<!-- ko if: FileResource -->
+						<a class="text-muted small" data-bind="fileResource: FileResource, text: FileResource().Filename" target="_blank"></a>
+						<!-- /ko -->
+					</p>
+					<!-- /ko -->
+				</div>
+				<ul class="lv-attrs">
+					<li data-bind="visible: CommissioningStatusKey">
+						<span data-bind="lookupValue: CommissioningStatusKey, lookups: $root.lookups.commissioningStatuses"></span>
+					</li>
+					<!-- ko if: Crm.Service.Settings.ServiceOrderMaterial.ShowPricesInMobileClient -->
+					<li data-bind="visible: Price">
+						<span data-bind="money: Price"></span> 
+						<span data-bind="lookupValue: $root.serviceOrder().CurrencyKey, lookups: $root.lookups.currencies"></span>
+					</li>
+					<!-- /ko -->
+				</ul>
+			</div>
+			<div class="col-xs-11 col-sm-4">
+				<div class="row">
+					<span class="col-xs-2 p-r-5 visible-xs">@(Html.Localize("EstimatedQty")):</span>
+					<span class="col-xs-6 col-sm-5 text-right p-r-5 p-l-5" data-bind="money: EstimatedQty"></span>
+					<span class="col-xs-4 col-sm-7 p-0 text-nowrap">
+						<span data-bind="lookupValue: QuantityUnitKey, lookups: $root.lookups.quantityUnits"></span>
+						<span class="hidden-xs c-black p-l-5">(@(Html.Localize("EstimatedQty")))</span>
+					</span>
+				</div>
+				<div class="row">
+					<span class="col-xs-2 p-r-5 visible-xs">@(Html.Localize("ActualQty")):</span>
+					<span class="col-xs-6 col-sm-5 text-right p-r-5 p-l-5" data-bind="money: ActualQty"></span>
+					<span class="col-xs-4 col-sm-7 p-0 text-nowrap">
+						<span data-bind="lookupValue: QuantityUnitKey, lookups: $root.lookups.quantityUnits"></span>
+						<span class="hidden-xs c-black p-l-5">(@(Html.Localize("ActualQty")))</span>
+					</span>
+				</div>
+				<div class="row" data-bind="if: $parent.showInvoiceQty">
+					<span class="col-xs-2 p-r-5 visible-xs">@(Html.Localize("InvoiceQty")):</span>
+					<span class="col-xs-6 col-sm-5 text-right p-r-5 p-l-5" data-bind="money: InvoiceQty"></span>
+					<span class="col-xs-4 col-sm-7 p-0 text-nowrap">
+						<span data-bind="lookupValue: QuantityUnitKey, lookups: $root.lookups.quantityUnits"></span>
+						<span class="hidden-xs c-black p-l-5">(@(Html.Localize("InvoiceQty")))</span>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="row" data-bind="visible: ServiceOrderMaterialSerials().length > 0">
+			<div class="col-md-12">
+				@(Html.Localize("Serials"))
+				<ul class="small" data-bind="foreach: ServiceOrderMaterialSerials">
+					<li>
+						<span data-bind="text: SerialNo"></span>
+						(@(Html.Localize("was")): <span data-bind="lookupValue: NoPreviousSerialNoReasonKey, lookups: $root.lookups.noPreviousSerialNoReasons"></span><span data-bind="text: PreviousSerialNo"></span>)
+					</li>
+				</ul>
+			</div>
+		</div>
+		<lv-actions>
+			<!-- ko requiredPermission: { name: 'EditMaterial', group: 'ServiceOrder' } -->
+			<!-- ko with: $parentContext.$parentContext.$parent -->
+				<li data-bind="visible: canEditMaterial()">
+					<a href="#" data-route="Crm.Service/ServiceOrderMaterial/EditTemplate/{{$parent.Id}}?dispatchId={{$root.dispatch && $root.dispatch() ? $root.dispatch().Id() : ''}}&currentServiceOrderTimeId={{$root.dispatch && $root.dispatch() && $root.dispatch().CurrentServiceOrderTimeId() ? $root.dispatch().CurrentServiceOrderTimeId() : ''}}&serviceOrderId={{$root.serviceOrder().Id}}" data-toggle="modal" data-target="#modal">
+						@(Html.Localize("Edit"))
+					</a>
+				</li>
+			<!-- /ko -->
+			<!-- /ko -->
+			<!-- ko requiredPermission: { name: 'DeleteMaterial', group: 'ServiceOrder' } -->
+			<!-- ko with: $parentContext.$parentContext.$parent -->
+			<li data-bind="visible: canEditMaterial() && ($parent.EstimatedQty() === 0 || $parent.CreateUser() === $root.currentUser().Id)">
+				<a href="#" data-bind="click: $data.deleteServiceOrderMaterial.bind($data, $parent)">
+					@(Html.Localize("Delete"))
+				</a>
+			</li>
+			<!-- /ko -->
+			<!-- /ko -->
+			@Html.PluginRenderActions("DispatchMaterialTemplateActions")
+		</lv-actions>
+	</div>
+</div>

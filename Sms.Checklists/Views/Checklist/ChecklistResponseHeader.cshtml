@@ -1,0 +1,71 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Offline.Extensions
+@using Crm.Library.Globalization.Extensions
+@using Crm.Rest.Model
+@using Sms.Checklists.ViewModels
+@using (Html.TemplateContext("$root"))
+{
+    @using (Html.TemplateCondition("formReference().ReferenceType() == 'ServiceOrderChecklist'"))
+    {
+        <div class="row">
+            <!-- Left Section: Customer and Address Information -->
+            <div class="col-xs-5 p-l-0">
+                @using (Html.TemplateContext<ServiceOrderChecklistResponseViewModel>(x => x.ServiceOrder))
+                {
+                    <div class="row">
+                        <div class="col-xs-12 p-l-0">
+                            <div style="font-size: 13px; font-weight: bold;">@Html.Localize("Customer")</div>
+                            <div style="font-size: 13px; margin-left: 8px;" data-bind="text: Helper.Company.getDisplayName($root.CustomerContact())"></div>
+                            <div style="font-size: 13px; margin-top: 4px; margin-left: 8px;" data-bind="text: Street"></div>
+                            <div style="font-size: 13px; margin-left: 8px;">
+                                <span data-bind="text: ZipCode"></span> <span data-bind="text: City"></span>
+                            </div>
+                            <!-- ko if: $root.CausingContact() && $root.CausingContact() !== $root.CustomerContact() -->
+                            <div style="font-size: 13px; font-weight: bold; margin-top: 8px;">@Html.Localize("CausingContact")</div>
+                            <div style="font-size: 13px; margin-left: 8px;" data-bind="text: Helper.Company.getDisplayName($root.CausingContact())"></div>
+                            <!-- /ko -->
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- Separator Bar -->
+            <div class="col-xs-1 text-center" style="border-left: 1px solid #ddd; height: 120px; margin-top: 5px; margin-left: 60px;">
+                <div style="height: 100%; display: flex; align-items: center; justify-content: center;">
+                    <div style="width: 4px; height: 90%; background-color: #ccc;"></div>
+                </div>
+            </div>
+
+            <!-- Right Section: Job and Responsible User Information -->
+            <div class="col-xs-5 p-l-15" style="margin-left: -20px;">
+                @using (Html.TemplateContext<ServiceOrderChecklistResponseViewModel>(x => x.Installation))
+                {
+                    <div class="row">
+                        <div class="col-xs-12 p-l-0">
+                            <div style="font-size: 13px; font-weight: bold;">Einsatzort</div>
+                            <div style="font-size: 13px;" data-bind="text: Helper.Installation.getDisplayName($data)"></div>
+                        </div>
+                    </div>
+                }
+                @using (Html.TemplateContext<ServiceOrderChecklistResponseViewModel>(x => x.ServiceOrder))
+                {
+                    <!-- ko if: $parent.ServiceOrderResponsibleUser() -->
+                    <div class="row">
+                        <div class="col-xs-12 p-l-0" style="margin-top: 8px;">
+                            <div style="font-size: 13px; font-weight: bold;">Technischer Verantwortlicher Benutzer</div>
+                            <div style="font-size: 13px;" data-bind="text: Helper.User.getDisplayName($parent.ServiceOrderResponsibleUser())"></div>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+
+                    <div class="row">
+                        <div class="col-xs-12 p-l-0" style="margin-top: 8px;">
+                            <div style="font-size: 13px; font-weight: bold;">@Html.Localize("OrderNo")</div>
+                            <div style="font-size: 13px;" data-bind="text: OrderNo"></div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+} 

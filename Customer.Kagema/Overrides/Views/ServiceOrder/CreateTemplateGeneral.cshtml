@@ -1,0 +1,75 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Extensions
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<fieldset data-bind="with: serviceOrder">
+	<legend class="m-b-25 c-black b-0 f-500 f-14">
+		@(Html.Localize("General"))
+	</legend>
+	<!-- ko if : window.Crm.Service.Settings.ServiceOrder.OrderNoIsCreateable && (!window.Helper.Offline || window.Helper.Offline.status === 'online') -->
+	<form-element id="ServiceOrderNo" params="value: OrderNo, caption: 'OrderNo', type: 'text'">
+	</form-element>
+	<!-- /ko -->
+	<!-- ko requiredPermission: { name: 'Index', group: 'ServiceOrderTemplate' } -->
+	<form-element id="ServiceOrderTemplateId" params="value: ServiceOrderTemplateId, caption: 'ServiceOrderTemplate', type: 'select2'">
+		<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['OrderNo', 'ErrorMessage'], table: 'CrmService_ServiceOrderHead', mapDisplayObject: Helper.ServiceOrder.mapForSelect2Display, customFilter: Helper.ServiceOrder.getServiceOrderTemplateAutocompleteFilter, onSelect: $root.onServiceOrderTemplateSelect.bind($root), placeholder: placeholder } }">
+		</select>
+	</form-element>
+	<!-- /ko -->
+	<!-- ko requiredPermission: { name: 'ServiceObject', group: 'WebAPI' } -->
+	<form-element id="ServiceObjectId" params="value: ServiceObjectId, caption: 'ServiceObject', type: 'select2'">
+		<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['ObjectNo', 'Name'], joins: ['Addresses'], table: 'CrmService_ServiceObject', joins: ['Addresses'], mapDisplayObject: Helper.ServiceObject.mapForSelect2Display, customFilter: $root.serviceObjectFilter.bind($root), onSelect: $root.onServiceObjectSelect.bind($root), placeholder: placeholder } }">
+		</select>
+	</form-element>
+	<!-- /ko -->
+	<form-element id="CustomerContactId" params="value: CustomerContactId, caption: 'Customer', type: 'select2'">
+		<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name'], table: 'Main_Company', joins: ['Addresses'], mapDisplayObject: Helper.Company.mapForSelect2Display, customFilter: $root.customerContactFilter.bind($root), onSelect: $root.onCustomerContactSelect.bind($root), placeholder: placeholder } }">
+		</select>
+	</form-element>
+	<!-- ko if: window.Crm.Service.Settings.ServiceContract.MaintenanceOrderGenerationMode === 'OrderPerInstallation' -->
+	<form-element id="InstallationId" params="value: InstallationId, caption: 'Installation', type: 'select2'">
+		@Html.RenderAction("AutocompleteTemplate", "InstallationList", new { plugin = "Crm.Service" })
+		<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['InstallationNo', 'Description'], table: 'CrmService_Installation', joins: ['Address', 'Company', 'ServiceObject'], customFilter: $root.installationFilter.bind($root), mapDisplayObject: Helper.Installation.mapForSelect2Display, onSelect: $root.onInstallationSelect.bind($root), templateResultId: 'installation-autocomplete-template', placeholder: placeholder } }">
+		</select>
+	</form-element>
+	<!-- ko with: $root.selectedInstallation -->
+	<form-element id="StatusKey" params="value: StatusKey, caption: 'InstallationStatus', type: 'select2'">
+		<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_InstallationHeadStatus'), placeholder: placeholder }">
+		</select>
+	</form-element>
+	<!-- /ko -->
+	<!-- /ko -->
+	<!-- ko if: window.Crm.Service.Settings.ServiceContract.MaintenanceOrderGenerationMode === 'JobPerInstallation' -->
+	<form-element id="Installations" params="value: $root.installationId, caption: 'Installation', type: 'select2'">
+		@Html.RenderAction("AutocompleteTemplate", "InstallationList", new { plugin = "Crm.Service" })
+		<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['InstallationNo', 'Description'], table: 'CrmService_Installation', joins: ['Address', 'Company', 'ServiceObject'], customFilter: $root.installationFilter.bind($root), mapDisplayObject: Helper.Installation.mapForSelect2Display, getElementByIdQuery: $root.getInstallationsByIds, placeholder: placeholder } }">
+		</select>
+	</form-element>
+	<!-- /ko -->
+	<form-element id="InitiatorId" params="value: InitiatorId, caption: 'Initiator', type: 'select2'">
+		<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Name'], table: 'Main_Company', joins: ['Addresses'], mapDisplayObject: Helper.Company.mapForSelect2Display, customFilter: $root.initiatorFilter.bind($root), onSelect: $root.onInitiatorSelect.bind($root), placeholder: placeholder } }">
+		</select>
+	</form-element>
+	<form-element id="InitiatorPersonId" params="value: InitiatorPersonId, caption: 'InitiatorPerson', type: 'select2', disable: !InitiatorId()">
+		<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { orderBy: ['Surname', 'Firstname'], table: 'Main_Person', customFilter: $root.initiatorPersonFilter.bind($root), mapDisplayObject: Helper.Person.mapForSelect2Display, placeholder: placeholder } }, disable: disable">
+		</select>
+	</form-element>
+	<form-element id="TypeKey" params="value: TypeKey, caption: 'ServiceOrderType', type: 'select2'">
+		<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { customFilter: Helper.ServiceOrder.queryServiceOrderType, table: 'CrmService_ServiceOrderType', mapDisplayObject: Helper.Lookup.mapLookupForSelect2Display, getElementByIdQuery: Helper.Lookup.getLookupByKeyQuery, onSelect: $root.selectedServiceOrderType, placeholder: placeholder }}">
+		</select>
+	</form-element>
+	<!-- ko requiredPermission: { name: 'SetInvoicingType', group: 'ServiceOrder' } -->
+	<form-element id="InvoicingTypeKey" params="value: InvoicingTypeKey, caption: 'InvoicingType', type: 'select2'">
+		<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: $.extend(Helper.Lookup.getAutocompleteOptions('Main_InvoicingType'), { onSelect: Helper.Service.onInvoicingTypeSelected.bind(null, $parent), placeholder: placeholder })}">
+		</select>
+	</form-element>
+	<div data-bind="if: IsCostLumpSum() || IsMaterialLumpSum() || IsTimeLumpSum()">
+		<strong data-bind="translatedText: 'LumpSum'"></strong>:
+		<span data-bind="text: Helper.Service.getLumpSumString($data)"></span>
+		<hr />
+	</div>
+	<!-- /ko -->
+	<form-element params="value: ErrorMessage, caption: 'ErrorMessage', type: 'textarea'"></form-element>
+	@Html.PluginRenderActions("CreateServiceOrderFormGeneral")
+</fieldset>

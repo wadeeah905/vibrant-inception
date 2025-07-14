@@ -1,0 +1,212 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Article.Model.Enums
+@using Crm.Library.Extensions;
+@using Crm.Library.Globalization.Extensions
+
+<div class="modal-header card-header ch-alt" data-bind="with: serviceOrderMaterial">
+	<button type="button" class="close" data-dismiss="modal" aria-label="@(Html.Localize("Close"))">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title" data-bind="visible: innerInstance.entityState === 20 && $parent.articleType() === 'Material'">@(Html.Localize("CreateServiceOrderMaterial"))</h4>
+	<h4 class="modal-title" data-bind="visible: innerInstance.entityState !== 20 && $parent.articleType() === 'Material'">@(Html.Localize("EditServiceOrderMaterial"))</h4>
+	<h4 class="modal-title" data-bind="visible: innerInstance.entityState === 20 && $parent.articleType() === 'Cost'">@(Html.Localize("CreateCost"))</h4>
+	<h4 class="modal-title" data-bind="visible: innerInstance.entityState !== 20 && $parent.articleType() === 'Cost'">@(Html.Localize("EditCost"))</h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<form role="form" action="#" data-bind="with: serviceOrderMaterial">
+		<div class="row" data-bind="if: $root.showDispatchSelection">
+			<div class="col-md-12">
+				<form-element id="DispatchId" params="value: DispatchId, caption: 'ServiceOrderDispatch', type: 'select2'">
+					@Html.RenderAction("AutocompleteTemplate", "ServiceOrderDispatchList", new { plugin = "Crm.Service" })
+					<select class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { table: 'CrmService_ServiceOrderDispatch', customFilter: q => q.filter('OrderId', '===', $parent.OrderId()), joins: ['ServiceOrder', 'ServiceOrder.Company', 'ServiceOrder.Installation', 'ServiceOrder.ServiceObject'], mapDisplayObject: Helper.Dispatch.mapForSelect2Display, templateResultId: 'dispatch-autocomplete-template', placeholder: placeholder } }"></select>
+				</form-element>
+			</div>
+		</div>
+		<!-- ko if: ItemNo() === null || ArticleId() !== null && Article() !== null && Article().IsActive() -->
+		<form-element id="ArticleId" params="value: ArticleId, caption: 'Material', disable: !$root.canEditEstimatedQty() && EstimatedQty() > 0">
+			<div class="row">
+				<!-- ko if: $root.articleType() === 'Cost' -->
+				<div class="col-xs-12 col-sm-12 col-md-12 m-t-5">
+					<select name="ArticleId" class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Article.getAutocompleteOptionsShorthand($root, false, $root.showActiveArticles, $root.showExpiredArticles, false), placeholder: placeholder }, disable: true">
+					</select>
+				</div>
+				<!-- /ko -->
+				<!-- ko if: $root.articleType() === 'Material' -->
+				<div class="col-xs-12 col-sm-12 col-md-10 m-t-5">
+					<select name="ArticleId" class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: Helper.Article.getAutocompleteOptionsShorthand($root, false, $root.showActiveArticles, $root.showExpiredArticles, false), placeholder: placeholder }, disable: disable">
+					</select>
+				</div>
+				<!-- /ko -->
+				<!-- ko if: $root.articleType() === 'Material' -->
+				<div class="col-xs-5 col-sm-4 col-md-2 pull-right max-width-min-content">
+					<div id="place-holder" class="p-t-15 visible-xs visible-sm"></div>
+					<!-- ko component: { name: "barcode-scanner", params: { value: value, source: () => $root.getArticleSelect2Filter(database.CrmArticle_Article, ''), column: 'BarCode', id: 'Id' } } -->
+					<!-- /ko -->
+					<span class="lv-actions dropdown input-group-addon p-r-0">
+						<a class="btn btn-default btn-icon waves-effect waves-circle waves-float" href="#" data-toggle="dropdown">
+							<i class="zmdi zmdi-bookmark"></i>
+						</a>
+						<ul id="type-select-dropdown" class="dropdown-menu dropdown-menu-right">
+							<li role="presentation" class="dropdown-header text-right" data-bind="translatedText: 'Show'"></li>
+							<li>
+								<div class="toggle-switch col-xs-12 m-t-5" data-ts-color="blue">
+									<input id="show-all-ts" type="checkbox" hidden="hidden" data-bind="checked: $root.showAllArticles">
+									<label for="show-all-ts" class="ts-helper"></label>
+									<label for="show-all-ts" class="ts-label m-r-5 pull-right">@(Html.Localize("All"))</label>
+								</div>
+							</li>
+							<li class="divider col-xs-12"></li>
+							<li class="col-xs-12">
+								<div class="row checkbox m-t-0">
+									<label class="checkbox m-r-20 m-l-20 text-right">
+										<input type="checkbox" data-bind="checked: $root.showActiveArticles">
+										<i class="input-helper"></i>
+										<span class="description" data-bind="text: { value: '@Html.Localize("Active")', wordBreak: 'normal' }"></span>
+									</label>
+								</div>
+								<div class="row checkbox m-t-0">
+									<label class="checkbox m-r-20 m-l-20 text-right">
+										<input type="checkbox" data-bind="checked: $root.showExpiredArticles">
+										<i class="input-helper"></i>
+										<span class="description" data-bind="text: { value: '@Html.Localize("Discontinued")', wordBreak: 'normal' }"></span>
+									</label>
+								</div>
+							</li>
+						</ul>
+					</span>
+				</div>
+				<!-- /ko -->
+
+			</div>
+
+		</form-element>
+		<!-- /ko -->
+		<!-- ko ifnot: ItemNo() === null || ArticleId() !== null && Article() !== null && Article().IsActive() -->
+		<div class="entry clearfix no-border">
+			<div class="alert alert-warning">@(Html.Localize("MaterialArticleDeleted"))(<span data-bind="text: ItemNo"></span>)</div>
+		</div>
+		<!-- /ko -->
+		<div class="entry clearfix no-border" data-bind="visible: $root.showNonWmWarning">
+			<div class="alert alert-warning">@(Html.Localize("NonWMArticleWarning"))</div>
+		</div>
+		<!-- ko if: $root.articleType() === 'Material' -->
+		<form-element id="FromWarehouse" params="value: $root.selectedStore, caption: 'Store'">
+			<select name="FromWarehouse" class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { table: 'CrmService_Store', orderBy: ['StoreNo'], joins: ['Locations'], mapDisplayObject: Helper.Store.mapForSelect2Display, onSelect: $root.onStoreSelect.bind($root), placeholder: placeholder } }, disable: disable"></select>
+		</form-element>
+		<!-- ko if: $parent.serviceOrderMaterial().FromWarehouse() && $parent.locationQuantity() > 1 -->
+		<form-element id="FromLocation" params="value: $root.selectedLocation, caption: 'StoreLocation'">
+			<select name="FromLocation" class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: {table: 'CrmService_Location', orderBy: ['LocationNo'] , mapDisplayObject: function (l){ return { id: l.Id, text: l.LocationNo, item: l }; }, customFilter: $root.locationFilter.bind($root), onSelect: $root.onLocationSelect.bind($root), placeholder: placeholder } }, disable: disable"></select>
+		</form-element>
+		<!-- /ko -->
+		<!-- /ko -->
+		<!-- ko if: ItemNo() !== null && ArticleId() !== null && Article() === null -->
+		<p data-bind="text: ItemNo() + ' - ' + Description()"></p>
+		<!-- /ko -->
+		<div class="row">
+			<!-- ko if: $root.serviceOrderMaterial().ItemNo() == Customer.Kagema.Settings.dummyArticleItemNo -->
+			<div class="col-md-6">
+				<form-element params="name: 'Price', caption: 'Price', value: Price, type: 'number'"></form-element>
+			</div>
+			<!-- /ko -->
+			<!-- ko if: $root.serviceOrderMaterial().ItemNo() !== Customer.Kagema.Settings.dummyArticleItemNo -->
+			<div class="{{$root.canEditInvoiceQty() ? 'col-md-4' : 'col-md-6'}}">
+				<form-element params="name: 'EstimatedQty', value: EstimatedQty, caption: $parent.quantityUnit() ?  window.Helper.String.getTranslatedString('EstimatedQty') + ' (' + $parent.quantityUnit().Value + ')' : 'EstimatedQty', type: 'number', quantityStep: Article() && Article().QuantityStep(), disable: !$root.canEditEstimatedQty()"></form-element>
+			</div>
+			<!-- /ko -->
+			<!-- ko if:  $root.serviceOrderMaterial().ItemNo() == Customer.Kagema.Settings.dummyArticleItemNo  -->
+			<div class="col-md-6">
+				<form-element params="name: 'ActualQty', value: ActualQty, caption: $parent.quantityUnit() ?  window.Helper.String.getTranslatedString('ActualQty') + ' (' + $parent.quantityUnit().Value + ')' : 'ActualQty', type: 'number', quantityStep: Article() && Article().QuantityStep(), disable: true"></form-element>
+			</div>
+			<!-- /ko -->
+			<!-- ko if:  $root.serviceOrderMaterial().ItemNo() !== Customer.Kagema.Settings.dummyArticleItemNo  -->
+			<div class="{{$root.canEditInvoiceQty() ? 'col-md-4' : 'col-md-6'}}">
+				<form-element params="name: 'ActualQty', value: ActualQty, caption: $parent.quantityUnit() ?  window.Helper.String.getTranslatedString('ActualQty') + ' (' + $parent.quantityUnit().Value + ')' : 'ActualQty', type: 'number', quantityStep: Article() && Article().QuantityStep(), disable: !$root.canEditActualQty()"></form-element>
+			</div>
+			<!-- /ko -->
+
+
+			<div class="col-md-4" data-bind="visible: $root.canEditInvoiceQty">
+				<form-element params="name: 'InvoiceQty', value: InvoiceQty, caption: $parent.quantityUnit() ?  window.Helper.String.getTranslatedString('InvoiceQty') + ' (' + $parent.quantityUnit().Value + ')' : 'InvoiceQty', type: 'number', quantityStep: Article() && Article().QuantityStep(), disable: !$root.canEditInvoiceQty()"></form-element>
+			</div>
+		</div>
+		<div class="row" data-bind="visible: $root.canEditInvoiceQty && $root.serviceOrderMaterial().ItemNo() !== Customer.Kagema.Settings.dummyArticleItemNo ">
+			<div class="col-md-6">
+				<form-element params="name: 'Price', caption: 'Price', value: Price, type: 'number'"></form-element>
+			</div>
+			<div class="col-md-5">
+				<form-element params="name: 'Discount', caption: 'Discount', value: Discount, type: 'number'"></form-element>
+			</div>
+			<div class="col-md-1">
+				<span style="
+				margin-left: -14px;
+			    margin-top: 25px;
+			    display: inline-block;">
+					<button class="btn btn-default waves-effect discount-type" data-bind="text: DiscountType() == @((int)DiscountType.Percentage) ? '%' : ($root.serviceOrder().CurrencyKey() ? $root.lookups.currencies[$root.serviceOrder().CurrencyKey()].Value : '?'), click: $root.toggleDiscountType"></button>
+				</span>
+			</div>
+		</div>
+		<form-element params="value: ServiceOrderTimeId, caption: 'ServiceOrderTime', disable: !$parent.isJobEditable()" data-bind="visible: window.Crm.Service.Settings.ServiceContract.MaintenanceOrderGenerationMode === 'JobPerInstallation'">
+			<select name="ServiceOrderTimeId" class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { table: 'CrmService_ServiceOrderTime', orderBy: ['PosNo'], joins: Helper.ServiceOrderTime.getAutocompleteJoins(), customFilter:$root.getServiceOrderTimeAutocompleteFilter.bind($root), mapDisplayObject: function (o) { return { id: o.Id, text: $root.getServiceOrderTimeAutocompleteDisplay(o) }; }, placeholder: $root.isJobEditable() ? Helper.String.getTranslatedString('PleaseSelect') : ' ' } }, disable: disable">
+			</select>
+		</form-element>
+		<form-element params="value: InternalRemark, caption: 'InternalRemark', type: 'textarea'"></form-element>
+		<form-element params="value: ExternalRemark, caption: 'ExternalRemark', type: 'textarea'"></form-element>
+		<!-- ko if: $data.Article() && $data.Article().IsBatch() -->
+		<form-element params="value: BatchNo, caption: 'BatchNo', type: 'text'"></form-element>
+		<!-- /ko -->
+		<!-- ko if: $root.showSerials() && ServiceOrderMaterialSerials().length > 0 -->
+		<div class="p-t-20">
+			<!-- ko foreach: ServiceOrderMaterialSerials -->
+			<div class="p-b-20">
+				<label>
+					@(Html.Localize("SerialNo")) <span data-bind="text: $index() + 1"></span>
+				</label>
+				<div>
+					<!-- ko if: window.ko.utils.arrayFirst($root.showReasons(), (function (x) { return x.serialId === $data.Id() })) -->
+					<!-- ko ifnot: window.ko.utils.arrayFirst($root.showReasons(), (function (x) { return x.serialId === $data.Id() })).showReason() -->
+					<form-element params="value: PreviousSerialNo, caption: 'PreviousSerialNo', type: 'text'"></form-element>
+					<small class="help-block">
+						<button class="btn btn-primary waves-effect" id="AddReason" data-bind="click: $root.updateShowReasonForSerial.bind($root),enable : !$data.PreviousSerialNo()">
+							<i class="zmdi zmdi-plus"></i>
+							@(Html.Localize("NoPreviousSerialNoReason"))
+						</button>
+					</small>
+					<!-- /ko -->
+					<!-- ko if: window.ko.utils.arrayFirst($root.showReasons(), (function (x) { return x.serialId === $data.Id() })).showReason() -->
+					<form-element params="value: NoPreviousSerialNoReasonKey, caption: 'NoPreviousSerialNoReason', type: 'select'">
+						<select name="NoPreviousSerialNoReasonKey" class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { customFilter: Helper.Lookup.queryLookup, table: 'CrmService_NoPreviousSerialNoReason', mapDisplayObject: Helper.Lookup.mapLookupForSelect2Display, getElementByIdQuery: Helper.Lookup.getLookupByKeyQuery, placeholder: Helper.String.getTranslatedString('PleaseSelect') }}">
+						</select>
+					</form-element>
+					<small class="help-block">
+						<button class="btn btn-primary waves-effect" id="AddPreviousSerialNo" data-bind="click: $root.updateShowReasonForSerial.bind($root) , enable : !$data.NoPreviousSerialNoReasonKey()">
+							<i class="zmdi zmdi-plus"></i>
+							@(Html.Localize("PreviousSerialNo"))
+						</button>
+					</small>
+					<!-- /ko -->
+					<!-- /ko -->
+					<form-element params="value: SerialNo, caption: 'SerialNo', type: 'text'"></form-element>
+				</div>
+			</div>
+			<!-- /ko -->
+		</div>
+		<!-- /ko -->
+		<!-- ko requiredPermission: { name: 'ReplenishmentOrder', group: 'WebAPI' } -->
+		<!-- ko if: Crm.Service.Settings.ServiceOrderMaterial.CreateReplenishmentOrderItemsFromServiceOrderMaterial === true && $root.articleType() === 'Material' && $root.canEditActualQty() -->
+		<form-element params="value: $root.updateReplenishmentOrder, caption: ReplenishmentOrderItemId() ? 'UpdateInReplenishmentOrder' : 'AddToReplenishmentOrder', type: 'checkbox', disable: !$root.articleIsWarehouseManaged()"></form-element>
+		<!-- /ko -->
+		<!-- /ko -->
+	</form>
+	<!-- ko if: $root.serviceOrderMaterial().ItemNo() == Customer.Kagema.Settings.dummyArticleItemNo -->
+	<h6 style="color:red;font-weight:bold" class="text-center">@(Html.Localize("PleaseUploadReceiptUnderDocuments"))</h6>
+	<!-- /ko -->
+
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-bind="click: Helper.Database.clearTrackedEntities" data-dismiss="modal">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: save, disable: loading">
+		@(Html.Localize("Save"))
+	</button>
+</div>

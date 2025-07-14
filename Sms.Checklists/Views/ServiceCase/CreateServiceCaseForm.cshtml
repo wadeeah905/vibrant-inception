@@ -1,0 +1,26 @@
+﻿@using Crm.Library.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+@Html.RenderAction("MaterialDisplayTemplates", "DynamicForm", new { plugin = "Crm.DynamicForms" })
+<!-- ko foreach: { data: $root.creationDynamicForms, as: '$root' } -->
+<div class="text-center" data-bind="visible: loading()">
+	<div class="preloader pl-lg" data-bind="">
+		<svg class="pl-circular" viewBox="25 25 50 50">
+			<circle class="plc-path" cx="50" cy="50" r="20"></circle>
+		</svg>
+	</div>
+</div>
+<div class="p-t-25 c-black b-0 f-500 f-14 m-b-25" data-bind="text: Helper.DynamicForm.getTitle($data.DynamicForm(), $data.localizations())"></div>
+<div data-bind="text: Helper.DynamicForm.getDescription($data.DynamicForm(), $data.localizations())"></div>
+<!-- ko foreach: groupedElements -->
+<fieldset class="section">
+	<!-- ko foreach: $data -->
+	<div class="row" data-bind="foreach: $data">
+		<div data-bind="css: 'form-element col-sm-' + 12 / $data.Size()">
+			<div data-bind="template: { name: $parentContext.$parentContext.$parent.formElementTemplateName($data), data: $data }"> </div>
+		</div>
+	</div>
+	<!-- /ko -->
+</fieldset>
+<!-- /ko -->
+<!-- /ko -->

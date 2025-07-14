@@ -1,0 +1,43 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+
+<div class="row">
+	<!-- ko with: ExtensionValues -->
+	<div class="col-md-6">
+		<form-element id="AffectedDynamicFormReferenceId" params="value: AffectedDynamicFormReferenceId, caption: 'Checklist', type: 'select', disable: !$parent.OriginatingServiceOrderId()">
+			<select
+				class="form-control"
+				data-bind="select2autocompleter: { 
+							data: value, 
+							autocompleteOptions: { 
+									table: 'SmsChecklists_ServiceOrderChecklist', 
+									joins: ['DynamicForm', 'DynamicForm.Languages', 'DynamicForm.Localizations', 'ServiceOrderTime'], 
+									orderBy: ['Id'], 
+									mapDisplayObject: Helper.ServiceOrderChecklist.mapForSelect2Display, 
+									customFilter: $root.getChecklistAutocompleteFilter.bind($root), 
+									onSelect: $root.onSelectChecklist.bind($root), 
+									placeholder: placeholder 
+								} 
+							}, 
+							disable: disable">
+			</select>
+		</form-element>
+	</div>
+	<div class="col-md-6">
+		<!-- ko with: $root.dynamicFormElements -->
+		<form-element id="AffectedDynamicFormElementId" params="value: $parent.AffectedDynamicFormElementId, caption: 'DynamicFormElement', type: 'select', disable: !$parent.AffectedDynamicFormReferenceId()">
+			<select
+				class="form-control"
+				data-bind="select2autocompleter: { 
+								data: $root.dynamicFormElements(), 
+								optionsText: function(x){ return x.text; }, 
+								optionsValue: 'id', 
+								placeholder: placeholder 
+							}, 
+							value: value,
+							disable: disable">
+			</select>
+		</form-element>
+		<!-- /ko -->
+	</div>
+	<!-- /ko -->
+</div>

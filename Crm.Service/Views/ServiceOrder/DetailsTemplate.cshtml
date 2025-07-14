@@ -1,0 +1,116 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+@using Crm.Service.Model
+
+<ul class="top-menu">
+	@Html.PluginRenderActions("ServiceOrderDetailsTopMenu")
+	@Html.PluginRenderActions("ContactDetailsTopMenu")
+</ul>
+
+<div class="container">
+	<div>
+		<div class="card" id="profile-main">
+			<div class="pm-overview c-overflow hide-print" tabindex="4">
+				<div class="pmo-pic">
+					<div class="text-center bgm-white c-black p-20">
+						<!-- ko with: serviceOrder -->
+						<h4>
+							<span id="service-order-no" data-bind="text: OrderNo"></span>
+							<br />
+							<small data-bind="lookupValue: TypeKey, lookups: $root.lookups.serviceOrderTypes"></small>
+						</h4>
+						<div class="btn-group m-b-10">
+							<button type="button" class="btn btn-lg btn-primary f-13 dropdown-toggle waves-effect normal-white-space" data-toggle="dropdown" aria-expanded="false" data-bind="enable: $root.canSetStatus">
+								<span data-bind="lookupValue: StatusKey, lookups: $root.lookups.serviceOrderStatuses"></span>
+								<!-- ko if: NoInvoiceReasonKey() !== null -->
+								<div>
+									(<span data-bind="translatedText: 'NoInvoice'"></span>: <span data-bind="lookupValue: NoInvoiceReasonKey, lookups: $root.lookups.serviceOrderNoInvoiceReasons"></span>)
+								</div>
+								<!-- /ko -->
+								<span class="caret" data-bind="visible: $root.canSetStatus"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu" data-bind="foreach: $root.settableStatuses">
+								<!-- ko if: Key !== null -->
+								<li data-bind="css: { 'active': $root.serviceOrder().StatusKey() === Key }">
+									<a href="#" data-bind="lookupValue: Key, lookups: $root.lookups.serviceOrderStatuses, click: $root.setStatus"></a>
+								</li>
+								<!-- /ko -->
+							</ul>
+						</div>
+						<!-- /ko -->
+					</div>
+				</div>
+
+				<div class="pmo-block pmo-contact">
+					<h2>@(Html.Localize("DispatchLocation"))</h2>
+					<!-- ko with: serviceOrder -->
+					<ul>
+						<!-- ko ifnot: ServiceLocationResponsiblePerson() || ServiceLocationPhone() || ServiceLocationMobile() || ServiceLocationEmail() || Name1() || Name2() || Name3() || Street() || ZipCode() || City() -->
+						<span class="c-gray" data-bind="translatedText: 'Unspecified'"></span>
+						<!-- /ko -->
+						<!-- ko if: ServiceLocationResponsiblePerson -->
+						<li>
+							<i class="zmdi zmdi-account"></i>
+							<span data-bind="text: ServiceLocationResponsiblePerson"></span>
+						</li>
+						<!-- /ko -->
+						<!-- ko if: ServiceLocationPhone -->
+						<li>
+							<i class="zmdi zmdi-phone"></i>
+							<a href="#" data-bind="attr: { href: 'tel:' + ServiceLocationPhone() }, text: ServiceLocationPhone()"></a>
+						</li>
+						<!-- /ko -->
+						<!-- ko if: ServiceLocationMobile -->
+						<li>
+							<i class="zmdi zmdi-smartphone-android"></i>
+							<a href="#" data-bind="attr: { href: 'tel:' + ServiceLocationMobile() }, text: ServiceLocationMobile()"></a>
+						</li>
+						<!-- /ko -->
+						<!-- ko if: ServiceLocationEmail -->
+						<li>
+							<i class="zmdi zmdi-email"></i>
+							<a href="#" data-bind="attr: { href: 'mailto:' + ko.unwrap(ServiceLocationEmail) + $root.currentUserDropboxAddress() }, text: ServiceLocationEmail"></a>
+						</li>
+						<!-- /ko -->
+						<!-- ko if: Name1() || Name2() || Name3() || Street() || ZipCode() || City() || RegionKey() || CountryKey() -->
+						<li>
+							<a class="address-pin" data-bind="mapLink: $data">
+								<i class="zmdi zmdi-pin"></i>
+							</a>
+							<address class="m-b-0">
+								<div data-bind="text: Name1"></div>
+								<div data-bind="text: Name2"></div>
+								<div data-bind="text: Name3"></div>
+								<div data-bind="text: Street"></div>
+								<div>
+									<span data-bind="text: ZipCode"></span> <span data-bind="text: City"></span>
+								</div>
+								<!-- ko if: ko.unwrap(RegionKey) || ko.unwrap(CountryKey) -->
+								<span>
+									<span data-bind="if: RegionKey, lookupValue: RegionKey, lookups: $root.lookups.regions, suffix: ko.unwrap(CountryKey) ? ',' : '' "></span>
+									<span data-bind="if: CountryKey, lookupValue: CountryKey, lookups: $root.lookups.countries"></span>
+								</span>
+								<!-- /ko -->
+							</address>
+						</li>
+						<!-- /ko -->
+					</ul>
+					<!-- /ko -->
+				</div>
+				 @await Html.PartialAsync("ContactDetailsTagBlock", typeof(ServiceOrderHead)) 
+				@Html.PluginRenderActions("MaterialServiceOrderSidebarExtensions")
+				@Html.PluginRenderActions("MaterialContactSidebarExtensions")
+			</div>
+
+			<div class="pm-body clearfix">
+				<ul class="tab-nav tn-justified" role="tablist" tabindex="1">
+					@Html.PluginRenderActions("ServiceOrderDetailsMaterialTabHeader")
+				</ul>
+				<div class="tab-content">
+					@Html.PluginRenderActions("ServiceOrderDetailsMaterialTab")
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

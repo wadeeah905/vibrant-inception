@@ -1,0 +1,84 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Offline.Extensions
+@using Crm.Service.Rest.Model
+
+<table class="table m-b-10" style="page-break-inside: avoid" data-bind="visible: $parent.showMaterialsTable($data)">
+	<thead>
+		<tr>
+			<th class="bgm-bluegray col-xs-3">
+				<span class="c-white" data-bind="translatedText: { key: 'PosNo', language: $parent.selectedLanguage }">@(Html.Localize("PosNo"))</span>
+			</th>
+			<th class="bgm-bluegray col-xs-2">
+				<span class="c-white" data-bind="translatedText: { key: 'Article', language: $parent.selectedLanguage }">@(Html.Localize("Article"))</span>
+			</th>
+			<th class="bgm-bluegray col-xs-6">
+				<span class="c-white" data-bind="translatedText: { key: 'Description', language: $parent.selectedLanguage }">@(Html.Localize("Description"))</span>
+			</th>
+			<th class="bgm-bluegray col-xs-1 text-right">
+				<span class="c-white" data-bind="translatedText: { key: 'Quantity', language: $parent.selectedLanguage }">@(Html.Localize("Quantity"))</span>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@using (Html.TemplateCondition("ServiceOrderMaterials.length === 0"))
+		{
+			<tr>
+				<td colspan="4" data-bind="translatedText: { key: 'NoUsedMaterial', language: $parent.selectedLanguage }">
+					@(Html.Localize("NoUsedMaterial"))
+				</td>
+			</tr>
+		}
+		@using (Html.TemplateContext("$parent.filterPositions($data, ['Cost', 'Material'])"))
+		{
+			@using (Html.TemplateForEach("$data"))
+			{
+				<tr class="report-material">
+					<td class="col-xs-2">
+						<b>@(Html.TemplateText<ServiceOrderMaterialRest>(x => x.PosNo))</b>
+					</td>
+					<td class="col-xs-2">
+						<b>@(Html.TemplateText<ServiceOrderMaterialRest>(x => x.ItemNo))</b>
+					</td>
+					<td class="col-xs-7">
+						<div>
+							<b data-bind="text: $parentContext.$parentContext.$parent.lookups.articleDescriptions[ko.unwrap($data.ItemNo)]"></b>
+						</div>
+						<div data-bind="text: ExternalRemark"></div>
+						@using (Html.TemplateCondition<ServiceOrderMaterialRest>(x => x.IsSerial))
+						{
+							@using (Html.TemplateForEach("$parentContext.$parentContext.$parent.displayedMaterialSerials().filter(function(serial) { return serial.OrderMaterialId() === $data.Id(); })"))
+							{
+								<div>
+									<span data-bind="translatedText: { key: 'SN_new', language: $parentContext.$parentContext.$parentContext.$parent.selectedLanguage }">@(Html.Localize("SN_new"))</span>:
+									<span data-bind="text: SerialNo"></span>
+								</div>
+								<div>
+									<span data-bind="translatedText: { key: 'SN_old', language: $parentContext.$parentContext.$parentContext.$parent.selectedLanguage }">@(Html.Localize("SN_old"))</span>:
+									@using (Html.TemplateCondition("NoPreviousSerialNoReasonKey"))
+									{
+										<span data-bind="lookupValue: NoPreviousSerialNoReasonKey, lookups: $parentContext.$parentContext.$parentContext.$parent.lookups.noPreviousSerialNoReasons"></span>
+									}
+									<span data-bind="text: PreviousSerialNo"></span>
+								</div>
+							}
+						}
+					</td>
+					<td class="col-xs-1 text-right">
+						<b>@(Html.TemplateText<ServiceOrderMaterialRest>(x => x.ActualQty))</b>
+						<div data-bind="text: window.Helper.Lookup.getLookupValue($parentContext.$parentContext.$parent.lookups.quantityUnits, QuantityUnitKey())"></div>
+					</td>
+				</tr>
+			}
+			@using (Html.TemplateContext("{ types: $parentContext.$parent.getLumpSumPositionTypes($parent), language: $parentContext.$parent.selectedLanguage }"))
+			{
+				@using (Html.TemplateCondition("types.Cost || types.Material"))
+				{
+					<tr>
+						<td colspan="4" data-bind="translatedText: { key: 'ContainsLumpSumPositions', args: [Helper.String.getTranslatedString(types.Material && types.Cost ? 'CostsAndMaterial' : types.Cost ? 'Costs' : 'Material') ], language: language }"></td>
+					</tr>
+				}
+			}
+		}
+	</tbody>
+</table>

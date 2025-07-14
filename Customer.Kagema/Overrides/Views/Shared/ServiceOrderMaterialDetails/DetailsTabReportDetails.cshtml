@@ -1,0 +1,156 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<pmbb-view>
+	<!-- ko with: serviceOrder -->
+	<pmbb-view-entry params="caption: 'ErrorMessage'">
+		<span data-bind="text: { value: ErrorMessage, expand: true }"></span>
+		<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ErrorMessage"></span>
+	</pmbb-view-entry>
+	<!-- /ko -->
+	<!-- ko with: $data.dispatch -->
+	<pmbb-view-entry params="caption: 'ErrorCode'" data-bind="visible: $root.lookups.errorCodes.$array.length > 0">
+		<span data-bind="if: ErrorCodeKey, lookupValue: ErrorCodeKey, lookups: $root.lookups.errorCodes"></span>
+		<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ErrorCodeKey"></span>
+	</pmbb-view-entry>
+	<pmbb-view-entry params="caption: 'Component'" data-bind="visible: $root.lookups.components.$array.length > 0">
+		<span data-bind="if: ComponentKey, lookupValue: ComponentKey, lookups: $root.lookups.components"></span>
+		<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ComponentKey"></span>
+	</pmbb-view-entry>
+	<pmbb-view-entry params="caption: 'CauseOfFailure'" data-bind="visible: $root.lookups.causeOfFailures.$array.length > 0">
+		<span data-bind="if: CauseOfFailureKey, lookupValue: CauseOfFailureKey, lookups: $root.lookups.causeOfFailures"></span>
+		<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: CauseOfFailureKey"></span>
+	</pmbb-view-entry>
+	<!-- /ko -->
+	<pmbb-view-entry params="caption: 'BackgroundInfo'">
+		<!-- ko with: $root.serviceOrder -->
+		<span data-bind="text: BackgroundInfo"></span>
+		<span data-bind="translatedText: 'BackgroundInformationEmptyState', ifnot: BackgroundInfo"></span>
+		<!-- /ko -->
+	</pmbb-view-entry>
+	<!-- ko with: serviceOrder -->
+	<!-- ko if: ServiceOrderTemplate -->
+	<pmbb-view-entry params="caption: 'ServiceOrderTemplate'">
+		<!-- ko with: ServiceOrderTemplate -->
+		<!-- ko requiredPermission: { name: 'Read', group: 'ServiceOrderTemplate' } -->
+		<a href="#/Crm.Service/ServiceOrderTemplate/Details/{{Id}}">
+			<span data-bind="text: Helper.ServiceOrder.getDisplayName($data)"></span>
+		</a>
+		<!-- /ko -->
+		<!-- ko noRequiredPermission: { name: 'Read', group: 'ServiceOrderTemplate' } -->
+		<span data-bind="text: Helper.ServiceOrder.getDisplayName($data)"></span>
+		<!-- /ko -->
+		<!-- /ko -->
+	</pmbb-view-entry>
+	<!-- /ko -->
+	<pmbb-view-entry params="caption: 'Type'">
+		<span data-bind="if: TypeKey, lookupValue: TypeKey, lookups: $root.lookups.serviceOrderTypes"></span>
+		<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: TypeKey"></span>
+	</pmbb-view-entry>
+	<pmbb-view-entry params="caption: 'ServiceObject'">
+		<!-- ko if: ServiceObject -->
+		<span data-bind="text: ServiceObject().Name"></span>
+		<!-- /ko -->
+		<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ServiceObject"></span>
+	</pmbb-view-entry>
+	<pmbb-view-entry params="caption: 'PurchaseOrderNo'">
+		<span data-bind="text: PurchaseOrderNo"></span>
+		<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: PurchaseOrderNo"></span>
+	</pmbb-view-entry>
+	<pmbb-view-entry params="caption: 'PurchaseDate'">
+		<span data-bind="dateText: PurchaseDate"></span>
+		<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: PurchaseDate"></span>
+	</pmbb-view-entry>
+	<pmbb-view-entry params="caption: 'CommissionNo'">
+		<span data-bind="text: CommissionNo"></span>
+		<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: CommissionNo"></span>
+	</pmbb-view-entry>
+	<!-- /ko -->
+	<!-- ko with: $data.dispatch -->
+	<pmbb-view-entry params="caption: 'Remark'" data-bind="visible: Remark">
+		<span data-bind="text: Remark"></span>
+	</pmbb-view-entry>
+    <!-- ko with: ServiceOrder -->
+    <!-- ko if :ServiceOrderTimes -->
+    <!-- ko if :ServiceOrderTimes ()[0]-->
+    <!-- ko if :ServiceOrderTimes()[0].Installation -->
+	<pmbb-view-entry params="caption: 'ShipToCode'">
+        <!-- ko with :ServiceOrderTimes()[0].Installation() -->
+        <!-- ko if :ExtensionValues().ShipToCode -->
+        
+        <span data-bind="text:ExtensionValues().ShipToCode"></span>
+        <!-- /ko -->
+       
+        <span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ExtensionValues().ShipToCode"></span>
+
+        <!-- /ko -->
+      </pmbb-view-entry>
+    <!-- /ko -->
+    <!-- /ko -->
+    <!-- /ko -->
+    <!-- /ko -->
+    <!-- ko with: ServiceOrder -->
+	<pmbb-view-entry params="caption: 'SalespersonName'">
+		<!-- ko if: ExtensionValues().SalespersonName -->
+		<span data-bind="text: ExtensionValues().SalespersonName"></span>
+		<!-- /ko -->
+		<span class="c-gray" data-bind="translatedText: 'Unspecified', ifnot: ExtensionValues().SalespersonName"></span>
+	</pmbb-view-entry>
+	<!-- /ko -->
+	<!-- /ko -->
+</pmbb-view>
+<pmbb-edit>
+	<!-- ko if: $root.serviceOrderIsEditable -->
+	<!-- ko with: serviceOrder -->
+	<pmbb-edit-entry params="caption: 'ErrorMessage', validationElement: ErrorMessage">
+		<textarea class="form-control" rows="5" placeholder="@(Html.Localize("ErrorMessage"))..." data-bind="value: ErrorMessage"></textarea>
+	</pmbb-edit-entry>
+	<!-- /ko -->
+	<!-- /ko -->
+	<!-- ko if: $root.dispatchIsEditable -->
+	<!-- ko with: $data.dispatch -->
+	<pmbb-edit-entry params="caption: 'ErrorCode', validationElement: ErrorCodeKey" data-bind="visible: $root.lookups.errorCodes.$array.length > 0">
+		<select name="ErrorCodeKey" class="form-control" data-bind="select2autocompleter: { data: ErrorCodeKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_ErrorCode')}">
+		</select>
+	</pmbb-edit-entry>
+	<pmbb-edit-entry params="caption: 'Component', validationElement: ComponentKey" data-bind="visible: $root.lookups.components.$array.length > 0">
+		<select name="ComponentKey" class="form-control" data-bind="select2autocompleter: { data: ComponentKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_Component')}">
+		</select>
+	</pmbb-edit-entry>
+	<pmbb-edit-entry params="caption: 'CauseOfFailure', validationElement: CauseOfFailureKey" data-bind="visible: $root.lookups.causeOfFailures.$array.length > 0">
+		<select name="CauseOfFailureKey" class="form-control" data-bind="select2autocompleter: { data: CauseOfFailureKey, autocompleteOptions: Helper.Lookup.getAutocompleteOptions('CrmService_CauseOfFailure')}">
+		</select>
+	</pmbb-edit-entry>
+	<!-- /ko -->
+	<!-- ko ifnot: $root.dispatch() -->
+	<pmbb-edit-entry params="caption: 'BackgroundInfo'">
+		<!-- ko with: $root.serviceOrder -->
+		<div class="fg-line">
+			<textarea class="form-control" rows="5" placeholder="@(Html.Localize("BackgroundInfo"))..." data-bind="value: BackgroundInfo"></textarea>
+		</div>
+		<!-- /ko -->
+	</pmbb-edit-entry>
+	<!-- /ko -->
+	<!-- /ko -->
+	<!-- ko if: $root.serviceOrderIsEditable -->
+	<!-- ko with: serviceOrder -->
+	<pmbb-edit-entry params="caption: 'Type', validationElement: TypeKey">
+		<select name="TypeKey" class="form-control" data-bind="select2autocompleter: { data: TypeKey, autocompleteOptions: { customFilter: Helper.ServiceOrder.queryServiceOrderType, table: 'CrmService_ServiceOrderType', mapDisplayObject: Helper.Lookup.mapLookupForSelect2Display, getElementByIdQuery: Helper.Lookup.getLookupByKeyQuery } }">
+		</select>
+	</pmbb-edit-entry>
+	<pmbb-edit-entry params="caption: 'ServiceObject', validationElement: ServiceObjectId">
+		<select name="ServiceObject" class="form-control" data-bind="select2autocompleter: { data: ServiceObjectId, autocompleteOptions: { table: 'CrmService_ServiceObject', orderBy: ['Name'], joins: [{ Selector: 'Addresses', Operation: 'filter(function(x) { x.IsCompanyStandardAddress === true; })' }], mapDisplayObject: Helper.ServiceObject.mapForSelect2Display, onSelect: $data.ServiceObject } }" >
+		</select>
+	</pmbb-edit-entry>
+	<pmbb-edit-entry params="caption: 'PurchaseOrderNo', validationElement: PurchaseOrderNo">
+		<input type="text" class="form-control" data-bind="value: PurchaseOrderNo">
+	</pmbb-edit-entry>
+	<pmbb-edit-entry params="caption: 'PurchaseDate', validationElement: PurchaseDate">
+		<input type="text" class="form-control date-picker" data-bind="datePicker: PurchaseDate, datePickerOptions: { config: { maxDate: new Date() } }" placeholder="@(Html.Localize("ClickHere"))">
+	</pmbb-edit-entry>
+	<pmbb-edit-entry params="caption: 'CommissionNo', validationElement: CommissionNo">
+		<input type="text" class="form-control" data-bind="value: CommissionNo">
+	</pmbb-edit-entry>
+	<!-- /ko -->
+	<!-- /ko -->
+</pmbb-edit>

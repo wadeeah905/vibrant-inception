@@ -1,0 +1,36 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<div class="modal-header card-header ch-alt" data-bind="with: serviceOrderChecklist">
+	<button type="button" class="close" data-bind="click: Helper.Database.clearTrackedEntities" data-dismiss="modal" aria-label="@(Html.Localize("Close"))">
+		<span aria-hidden="true">&times;</span>
+	</button>
+	<h4 class="modal-title">@(Html.Localize("PDF-Checklist"))</h4>
+</div>
+<div class="modal-body card-body card-padding">
+	<form role="form" action="#" data-bind="with: serviceOrderChecklist">
+		<form-element id="DynamicFormKey" params="value: DynamicFormKey, caption: 'PDF-Checklist'">
+			<select name="DynamicFormKey" class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { table: 'CrmDynamicForms_DynamicForm', joins: [{ Selector: 'Localizations', Operation: 'filter(function(x) { return x.DynamicFormElementId == null })'}, 'Languages'], customFilter: $root.getDynamicFormAutocompleteFilter.bind($root), mapDisplayObject: function (d) { return { id: d.Id, text:  $root.getDynamicFormAutocompleteDisplay(d)}; } } }" >
+			</select>
+		</form-element>
+		
+		<form-element params="value: ServiceOrderTimeKey, caption: 'ServiceOrderTime'" data-bind="visible: window.Crm.Service.Settings.ServiceContract.MaintenanceOrderGenerationMode === 'JobPerInstallation'">
+			<select name="ServiceOrderTimeKey" class="form-control" data-bind="select2autocompleter: { data: value, autocompleteOptions: { table: 'CrmService_ServiceOrderTime', orderBy: ['PosNo'], joins: Helper.ServiceOrderTime.getAutocompleteJoins(), customFilter:$root.getServiceOrderTimeAutocompleteFilter.bind($root), mapDisplayObject: function (o) { return { id: o.Id, text: $root.getServiceOrderTimeAutocompleteDisplay(o) }; } } }" >
+			</select>
+		</form-element>
+		<!-- ko requiredPermission: { name: 'ToggleRequired', group: 'ServiceOrderChecklist' } -->
+		<form-element params="value: RequiredForServiceOrderCompletion, caption: 'RequiredForServiceOrderCompletion', type: 'checkbox'"></form-element>
+		<!-- /ko -->
+		<form-element params="value: SendToCustomer, caption: 'SendToCustomer', type: 'checkbox'"></form-element>
+		
+		
+	</form>
+</div>
+<div class="modal-footer card-header ch-alt p-15">
+	<button type="button" class="btn btn-lg btn-default f-13 waves-effect" data-bind="click: Helper.Database.clearTrackedEntities" data-dismiss="modal">
+		@(Html.Localize("Cancel"))
+	</button>
+	<button type="button" class="btn btn-lg btn-primary f-13 waves-effect" data-bind="click: save, disable: loading">
+		@(Html.Localize("Save"))
+	</button>
+</div>

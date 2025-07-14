@@ -1,0 +1,17 @@
+﻿.order-article-image {
+	width: 65px !important;
+	height: 65px !important;
+	line-height: 65px !important;
+}
+@media only screen and (max-width: 550px) {
+	.order-delivery-dates {
+		width: auto !important;
+	}
+}
+
+@media only screen and (min-width: 550px) {
+	.order-delivery-dates {
+		margin-left: 95px;
+		width: auto !important;
+	}
+}

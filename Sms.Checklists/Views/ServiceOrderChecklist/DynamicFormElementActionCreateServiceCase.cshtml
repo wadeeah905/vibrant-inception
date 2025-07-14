@@ -1,0 +1,10 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+<!-- ko if: ko.unwrap(ExtensionValues).CanAttachServiceCases() && $root.createServiceCase -->
+<li>
+	<a href="#" data-bind="click: $root.createServiceCase">
+		@(Html.Localize("CreateServiceCase"))
+	</a>
+</li>
+<!-- /ko -->

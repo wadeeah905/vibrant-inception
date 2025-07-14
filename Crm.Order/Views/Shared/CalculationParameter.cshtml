@@ -1,0 +1,42 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl<CalculationViewModel>
+@using Crm.Configurator.ViewModels
+
+@{ var salesColumnClass = Model.DisplayPurchasePrices ? String.Empty : "col-xs-offset-8"; }
+
+<a data-bind="attr: { 'href': '#calculation-parameter-details-' + $index() }" data-toggle="collapse">
+	<dl class="dl-horizontal c-black">
+		<dt>
+			<i class="zmdi zmdi-chevron-down zmdi-hc-lg" data-bind="visible: Details().length > 0"></i>
+			<span data-bind="text: Name"></span>
+		</dt>
+		<dd class="text-right">
+			<div class="row m-r-0">
+				@if (Model.DisplayPurchasePrices) { 
+					<div class="col-xs-4 col-xs-offset-4 p-r-0">
+						<span data-bind="text: $root.getCurrencyValue($root.baseOrder().CurrencyKey())"></span> <span data-bind="	money: Amount"></span>
+					</div>
+				 } 
+				<div class="col-xs-4 @(salesColumnClass) p-r-0">
+					<span data-bind="text: $root.getCurrencyValue($root.baseOrder().CurrencyKey())"></span> <span data-bind="	money: AmountSales"></span>
+				</div>
+			</div>
+		</dd>
+	</dl>
+</a>
+<div class="collapse m-b-20" aria-expanded="false" data-bind="attr: { id: 'calculation-parameter-details-' + $index() }, visible: Details().length > 0, foreach: Details">
+	<dl class="dl-horizontal m-b-5">
+		<dt class="f-500" data-bind="text: Name"></dt>
+		<dd class="text-right">
+			<div class="row m-r-0">
+				@if (Model.DisplayPurchasePrices) { 
+					<div class="col-xs-4 col-xs-offset-4 p-r-0">
+						<span data-bind="text: $root.getCurrencyValue($root.baseOrder().CurrencyKey())"></span> <span data-bind="money: Amount"></span>
+					</div>
+				 } 
+				<div class="col-xs-3 @(salesColumnClass) p-r-0">
+					<span data-bind="text: $root.getCurrencyValue($root.baseOrder().CurrencyKey())"></span> <span data-bind="	money: AmountSales"></span>
+				</div>
+			</div>
+		</dd>
+	</dl>
+</div>

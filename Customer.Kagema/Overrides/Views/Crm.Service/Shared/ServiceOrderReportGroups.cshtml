@@ -1,0 +1,9 @@
+﻿@using Crm.Offline.Extensions
+@inherits Crm.Library.Modularization.CrmViewUserControl
+
+@using (Html.TemplateForEach("sortedReportGroups"))
+{
+	@await Html.PartialAsync("ServiceOrderReportGroupHeader")
+	@await Html.PartialAsync("ServiceOrderReportGroupTimePostings")
+	@await Html.PartialAsync("ServiceOrderReportGroupMaterials")
+}

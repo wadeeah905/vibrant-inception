@@ -1,0 +1,37 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<div role="tabpanel" class="tab-pane animated fadeIn" id="tab-service-cases" data-bind="with: tabs()['tab-service-cases']">
+	<ul class="top-menu">
+		@Html.PluginRenderActions("ServiceOrderServiceCasesTabTopMenu")
+		<li data-bind="visible: true, tooltip: true" data-placement="bottom" title="@(Html.Localize("Filter"))">
+			<a id="open-generic-list-filter" data-trigger="#right-nav" href="#" data-route="@("Crm.Service/ServiceCaseList/FilterTemplate")">
+				<i class="tm-icon zmdi zmdi-search-in-page"></i>
+			</a>
+		</li>
+	</ul>
+	<empty-state-box params="mood: 'happy', title: 'ServiceCases', text: 'NoServiceCasesAddedToServiceOrder'" data-bind="visible: items().length === 0 && !isFiltered()">
+	</empty-state-box>
+	<div class="generic-list listview lv-bordered">
+		<div class="lv-body">
+			<div data-bind="foreach: items">
+				 @await Html.PartialAsync("GenericListItemGroup") 
+				 @await Html.PartialAsync("../ServiceCaseList/MaterialItemTemplate") 
+			</div>
+			<!-- ko if: items().length === 0 && isFiltered() -->
+			<div id="generic-list-empty-state" class="lv-item media">
+				<div class="row media-body">
+					<div class="col-xs-12">
+						<small class="lv-small">@(Html.Localize("NoRecordsForSearchCriteria"))</small>
+					</div>
+				</div>
+			</div>
+			<!-- /ko -->
+		</div>
+	</div>
+	 @await Html.PartialAsync("Material/GenericListPreloader") 
+	<floating-action-button>
+		@Html.PluginRenderActions("ServiceOrderServiceCasesTabPrimaryAction")
+	</floating-action-button>
+</div>

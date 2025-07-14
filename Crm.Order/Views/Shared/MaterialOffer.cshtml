@@ -1,0 +1,102 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+@using Crm.Offline.Extensions
+@using Crm.Order.Model.Lookups
+@using Crm.Order.Rest.Model
+
+<div class="lv-item media">
+	<div class="lv-avatar pull-left" data-bind="text: Helper.Order.getTypeAbbreviation($data, $parent.lookups.entryTypes), style: { backgroundColor: Helper.Lookup.getLookupColor($parent.lookups.entryTypes, $data.OrderEntryType) }"></div>
+	<div class="media-body">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="lv-title">
+					<!-- ko requiredPermission: { name: 'Read', group: 'Offer' } --> 
+					<a href="#/Crm.Order/Offer/Details/{{Id}}">
+						<span data-bind="visible: OrderNo">
+							<span data-bind="text: OrderNo"></span> -
+						</span>
+						@(Html.Localize("OfferFrom")) <span data-bind="dateText: CreateDate"></span>
+					</a>
+					<!-- /ko -->
+					<!-- ko noRequiredPermission: { name: 'Read', group: 'Offer' } -->
+					<span data-bind="visible: OrderNo">
+						<span data-bind="text: OrderNo"></span> -
+					</span>
+					@(Html.Localize("OfferFrom")) <span data-bind="dateText: CreateDate"></span>
+					<!-- /ko -->
+				</div>
+				<div class="small m-b-10" data-bind="with: Company">
+					@(Html.Localize("For")) <a data-bind="attr: { href: '#/Main/Company/DetailsTemplate/' + Id() }, text: Helper.Company.getDisplayName($data)"></a>
+				</div>
+				<div class="small m-b-10" data-bind="with: Person">
+					@(Html.Localize("ContactPerson")): <a data-bind="attr: { href: '#/Main/Person/DetailsTemplate/' + Id() }, text: Helper.Person.getDisplayName($data)"></a>
+				</div>
+				<div class="small">
+					@(Html.TemplateText<OfferRest>(x => x.PublicDescription))
+					@(Html.TemplateText<OfferRest>(x => x.PrivateDescription))
+				</div>
+				@Html.PluginRenderActions("OfferItemTemplateDetails")
+			</div>
+		</div>
+		<div class="row media-body">
+			<div class="col-xs-12">
+				<ul class="lv-attrs">
+					<!-- ko if: IsExported -->
+					<li>
+						<i class="zmdi zmdi-alert-circle-o" data-bind="style: { color: 'red' }"></i>
+						@(Html.Localize("Exported"))
+					</li>
+					<!-- /ko -->
+					<!-- ko if: !IsExported() && ReadyForExport() -->
+					<li>
+						<i class="zmdi zmdi-hourglass-alt" data-bind="style: { color: 'red' }"></i>
+						@(Html.Localize("WaitingOnExport"))
+					</li>
+					<!-- /ko -->
+					<li>
+						<i class="zmdi zmdi-circle" data-bind="style: { color: Helper.Lookup.getLookupColor($parent.lookups.statuses, $data.StatusKey) }"></i>
+						<span data-bind="lookupValue: StatusKey, lookups: $parent.lookups.statuses"></span>
+					</li>
+					<!-- ko if: StatusKey() === '@OrderStatus.CanceledKey' && CancelReasonCategoryKey() -->
+					<li>
+						<span data-bind="lookupValue: CancelReasonCategoryKey, lookups: $parent.lookups.cancelReasonCategories"></span>
+						<!-- ko if: CancelReasonText() -->
+						: <span data-bind="text: CancelReasonText"></span>
+						<!-- /ko -->
+					</li>
+					<!-- /ko -->
+					<li>
+						<span data-bind="lookupValue: CurrencyKey, lookups: $parent.lookups.currencies"></span>
+						<span data-bind="money: Price() || CalculatedPriceWithDiscount()"></span>
+					</li>
+					<li>
+						<i class="zmdi zmdi-time"></i>
+						<span data-bind="dateText: OrderDate"></span>
+					</li>
+					<!-- ko if: ResponsibleUserUser -->
+					<li>
+						<i class="zmdi zmdi-account-o"></i>
+						<span data-bind="text: Helper.User.getDisplayName(ResponsibleUserUser)"></span>
+					</li>
+					<!-- /ko -->
+					<li class="lv-attr-order-entry-type">
+						<span data-bind="lookupValue: OrderEntryType, lookups: $parent.lookups.entryTypes"></span>
+					</li>
+					<!-- ko if: DeliveryDate -->
+					<li>
+						@(Html.Localize("DeliveryDate")):
+						<span data-bind="dateText: DeliveryDate"></span>
+					</li>
+					<!-- /ko -->
+					<li data-bind="visible: ValidTo">
+						@(Html.Localize("ValidTo")):
+						<span data-bind="dateText: ValidTo"></span>
+					</li>
+					@Html.PluginRenderActions("OfferItemTemplateAttributes")
+				</ul>
+			</div>
+			<lv-actions>@Html.PluginRenderActions("OfferItemTemplateActions")</lv-actions>
+		</div>
+	</div>
+</div>

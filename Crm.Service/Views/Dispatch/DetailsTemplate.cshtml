@@ -1,0 +1,169 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+@using Crm.Library.Modularization.Extensions
+
+<ul class="top-menu">
+	@Html.PluginRenderActions("DispatchDetailsTopMenu")
+</ul>
+
+<div class="container">
+
+	<div>
+		<div class="card" id="profile-main">
+			<div class="pm-overview c-overflow hide-print" data-bind="css: { 'hide-mobile': currentTabId() === 'tab-report' && window.client.isMobileDevice() }" tabindex="4">
+				<div class="pmo-pic">
+					<!-- ko if: statusAlert -->
+					<div class="alert alert-warning" role="alert">
+						<h4 data-bind="translatedText: 'Hint'"></h4>
+						<p data-bind="translatedText: statusAlert"></p>
+					</div>
+					<!-- /ko -->
+					<!-- ko with: dispatch -->
+					<!-- ko if: StatusKey() === "ClosedNotComplete" -->
+					<div class="alert alert-danger" role="alert">
+						<p>@Html.Localize("FollowUpDispatchRequired")</p>
+						<!-- ko if: RequiredOperations -->
+						<small data-bind="text: RequiredOperations"></small>
+						<!-- /ko -->
+					</div>
+					<!-- /ko -->
+					<!-- ko if: FollowUpServiceOrder() -->
+					<div class="alert alert-danger" role="alert">
+						<p>@Html.Localize("FollowUpServiceOrderNeeded")</p>
+						<!-- ko if: FollowUpServiceOrderRemark -->
+						<small data-bind="text: FollowUpServiceOrderRemark"></small>
+						<!-- /ko -->
+					</div>
+					<!-- /ko -->
+					<!-- /ko -->
+					<div class="text-center bgm-white c-black p-20">
+						<!-- ko with: dispatch -->
+						<!-- ko if: DispatchNo() !== null -->
+						<h4>
+							<span data-bind="text: DispatchNo"></span>
+						</h4>
+						<!-- /ko -->
+						<!-- ko ifnot: DispatchNo() !== null -->
+						<h4>
+							<!-- ko requiredPermission: { name: 'Read', group: 'ServiceOrder' } -->
+							<a href="#/Crm.Service/ServiceOrder/DetailsTemplate/{{$parent.serviceOrder().Id()}}">
+								<span class="OrderNoText" data-bind="text: $parent.serviceOrder().OrderNo()"></span>
+							</a>
+							<!-- /ko -->
+							<!-- ko noRequiredPermission: { name: 'Read', group: 'ServiceOrder' } -->
+							<span class="OrderNoText" data-bind="text: $parent.serviceOrder().OrderNo()"></span>
+							<!-- /ko -->
+							<br />
+							<small data-bind="lookupValue: $parent.serviceOrder().TypeKey(), lookups: $root.lookups.serviceOrderTypes"></small>
+						</h4>
+						<!-- /ko -->
+						<!-- /ko -->
+						<!-- ko if: dispatch().DispatchNo() !== null -->
+						<!-- ko with: serviceOrder -->
+						<!-- ko requiredPermission: { name: 'Read', group: 'ServiceOrder' } -->
+						<a href="#/Crm.Service/ServiceOrder/DetailsTemplate/{{Id}}">
+							<span class="OrderNoText" data-bind="text: OrderNo"></span>
+						</a>
+						<!-- /ko -->
+						<!-- ko noRequiredPermission: { name: 'Read', group: 'ServiceOrder' } -->
+						<span class="OrderNoText" data-bind="text: OrderNo"></span>
+						<!-- /ko -->
+						<br />
+						<span data-bind="lookupValue: TypeKey, lookups: $root.lookups.serviceOrderTypes"></span>
+						<!-- /ko -->
+						<!-- /ko -->
+						<!-- ko with: dispatch -->
+						<span data-bind="dateText: { value: Time, pattern: { datetime: 'short' } }"></span>
+						<small class="c-red" data-bind="visible: IsFixed">@(Html.Localize("Fix"))</small>
+						<div>
+							<i class="zmdi zmdi-time-interval"></i> <span data-bind="durationText: Duration"></span>
+						</div>
+						<!-- /ko -->
+					</div>
+				</div>
+
+				<!-- ko with: dispatch -->
+				<!-- ko if: DispatchedUser -->
+				<div class="pmo-block pmo-contact">
+					<h2>@(Html.Localize("Technician"))</h2>
+					<ul>
+						<li>
+							<i class="zmdi zmdi-wrench"></i>
+							<span data-bind="text: Helper.User.getDisplayName(DispatchedUser)"></span>
+						</li>
+					</ul>
+				</div>
+				<!-- /ko -->
+				<!-- /ko -->
+
+				<div class="pmo-block pmo-contact">
+					<h2>@(Html.Localize("DispatchLocation"))</h2>
+					<!-- ko with: serviceOrder -->
+					<ul>
+						<!-- ko ifnot: ServiceLocationResponsiblePerson() || ServiceLocationPhone() || ServiceLocationMobile() || ServiceLocationEmail() || Name1() || Name2() || Name3() || Street() || ZipCode() || City() -->
+						<span class="c-gray" data-bind="translatedText: 'Unspecified'"></span>
+						<!-- /ko -->
+						<!-- ko if: ServiceLocationResponsiblePerson -->
+						<li>
+							<i class="zmdi zmdi-account"></i>
+							<span data-bind="text: ServiceLocationResponsiblePerson"></span>
+						</li>
+						<!-- /ko -->
+						<!-- ko if: ServiceLocationPhone -->
+						<li>
+							<i class="zmdi zmdi-phone"></i>
+							<a href="#" data-bind="attr: { href: 'tel://' + ServiceLocationPhone() }, text: ServiceLocationPhone()"></a>
+						</li>
+						<!-- /ko -->
+						<!-- ko if: ServiceLocationMobile -->
+						<li>
+							<i class="zmdi zmdi-smartphone-android"></i>
+							<a href="#" data-bind="attr: { href: 'tel://' + ServiceLocationMobile() }, text: ServiceLocationMobile()"></a>
+						</li>
+						<!-- /ko -->
+						<!-- ko if: ServiceLocationEmail -->
+						<li>
+							<i class="zmdi zmdi-email"></i>
+							<a href="#" data-bind="attr: { href: 'mailto:' + ko.unwrap(ServiceLocationEmail) + $root.currentUserDropboxAddress() }, text: ServiceLocationEmail"></a>
+						</li>
+						<!-- /ko -->
+						<!-- ko if: Name1() || Name2() || Name3() || Street() || ZipCode() || City() || RegionKey() || CountryKey() -->
+						<li>
+							<a class="address-pin" data-bind="mapLink: $data">
+								<i class="zmdi zmdi-pin"></i>
+							</a>
+							<address class="m-b-0">
+								<div data-bind="text: Name1"></div>
+								<div data-bind="text: Name2"></div>
+								<div data-bind="text: Name3"></div>
+								<div data-bind="text: Street"></div>
+								<div>
+									<span data-bind="text: ZipCode"></span> <span data-bind="text: City"></span>
+								</div>
+								<!-- ko if: ko.unwrap(RegionKey) || ko.unwrap(CountryKey) -->
+								<span>
+									<span data-bind="if: RegionKey, lookupValue: RegionKey, lookups: $root.lookups.regions, suffix: ko.unwrap(CountryKey) ? ',' : '' "></span>
+									<span data-bind="if: CountryKey, lookupValue: CountryKey, lookups: $root.lookups.countries"></span>
+								</span>
+								<!-- /ko -->
+							</address>
+						</li>
+						<!-- /ko -->
+					</ul>
+					<!-- /ko -->
+				</div>
+
+				@Html.PluginRenderActions("MaterialDispatchSidebarExtensions")
+			</div>
+
+			<div class="pm-body clearfix">
+				<ul class="tab-nav tn-justified" role="tablist" tabindex="1">
+					@Html.PluginRenderActions("DispatchDetailsMaterialTabHeader")
+				</ul>
+				<div class="tab-content">
+					@Html.PluginRenderActions("DispatchDetailsMaterialTab")
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

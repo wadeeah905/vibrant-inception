@@ -1,0 +1,22 @@
+﻿@inherits Crm.Library.Modularization.CrmViewUserControl
+@using Crm.Library.Globalization.Extensions
+
+@{
+	var onCreationFormSelect = $"function (item){{ if(item){{ var filter=$root.getFilter('ExtensionValues.CreationDynamicFormId')(); if(filter){{ filter.displayedValue=Helper.DynamicForm.getTitle(item); }} }} }}";
+	var onCompletionFormSelect = $"function (item){{ if(item){{ var filter=$root.getFilter('ExtensionValues.CompletionDynamicFormId')(); if(filter){{ filter.displayedValue=Helper.DynamicForm.getTitle(item); }} }} }}";
+}
+
+<div class="filter-element form-group" id="creationdynamicformid-filter">
+	<div class="select2">
+		<label class="control-label fg-label">@(Html.Localize("CreationDynamicForm"))</label>
+		<select class="form-control" data-bind="select2autocompleter: { autocompleteOptions: { table: 'CrmDynamicForms_DynamicForm', orderBy: ['Id'], mapDisplayObject: Helper.DynamicForm.mapForSelect2Display, joins: getDynamicFormAutocompleteFilterJoins(), customFilter: getDynamicFormAutocompleteFilter, onSelect: @(onCreationFormSelect), placeholder: Helper.String.getTranslatedString('All') } }, value: ko.pureComputed({ read: function() { var value = ko.unwrap(this.getFilter('ExtensionValues.CreationDynamicFormId')); return value && value.Operator ? value.Value : value; }, write: function(newValue) { this.getFilter('ExtensionValues.CreationDynamicFormId').extend({ filterOperator: { operator: '==', additionalProperties: { caption: 'CreationDynamicForm' } } })(newValue); } }, $data)">
+		</select>
+	</div>
+</div>
+<div class="filter-element form-group" id="completiondynamicformid-filter">
+	<div class="select2">
+		<label class="control-label fg-label">@(Html.Localize("CompletionDynamicForm"))</label>
+		<select class="form-control" data-bind="select2autocompleter: { autocompleteOptions: { table: 'CrmDynamicForms_DynamicForm', orderBy: ['Id'], mapDisplayObject: Helper.DynamicForm.mapForSelect2Display, joins: getDynamicFormAutocompleteFilterJoins(), customFilter: getDynamicFormAutocompleteFilter, onSelect: @(onCompletionFormSelect), placeholder: Helper.String.getTranslatedString('All') } }, value: ko.pureComputed({ read: function() { var value = ko.unwrap(this.getFilter('ExtensionValues.CompletionDynamicFormId')); return value && value.Operator ? value.Value : value; }, write: function(newValue) { this.getFilter('ExtensionValues.CompletionDynamicFormId').extend({ filterOperator: { operator: '==', additionalProperties: { caption: 'CompletionDynamicForm' } } })(newValue); } }, $data)">
+		</select>
+	</div>
+</div>

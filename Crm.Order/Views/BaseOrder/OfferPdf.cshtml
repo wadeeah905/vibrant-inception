@@ -1,0 +1,12 @@
+﻿@inherits Crm.Library.Modularization.CrmViewPage<Crm.Library.ViewModels.HtmlTemplateViewModel>
+@{Layout = "~/Views/Shared/Layout/HtmlTemplateLayout.cshtml";}
+@using Crm.Library.Modularization.Extensions
+
+@section TemplateMainContent {
+
+	@Html.PluginRenderActions("OrderReportResource")
+	@await Html.PartialAsync("Report/Header")
+	@await Html.PartialAsync("OfferPdfContent")
+	@await Html.PartialAsync("Report/Footer")
+
+}
