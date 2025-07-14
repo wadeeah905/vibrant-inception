@@ -1,4 +1,4 @@
-﻿namespace Sms.Checklists.ViewModels
+namespace Sms.Checklists.ViewModels
 {
 	using AutoMapper;
 
@@ -33,7 +33,7 @@
 			get { return ServiceOrder != null ? ServiceOrder.ResponsibleUserObject : null; }
 		}
 		public virtual Installation Installation
-				{
+		{
 			get { return DynamicFormReference != null ? DynamicFormReference.GetInstallation() : null; }
 		}
 		public virtual Contact CustomerContact
@@ -43,6 +43,10 @@
 		public virtual ServiceOrderDispatch Dispatch
 		{
 			get { return DynamicFormReference != null ? DynamicFormReference.Dispatch : null; }
+		}
+		public virtual Contact CausingContact
+		{
+			get { return ServiceOrder != null && ServiceOrder.Initiator != null ? ServiceOrder.Initiator.Self : null; }
 		}
 		public virtual string MaintenanceOrderGenerationMode { get; set; }
 	}
