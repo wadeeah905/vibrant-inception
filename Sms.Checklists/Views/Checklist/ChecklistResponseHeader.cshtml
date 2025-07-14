@@ -1,5 +1,4 @@
 
-
 @inherits Crm.Library.Modularization.CrmViewUserControl
 @using Crm.Offline.Extensions
 @using Crm.Library.Globalization.Extensions
@@ -15,29 +14,36 @@
                         <b style="font-size: 13px;">@Html.Localize("Customer")</b>
                     </div>
                     <div class="p-l-5" style="font-size: 13px;">
-                        <div data-bind="text: Helper.Company.getDisplayName(CustomerContact())" style="font-size: 13px;"></div>
+                        <!-- ko if: CustomerContact -->
+                        <div data-bind="text: Helper.Company.getDisplayName(CustomerContact)" style="font-size: 13px;"></div>
+                        <!-- /ko -->
+                        <!-- ko if: ServiceOrder -->
                         <div data-bind="text: ServiceOrder().Street" style="font-size: 13px;"></div>
                         <div style="font-size: 13px;">
                             <span data-bind="text: ServiceOrder().ZipCode" style="font-size: 13px;"></span>
                             <span data-bind="text: ServiceOrder().City" style="font-size: 13px;"></span>
                         </div>
+                        <!-- ko if: ServiceOrder().CountryKey -->
+                        <div data-bind="text: ServiceOrder().CountryKey" style="font-size: 13px;"></div>
+                        <!-- /ko -->
+                        <!-- /ko -->
                     </div>
 
                     <!-- Responsible User Information -->
-                    <!-- ko if: ServiceOrderResponsibleUser() -->
+                    <!-- ko if: ServiceOrderResponsibleUser -->
                     <div class="p-t-5">
                         <div>
                             <b style="font-size: 13px;">@Html.Localize("ResponsibleUser")</b>
                         </div>
                         <div class="p-l-5" style="font-size: 13px;">
-                            <span data-bind="text: Helper.User.getDisplayName(ServiceOrderResponsibleUser())" style="font-size: 13px;"></span>
+                            <span data-bind="text: Helper.User.getDisplayName(ServiceOrderResponsibleUser)" style="font-size: 13px;"></span>
                         </div>
                     </div>
                     <!-- /ko -->
                 </td>
                 <td class="col-xs-6 p-l-15 p-r-0">
-                    <!-- Dispatch Location Information -->
-                    <!-- ko if: ServiceOrder().Name1 || ServiceOrder().Street || ServiceOrder().ZipCode || ServiceOrder().City -->
+                    <!-- Dispatch Location Information (Einsatzort) -->
+                    <!-- ko if: ServiceOrder -->
                     <div>
                         <b style="font-size: 13px;">@Html.Localize("DispatchLocation")</b>
                     </div>
@@ -48,6 +54,9 @@
                             <span data-bind="text: ServiceOrder().ZipCode" style="font-size: 13px;"></span>
                             <span data-bind="text: ServiceOrder().City" style="font-size: 13px;"></span>
                         </div>
+                        <!-- ko if: ServiceOrder().CountryKey -->
+                        <div data-bind="text: ServiceOrder().CountryKey" style="font-size: 13px;"></div>
+                        <!-- /ko -->
                     </div>
                     <!-- /ko -->
 
@@ -72,6 +81,7 @@
                     }
 
                     <!-- Order Number -->
+                    <!-- ko if: ServiceOrder -->
                     <div class="p-t-5">
                         <div>
                             <b style="font-size: 13px;">@Html.Localize("OrderNo")</b>
@@ -80,9 +90,9 @@
                             <span data-bind="text: ServiceOrder().OrderNo" style="font-size: 13px;"></span>
                         </div>
                     </div>
+                    <!-- /ko -->
                 </td>
             </tr>
         </table>
      }
  }
-

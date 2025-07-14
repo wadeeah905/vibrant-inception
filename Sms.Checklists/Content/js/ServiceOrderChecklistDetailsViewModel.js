@@ -28,8 +28,11 @@ Sms.Checklists.ViewModels.ServiceOrderChecklistDetailsViewModel.prototype.init =
 			.includeDynamicFormElements()
 			.include("Responses")
 			.include("ServiceOrder")
-			.include("ServiceOrder.CustomerContact") 
+			.include("ServiceOrder.CustomerContact")
+			.include("ServiceOrder.CustomerContact.Company")
 			.include("ServiceOrder.ResponsibleUserUser")
+			.include("ServiceOrder.Country")
+			.include("ServiceOrderTime.Installation")
 			.find(routeValues.id)
 			.then(function (serviceOrderChecklist) {
 				routeValues.formReference = serviceOrderChecklist.asKoObservable();
@@ -46,6 +49,8 @@ Sms.Checklists.ViewModels.ServiceOrderChecklistDetailsViewModel.prototype.init =
 				if (serviceOrderChecklist.Installation) {
 					self.Installation(serviceOrderChecklist.Installation.asKoObservable());
 				}
+				// Ensure MaintenanceOrderGenerationMode is set
+				self.MaintenanceOrderGenerationMode = window.Crm.Offline.Bootstrapper.settings.getValue("Service.MaintenanceOrderGenerationMode") || "";
 				return window.Crm.DynamicForms.ViewModels.DynamicFormDetailsViewModel.prototype.init.apply(self, args);
 			});
 	}
