@@ -1,3 +1,4 @@
+
 @inherits Crm.Library.Modularization.CrmViewUserControl
 @using Crm.Offline.Extensions
 @using Crm.Library.Globalization.Extensions
@@ -35,7 +36,7 @@
                 </td>
                 <td class="col-xs-6 p-l-15 p-r-0">
                     <!-- Dispatch Location Information -->
-                    <!-- ko if: ServiceOrder().Name1() || ServiceOrder().Street() || ServiceOrder().ZipCode() || ServiceOrder().City() -->
+                    <!-- ko if: ServiceOrder().Name1 || ServiceOrder().Street || ServiceOrder().ZipCode || ServiceOrder().City -->
                     <div>
                         <b>@Html.Localize("DispatchLocation")</b>
                     </div>

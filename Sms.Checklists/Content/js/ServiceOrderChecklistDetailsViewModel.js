@@ -1,3 +1,4 @@
+
 namespace("Sms.Checklists.ViewModels").ServiceOrderChecklistDetailsViewModel = function () {
 	var self = this;
 
@@ -26,9 +27,25 @@ Sms.Checklists.ViewModels.ServiceOrderChecklistDetailsViewModel.prototype.init =
 			.include("DynamicForm")
 			.includeDynamicFormElements()
 			.include("Responses")
+			.include("ServiceOrder")
+			.include("ServiceOrder.CustomerContact") 
+			.include("ServiceOrder.ResponsibleUserUser")
 			.find(routeValues.id)
 			.then(function (serviceOrderChecklist) {
 				routeValues.formReference = serviceOrderChecklist.asKoObservable();
+				// Initialize the observables with proper data
+				if (serviceOrderChecklist.ServiceOrder) {
+					self.ServiceOrder(serviceOrderChecklist.ServiceOrder.asKoObservable());
+					if (serviceOrderChecklist.ServiceOrder.CustomerContact) {
+						self.CustomerContact(serviceOrderChecklist.ServiceOrder.CustomerContact.asKoObservable());
+					}
+					if (serviceOrderChecklist.ServiceOrder.ResponsibleUserUser) {
+						self.ServiceOrderResponsibleUser(serviceOrderChecklist.ServiceOrder.ResponsibleUserUser.asKoObservable());
+					}
+				}
+				if (serviceOrderChecklist.Installation) {
+					self.Installation(serviceOrderChecklist.Installation.asKoObservable());
+				}
 				return window.Crm.DynamicForms.ViewModels.DynamicFormDetailsViewModel.prototype.init.apply(self, args);
 			});
 	}
