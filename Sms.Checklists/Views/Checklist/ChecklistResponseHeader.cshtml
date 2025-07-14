@@ -1,4 +1,5 @@
 
+
 @inherits Crm.Library.Modularization.CrmViewUserControl
 @using Crm.Offline.Extensions
 @using Crm.Library.Globalization.Extensions
@@ -6,19 +7,19 @@
 @using Sms.Checklists.ViewModels
 @using (Html.TemplateContext("$root")) {
     @using (Html.TemplateCondition("formReference().ReferenceType() == 'ServiceOrderChecklist'")) {
-        <table style="width: 100%; page-break-inside: avoid;" class="m-t-20 m-b-20 break-word">
+        <table style="width: 100%; page-break-inside: avoid; font-size: 13px;" class="m-t-20 m-b-20 break-word">
             <tr>
                 <td class="col-xs-6 p-l-0 p-r-15 border-right border-light">
                     <!-- Customer Information -->
                     <div>
-                        <b>@Html.Localize("Customer")</b>
+                        <b style="font-size: 13px;">@Html.Localize("Customer")</b>
                     </div>
-                    <div class="p-l-5">
-                        <div data-bind="text: Helper.Company.getDisplayName(CustomerContact())"></div>
-                        <div data-bind="text: ServiceOrder().Street"></div>
-                        <div>
-                            <span data-bind="text: ServiceOrder().ZipCode"></span>
-                            <span data-bind="text: ServiceOrder().City"></span>
+                    <div class="p-l-5" style="font-size: 13px;">
+                        <div data-bind="text: Helper.Company.getDisplayName(CustomerContact())" style="font-size: 13px;"></div>
+                        <div data-bind="text: ServiceOrder().Street" style="font-size: 13px;"></div>
+                        <div style="font-size: 13px;">
+                            <span data-bind="text: ServiceOrder().ZipCode" style="font-size: 13px;"></span>
+                            <span data-bind="text: ServiceOrder().City" style="font-size: 13px;"></span>
                         </div>
                     </div>
 
@@ -26,10 +27,10 @@
                     <!-- ko if: ServiceOrderResponsibleUser() -->
                     <div class="p-t-5">
                         <div>
-                            <b>@Html.Localize("ResponsibleUser")</b>
+                            <b style="font-size: 13px;">@Html.Localize("ResponsibleUser")</b>
                         </div>
-                        <div class="p-l-5">
-                            <span data-bind="text: Helper.User.getDisplayName(ServiceOrderResponsibleUser())"></span>
+                        <div class="p-l-5" style="font-size: 13px;">
+                            <span data-bind="text: Helper.User.getDisplayName(ServiceOrderResponsibleUser())" style="font-size: 13px;"></span>
                         </div>
                     </div>
                     <!-- /ko -->
@@ -38,14 +39,14 @@
                     <!-- Dispatch Location Information -->
                     <!-- ko if: ServiceOrder().Name1 || ServiceOrder().Street || ServiceOrder().ZipCode || ServiceOrder().City -->
                     <div>
-                        <b>@Html.Localize("DispatchLocation")</b>
+                        <b style="font-size: 13px;">@Html.Localize("DispatchLocation")</b>
                     </div>
-                    <div class="p-l-5">
-                        <div data-bind="text: ServiceOrder().Name1"></div>
-                        <div data-bind="text: ServiceOrder().Street"></div>
-                        <div>
-                            <span data-bind="text: ServiceOrder().ZipCode"></span>
-                            <span data-bind="text: ServiceOrder().City"></span>
+                    <div class="p-l-5" style="font-size: 13px;">
+                        <div data-bind="text: ServiceOrder().Name1" style="font-size: 13px;"></div>
+                        <div data-bind="text: ServiceOrder().Street" style="font-size: 13px;"></div>
+                        <div style="font-size: 13px;">
+                            <span data-bind="text: ServiceOrder().ZipCode" style="font-size: 13px;"></span>
+                            <span data-bind="text: ServiceOrder().City" style="font-size: 13px;"></span>
                         </div>
                     </div>
                     <!-- /ko -->
@@ -57,14 +58,14 @@
                         <div class="p-t-5">
                             <div>
                                 <!-- ko if: $root.MaintenanceOrderGenerationMode === 'OrderPerInstallation' -->
-                                <b>@Html.Localize("Installation")</b>
+                                <b style="font-size: 13px;">@Html.Localize("Installation")</b>
                                 <!-- /ko -->
                                 <!-- ko if: $root.MaintenanceOrderGenerationMode === 'JobPerInstallation' -->
-                                <b>@Html.Localize("ServiceOrderTime")</b>
+                                <b style="font-size: 13px;">@Html.Localize("ServiceOrderTime")</b>
                                 <!-- /ko -->
                             </div>
-                            <div class="p-l-5">
-                                <span data-bind="text: Helper.Installation.getDisplayName($data)"></span>
+                            <div class="p-l-5" style="font-size: 13px;">
+                                <span data-bind="text: Helper.Installation.getDisplayName($data)" style="font-size: 13px;"></span>
                             </div>
                         </div>
                         <!-- /ko -->
@@ -73,10 +74,10 @@
                     <!-- Order Number -->
                     <div class="p-t-5">
                         <div>
-                            <b>@Html.Localize("OrderNo")</b>
+                            <b style="font-size: 13px;">@Html.Localize("OrderNo")</b>
                         </div>
-                        <div class="p-l-5">
-                            <span data-bind="text: ServiceOrder().OrderNo"></span>
+                        <div class="p-l-5" style="font-size: 13px;">
+                            <span data-bind="text: ServiceOrder().OrderNo" style="font-size: 13px;"></span>
                         </div>
                     </div>
                 </td>
@@ -84,3 +85,4 @@
         </table>
      }
  }
+
