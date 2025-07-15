@@ -1,3 +1,4 @@
+
 @inherits Crm.Library.Modularization.CrmViewUserControl
 @using Crm.Offline.Extensions
 @using Crm.Library.Globalization.Extensions
@@ -22,8 +23,8 @@
                             <span data-bind="text: ServiceOrder().City" style="font-size: 13px;"></span>
                         </div>
                         <div>
-                            <span data-bind="text: window.Helper.Lookup.getLookupValue($parent.lookups.regions, ServiceOrder().RegionKey()), visible: ServiceOrder().RegionKey"></span>
-                            <span data-bind="text: window.Helper.Lookup.getLookupValue($parent.lookups.countries, ServiceOrder().CountryKey()), visible: ServiceOrder().CountryKey"></span>
+                            <span data-bind="text: window.Helper.Lookup.getLookupValue(lookups.regions(), ServiceOrder().RegionKey()), visible: ServiceOrder().RegionKey"></span>
+                            <span data-bind="text: window.Helper.Lookup.getLookupValue(lookups.countries(), ServiceOrder().CountryKey()), visible: ServiceOrder().CountryKey"></span>
                         </div>
                     </div>
 
@@ -53,8 +54,8 @@
                             <span data-bind="text: ServiceOrder().City" style="font-size: 13px;"></span>
                         </div>
                         <div>
-                            <span data-bind="text: window.Helper.Lookup.getLookupValue($parent.lookups.regions, ServiceOrder().RegionKey()), visible: ServiceOrder().RegionKey"></span>
-                            <span data-bind="text: window.Helper.Lookup.getLookupValue($parent.lookups.countries, ServiceOrder().CountryKey()), visible: ServiceOrder().CountryKey"></span>
+                            <span data-bind="text: window.Helper.Lookup.getLookupValue(lookups.regions(), ServiceOrder().RegionKey()), visible: ServiceOrder().RegionKey"></span>
+                            <span data-bind="text: window.Helper.Lookup.getLookupValue(lookups.countries(), ServiceOrder().CountryKey()), visible: ServiceOrder().CountryKey"></span>
                         </div>
                     </div>
                     <!-- /ko -->
