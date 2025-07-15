@@ -1,5 +1,4 @@
 
-
 @inherits Crm.Library.Modularization.CrmViewUserControl
 @using Crm.Offline.Extensions
 @using Crm.Library.Globalization.Extensions
@@ -60,6 +59,31 @@
                         </div>
                     </div>
                     <!-- /ko -->
+
+                    <!-- Contact Person Information -->
+                    <!-- ko if: ServiceOrder().ContactName -->
+                    <div class="p-t-5">
+                        <div>
+                            <b style="font-size: 13px;">@Html.Localize("ContactPerson")</b>
+                        </div>
+                        <div class="p-l-5" style="font-size: 13px;">
+                            <span data-bind="text: ServiceOrder().ContactName" style="font-size: 13px;"></span>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+
+                    <!-- Phone Number Information -->
+                    <!-- ko if: ServiceOrder().ContactTelefon -->
+                    <div class="p-t-5">
+                        <div>
+                            <b style="font-size: 13px;">@Html.Localize("Phone")</b>
+                        </div>
+                        <div class="p-l-5" style="font-size: 13px;">
+                            <span data-bind="text: ServiceOrder().ContactTelefon" style="font-size: 13px;"></span>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+
                     <!-- Installation Information -->
                     @using (Html.TemplateContext<ServiceOrderChecklistResponseViewModel>(x => x.Installation))
                     {
@@ -94,4 +118,3 @@
         </table>
     }
 }
-
