@@ -1,11 +1,12 @@
-
 @inherits Crm.Library.Modularization.CrmViewUserControl
 @using Crm.Offline.Extensions
 @using Crm.Library.Globalization.Extensions
 @using Crm.Rest.Model
 @using Sms.Checklists.ViewModels
-@using (Html.TemplateContext("$root")) {
-    @using (Html.TemplateCondition("formReference().ReferenceType() == 'ServiceOrderChecklist'")) {
+@using (Html.TemplateContext("$root"))
+{
+    @using (Html.TemplateCondition("formReference().ReferenceType() == 'ServiceOrderChecklist'"))
+    {
         <table style="width: 100%; page-break-inside: avoid; font-size: 13px;" class="m-t-20 m-b-20 break-word">
             <tr>
                 <td class="col-xs-6 p-l-0 p-r-15 border-right border-light">
@@ -57,7 +58,6 @@
                         </div>
                     </div>
                     <!-- /ko -->
-
                     <!-- Installation Information -->
                     @using (Html.TemplateContext<ServiceOrderChecklistResponseViewModel>(x => x.Installation))
                     {
@@ -90,5 +90,5 @@
                 </td>
             </tr>
         </table>
-     }
- }
+    }
+}
