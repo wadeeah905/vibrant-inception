@@ -8,6 +8,10 @@ namespace("Sms.Checklists.ViewModels").ServiceOrderChecklistDetailsViewModel = f
 	self.ServiceOrder = window.ko.observable(null);
 	self.ServiceOrderResponsibleUser = window.ko.observable(null);
 	self.MaintenanceOrderGenerationMode = "";
+	self.lookups = {
+		regions: window.ko.observable([]),
+		countries: window.ko.observable([])
+	};
 
 	window.Crm.DynamicForms.ViewModels.DynamicFormDetailsViewModel.apply(this, arguments);
 };
@@ -28,7 +32,7 @@ Sms.Checklists.ViewModels.ServiceOrderChecklistDetailsViewModel.prototype.init =
 			.includeDynamicFormElements()
 			.include("Responses")
 			.include("ServiceOrder")
-			.include("ServiceOrder.CustomerContact") 
+			.include("ServiceOrder.CustomerContact")
 			.include("ServiceOrder.ResponsibleUserUser")
 			.find(routeValues.id)
 			.then(function (serviceOrderChecklist) {
@@ -53,5 +57,14 @@ Sms.Checklists.ViewModels.ServiceOrderChecklistDetailsViewModel.prototype.init =
 		if (!!routeValues.dispatch) {
 			self.formReference().DispatchId(routeValues.dispatch().Id());
 		}
+		// Load regions and countries lookup data
+		return window.Helper.Lookup.getLocalizedArrayMap("Main_Region")
+			.then(function (lookup) {
+				self.lookups.regions(lookup);
+				return window.Helper.Lookup.getLocalizedArrayMap("Main_Country");
+			})
+			.then(function (lookup) {
+				self.lookups.countries(lookup);
+			});
 	});
 };
