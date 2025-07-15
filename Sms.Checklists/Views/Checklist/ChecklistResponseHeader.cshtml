@@ -1,134 +1,120 @@
 
 @inherits Crm.Library.Modularization.CrmViewUserControl
 @using Crm.Offline.Extensions
-
-<!-- ko with: $root.DynamicForm -->
-<!-- ko if: window.ko.utils.unwrapObservable($root) -->
-<!-- ko with: $root -->
-<!-- ko if: formReference().ReferenceType() =='ServiceOrderChecklist' -->
-<div class="p-b-20">
-    <div class="row">
-        <div class="col-xs-12 col-sm-6">
-            <!-- Left Side Content -->
-            
-            <!-- Customer Information -->
-            <!-- ko if: ServiceOrder().CustomerContact -->
-            <div class="p-t-5">
-                <div>
-                    <b style="font-size: 13px;">@Html.Localize("Customer")</b>
-                </div>
-                <div class="p-l-5" style="font-size: 13px;">
-                    <span data-bind="text: ServiceOrder().CustomerContact().Name" style="font-size: 13px;"></span>
-                </div>
-            </div>
-            <!-- /ko -->
-            
-            <!-- Job Information -->
-            <!-- ko if: ServiceOrder().JobDescription -->
-            <div class="p-t-5">
-                <div>
-                    <b style="font-size: 13px;">@Html.Localize("Job")</b>
-                </div>
-                <div class="p-l-5" style="font-size: 13px;">
-                    <span data-bind="text: ServiceOrder().JobDescription" style="font-size: 13px;"></span>
-                </div>
-            </div>
-            <!-- /ko -->
-
-            <!-- Order Number Information -->
-            <!-- ko if: ServiceOrder().OrderNumber -->
-            <div class="p-t-5">
-                <div>
-                    <b style="font-size: 13px;">@Html.Localize("OrderNumber")</b>
-                </div>
-                <div class="p-l-5" style="font-size: 13px;">
-                    <span data-bind="text: ServiceOrder().OrderNumber" style="font-size: 13px;"></span>
-                </div>
-            </div>
-            <!-- /ko -->
-
-            <!-- Region Information -->
-            <!-- ko if: ServiceOrder().RegionKey -->
-            <div class="p-t-5">
-                <div>
-                    <b style="font-size: 13px;">@Html.Localize("Region")</b>
-                </div>
-                <div class="p-l-5" style="font-size: 13px;">
-                    <span data-bind="text: window.Helper.Lookup.getLookupValue(lookups.regions(),ServiceOrder().RegionKey)" style="font-size: 13px;"></span>
-                </div>
-            </div>
-            <!-- /ko -->
-
-            <!-- Country Information -->
-            <!-- ko if: ServiceOrder().CountryKey -->
-            <div class="p-t-5">
-                <div>
-                    <b style="font-size: 13px;">@Html.Localize("Country")</b>
-                </div>
-                <div class="p-l-5" style="font-size: 13px;">
-                    <span data-bind="text: window.Helper.Lookup.getLookupValue(lookups.countries(),ServiceOrder().CountryKey)" style="font-size: 13px;"></span>
-                </div>
-            </div>
-            <!-- /ko -->
-        </div>
-
-        <div class="col-xs-12 col-sm-6">
-            <!-- Right Side Content -->
-            
-            <!-- Dispatch Location Information -->
-            <!-- ko if: ServiceOrder().DispatchLocation -->
-            <div class="p-t-5">
-                <div>
-                    <b style="font-size: 13px;">@Html.Localize("DispatchLocation")</b>
-                </div>
-                <div class="p-l-5" style="font-size: 13px;">
-                    <span data-bind="text: ServiceOrder().DispatchLocation" style="font-size: 13px;"></span>
-                </div>
-            </div>
-            <!-- /ko -->
-
-            <!-- Contact Person Information -->
-            <!-- ko if: ServiceOrder().ContactName -->
-            <div class="p-t-5">
-                <div>
-                    <b style="font-size: 13px;">@Html.Localize("ContactPerson")</b>
-                </div>
-                <div class="p-l-5" style="font-size: 13px;">
-                    <span data-bind="text: ServiceOrder().ContactName" style="font-size: 13px;"></span>
-                </div>
-            </div>
-            <!-- /ko -->
-
-            <!-- Phone Number Information -->
-            <!-- ko if: ServiceOrder().ContactTelefon -->
-            <div class="p-t-5">
-                <div>
-                    <b style="font-size: 13px;">@Html.Localize("Phone")</b>
-                </div>
-                <div class="p-l-5" style="font-size: 13px;">
-                    <span data-bind="text: ServiceOrder().ContactTelefon" style="font-size: 13px;"></span>
-                </div>
-            </div>
-            <!-- /ko -->
-
-            <!-- Installation Information -->
-            @using (Html.TemplateContext<ServiceOrderChecklistResponseViewModel>(x => x.Installation))
-            {
-                <!-- ko if: Installation() -->
-                <div class="p-t-5">
+@using Crm.Library.Globalization.Extensions
+@using Crm.Rest.Model
+@using Sms.Checklists.ViewModels
+@using (Html.TemplateContext("$root"))
+{
+    @using (Html.TemplateCondition("formReference().ReferenceType() == 'ServiceOrderChecklist'"))
+    {
+        <table style="width: 100%; page-break-inside: avoid; font-size: 13px;" class="m-t-20 m-b-20 break-word">
+            <tr>
+                <td class="col-xs-6 p-l-0 p-r-15 border-right border-light">
+                    <!-- Customer Information -->
                     <div>
-                        <b style="font-size: 13px;">@Html.Localize("Installation")</b>
+                        <b style="font-size: 13px;">@Html.Localize("Customer")</b>
                     </div>
                     <div class="p-l-5" style="font-size: 13px;">
-                        <span data-bind="text: Installation().Name" style="font-size: 13px;"></span>
+                        <div data-bind="text: Helper.Company.getDisplayName(CustomerContact())" style="font-size: 13px;"></div>
+                        <div data-bind="text: ServiceOrder().Street" style="font-size: 13px;"></div>
+                        <div style="font-size: 13px;">
+                            <span data-bind="text: ServiceOrder().ZipCode" style="font-size: 13px;"></span>
+                            <span data-bind="text: ServiceOrder().City" style="font-size: 13px;"></span>
+                        </div>
+                        <div>
+                            <span data-bind="text: window.Helper.Lookup.getLookupValue(lookups.regions(), ServiceOrder().RegionKey), visible: ServiceOrder().RegionKey"></span>
+                            <span data-bind="text: window.Helper.Lookup.getLookupValue(lookups.countries(), ServiceOrder().CountryKey), visible: ServiceOrder().CountryKey"></span>
+                        </div>
                     </div>
-                </div>
-                <!-- /ko -->
-            }
-        </div>
-    </div>
-</div>
-<!-- /ko -->
-<!-- /ko -->
-<!-- /ko -->
-<!-- /ko -->
+
+                    <!-- Responsible User Information -->
+                    <!-- ko if: ServiceOrderResponsibleUser() -->
+                    <div class="p-t-5">
+                        <div>
+                            <b style="font-size: 13px;">@Html.Localize("ResponsibleUser")</b>
+                        </div>
+                        <div class="p-l-5" style="font-size: 13px;">
+                            <span data-bind="text: Helper.User.getDisplayName(ServiceOrderResponsibleUser())" style="font-size: 13px;"></span>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+                </td>
+                <td class="col-xs-6 p-l-15 p-r-0">
+                    <!-- Dispatch Location Information -->
+                    <!-- ko if: ServiceOrder().Name1 || ServiceOrder().Street || ServiceOrder().ZipCode || ServiceOrder().City -->
+                    <div>
+                        <b style="font-size: 13px;">@Html.Localize("DispatchLocation")</b>
+                    </div>
+                    <div class="p-l-5" style="font-size: 13px;">
+                        <div data-bind="text: ServiceOrder().Name1" style="font-size: 13px;"></div>
+                        <div data-bind="text: ServiceOrder().Street" style="font-size: 13px;"></div>
+                        <div style="font-size: 13px;">
+                            <span data-bind="text: ServiceOrder().ZipCode" style="font-size: 13px;"></span>
+                            <span data-bind="text: ServiceOrder().City" style="font-size: 13px;"></span>
+                        </div>
+                        <div>
+                            <span data-bind="text: window.Helper.Lookup.getLookupValue(lookups.regions(), ServiceOrder().RegionKey), visible: ServiceOrder().RegionKey"></span>
+                            <span data-bind="text: window.Helper.Lookup.getLookupValue(lookups.countries(), ServiceOrder().CountryKey), visible: ServiceOrder().CountryKey"></span>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+
+                    <!-- Contact Person Information -->
+                    <!-- ko if: ServiceOrder().ContactName -->
+                    <div class="p-t-5">
+                        <div>
+                            <b style="font-size: 13px;">@Html.Localize("ContactPerson")</b>
+                        </div>
+                        <div class="p-l-5" style="font-size: 13px;">
+                            <span data-bind="text: ServiceOrder().ContactName" style="font-size: 13px;"></span>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+
+                    <!-- Phone Number Information -->
+                    <!-- ko if: ServiceOrder().ContactTelefon -->
+                    <div class="p-t-5">
+                        <div>
+                            <b style="font-size: 13px;">@Html.Localize("Phone")</b>
+                        </div>
+                        <div class="p-l-5" style="font-size: 13px;">
+                            <span data-bind="text: ServiceOrder().ContactTelefon" style="font-size: 13px;"></span>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+
+                    <!-- Installation Information -->
+                    @using (Html.TemplateContext<ServiceOrderChecklistResponseViewModel>(x => x.Installation))
+                    {
+                        <!-- ko if: $data -->
+                        <div class="p-t-5">
+                            <div>
+                                <!-- ko if: $root.MaintenanceOrderGenerationMode === 'OrderPerInstallation' -->
+                                <b style="font-size: 13px;">@Html.Localize("Installation")</b>
+                                <!-- /ko -->
+                                <!-- ko if: $root.MaintenanceOrderGenerationMode === 'JobPerInstallation' -->
+                                <b style="font-size: 13px;">@Html.Localize("ServiceOrderTime")</b>
+                                <!-- /ko -->
+                            </div>
+                            <div class="p-l-5" style="font-size: 13px;">
+                                <span data-bind="text: Helper.Installation.getDisplayName($data)" style="font-size: 13px;"></span>
+                            </div>
+                        </div>
+                        <!-- /ko -->
+                    }
+
+                    <!-- Order Number -->
+                    <div class="p-t-5">
+                        <div>
+                            <b style="font-size: 13px;">@Html.Localize("OrderNo")</b>
+                        </div>
+                        <div class="p-l-5" style="font-size: 13px;">
+                            <span data-bind="text: ServiceOrder().OrderNo" style="font-size: 13px;"></span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    }
+}
