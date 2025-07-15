@@ -1,10 +1,14 @@
-﻿namespace("Sms.Checklists.ViewModels").ServiceOrderChecklistDetailsModalViewModel = function(parentViewModel) {
+namespace("Sms.Checklists.ViewModels").ServiceOrderChecklistDetailsModalViewModel = function (parentViewModel) {
 	var viewModel = this;
 	viewModel.serviceOrder = window.ko.observable(null);
+	viewModel.lookups = {
+		regions: window.ko.observable([]),
+		countries: window.ko.observable([])
+	};
 	window.Crm.DynamicForms.ViewModels.DynamicFormDetailsViewModel.apply(viewModel, arguments);
 };
 namespace("Sms.Checklists.ViewModels").ServiceOrderChecklistDetailsModalViewModel.prototype = Object.create(window.Crm.DynamicForms.ViewModels.DynamicFormDetailsViewModel.prototype);
-namespace("Sms.Checklists.ViewModels").ServiceOrderChecklistDetailsModalViewModel.prototype.init = function(id) {
+namespace("Sms.Checklists.ViewModels").ServiceOrderChecklistDetailsModalViewModel.prototype.init = function (id) {
 	var viewModel = this;
 	let checklist = null;
 	return window.database.SmsChecklists_ServiceOrderChecklist
@@ -29,6 +33,16 @@ namespace("Sms.Checklists.ViewModels").ServiceOrderChecklistDetailsModalViewMode
 				.find(viewModel.formReference().ReferenceKey())
 				.then(function (serviceOrderHead) {
 					viewModel.serviceOrder = serviceOrderHead.asKoObservable();
+				});
+		}).then(function () {
+			// Load regions and countries lookup data
+			return window.Helper.Lookup.getLocalizedArrayMap("Main_Region")
+				.then(function (lookup) {
+					viewModel.lookups.regions(lookup);
+					return window.Helper.Lookup.getLocalizedArrayMap("Main_Country");
+				})
+				.then(function (lookup) {
+					viewModel.lookups.countries(lookup);
 				});
 		});
 };
